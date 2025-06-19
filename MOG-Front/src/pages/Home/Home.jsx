@@ -16,7 +16,7 @@ export default function Home() {
           <div className="row">
             <div className="col-lg-4">
               <div className="team-member">
-                <Image className={'mx-auto rounded-circle'} src={'/team/1.jpg'} />
+                <Image className={'mx-auto rounded-circle'} src={'team/1.jpg'} />
                 <h4>Parveen Anand</h4>
                 <p className="text-muted">Lead Designer</p>
                 <a
@@ -44,7 +44,7 @@ export default function Home() {
             </div>
             <div className="col-lg-4">
               <div className="team-member">
-                <Image className={'mx-auto rounded-circle'} src={'/team/2.jpg'} />
+                <Image className={'mx-auto rounded-circle'} src={'team/2.jpg'} />
                 <h4>Diana Petersen</h4>
                 <p className="text-muted">Lead Marketer</p>
                 <a
@@ -72,7 +72,7 @@ export default function Home() {
             </div>
             <div className="col-lg-4">
               <div className="team-member">
-                <Image className={'mx-auto rounded-circle'} src={'/team/3.jpg'} />
+                <Image className={'mx-auto rounded-circle'} src={'team/3.jpg'} />
                 <h4>Larry Parker</h4>
                 <p className="text-muted">Lead Developer</p>
                 <a
