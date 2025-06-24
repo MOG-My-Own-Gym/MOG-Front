@@ -6,16 +6,27 @@ import {
   Title,
   Tooltip,
   Legend,
+  PointElement,
+  LineElement,
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
-export default function BarChart() {
-  ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+export default function LineChart() {
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    PointElement,
+    LineElement,
+  );
   const data = {
     labels: ['월', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
     datasets: [
       {
-        label: '운동 데이터 샘플 막대그래프',
+        label: '운동 데이터 샘플 꺾은선그래프',
         data: [12, 19, 3, 5, 2, 3],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -49,5 +60,5 @@ export default function BarChart() {
     },
   };
 
-  return <Bar data={data} options={options} style={{ width: '100%', height: '100%' }} />;
+  return <Line data={data} options={options} style={{ width: '100%', height: '100%' }} />;
 }
