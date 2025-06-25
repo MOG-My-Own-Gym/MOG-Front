@@ -4,7 +4,6 @@ import ToastContext from '../../context/ToastContext';
 
 export default function Header() {
   const { toast, dispatch } = useContext(ToastContext);
-  console.log(toast.content);
   return (
     <header className="masthead" style={{ backgroundImage: `url(/img/hell.jpg)` }}>
       <div className="container">
@@ -13,14 +12,14 @@ export default function Header() {
         <Link className="btn btn-primary btn-xl text-uppercase" to="services">
           로그인
         </Link>
-        <button
+
+        {/* <button
           onClick={() => {
-            console.log('?');
-            dispatch({ type: 'TOAST', payload: '토스트 컨텐트' });
+            dispatch({ type: 'SHOW_TOAST', payload: '토스트 컨텐트' });
           }}
         >
-          버튼버튼
-        </button>
+          토스트 테스트용 버튼
+        </button> */}
       </div>
     </header>
   );
