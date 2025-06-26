@@ -9,6 +9,7 @@ import Toast from './components/Toast/Toast';
 import Stats from './pages/Stats/Stats';
 import RecordPage from './pages/RecordPage';
 
+
 import Social from './pages/Social/Social';
 
 function App() {
@@ -28,7 +29,6 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/stats" element={<Stats />}></Route>
         <Route path="/record" element={<RecordPage />} />
-        <Route path="/" element={<Home />} />
         <Route path="/social" element={<Social />} />
       </Routes>
     </div>
