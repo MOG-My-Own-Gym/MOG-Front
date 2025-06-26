@@ -1,3 +1,4 @@
+
 .social-container {
   width: 80%;
   margin: 0 auto;
@@ -28,6 +29,7 @@
   font-size: 0.9em;
   color: #666;
   flex-grow: 1;
+
 }
 .card button:hover {
   background-color: #a0521e;
@@ -45,6 +47,7 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+
   transition: transform 0.2s;
 }
 
