@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import '@/assets/bootstrap/css/bootstrap.min.css';
 import Home from './pages/Home/Home';
@@ -10,9 +10,18 @@ import RunningRoutinePage from './components/mainpage/RunningRoutinePage';
 import RoutineResultPage from './components/mainpage/RoutineResultPage';
 
 function App() {
+  const { toast, dispatch } = useContext(ToastContext);
+  useEffect(() => {
+    if (toast.isToast) {
+      setTimeout(() => {
+        dispatch('HIDE_TOAST');
+      }, 2000);
+    }
+  }, [toast]);
   return (
     <div>
       <GNB />
+      <Toast isToast={toast.isToast} content={toast.content} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/home" element={<SelectMainpage />}></Route>
@@ -20,6 +29,7 @@ function App() {
         <Route path="/routine" element={<RoutinePage />}></Route>
         <Route path="/runningroutine" element={<RunningRoutinePage />}></Route>
         <Route path="/routineresult" element={<RoutineResultPage />}></Route>
+        <Route path="/stats" element={<Stats />}></Route>
       </Routes>
     </div>
   );
