@@ -36,7 +36,7 @@ export default function GNB() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="about">
+              <Link className="nav-link" to="stats">
                 통계
               </Link>
             </li>
