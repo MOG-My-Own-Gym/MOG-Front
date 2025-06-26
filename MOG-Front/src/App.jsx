@@ -7,7 +7,10 @@ import ToastContext from './context/ToastContext';
 import ToastProvider from './context/ToastProvider';
 import Toast from './components/Toast/Toast';
 import Stats from './pages/Stats/Stats';
+import RecordPage from './pages/RecordPage';
 
+
+import Social from './pages/Social/Social';
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -25,6 +28,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/stats" element={<Stats />}></Route>
+        <Route path="/record" element={<RecordPage />} />
+        <Route path="/social" element={<Social />} />
       </Routes>
     </div>
   );

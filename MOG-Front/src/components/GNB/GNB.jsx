@@ -41,6 +41,11 @@ export default function GNB() {
               </Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" to="social">
+                소셜
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link" to="team">
                 사용자 화면
               </Link>
