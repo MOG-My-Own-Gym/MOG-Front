@@ -31,7 +31,7 @@ export default function GNB() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="record">
+              <Link className="nav-link" to="portfolio">
                 기록
               </Link>
             </li>
