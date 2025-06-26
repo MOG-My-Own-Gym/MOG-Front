@@ -1,12 +1,30 @@
-# React + Vite
+mainpage 폴더 안 jsx 파일의 컨포넌트 실행 순서
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+로그인 성공 시
 
-Currently, two official plugins are available:
+메인 화면
+SelectMainpage.jsx(선택 페이지)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+루틴 생성 시
+SelectMainpage.jsx(선택 페이지) -> 생성 버튼 선택 후 -> CategoryPage.jsx(루틴 생성 페이지) -> 운동 추가 선택 후(중복 선택 가능) -> SelectMainpage.jsx(선택 페이지)
 
-## Expanding the ESLint configuration
+루틴 삭제시
+SelectMainpage.jsx(선택 페이지) -> 생성된 루틴 더보기 선택 -> 루틴 삭제 선택 -> 삭제됨
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+루틴 내 운동 삭제시
+RoutinePage.jsx(루틴 상세(시작) 페이지) -> 운동 더보기 선택 -> 운동 삭제 선택 -> 삭제됨
+
+저장된 루틴 확인
+SelectMainpage.jsx(선택 페이지) ->  RoutinePage.jsx(루틴 상세(시작) 페이지)
+
+루틴 실행
+SelectMainpage.jsx(선택 페이지) -> 루틴 선택 후 -> RoutinePage.jsx(루틴 상세(시작) 페이지) -> 운동 시작 버튼 실행 -> RunningRoutinePage.jsx(루틴 실행 후 운동 기록 페이지)
+
+루틴 종료
+RunningRoutinePage.jsx(루틴 실행 후 운동 기록 페이지) -> 루틴 종료 버튼 선택 후 -> RoutineResultPage.jsx(종료 후 결과 페이지)
+
+루틴이 실행 중 운동 추가 및 삭제
+RunningRoutinePage.jsx(루틴 실행 후 운동 기록 페이지) -> 운동 추가 선택 -> CategoryPage.jsx(루틴 생성 페이지) -> 운동 추가 및 삭제 선택 후 -> RoutinePage.jsx(루틴 상세(시작) 페이지)
+
+
+
