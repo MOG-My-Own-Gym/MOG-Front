@@ -2,11 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function GNB() {
   return (
-    <nav
-      className="navbar navbar-expand-lg navbar-dark fixed-top"
-      id="mainNav"
-      style={{ zIndex: 10 }}
-    >
+    <nav className="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
       <div className="container">
         <Link className="navbar-brand" to="/">
           <span>제목예시(홈 버튼)</span>
@@ -31,12 +27,12 @@ export default function GNB() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="record">
+              <Link className="nav-link" to="portfolio">
                 기록
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="stats">
+              <Link className="nav-link" to="about">
                 통계
               </Link>
             </li>
