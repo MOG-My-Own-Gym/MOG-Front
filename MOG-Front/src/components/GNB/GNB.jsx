@@ -1,9 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function GNB() {
+
+  const location = useLocation();
+  const currentPath = location.pathname;
+  
+
   return (
     <nav
-      className="navbar navbar-expand-lg navbar-dark fixed-top"
+      className={currentPath.includes('/mypage') ? "navbar navbar-expand-lg navbar-dark bg-dark fixed-top" : "navbar navbar-expand-lg navbar-dark fixed-top"}
       id="mainNav"
       style={{ zIndex: 10 }}
     >
@@ -46,8 +51,8 @@ export default function GNB() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="team">
-                사용자 화면
+              <Link className="nav-link" to="mypage">
+                마이 페이지
               </Link>
             </li>
           </ul>

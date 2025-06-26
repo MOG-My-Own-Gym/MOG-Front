@@ -11,6 +11,7 @@ import RecordPage from './pages/RecordPage';
 
 
 import Social from './pages/Social/Social';
+import MyPage from './pages/Mypage/MyPage';
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -21,6 +22,7 @@ function App() {
       }, 2000);
     }
   }, [toast]);
+
   return (
     <div>
       <GNB />
@@ -30,6 +32,7 @@ function App() {
         <Route path="/stats" element={<Stats />}></Route>
         <Route path="/record" element={<RecordPage />} />
         <Route path="/social" element={<Social />} />
+        <Route path='/mypage/*' element={<MyPage/>}/>
       </Routes>
     </div>
   );
