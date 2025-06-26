@@ -1,4 +1,9 @@
 import { Link } from 'react-router-dom';
+<<<<<<< feat/mainpages
+=======
+import { useContext } from 'react';
+import ToastContext from '../../context/ToastContext';
+>>>>>>> develop
 
 export default function Header() {
   return (
@@ -9,6 +14,16 @@ export default function Header() {
         <Link className="btn btn-primary btn-xl text-uppercase" to="services">
           로그인
         </Link>
+<<<<<<< feat/mainpages
+=======
+        {/* <button
+          onClick={() => {
+            dispatch({ type: 'SHOW_TOAST', payload: '토스트 컨텐트' });
+          }}
+        >
+          토스트 테스트용 버튼
+        </button> */}
+>>>>>>> develop
       </div>
     </header>
   );

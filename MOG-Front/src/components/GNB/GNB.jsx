@@ -27,13 +27,18 @@ export default function GNB() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="portfolio">
+              <Link className="nav-link" to="record">
                 기록
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="about">
+              <Link className="nav-link" to="stats">
                 통계
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="social">
+                소셜
               </Link>
             </li>
             <li className="nav-item">
