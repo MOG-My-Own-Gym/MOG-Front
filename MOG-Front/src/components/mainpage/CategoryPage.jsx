@@ -1,9 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../../assets/bootstrap/css/mainpage.module.css";
 import "../../assets/bootstrap/css/bootstrap.css";
+import { useEffect, useState } from "react";
 
 export default function CategoryPage(){
     const navigate = useNavigate();
+    const [routineContainer,setRoutineContainer] = useState(0);
+    useEffect(()=>{
+        
+    },[])
     return<>
         <div className={"container mt-5 p-3"}></div>
         <button className={`btn btn-lg btn-primary`} type="button" onClick={()=>navigate(-1)}>뒤로가기</button>
