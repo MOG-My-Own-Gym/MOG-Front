@@ -9,6 +9,7 @@ import {
   PointElement,
   LineElement,
 } from 'chart.js';
+import { Card } from 'react-bootstrap';
 import { Line } from 'react-chartjs-2';
 
 export default function LineChart() {
@@ -50,6 +51,7 @@ export default function LineChart() {
   };
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         beginAtZero: true,
@@ -60,5 +62,9 @@ export default function LineChart() {
     },
   };
 
-  return <Line data={data} options={options} style={{ width: '100%', height: '100%' }} />;
+  return (
+    <Card className="w-100 h-100">
+      <Line data={data} options={options} style={{ minHeight: '300px' }} />
+    </Card>
+  );
 }
