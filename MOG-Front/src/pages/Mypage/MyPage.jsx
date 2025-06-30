@@ -1,10 +1,11 @@
 import { Link, Route, Routes } from "react-router-dom";
-import "./mypage.css";
+import "./css/mypage.css";
 import Profile from "./Profile";
 import MyRoutine from "./MyRoutine";
 import MySocial from "./MySocial";
 import Settings from "./Settings";
 import Support from "./Support";
+import ProfileEdit from "./ProfileEdit";
 
 export default function MyPage(){
 
@@ -13,7 +14,7 @@ export default function MyPage(){
         <div className="d-flex">
             <div className="col-auto">
                 {/*사이드바 시작 */}
-                <div className="sidebar d-flex flex-column col-auto justify-content-between bg-dark text-white px-3 vh-100">
+                <div className="sidebar d-flex flex-column col-auto justify-content-between bg-dark text-white px-3 h-100">
                     <div>
                         <ul className="nav nav-pills flex-column px-0" id='padding'>
                             <li className="nav-item fs-4 my-1 py-2 py-sm-0 mt-4">
@@ -59,9 +60,10 @@ export default function MyPage(){
                     </div>
                 </div>
             </div>
-            <div>
+            <div className="container-fluid vh-100">
                 <Routes>
-                    <Route path="" element={<Profile/>}></Route>
+                    <Route path="" element={<Profile/>}></Route> 
+                    <Route path="/edit" element={<ProfileEdit/>}></Route>
                     <Route path="/myroutine" element={<MyRoutine/>}></Route>
                     <Route path="/mysocial" element={<MySocial/>}></Route>
                     <Route path="/settings" element={<Settings/>}></Route>            

@@ -2,7 +2,7 @@ export default function Support(){
 
 
     return<>
-        <h1>고객센터 페이지</h1>
+        <h1 id="padding">고객센터 페이지</h1>
     
     </>
 }
