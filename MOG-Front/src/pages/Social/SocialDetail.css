@@ -1,0 +1,67 @@
+.detail-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+}
+
+.detail-left {
+  width: 600px;
+  margin-right: 50px;
+}
+
+.detail-left img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1em;
+}
+
+.detail-likes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1em;
+}
+
+.detail-likes img {
+  width: 24px;
+  cursor: pointer;
+}
+
+.detail-right {
+  width: 300px;
+}
+
+.detail-right input {
+  width: 100%;
+  padding: 0.5em;
+  box-sizing: border-box;
+}
+
+.detail-right button {
+  margin-top: 8px;
+  padding: 0.5em 1em;
+  width: 100%;
+}
+
+.detail-right ul {
+  margin-top: 1em;
+  padding-left: 1em;
+}
+
+.detail-right li {
+  margin-bottom: 0.5em;
+  word-break: break-word;
+}
+.black-navbar #mainNav {
+  background-color: rgba(9, 8, 8, 0.963) !important;
+}
+
+.black-navbar #mainNav .nav-link,
+.black-navbar #mainNav .navbar-brand span {
+  color: rgb(255, 217, 0) !important;
+}
+
+.black-navbar #mainNav .nav-link:hover {
+  color: rgb(255, 217, 0) !important;
+}
