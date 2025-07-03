@@ -1,10 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../../assets/bootstrap/css/mainpage.module.css";
 import "../../assets/bootstrap/css/bootstrap.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function SelectMainpage(){
     const navigate = useNavigate();
+    const [makeR,useMakeR] = useState('');
+    const addRoutineP = false;
    
     return<>
     <div className={"container mt-5 p-3"}></div>
@@ -13,18 +15,7 @@ export default function SelectMainpage(){
             <button className={`${styles.containers} btn btn-lg btn-primary`} type="button" onClick={()=>navigate("/routine")}>
                 루틴 페이지1
             </button>
-             <button className={`${styles.containers} btn btn-lg btn-primary`} type="button" onClick={()=>navigate("/routine")}>
-                루틴 페이지2
-            </button>
-             <button className={`${styles.containers} btn btn-lg btn-primary`} type="button" onClick={()=>navigate("/routine")}>
-                루틴 페이지3
-            </button>
-             <button className={`${styles.containers} btn btn-lg btn-primary`} type="button" onClick={()=>navigate("/routine")}>
-                루틴 페이지4
-            </button>
-             <button className={`${styles.containers} btn btn-lg btn-primary`} type="button" onClick={()=>navigate("/routine")}>
-                루틴 페이지5
-            </button>
+            
         </div>
         <div className={`${styles.dummyContainers} p-5 mt-4`}></div>
         <footer className={`${styles.flexButton}`}>

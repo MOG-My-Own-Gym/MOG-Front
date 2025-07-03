@@ -8,6 +8,7 @@ import CategoryPage from './components/mainpage/CategoryPage';
 import RoutinePage from './components/mainpage/RoutinePage';
 import RunningRoutinePage from './components/mainpage/RunningRoutinePage';
 import RoutineResultPage from './components/mainpage/RoutineResultPage';
+import TestPages from './components/mainpage/TestPages';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/routine" element={<RoutinePage />}></Route>
         <Route path="/runningroutine" element={<RunningRoutinePage />}></Route>
         <Route path="/routineresult" element={<RoutineResultPage />}></Route>
+        <Route path="/testPage" element={<TestPages />}></Route>
       </Routes>
     </div>
   );
