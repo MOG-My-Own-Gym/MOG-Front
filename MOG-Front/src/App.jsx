@@ -8,8 +8,7 @@ import ToastProvider from './context/ToastProvider';
 import Toast from './components/Toast/Toast';
 import Stats from './pages/Stats/Stats';
 import RecordPage from './pages/RecordPage';
-
-
+import LoginPage from './pages/Login/LoginPage';
 import Social from './pages/Social/Social';
 
 function App() {
@@ -27,6 +26,7 @@ function App() {
       <Toast isToast={toast.isToast} content={toast.content} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/stats" element={<Stats />}></Route>
         <Route path="/record" element={<RecordPage />} />
         <Route path="/social" element={<Social />} />
