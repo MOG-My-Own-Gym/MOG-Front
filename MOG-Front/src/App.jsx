@@ -10,6 +10,8 @@ import Stats from './pages/Stats/Stats';
 import RecordPage from './pages/Record/RecordPage';
 import LoginPage from './pages/Login/LoginPage';
 import Social from './pages/Social/Social';
+import MyPage from './pages/Mypage/MyPage';
+
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
   useEffect(() => {
@@ -19,6 +21,7 @@ function App() {
       }, 2000);
     }
   }, [toast]);
+
   return (
     <div style={{ padding: '5em 0 0 0' }}>
       <GNB />
@@ -29,6 +32,7 @@ function App() {
         <Route path="/stats" element={<Stats />}></Route>
         <Route path="/record" element={<RecordPage />} />
         <Route path="/social" element={<Social />} />
+        <Route path="/mypage/*" element={<MyPage />} />
       </Routes>
     </div>
   );
