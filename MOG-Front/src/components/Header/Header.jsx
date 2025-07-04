@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import ToastContext from '../../context/ToastContext';
 
 export default function Header() {
   return (
