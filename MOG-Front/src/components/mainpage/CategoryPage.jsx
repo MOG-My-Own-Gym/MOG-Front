@@ -24,6 +24,7 @@ export default function CategoryPage(){
     const [initprimaryMuscles,setPrimaryMuscles] = useState([]);
     const [initsecondaryMuscles,setSecondaryMuscles] = useState([]);
     const [initmakeDetail,setMakeDetail] = useState([]);
+    const [initDeduplicationDetail,setDeduplicationDetail] = useState([]);
 
     const navigate = useNavigate();
     const makeRoutineContainer = useRef(null);
@@ -33,97 +34,31 @@ export default function CategoryPage(){
         makeDetailList = document.querySelector('input').value;
         makedetil(makeDetailList,'name')
     }
-    function makeList(category,changeS){
-        const arrys = [...new Set(category)];
-        const divsNode = document.createElement('div');
-        divsNode.classList.add('container');  
-        divsNode.id=changeS;
-        divsNode.textContent = changeS;
-        makeRoutineList.current.appendChild(divsNode);
-        if(changeS === 'name'){
-            const spanNode = document.createElement('span');
-            spanNode.innerHTML = `
-                <a href="#" onClick="(e) => {console.log(e)}">전체</a>
-            `; 
-            divsNode.appendChild(spanNode);
-            return;
-        }
-        for(let i=0;i<arrys.length; i++) {
-            if(arrys[i] != null) {
-                const spanNode = document.createElement('span'); 
-                switch(changeS){
-                    case 'category':
-                        spanNode.innerHTML = `
-                            <a href="#" id="${arrys[i]}" onClick={(e) => setChangeDetail(prev=>prev.e.id)}>${arrys[i]}</a>
-                        `;
-                        break;
-                    case 'equipment':
-                        spanNode.innerHTML = `
-                            <a href="#" id="${arrys[i]}" onclick="makedetil(event.currentTarget.id,'equipment');">${arrys[i]}</a>
-                        `;
-                        break;
-                    case 'force':
-                        spanNode.innerHTML = `
-                            <a href="#" id="${arrys[i]}" onclick="makedetil(event.currentTarget.id,'force');">${arrys[i]}</a>
-                        `;
-                        break;
-                    case 'level':
-                        spanNode.innerHTML = `
-                            <a href="#" id="${arrys[i]}" onclick="makedetil(event.currentTarget.id,'level');">${arrys[i]}</a>
-                        `;
-                        break;
-                    case 'mechanic':
-                        spanNode.innerHTML = `
-                            <a href="#" id="${arrys[i]}" onclick="makedetil(event.currentTarget.id,'mechanic');">${arrys[i]}</a>
-                        `;
-                        break;
-                    case 'primaryMuscles':
-                        spanNode.innerHTML = `
-                            <a href="#" id="${arrys[i]}" onclick="makedetil(event.currentTarget.id,'primaryMuscles');">${arrys[i]}</a>
-                        `;
-                        break;
-                    case 'secondaryMuscles':
-                        spanNode.innerHTML = `
-                            <a href="#" id="${arrys[i]}" onclick="makedetil(event.currentTarget.id,'secondaryMuscles');">${arrys[i]}</a>
-                        `;
-                        break;
-                    default: 
-                        console.log('exercises list No Data')
-                }
-                divsNode.appendChild(spanNode);
-            }
-        }
-    }
 
     function makedetil(category,nameStr){
-        makeRoutineContainer.innerHTML='';
-        makeDetailList = category;
-        const filterMakeListNode = makeListNode.filter(res=>{
-            if(nameStr=='name') return res.name.includes(makeDetailList)
-            if(nameStr=='category') return res.category.includes(makeDetailList)
-            if(nameStr=='equipment' && res.equipment != null) return res.equipment.includes(makeDetailList)
-            if(nameStr=='force' && res.force != null) return res.force.includes(makeDetailList)
-            if(nameStr=='level' ) return res.level.includes(makeDetailList)
-            if(nameStr=='mechanic' && res.mechanic != null) return res.mechanic.includes(makeDetailList)
-            if(nameStr=='instructions') return res.instructions.includes(makeDetailList)
-            if(nameStr=='primaryMuscles') return res.primaryMuscles.includes(makeDetailList)
-            if(nameStr=='secondaryMuscles') return res.secondaryMuscles.includes(makeDetailList)
-            }
-        ) 
-        for(let i =0;i<filterMakeListNode.length;i++){            
-            const divNode = document.createElement('div');
-            const name1 = makeListNode[i].name.replaceAll(" ","_");
-            const name2 = name1.replaceAll("/","_");
-            divNode.innerHTML=`
-                <button class="btn btn-lg btn-primary" style="width:100%; font-size:25px; text-align:left;" type="button">
-                    <img alt="${makeListNode[i].name}" style="width:100px; " src='https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/${name2}/images/0.jpg'>
-                    ${makeListNode[i].name}
-                </button>
-                `;
-            makeRoutineContainer.current.appendChild(divNode);
-        }
+            makeRoutineContainer.innerHTML='';
+            makeDetailList = category;
+            console.log('category:',category);
+            console.log('nameStr:',nameStr);
+            console.log('initmakeDetail',initmakeDetail);
+            const filterMakeListNode = initmakeDetail.filter(res=>{
+                if(nameStr=='names') return res.names.includes(makeDetailList)
+                if(nameStr=='category') return res.category.includes(makeDetailList)
+                if(nameStr=='equipment' && res.equipment != null) return res.equipment.includes(makeDetailList)
+                if(nameStr=='force' && res.force != null) return res.force.includes(makeDetailList)
+                if(nameStr=='level' ) return res.level.includes(makeDetailList)
+                if(nameStr=='mechanic' && res.mechanic != null) return res.mechanic.includes(makeDetailList)
+                if(nameStr=='instructions' && res.instructions != null) return res.instructions.includes(makeDetailList)
+                if(nameStr=='primaryMuscles' && res.primaryMuscles != null) return res.primaryMuscles.includes(makeDetailList)
+                if(nameStr=='secondaryMuscles' && res.secondaryMuscles != null) return res.secondaryMuscles.includes(makeDetailList)
+                }
+            ) 
+            console.log('filterMakeListNode:',filterMakeListNode)
+            
+            setDeduplicationDetail(filterMakeListNode);
+       
     }
-    
+    console.log('initDeduplicationDetail:',initDeduplicationDetail);
     useEffect(()=>{
        fetch('https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises.json')
             .then(res =>res.json())
@@ -167,7 +102,7 @@ export default function CategoryPage(){
                 makeListNode.push({
                     names: nameR,
                     category: [...new Set(category)],
-                    equipment: [...new Set(force)],
+                    equipment: [...new Set(equipment)],
                     force: [...new Set(force)],
                     level:[...new Set(level)],
                     mechanic: [...new Set(mechanic)],
@@ -175,6 +110,7 @@ export default function CategoryPage(){
                     primaryMuscles: [...new Set(primaryMuscles)],
                     secondaryMuscles: [...new Set(primaryMuscles)]
                 });      
+                setDeduplicationDetail(makeDetailNode);
                 setMakeDetail(makeDetailNode);
                 setCategory(Object.values(makeListNode[0].category))
                 setEquipment(Object.values(makeListNode[0].equipment))
@@ -183,28 +119,9 @@ export default function CategoryPage(){
                 setMechanic(Object.values(makeListNode[0].mechanic))
                 setPrimaryMuscles(Object.values(makeListNode[0].primaryMuscles))
                 setSecondaryMuscles(Object.values(makeListNode[0].secondaryMuscles))
-                /*
-                setChangeObj(Object.values({
-                category:[...new Set(category)],
-                equipment:[...new Set(equipment)],
-                force:[...new Set(force)],
-                level:[...new Set(level)],
-                mechanic:[...new Set(mechanic)],
-                primaryMuscles:[...new Set(primaryMuscles)],
-                secondaryMuscles:[...new Set(secondaryMuscles)]}));
-                */
-                 //makedetil(nameR,'name');
-                //makeList(nameR,'name');
-                //makeList(category,'category');
-                //makeList(equipment,'equipment');
-                //makeList(force,'force');
-                //makeList(level,'level');
-                //makeList(mechanic,'mechanic');
-                //makeList(primaryMuscles,'primaryMuscles');
-                //makeList(secondaryMuscles,'secondaryMuscles');
             });            
     },[])
-    console.log(initmakeDetail);
+    
     return<>
         <div className={"container mt-5 p-3"}></div>
             <button className={`btn btn-lg btn-primary`} type="button" onClick={()=>navigate(-1)}>뒤로가기</button>
@@ -218,7 +135,7 @@ export default function CategoryPage(){
                     운동 종류
                      {initcategory.map((item,index) => (
                         <span key={index}>
-                            <a  href="#" >{item}</a>
+                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'category')}}>{item}</a>
                         </span>
                     ))
                     }
@@ -227,7 +144,7 @@ export default function CategoryPage(){
                     사용 기구
                      {initequipment.map((item,index)=>(
                         <span key={index}>
-                            <a  href="#" onClick={(e) => {}}>{item}</a>
+                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'equipment')}}>{item}</a>
                         </span>
                     ))}
                     </div>
@@ -235,7 +152,7 @@ export default function CategoryPage(){
                     풀-푸쉬-스태틱
                      {initforce.map((item,index)=>(
                         <span key={index}>
-                            <a  href="#" onClick={(e) => {}}>{item}</a>
+                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'force')}}>{item}</a>
                         </span>
                     ))}
                     </div>
@@ -243,7 +160,7 @@ export default function CategoryPage(){
                     난이도
                      {initlevel.map((item,index)=>(
                         <span key={index}>
-                            <a  href="#" onClick={(e) => {}}>{item}</a>
+                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'level')}}>{item}</a>
                         </span>
                     ))}
                     </div>
@@ -251,7 +168,7 @@ export default function CategoryPage(){
                     고립, 복합
                      {initmechanic.map((item,index)=>(
                         <span key={index}>
-                            <a  href="#" onClick={(e) => {}}>{item}</a>
+                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'mechanic')}}>{item}</a>
                         </span>
                     ))}
                     </div>
@@ -259,7 +176,7 @@ export default function CategoryPage(){
                     주 근육
                      {initprimaryMuscles.map((item,index)=>(
                         <span key={index}>
-                            <a  href="#" onClick={(e) => {}}>{item}</a>
+                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'primaryMuscles')}}>{item}</a>
                         </span>
                     ))}
                     </div>
@@ -267,14 +184,14 @@ export default function CategoryPage(){
                     보조 근육
                      {initsecondaryMuscles.map((item,index)=>(
                         <span key={index}>
-                            <a  href="#" onClick={(e) => {}}>{item}</a>
+                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'secondaryMuscles')}}>{item}</a>
                         </span>
                     ))}
                     </div>
                 
             </div>
             <div ref={makeRoutineContainer} className={"container mt-0 p-0 d-grid gap-2"}>
-                {initmakeDetail.map(e=>(
+                {initDeduplicationDetail.map(e=>(
                     <div className="container" key={e.id}>
                         <button className="btn btn-lg btn-primary" style={{width:'100%', fontSize:'25px', textAlign:'left'}}  type="button">
                             <img alt={e.imgfile} style={{width:'100px'}} src={e.imgfile}/>
