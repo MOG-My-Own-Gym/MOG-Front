@@ -1,14 +1,16 @@
 import { Link, useLocation } from 'react-router-dom';
 
 export default function GNB() {
-
   const location = useLocation();
   const currentPath = location.pathname;
-  
 
   return (
     <nav
-      className={currentPath.includes('/mypage') ? "navbar navbar-expand-lg navbar-dark bg-dark fixed-top" : "navbar navbar-expand-lg navbar-dark fixed-top"}
+      className={
+        currentPath.includes('/mypage')
+          ? 'navbar navbar-expand-lg navbar-dark bg-dark fixed-top'
+          : 'navbar navbar-expand-lg navbar-dark fixed-top'
+      }
       id="mainNav"
       style={{ zIndex: 10, backgroundColor: 'black' }}
     >
@@ -31,27 +33,27 @@ export default function GNB() {
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
             <li className="nav-item">
-              <Link className="nav-link" to="login">
+              <Link className="nav-link" to="/login">
                 로그인
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="record">
+              <Link className="nav-link" to="/record">
                 기록
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="stats">
+              <Link className="nav-link" to="/stats">
                 통계
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="social">
+              <Link className="nav-link" to="/social">
                 소셜
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="mypage">
+              <Link className="nav-link" to="/mypage">
                 마이 페이지
               </Link>
             </li>
