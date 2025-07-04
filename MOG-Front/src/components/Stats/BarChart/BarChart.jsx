@@ -7,6 +7,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { Card } from 'react-bootstrap';
 import { Bar } from 'react-chartjs-2';
 
 export default function BarChart() {
@@ -39,6 +40,8 @@ export default function BarChart() {
   };
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
+    zIndex: 0,
     scales: {
       x: {
         beginAtZero: true,
@@ -49,5 +52,22 @@ export default function BarChart() {
     },
   };
 
-  return <Bar data={data} options={options} style={{ width: '100%', height: '100%' }} />;
+  return (
+    <Card
+      style={{
+        width: '100%',
+        height: '100%',
+        zIndex: '10',
+        position: 'relative',
+        overflow: 'hidden',
+        zIndex: '0!important',
+      }}
+    >
+      <Bar
+        data={data}
+        options={options}
+        style={{ minHeight: '300px', background: 'transparent' }}
+      />{' '}
+    </Card>
+  );
 }
