@@ -1,5 +1,3 @@
-
-
 .login-container {
   display: flex;
   flex-direction: column;
@@ -7,15 +5,15 @@
   justify-content: center;
   height: 100vh;
   padding: 0 1rem;
-  background-color: #000;  
-  color: #fff;             
+  background-color: #000;
+  color: #fff;
   text-align: center;
 }
 
 .login-logo {
-  width: auto;         
-  max-width: 200px;    
-  height: auto;        
+  width: auto;
+  max-width: 200px;
+  height: auto;
   margin-bottom: 1.5rem;
 }
 @media (max-width: 480px) {
@@ -53,7 +51,7 @@
 
 .login-input:focus {
   outline: none;
-  border-color: #FFD600; 
+  border-color: #ffd600;
 }
 
 .login-button {
@@ -64,14 +62,15 @@
   font-size: 1rem;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 }
 
 .login-button:hover {
-  background-color: #FFD600; 
-  color: #000;               
+  background-color: #ffd600;
+  color: #000;
 }
-
 
 .social-section {
   margin: 1.5rem 0;
@@ -101,7 +100,7 @@
 }
 
 .social-btn.kakao {
-  background-color: #FFD600;
+  background-color: #ffd600;
   color: #000;
 }
 .social-btn.google {
@@ -109,7 +108,7 @@
   color: #000;
 }
 .social-btn.naver {
-  background-color: #03C75A;
+  background-color: #03c75a;
   color: #fff;
 }
 
@@ -130,7 +129,7 @@
 }
 
 .bottom-links a:hover {
-  color: #FFD600; 
+  color: #ffd600;
 }
 
 .link-separator {

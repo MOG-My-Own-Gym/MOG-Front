@@ -91,9 +91,15 @@ body {
   top: 2px;
 }
 
-.red { background-color: #ff5722; }
-.green { background-color: #8bc34a; }
-.blue { background-color: #03a9f4; }
+.red {
+  background-color: #ff5722;
+}
+.green {
+  background-color: #8bc34a;
+}
+.blue {
+  background-color: #03a9f4;
+}
 
 /* 💬 모달 팝업 */
 .modal-overlay {
@@ -179,7 +185,7 @@ body {
   box-sizing: border-box;
 }
 
-.upload-form input[type="file"] {
+.upload-form input[type='file'] {
   display: none;
 }
 
