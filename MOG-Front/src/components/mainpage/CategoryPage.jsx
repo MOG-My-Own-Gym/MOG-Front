@@ -277,8 +277,8 @@ export default function CategoryPage(){
                 {initmakeDetail.map(e=>(
                     <div className="container" key={e.id}>
                         <button className="btn btn-lg btn-primary" style={{width:'100%', fontSize:'25px', textAlign:'left'}}  type="button">
-                        <img alt={e.imgfile} style={{width:'100px'}} src={e.imgfile}/>
-                        {e.names}
+                            <img alt={e.imgfile} style={{width:'100px'}} src={e.imgfile}/>
+                            {e.names}
                        </button>
                     </div>
                 ))}
