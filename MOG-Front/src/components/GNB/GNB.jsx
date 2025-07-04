@@ -10,7 +10,7 @@ export default function GNB() {
     <nav
       className={currentPath.includes('/mypage') ? "navbar navbar-expand-lg navbar-dark bg-dark fixed-top" : "navbar navbar-expand-lg navbar-dark fixed-top"}
       id="mainNav"
-      style={{ zIndex: 10 }}
+      style={{ zIndex: 10, backgroundColor: 'black' }}
     >
       <div className="container">
         <Link className="navbar-brand" to="/">
@@ -31,7 +31,7 @@ export default function GNB() {
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
             <li className="nav-item">
-              <Link className="nav-link" to="services">
+              <Link className="nav-link" to="login">
                 로그인
               </Link>
             </li>

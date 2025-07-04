@@ -1,0 +1,137 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 0 1rem;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+}
+
+.login-logo {
+  width: auto;
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 480px) {
+  .login-logo {
+    max-width: 150px;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.login-title {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-input {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.login-input::placeholder {
+  color: #bbb;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: #ffd600;
+}
+
+.login-button {
+  padding: 0.75rem 1rem;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.login-button:hover {
+  background-color: #ffd600;
+  color: #000;
+}
+
+.social-section {
+  margin: 1.5rem 0;
+}
+
+.social-text {
+  font-size: 0.875rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 320px;
+}
+
+.social-btn {
+  flex: 1;
+  padding: 0.5rem 0;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.social-btn.kakao {
+  background-color: #ffd600;
+  color: #000;
+}
+.social-btn.google {
+  background-color: #fff;
+  color: #000;
+}
+.social-btn.naver {
+  background-color: #03c75a;
+  color: #fff;
+}
+
+.social-btn:hover {
+  opacity: 0.8;
+}
+
+.bottom-links {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.bottom-links a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.5rem;
+  transition: color 0.2s;
+}
+
+.bottom-links a:hover {
+  color: #ffd600;
+}
+
+.link-separator {
+  color: #fff;
+}

@@ -7,9 +7,8 @@ import ToastContext from './context/ToastContext';
 import ToastProvider from './context/ToastProvider';
 import Toast from './components/Toast/Toast';
 import Stats from './pages/Stats/Stats';
-import RecordPage from './pages/RecordPage';
-
-
+import RecordPage from './pages/Record/RecordPage';
+import LoginPage from './pages/Login/LoginPage';
 import Social from './pages/Social/Social';
 import MyPage from './pages/Mypage/MyPage';
 
@@ -24,15 +23,16 @@ function App() {
   }, [toast]);
 
   return (
-    <div>
+    <div style={{ padding: '5em 0 0 0' }}>
       <GNB />
       <Toast isToast={toast.isToast} content={toast.content} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/stats" element={<Stats />}></Route>
         <Route path="/record" element={<RecordPage />} />
         <Route path="/social" element={<Social />} />
-        <Route path='/mypage/*' element={<MyPage/>}/>
+        <Route path="/mypage/*" element={<MyPage />} />
       </Routes>
     </div>
   );
