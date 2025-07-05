@@ -15,6 +15,7 @@ import Stats from './pages/Stats/Stats';
 import RecordPage from './pages/Record/RecordPage';
 import LoginPage from './pages/Login/LoginPage';
 import Social from './pages/Social/Social';
+import SocialDetail from './pages/Social/SocialDetail';
 import MyPage from './pages/Mypage/MyPage';
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/stats" element={<Stats />}></Route>
         <Route path="/record" element={<RecordPage />} />
         <Route path="/social" element={<Social />} />
+        <Route path="/post/:id" element={<SocialDetail />} />
         <Route path="/mypage/*" element={<MyPage />} />
       </Routes>
     </div>
