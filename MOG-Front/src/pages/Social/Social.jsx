@@ -1,6 +1,7 @@
 import './Social.css';
 import GNB from '../../components/GNB/GNB';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Social() {
   //더미 데이타
@@ -12,31 +13,51 @@ export default function Social() {
     { id: 5, title: '푸쉬업 인증', img: '/img/pushups.jpeg', likes: 0 },
     { id: 6, title: '복근운동 인증', img: '/img/abs.jpeg', likes: 0 },
   ]);
+
+  const navigate= useNavigate();
   const handleLike = id => {
-    setCards(prev =>
-      prev.map(card => (card.id === id ? { ...card, likes: card.likes + 1 } : card)),
-    );
-  };
+  setCards(prev =>
+    prev.map(card => {
+      if (card.id === id) {
+        const updatedLikes = card.likes + 1;
+        // localStorage에 저장
+        localStorage.setItem(`likes-${id}`, updatedLikes);
+        return { ...card, likes: updatedLikes };
+      }
+      return card;
+    })
+  );
+};
+
   return (
     <>
+    <div className='black-navbar'>
       <GNB />
+      </div>
       <main className="social-container">
         {cards.map(card => (
-          <div className="card" key={card.id}>
-            <div className="card-overlay">
-              <div className="icon-box" onClick={() => handleLike(card.id)}>
-                <img src="/img/like.png" alt="좋아요" className="icon" />
-                <span>{card.likes}</span>
-              </div>
-              <div className="icon-box" onClick={() => alert('댓글 페이지로 이동 예정')}>
-                <img src="/img/comment.png" alt="댓글" className="icon" />
+          <div className="card" key={card.id} onClick={()=>navigate(`/post/${card.id}`,
+          {state:{title:card.title,img:card.img,likes:card.likes,content:'내용을 입력하세요'}})}>
+          <img src={card.img} alt={card.title} className="card-img"/>
+          <div className='card-overlay'>
+          <div className='card-title'>{card.title}</div>
+          <div className="icon-box" onClick={(e) =>{
+                e.stopPropagation();
+                handleLike(card.id);}}
+                >
+          <img src="/img/like.png" alt="좋아요" className="icon" />
+          <span>{card.likes}</span>
+          </div>
+          
+            
+            <div className='icon-box' onClick={(e)=>{
+              e.stopPropagation();
+              navigate(`/post/${card.id}`);
+            }}>
               </div>
             </div>
-            <img src={card.img} alt={card.title} className="card-img" />
           </div>
         ))}
       </main>
     </>
-  );
-}
-
+    )}
