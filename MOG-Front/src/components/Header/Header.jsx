@@ -3,7 +3,6 @@ import { useContext } from 'react';
 import ToastContext from '../../context/ToastContext';
 
 export default function Header() {
-  const { toast, dispatch } = useContext(ToastContext);
   return (
     <header className="masthead" style={{ backgroundImage: `url(/img/hell.jpg)` }}>
       <div className="container">
@@ -12,13 +11,6 @@ export default function Header() {
         <Link className="btn btn-primary btn-xl text-uppercase" to="services">
           로그인
         </Link>
-        {/* <button
-          onClick={() => {
-            dispatch({ type: 'SHOW_TOAST', payload: '토스트 컨텐트' });
-          }}
-        >
-          토스트 테스트용 버튼
-        </button> */}
       </div>
     </header>
   );
