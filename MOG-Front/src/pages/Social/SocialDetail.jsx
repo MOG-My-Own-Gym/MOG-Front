@@ -7,18 +7,25 @@ export default function SocialDetail() {
   const { id } = useParams();
   const location = useLocation();
   const { title, img, content } = location.state || {};
-
   const postId = id;
+
   const getStoredLikes = () => parseInt(localStorage.getItem(`likes-${postId}`) || '0');
+  const getStoredLiked = () => localStorage.getItem(`liked-${postId}`)===true;
 
   const [likes, setLikes] = useState(getStoredLikes);
+  const [liked, setLiked] = useState(getStoredLiked);
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
 
   const handleLike = () => {
-    const newLikes = likes + 1;
-    setLikes(newLikes);
-    localStorage.setItem(`likes-${postId}`, newLikes);
+    const updatedLiked= !liked; 
+    const updatedLikes= updatedLiked ? likes+1 : likes-1;
+
+    setLikes(updatedLikes);
+    setLiked(updatedLiked);
+
+    localStorage.setItem(`liked-${postId}`, updatedLiked.toString());
+    localStorage.setItem(`likes-${postId}`, updatedLikes);
   };
 
   const handleCommentSubmit = () => {
@@ -42,11 +49,11 @@ export default function SocialDetail() {
         <p>{content}</p>
         <div className="detail-likes">
           <img src="/img/like.png" alt="like" onClick={handleLike} />
-          <span>{likes} 좋아요</span>
+          <span>{likes} </span>
         </div>
       </div>
 
-      <div className="detail-right">
+      <div className="comment-box">
         <h4>댓글</h4>
         <input
           type="text"
