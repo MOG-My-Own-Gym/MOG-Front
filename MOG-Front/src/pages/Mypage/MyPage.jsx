@@ -62,7 +62,7 @@ export default function MyPage(){
             </div>
             <div className="container-fluid vh-100">
                 <Routes>
-                    <Route path="" element={<Profile/>}></Route> 
+                    <Route path="" element={<Profile/>}></Route>
                     <Route path="/edit" element={<ProfileEdit/>}></Route>
                     <Route path="/myroutine" element={<MyRoutine/>}></Route>
                     <Route path="/mysocial" element={<MySocial/>}></Route>
