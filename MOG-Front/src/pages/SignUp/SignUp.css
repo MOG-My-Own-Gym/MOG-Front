@@ -1,0 +1,125 @@
+.signup-container {
+  max-width: 550px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.signup-title {
+  font-size: 24px;
+  margin-bottom: 24px;
+  color: #333;
+  
+  text-align: center;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-section {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+.signup-section-title {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.signup-form label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  margin-top: 16px;
+  color: #333;
+}
+
+.signup-form input {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 12px;
+}
+
+
+
+.signup-form input:focus {
+  border-color: #4a76fd;
+}
+
+.signup-button {
+  margin-top: 24px;
+  padding: 12px;
+  background-color: #FFD700; 
+  color: #000; 
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.signup-button:hover {
+  opacity: 0.9;
+}
+
+/* 아이디/이메일 입력 옆 중복확인 버튼 정렬 */
+.check-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.check-row input {
+  flex: 1;
+}
+
+/* 중복확인 버튼 스타일 */
+.check-btn {
+  height: 40px;
+  padding: 0px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color:  #FFD700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.check-btn:hover {
+  background-color: #eaeaea;
+}
+
+/* 키/몸무게 두 칸 나란히 정렬 */
+.row-2col {
+  display: flex;
+  gap: 12px;
+}
+
+.row-2col input {
+  flex: 1;
+}
+
+/* 선택 항목 제목 아래 여백 */
+.signup-section-title {
+  font-size: 14px;
+  color: #666;
+  margin: 16px 0 8px 0; 
+}
+
+/* 키-몸무게 박스 간격 조정 */
+.row-2col > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; 
+}
