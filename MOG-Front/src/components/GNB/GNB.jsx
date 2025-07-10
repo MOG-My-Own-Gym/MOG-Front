@@ -1,22 +1,28 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../pages/Login/AuthContext';
 
 export default function GNB() {
-  const location = useLocation();
-  const currentPath = location.pathname;
+  const navigate = useNavigate();
+  const {user, dispatch}=useContext(AuthContext);
+  const redirectLoginOrMypage=e=>{
+    e.preventDefault();
+    if(!user){
+      window.alert('로그인 후 이용하세요');
+      navigate('/login')
+    }
+    else navigate('/mypage');
+  };
 
   return (
     <nav
-      className={
-        currentPath.includes('/mypage')
-          ? 'navbar navbar-expand-lg navbar-dark bg-dark fixed-top'
-          : 'navbar navbar-expand-lg navbar-dark fixed-top'
-      }
+      className='navbar navbar-expand-lg navbar-dark fixed-top'
       id="mainNav"
       style={{ zIndex: 10, backgroundColor: 'black' }}
     >
       <div className="container">
         <Link className="navbar-brand" to="/">
-          <span>제목예시(홈 버튼)</span>
+          <span><i className="fa-solid fa-house">MOG</i></span>
         </Link>
         <button
           className="navbar-toggler"
@@ -33,19 +39,24 @@ export default function GNB() {
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
             <li className="nav-item">
-              <Link className="nav-link" to="/login">
-                로그인
-              </Link>
+              {
+                user ?
+                <Link className="nav-link" to="/record">
+                  기록
+                </Link>
+                :
+                undefined
+              }
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/record">
-                기록
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/stats">
-                통계
-              </Link>
+              {
+                user?
+                <Link className="nav-link" to="/stats">
+                  통계
+                </Link>
+                :
+                undefined
+              }
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/social">
@@ -53,9 +64,24 @@ export default function GNB() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/mypage">
-                마이 페이지
-              </Link>
+              {
+                user?
+                <Link className="nav-link" to="/mypage">
+                  마이 페이지
+                </Link>
+                :
+                undefined
+              }
+            </li>
+            <li className="nav-item">
+              {
+                !user?
+                <Link className="nav-link" to="/login">
+                  로그인
+                </Link>
+                :
+                <Link className='nav-link' to="/" onClick={()=>dispatch({type:'LOGOUT'})}>로그아웃</Link>
+              }
             </li>
           </ul>
         </div>

@@ -14,9 +14,9 @@ export default function MyPage(){
         <div className="d-flex">
             <div className="col-auto">
                 {/*사이드바 시작 */}
-                <div className="sidebar d-flex flex-column col-auto justify-content-between bg-dark text-white px-3 h-100">
+                <div className="sidebar d-flex flex-column col-auto justify-content-between bg-black text-white px-3 h-100">
                     <div>
-                        <ul className="nav nav-pills flex-column px-0" id='padding'>
+                        <ul className="nav nav-pills flex-column px-0">
                             <li className="nav-item fs-4 my-1 py-2 py-sm-0 mt-4">
                                 <Link to="/mypage" className="nav-link text-white px-2 fs-5">
                                     <i className="fa-solid fa-circle-user me-3 ps-sm-0 ps-3"></i>

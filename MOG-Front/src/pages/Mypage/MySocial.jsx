@@ -28,7 +28,7 @@ export default function MySocial(){
 
     return<>
         <div className="container rounded bg-white mt-5 mb-5">
-            <div className="pt-5">
+            <div >
                 <div className="nav d-flex justify-content-between">
                     {/*나의 소셜 메인 위젯*/}
                     <div className="account row d-flex justify-content-around col-md-3">
@@ -119,8 +119,8 @@ export default function MySocial(){
                             </div>
                         </div>
                     </div>
-                    <div className="comments d-flex justify-content-center aligh-items-center col-md-4">
-                        <div className="wrapper-social wrapper w-75">
+                    <div className="comments col-sm-10 col-md-4">
+                        <div className="wrapper-social wrapper w-100">
                             <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-white w-100">
                                 <div>
                                     <span className="fs-5 fw-semibold">내가 작성한 댓글</span>

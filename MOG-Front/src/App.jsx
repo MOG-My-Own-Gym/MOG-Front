@@ -16,8 +16,10 @@ import RecordPage from './pages/Record/RecordPage';
 import LoginPage from './pages/Login/LoginPage';
 import Social from './pages/Social/Social';
 import MyPage from './pages/Mypage/MyPage';
+import { AuthProvider } from './pages/Login/AuthContext';
 
 function App() {
+
   const { toast, dispatch } = useContext(ToastContext);
   useEffect(() => {
     if (toast.isToast) {
@@ -26,22 +28,25 @@ function App() {
       }, 2000);
     }
   }, [toast]);
+
   return (
     <div style={{ padding: '5em 0 0 0' }}>
-      <GNB />
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/home" element={<SelectMainpage />}></Route>
-        <Route path="/select" element={<CategoryPage />}></Route>
-        <Route path="/routine" element={<RoutinePage />}></Route>
-        <Route path="/runningroutine" element={<RunningRoutinePage />}></Route>
-        <Route path="/routineresult" element={<RoutineResultPage />}></Route>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/stats" element={<Stats />}></Route>
-        <Route path="/record" element={<RecordPage />} />
-        <Route path="/social" element={<Social />} />
-        <Route path="/mypage/*" element={<MyPage />} />
-      </Routes>
+      <AuthProvider>
+        <GNB />
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/home" element={<SelectMainpage />}></Route>
+          <Route path="/select" element={<CategoryPage />}></Route>
+          <Route path="/routine" element={<RoutinePage />}></Route>
+          <Route path="/runningroutine" element={<RunningRoutinePage />}></Route>
+          <Route path="/routineresult" element={<RoutineResultPage />}></Route>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/stats" element={<Stats />}></Route>
+          <Route path="/record" element={<RecordPage />} />
+          <Route path="/social" element={<Social />} />
+          <Route path="/mypage/*" element={<MyPage />} />
+        </Routes>
+      </AuthProvider>
     </div>
   );
 }

@@ -1,53 +1,60 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useFetcher, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./css/profile.css";
+import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../Login/AuthContext";
 export default function Profile(){
 
     const navigate = useNavigate();
     const {state} = useLocation();
-
-    const users = [
-        { 
-            name:"김길동",
-            nicname:"길동05",
-            id: 'gildonga123',
-            password: 'kim1234',
-            email:"gildong@gmail.com",
-            call:"010-1111-1111"
-        }
-    ];
-
-    useEffect(() => {
-        //사용자의 id와 password를 세션에 저장
-        if (users && users.length > 0) {
-          const user = users[0];  // 첫 번째 사용자를 예시로 선택
-          sessionStorage.setItem('userId', user.id);
-          sessionStorage.setItem('userPassword', user.password);
-        }
-    }, []);
+    const {user} = useContext(AuthContext);
 
     // 초기 프로필 데이터 설정
     const [profile, setProfile] = useState({
-        'name': `${users[0].name}`,
-        'nicname': `${users[0].nicname}`,
-        'id':`${users[0].id}`,
-        'email1': '',
-        'email2': '',
+        'accessToken':`${user.accessToken}`,
+        'name': '',
+        'nicname': '',
+        'email':`${user.email}`,
+        'profileImg':'',
         'call1': '',
         'call2': '',
-        'call3': ''
+        'call3': '',
+        'age': '',
+        'gender':'',
+        'height':'',
+        'weight': '',
+        "regDate": '',
+        "password": ''
     });
+    console.log(profile.accessToken);
 
     useEffect(()=>{
-        if(state){
-            setProfile(state);
-        }
-    },[state]);
+        const fetchProfile = async()=>{
+            await axios.get('http://localhost:8080/api/v1/users/21')
+                        .then(res=>{
+                            const getUser = res.data;
+                            const getBio = res.data.biosDto;
+                            console.log(getUser);
+                            console.log(getBio);
+                            setProfile(prev=>({...profile, name:getUser.usersName, 
+                                                    profileImg:getUser.profileImg,
+                                                    age:getBio.age,
+                                                    gender:getBio.gender,
+                                                    height:getBio.height,
+                                                    weight:getBio.weight,
+                                                    regDate:getUser.regDate.substring(0,10),
+                                                    password:getUser.password
+                            }));
+                        })
+                        .catch(e=>console.log(e.response.data,e));
+        };
+        fetchProfile();
+    },[]);
 
-    
+    console.log(profile);
 
     return<>
-        <div className="container rounded bg-white mt-5 mb-5">
+        <div className="container rounded bg-white mb-5">
             <div className="pt-2">
                 <div className="row d-flex justify-content-around">
                     <div className="col-md-3 border-right">
@@ -55,7 +62,7 @@ export default function Profile(){
                             <img className="rounded-circle mt-5" width="150px" src="/img/userAvatar.png" alt="meaicon - Flaticon 기본이미지"/>
                             <span className="font-weight-bold fs-2">{profile.nicname}</span>
                             <span className="font-weight-bold fs-4">{profile.name}</span>
-                            <span className="text-black-50">{profile.id}</span>
+                            <span className="text-black-50">{profile.email}</span>
                         </div>
                     </div>
                     <div className="col-md-4 border-right">
@@ -72,18 +79,9 @@ export default function Profile(){
                                         <h6 className="text-muted">{profile.nicname}</h6>
                                     </div>
                                     <hr className="text-secondary"/>
-                                    <div className="profile-id pt-2">
-                                        <p>아이디</p>
-                                        <h6 className="text-muted">{profile.id}</h6>
-                                    </div>
-                                    <hr className="text-secondary"/>
                                     <div className="profile-email pt-2">
-                                        <p>E-mail</p>
-                                        {
-                                            profile.email1 !== ''?
-                                            <h6 className="text-muted">{profile.email1}@{profile.email2}</h6>:
-                                            <h6 className="text-muted">이메일 정보가 없습니다.</h6>
-                                        }
+                                        <p>아이디</p>
+                                        <h6 className="text-muted">{profile.email}</h6>
                                     </div>
                                     <hr className="text-secondary"/>
                                     <div className="profile-call pt-2">
@@ -94,6 +92,11 @@ export default function Profile(){
                                             <h6 className="text-muted">전화번호 정보가 없습니다.</h6>
                                         }
                                     </div>
+                                    <hr className="text-secondary"/>
+                                    <div className="profile-regDate pt-2">
+                                        <p>가입일</p>
+                                        <h6 className="text-muted">{profile.regDate}</h6>
+                                    </div>
                                 </fieldset>
                             </div>
                         </div>
@@ -103,14 +106,25 @@ export default function Profile(){
                             <fieldset className="border rounded-3 p-3 body-info">
                                 <legend className="float-none w-auto px-3">신체 정보</legend>
                                 <div className="physical-info-height">
+                                    <p>나이</p>
+                                    <span className="text-muted fw-bold">{profile.age}</span>
+                                    <span className="text-muted fw-bold" id="unit">세</span>
+                                </div>
+                                <hr className="text-secondary"/>
+                                <div className="physical-info-height">
+                                    <p>성별</p>
+                                    <span className="text-muted fw-bold">{profile.gender===false?'남자':'여자'}</span>
+                                </div>
+                                <hr className="text-secondary"/>
+                                <div className="physical-info-height">
                                     <p>키</p>
-                                    <span className="text-muted fw-bold">175</span>
+                                    <span className="text-muted fw-bold">{profile.height}</span>
                                     <span className="text-muted fw-bold" id="unit">cm</span>
                                 </div>
                                 <hr className="text-secondary"/>
                                 <div className="physical-info-height">
                                     <p>몸무게</p>
-                                    <span className="text-muted fw-bold">70</span>
+                                    <span className="text-muted fw-bold">{profile.weight}</span>
                                     <span className="text-muted fw-bold" id="unit">kg</span>
                                 </div>
                             </fieldset>
