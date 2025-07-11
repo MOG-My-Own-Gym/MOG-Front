@@ -18,6 +18,8 @@ import Social from './pages/Social/Social';
 import SocialDetail from './pages/Social/SocialDetail';
 import MyPage from './pages/Mypage/MyPage';
 import SignUp from './pages/SignUp/SignUp';
+import FindIdPage from './pages/FindId/FindIdPage';
+import FindPwPage from './pages/FindPw/FindPwPage';
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -45,6 +47,8 @@ function App() {
         <Route path="/post/:id" element={<SocialDetail />} />
         <Route path="/mypage/*" element={<MyPage />} />
         <Route path="/sign-up" element={<SignUp/>}/>
+        <Route path="/find-id" element={<FindIdPage/>}/>
+        <Route path="/find-pw" element={<FindPwPage/>}/>
       </Routes>
     </div>
   );

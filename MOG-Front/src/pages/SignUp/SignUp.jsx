@@ -78,9 +78,10 @@ export default function SignUp(){
            {/*선택 항목세션? */}
            <div className="signup-section">
             <div className="signup-section-title">선택 정보</div>
-            <label>주소</label>
-            <input name="address" placeholder="주소 (선택)" onChange={handleChange}/>
-            
+            <div className="address-field">
+            <label class="address-label">주소</label>
+            <input name="address" placeholder="주소 (선택)" onChange={handleChange}/> 
+            </div>
             <div className="row-2col">
             <div>
             <label>키</label>
