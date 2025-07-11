@@ -14,14 +14,14 @@ export default function ProfileEdit(){
 
     //에러 메시지 뿌리기 위한 Span Ref객체
     const spanNameRef = useRef();
-    const spannicknameRef = useRef();
+    const spanNicknameRef = useRef();
 
     const [inputs,setInputs]=useState({
                                         name:state.name,
                                         nickname:state.nickname,
-                                        call1:state.call1,
-                                        call2:state.call2,
-                                        call3:state.call3,
+                                        call1:state.call.split('-')[0],
+                                        call2:state.call.split('-')[1],
+                                        call3:state.call.split('-')[2],
                                         age:state.age,
                                         gender:state.gender,
                                         height:state.height,
@@ -38,7 +38,7 @@ export default function ProfileEdit(){
             spanNameRef.current.textContent = value.trim() === '' ? '이름을 입력하세요' : '';
         }
         else if(name==='nickname'){
-            spannicknameRef.current.textContent = value.trim() === '' ? '닉네임을 입력하세요' : '';
+            spanNicknameRef.current.textContent = value.trim() === '' ? '닉네임을 입력하세요' : '';
         }
 
         if(name === 'gender'){
@@ -54,7 +54,7 @@ export default function ProfileEdit(){
         const isLengthNickname = nickname.trim().length===0;
         if(isLengthName || isLengthNickname){
             if(isLengthName) spanNameRef.current.textContent='이름은 필수 입력값입니다.';
-            if(isLengthNickname) spannicknameRef.current.textContent='닉네임은 필수 입력값입니다.';
+            if(isLengthNickname) spanNicknameRef.current.textContent='닉네임은 필수 입력값입니다.';
             return;
         }
         console.log(state)
@@ -114,7 +114,7 @@ export default function ProfileEdit(){
                                     <div className="profile-nickname pt-2 ">
                                         <label className="labels">닉네임</label><span className="text-danger">*</span>
                                         <input type="text" className="form-control" placeholder="닉네임을 입력해주세요" name="nickname" value={nickname} onChange={handleChange}/>
-                                        <span ref={spannicknameRef} style={{color:'#FF0000'}}></span>
+                                        <span ref={spanNicknameRef} style={{color:'#FF0000'}}></span>
                                     </div>
                                     <hr className="text-secondary"/>
                                     <div className="profile-id pt-2 ">

@@ -17,9 +17,7 @@ export default function Profile() {
         'nickname': '',
         'email':`${user.email}`,
         'profileImg':'',
-        'call1': '',
-        'call2': '',
-        'call3': '',
+        'call': '',
         'age': '',
         'gender':'',
         'height':'',
@@ -27,7 +25,6 @@ export default function Profile() {
         "regDate": '',
         "password": ''
     });
-    console.log(profile.accessToken);
 
     useEffect(()=>{
         const fetchProfile = async()=>{
@@ -35,8 +32,6 @@ export default function Profile() {
                         .then(res=>{
                             const getUser = res.data;
                             const getBio = res.data.biosDto;
-                            console.log(getUser);
-                            console.log(getBio);
                             setProfile(prev=>({...profile, name:getUser.usersName, 
                                                     profileImg:getUser.profileImg,
                                                     age:getBio.age,
@@ -46,7 +41,6 @@ export default function Profile() {
                                                     regDate:getUser.regDate.substring(0,10),
                                                     password:getUser.authDto.password
                             }));
-                            console.log('profile(state):',profile);
                         })
                         .catch(e=>console.log(e.response.data,e));
         };
@@ -92,9 +86,9 @@ export default function Profile() {
                     <hr className="text-secondary" />
                     <div className="profile-call pt-2">
                       <p>전화번호</p>
-                      {profile.call1 !== '' ? (
+                      {profile.call !== '' ? (
                         <h6 className="text-muted">
-                          {profile.call1}-{profile.call2}-{profile.call3}
+                          {profile.call.split('-')[0]}-{profile.call.split('-')[1]}-{profile.call.split('-')[2]}
                         </h6>
                       ) : (
                         <h6 className="text-muted">전화번호 정보가 없습니다.</h6>
