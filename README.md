@@ -3,9 +3,9 @@
 ### 리액트와 같이 실행 후 사용
 
 1. JSON-server 설치(처음 실행시)
-    `npm install -g json-server`
+    - `npm install -g json-server`
 2. JSON-server 실행(포트는 고정이라 수정 시 소스 수정 필요)
-    `json-server --watch ./src/db/data.json --port 3002`
+    - `json-server --watch ./src/db/data.json --port 3002`
 
 *******************
 ## mainpage 폴더 안 jsx 파일의 컨포넌트 실행 순서
