@@ -16,6 +16,7 @@ import { AuthProvider } from './pages/Login/AuthContext';
 import SignUp from './pages/SignUp/SignUp';
 import FindIdPage from './pages/FindId/FindIdPage';
 import FindPwPage from './pages/FindPw/FindPwPage';
+import DataToss from './components/mainpage/DataToss';
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
