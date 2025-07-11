@@ -1,0 +1,1 @@
+export const URL={USERS:'http://localhost:3002/users',ROUNTINE:'http://localhost:3002/routine'};

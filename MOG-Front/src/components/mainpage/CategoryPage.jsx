@@ -1,9 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "../../assets/bootstrap/css/mainpage.module.css";
 import "../../assets/bootstrap/css/bootstrap.css";
 import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { URL } from "../../config/constants";
 
-export default function CategoryPage(){
+export default function CategoryPage({useDataRoutine,fetchData}){
     const makeListNode =[];
     const id = [];
     const nameR = [];
@@ -14,7 +16,10 @@ export default function CategoryPage(){
     const mechanic = [];
     const primaryMuscles = [];
     const secondaryMuscles = [];
+    let countSaveRoutineInt;
     let makeDetailList;
+    let saveR;
+    let addSetId;
 
     const [initcategory,setCategory] = useState([]);
     const [initequipment,setEquipment] = useState([]);
@@ -25,40 +30,109 @@ export default function CategoryPage(){
     const [initsecondaryMuscles,setSecondaryMuscles] = useState([]);
     const [initmakeDetail,setMakeDetail] = useState([]);
     const [initDeduplicationDetail,setDeduplicationDetail] = useState([]);
-
+    const [initSearch, setSearch] = useState('');
+    const [initSaveExercise,setSaveExercise] = useState([]);
+    const [initSaveExerciseSpan,setSaveExerciseSpan] = useState([]);
+    const [isHidden, setIsHidden] = useState(true);
+    const [test, settest] = useState([]);
+    
+    const {state} = useLocation();
     const navigate = useNavigate();
     const makeRoutineContainer = useRef(null);
-    const makeRoutineList = useRef(null);
+    console.log('state:',state);
 
-    function search(){
-        makeDetailList = document.querySelector('input').value;
-        makedetil(makeDetailList,'name')
+    function makedetil(e,nameStr){
+        e.preventDefault();
+        makeRoutineContainer.innerHTML='';
+        makeDetailList = e.currentTarget.textContent;
+        const filterMakeListNode = initmakeDetail.filter(res=>{
+            if(nameStr=='names') return res.names.includes(makeDetailList)
+            if(nameStr=='category') return res.category.includes(makeDetailList)
+            if(nameStr=='equipment' && res.equipment != null) return res.equipment.includes(makeDetailList)
+            if(nameStr=='force' && res.force != null) return res.force.includes(makeDetailList)
+            if(nameStr=='level' ) return res.level.includes(makeDetailList)
+            if(nameStr=='mechanic' && res.mechanic != null) return res.mechanic.includes(makeDetailList)
+            if(nameStr=='instructions' && res.instructions != null) return res.instructions.includes(makeDetailList)
+            if(nameStr=='primaryMuscles' && res.primaryMuscles != null) return res.primaryMuscles.includes(makeDetailList)
+            if(nameStr=='secondaryMuscles' && res.secondaryMuscles != null) return res.secondaryMuscles.includes(makeDetailList)
+            }
+        )        
+        setDeduplicationDetail(filterMakeListNode);      
     }
-
-    function makedetil(category,nameStr){
-            makeRoutineContainer.innerHTML='';
-            makeDetailList = category;
-            console.log('category:',category);
-            console.log('nameStr:',nameStr);
-            console.log('initmakeDetail',initmakeDetail);
-            const filterMakeListNode = initmakeDetail.filter(res=>{
-                if(nameStr=='names') return res.names.includes(makeDetailList)
-                if(nameStr=='category') return res.category.includes(makeDetailList)
-                if(nameStr=='equipment' && res.equipment != null) return res.equipment.includes(makeDetailList)
-                if(nameStr=='force' && res.force != null) return res.force.includes(makeDetailList)
-                if(nameStr=='level' ) return res.level.includes(makeDetailList)
-                if(nameStr=='mechanic' && res.mechanic != null) return res.mechanic.includes(makeDetailList)
-                if(nameStr=='instructions' && res.instructions != null) return res.instructions.includes(makeDetailList)
-                if(nameStr=='primaryMuscles' && res.primaryMuscles != null) return res.primaryMuscles.includes(makeDetailList)
-                if(nameStr=='secondaryMuscles' && res.secondaryMuscles != null) return res.secondaryMuscles.includes(makeDetailList)
-                }
-            ) 
-            console.log('filterMakeListNode:',filterMakeListNode)
+    const [useCount,setConunt] = useState(1);
+    //console.log('useCount:',useDataRoutine.length<=0?1:parseInt(useDataRoutine[useDataRoutine.length-1].id)+1);
+    
+    const makeRoutineButton= async () => {
+        //e.preventDefault();
+        //fetchData();
+        console.log('useDataRoutine=======:',useDataRoutine);
+        if(state===null) {alert('루틴 생성 실패'); return;}
+        if(state===true){
+            //setConunt(prev=>prev+1);
+            //setSaveExercise(res=>res.map((item,index)=>({...item,id:String(1+index)})));
+            addSetId = initSaveExercise.map((item,index)=>({...item,set_id: String(index + 1)}));
+            const nameR = 'routine'+String(useDataRoutine.length<=0?1:parseInt(useDataRoutine[useDataRoutine.length-1].id)+1);
+            const response = await axios.post(URL.ROUNTINE,{id:String(useDataRoutine.length<=0?1:parseInt(useDataRoutine[useDataRoutine.length-1].id)+1),name:nameR,state:[...addSetId]})
+            //setDataRoutine(prev=>[...prev,response.data]);
+            navigate(`/data/routine?routineId=${useDataRoutine.length+1}`)
+        }else{
+            const makeRoutineId = useDataRoutine[state-1].state.length===0?0:Math.max(...useDataRoutine[state-1].state.map(item=>parseInt(item.set_id)));
+            console.log('useDataRoutine[state-1].state:',useDataRoutine[state-1].state);
+            console.log('makeRoutineId:',makeRoutineId);
+            //console.log('initSaveExercise2:',initSaveExercise);
+            addSetId = initSaveExercise.map((item,index)=>({...item,set_id: String(makeRoutineId + index + 1)}));
+            console.log('initSaveExercise3:',addSetId);
+            await axios.put(`${URL.ROUNTINE}/${state}`,{id:String(useDataRoutine[state-1].id),name:useDataRoutine[state-1].name,state:[...useDataRoutine[state-1].state, ...addSetId]})
+                        .then(res=>console.log('res:%O',res))
+                        .catch(err=>console.log(err))
+            //setDataRoutine(prev=>[...prev[state-1].state,...initSaveExercise]);
+            navigate(`/data/routine?routineId=${state}`)
+            //navigate("/data/routine",{state:state})
+        }
             
-            setDeduplicationDetail(filterMakeListNode);
-       
     }
-    console.log('initDeduplicationDetail:',initDeduplicationDetail);
+
+    const saveRoutineButton=(e)=>{
+        e.preventDefault();
+        saveR = initmakeDetail.filter(item =>
+        item.names.includes(e.currentTarget.id));
+        setSaveExercise(prev=>[...prev,...saveR]); 
+        settest(prev=>[...prev,...saveR]);
+        countSaveRoutineInt = initSaveExercise.filter(item=>item.names===e.currentTarget.id).length+1;
+        e.target.children[1].textContent=countSaveRoutineInt;
+        if(countSaveRoutineInt===0){
+           setIsHidden(true);
+        } 
+        else{
+            setIsHidden(false);
+        }
+        setSaveExerciseSpan(prev=>[...prev,e.target.children[1].id]);
+        
+    }
+    const deleteRoutineButten=(e)=>{
+        e.preventDefault();
+        const deleteSaveData = initSaveExercise.slice(0,-1);
+        setSaveExercise(deleteSaveData);
+        const spanNode = document.getElementById(initSaveExerciseSpan[initSaveExerciseSpan.length -1]);
+        if(initSaveExercise.length === 0) {
+            document.querySelectorAll('span').textContent='';
+            setIsHidden(true);
+        }
+        else {
+            const compreToDeleteEx = spanNode.id.slice(0,-4);
+            countSaveRoutineInt = initSaveExercise.filter(item=>item.names===compreToDeleteEx).length-1;
+            spanNode.textContent=countSaveRoutineInt;
+            setIsHidden(false);
+        }
+        setSaveExerciseSpan(initSaveExerciseSpan.slice(0,-1)!==null?initSaveExerciseSpan.slice(0,-1):[]);
+    }
+    
+    useEffect(()=>{
+        const filteredItems = initmakeDetail.filter(item =>
+        item.names.toLowerCase().includes(initSearch.toLowerCase()));
+        setDeduplicationDetail(filteredItems); 
+    },[initSearch])
+
     useEffect(()=>{
        fetch('https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises.json')
             .then(res =>res.json())
@@ -83,7 +157,7 @@ export default function CategoryPage(){
                     secondaryMuscles.push(arr[i].secondaryMuscles[0]);
 
                     makeDetailNode.push({
-                        id: i+1,
+                        id: String(i+1),
                         names: arr[i].name,
                         category: arr[i].category,
                         equipment: arr[i].equipment,
@@ -95,8 +169,6 @@ export default function CategoryPage(){
                         secondaryMuscles: arr[i].secondaryMuscles[0],
                         imgfile:`https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/${name2}/images/0.jpg`
                     })
-                
-
                 }
                 //const addListImg ={...makeDetailNode,imgfile:imgfile};
                 makeListNode.push({
@@ -119,23 +191,23 @@ export default function CategoryPage(){
                 setMechanic(Object.values(makeListNode[0].mechanic))
                 setPrimaryMuscles(Object.values(makeListNode[0].primaryMuscles))
                 setSecondaryMuscles(Object.values(makeListNode[0].secondaryMuscles))
-            });            
+            });    
+        fetchData();
     },[])
     
     return<>
         <div className={"container mt-5 p-3"}></div>
-            <button className={`btn btn-lg btn-primary`} type="button" onClick={()=>navigate(-1)}>뒤로가기</button>
+            <button className={`btn btn-lg btn-primary`} type="button" onClick={()=>navigate('/data/')}>뒤로가기</button>
             <form className={"d-flex"}>
-                <input className={"form-control me-sm-2"} type="search" placeholder="Search"/>
-                <button className={"btn btn-secondary my-2 my-sm-0"} type="submit">Search</button>
+                <input className={"form-control me-sm-2"} type="search" placeholder="운동 이름을 입력하세요." onChange={e => setSearch(e.target.value)}/>
             </form>
             <div  className={`${styles.mainpage} container mt-0 p-0`}>
-            <div ref={makeRoutineList} style={{overflowX: 'scroll', whiteSpace: 'nowrap'}} className={"container"}>
+            <div style={{overflowX: 'scroll', whiteSpace: 'nowrap'}} className={"container"}>
                     <div  className="container">
                     운동 종류
                      {initcategory.map((item,index) => (
                         <span key={index}>
-                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'category')}}>{item}</a>
+                            <a  href="#" onClick={(e) => {makedetil(e,'category')}}>{item}</a>
                         </span>
                     ))
                     }
@@ -144,7 +216,7 @@ export default function CategoryPage(){
                     사용 기구
                      {initequipment.map((item,index)=>(
                         <span key={index}>
-                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'equipment')}}>{item}</a>
+                            <a  href="#" onClick={(e) => {makedetil(e,'equipment')}}>{item}</a>
                         </span>
                     ))}
                     </div>
@@ -152,7 +224,7 @@ export default function CategoryPage(){
                     풀-푸쉬-스태틱
                      {initforce.map((item,index)=>(
                         <span key={index}>
-                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'force')}}>{item}</a>
+                            <a  href="#" onClick={(e) => {makedetil(e,'force')}}>{item}</a>
                         </span>
                     ))}
                     </div>
@@ -160,7 +232,7 @@ export default function CategoryPage(){
                     난이도
                      {initlevel.map((item,index)=>(
                         <span key={index}>
-                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'level')}}>{item}</a>
+                            <a  href="#" onClick={(e) => {makedetil(e,'level')}}>{item}</a>
                         </span>
                     ))}
                     </div>
@@ -168,7 +240,7 @@ export default function CategoryPage(){
                     고립, 복합
                      {initmechanic.map((item,index)=>(
                         <span key={index}>
-                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'mechanic')}}>{item}</a>
+                            <a  href="#" onClick={(e) => {makedetil(e,'mechanic')}}>{item}</a>
                         </span>
                     ))}
                     </div>
@@ -176,7 +248,7 @@ export default function CategoryPage(){
                     주 근육
                      {initprimaryMuscles.map((item,index)=>(
                         <span key={index}>
-                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'primaryMuscles')}}>{item}</a>
+                            <a  href="#" onClick={(e) => {makedetil(e,'primaryMuscles')}}>{item}</a>
                         </span>
                     ))}
                     </div>
@@ -191,19 +263,26 @@ export default function CategoryPage(){
                 
             </div>
             <div ref={makeRoutineContainer} className={"container mt-0 p-0 d-grid gap-2"}>
-                {initDeduplicationDetail.map(e=>(
-                    <div className="container" key={e.id}>
-                        <button className="btn btn-lg btn-primary" style={{width:'100%', fontSize:'25px', textAlign:'left'}}  type="button">
-                            <img alt={e.imgfile} style={{width:'100px'}} src={e.imgfile}/>
-                            {e.names}
+                {initDeduplicationDetail.length===0
+                ?
+                <h1>불러오는 중</h1>
+                :
+                initDeduplicationDetail.map(item=>(
+                    <div className="container" key={item.id}>
+                        <button  className="btn btn-lg btn-dark"  id={item.names}
+                            style={{width:'100%', fontSize:'25px', textAlign:'left',display:'flex'}}  
+                            type="button" onClick={e=>saveRoutineButton(e)}>
+                            <img alt={item.imgfile} style={{width:'100px'}} src={item.imgfile}/>
+                            {item.names}
+                            <span id={item.names+'Span'} style={{marginLeft:'auto'}}></span>
                        </button>
                     </div>
                 ))}
             </div>
             <div className={`${styles.dummyContainers} p-5 mt-4`}></div>
-            <footer className={`${styles.flexButton}`}>
-                <button className={`${styles.buttonSize} btn btn-lg btn-primary`} type="button" onClick={()=>navigate("/routine")}>운동 추가</button>
-                <button className={`${styles.buttonSize} btn btn-lg btn-primary`} type="button">되돌리기</button>
+            <footer className={`${styles.flexSelectButton}`}>
+                <button className={`${styles.buttonSize} btn btn-lg btn-primary`} type="button" onClick={makeRoutineButton} hidden={isHidden}>운동 추가</button>
+                <button className={`${styles.buttonSize} btn btn-lg btn-primary`} type="button" onClick={e=>deleteRoutineButten(e)} hidden={isHidden}>되돌리기</button>
             </footer>
         </div>
 
