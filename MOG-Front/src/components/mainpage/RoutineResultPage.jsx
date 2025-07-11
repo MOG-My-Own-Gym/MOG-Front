@@ -12,7 +12,7 @@ export default function RoutineResultPage(){
                 </div>
             <div className={`${styles.dummyContainers} p-5 mt-4`}></div>
             <footer className={`${styles.flexButton}`}>
-                <button className={`${styles.buttonSize} btn btn-lg btn-primary`} type="button" onClick={()=>navigate("/home")}>홈으로</button>
+                <button className={`${styles.buttonSize} btn btn-lg btn-primary`} type="button" onClick={()=>navigate("/data/")}>홈으로</button>
                 <button className={`${styles.buttonSize} btn btn-lg btn-primary`} type="button">공유하기</button>
             </footer>
         </div>
