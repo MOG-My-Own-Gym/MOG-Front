@@ -9,27 +9,25 @@ export default function ProfileEdit(){
 
     const navigete = useNavigate();
 
-    const {state}=useLocation();
+    const { state }=useLocation();
     console.log('state:',state);
 
     //에러 메시지 뿌리기 위한 Span Ref객체
     const spanNameRef = useRef();
-    const spanNicnameRef = useRef();
+    const spannicknameRef = useRef();
 
     const [inputs,setInputs]=useState({
                                         name:state.name,
-                                        nicname:state.nicname,
+                                        nickname:state.nickname,
                                         call1:state.call1,
                                         call2:state.call2,
                                         call3:state.call3,
                                         age:state.age,
                                         gender:state.gender,
                                         height:state.height,
-                                        weight:state.weight,
-                                        heightUnit: 'cm',
-                                        weightUnit: 'kg'
+                                        weight:state.weight
                                     })
-    const {name,nicname,call1,call2,call3,age,gender,height,weight,heightUnit,weightUnit}=inputs;
+    const {name,nickname,call1,call2,call3,age,gender,height,weight}=inputs;
     console.log(inputs);
 
     const handleChange =e=>{
@@ -39,8 +37,8 @@ export default function ProfileEdit(){
         if(name==='name'){
             spanNameRef.current.textContent = value.trim() === '' ? '이름을 입력하세요' : '';
         }
-        else if(name==='nicname'){
-            spanNicnameRef.current.textContent = value.trim() === '' ? '닉네임을 입력하세요' : '';
+        else if(name==='nickname'){
+            spannicknameRef.current.textContent = value.trim() === '' ? '닉네임을 입력하세요' : '';
         }
 
         if(name === 'gender'){
@@ -53,14 +51,14 @@ export default function ProfileEdit(){
     const toProfile = e=>{
         e.preventDefault();
         const isLengthName=name.trim().length===0
-        const isLengthNickname = nicname.trim().length===0;
+        const isLengthNickname = nickname.trim().length===0;
         if(isLengthName || isLengthNickname){
             if(isLengthName) spanNameRef.current.textContent='이름은 필수 입력값입니다.';
-            if(isLengthNickname) spanNicnameRef.current.textContent='닉네임은 필수 입력값입니다.';
+            if(isLengthNickname) spannicknameRef.current.textContent='닉네임은 필수 입력값입니다.';
             return;
         }
-        
-        axios.put('http://localhost:8080/api/v1/users/update/21',
+        console.log(state)
+        axios.put(`http://localhost:8080/api/v1/users/update/${state.usersId}`,
             {
                 usersName:name,
                 email:state.email,
@@ -73,13 +71,14 @@ export default function ProfileEdit(){
                 },
                 authDto:{password:state.password}
             },
-            {
+            {withCredentials:true,
                 headers: {
                   Authorization: `Bearer ${state.accessToken}`
                 }
             })
             .then(res=>{
-                navigete('/mypage',{state:res.data});
+                console.log(res);
+                navigete('/mypage');
             })
             .catch(e=>console.log(e));
     };
@@ -96,7 +95,7 @@ export default function ProfileEdit(){
                             <label className="form-label text-muted">프로필 사진 수정</label>
                             <input className="form-control form-control-sm" id="formFileSm" type="file"/>
                         </div>
-                            <span className="font-weight-bold fs-2">{state.nicname}</span>
+                            <span className="font-weight-bold fs-2">{state.nickname}</span>
                             <span className="font-weight-bold fs-4">{state.name}</span>
                             <span className="text-black-50">{state.email}</span>
                         </div>
@@ -114,8 +113,8 @@ export default function ProfileEdit(){
                                     <hr className="text-secondary"/>
                                     <div className="profile-nickname pt-2 ">
                                         <label className="labels">닉네임</label><span className="text-danger">*</span>
-                                        <input type="text" className="form-control" placeholder="닉네임을 입력해주세요" name="nicname" value={nicname} onChange={handleChange}/>
-                                        <span ref={spanNicnameRef} style={{color:'#FF0000'}}></span>
+                                        <input type="text" className="form-control" placeholder="닉네임을 입력해주세요" name="nickname" value={nickname} onChange={handleChange}/>
+                                        <span ref={spannicknameRef} style={{color:'#FF0000'}}></span>
                                     </div>
                                     <hr className="text-secondary"/>
                                     <div className="profile-id pt-2 ">
@@ -167,16 +166,7 @@ export default function ProfileEdit(){
                                     <label className="labels">키</label>
                                     <div className="d-flex justify-content-between">
                                         <input type="text" className="form-control" placeholder="키를 입력해주세요" name="height" value={height} onChange={handleChange}/>
-                                        <div className="d-flex flex-column">
-                                            <div className="form-check">
-                                                <input className="form-check-input" type="radio" name="heightUnit" id="height-unit1" value='cm' checked={heightUnit === 'cm'} onChange={handleChange}/>
-                                                <label className="form-check-label" htmlFor="height-unit1">cm</label>
-                                            </div>
-                                            <div className="form-check">
-                                                <input className="form-check-input" type="radio" name="heightUnit" id="height-unit2" value='ft' checked={heightUnit === 'ft'} onChange={handleChange}/>
-                                                <label className="form-check-label" htmlFor="height-unit2">ft</label>
-                                            </div>
-                                        </div>
+                                        <span className="fs-5 mx-1">cm</span>
                                     </div>
                                 </div> 
                                 <hr className="text-secondary"/>
@@ -184,16 +174,7 @@ export default function ProfileEdit(){
                                     <label className="labels">몸무게</label>
                                     <div className="d-flex justify-content-between">
                                         <input type="text" className="form-control" placeholder="몸무게를 입력해주세요" name='weight' value={weight} onChange={handleChange}/>
-                                        <div className="d-flex flex-column">
-                                            <div className="form-check">
-                                                <input className="form-check-input" type="radio" name="weightUnit" id="weight-unit1" value='kg' checked={weightUnit === 'kg'} onChange={handleChange}/>
-                                                <label className="form-check-label" htmlFor="weight-unit1">kg</label>
-                                            </div>
-                                            <div className="form-check">
-                                                <input className="form-check-input" type="radio" name="weightUnit" id="weight-unit2" value='lb' checked={weightUnit === 'lb'} onChange={handleChange}/>
-                                                <label className="form-check-label" htmlFor="weight-unit2">lb</label>
-                                            </div>
-                                        </div>
+                                        <span className="fs-5 mx-1">kg</span>
                                     </div>
                                 </div> 
                             </fieldset>

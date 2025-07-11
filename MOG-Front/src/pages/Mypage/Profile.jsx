@@ -8,52 +8,50 @@ export default function Profile() {
   const { state } = useLocation();
   const { user } = useContext(AuthContext);
 
-  // 초기 프로필 데이터 설정
-  const [profile, setProfile] = useState({
-    accessToken: `${user.accessToken}`,
-    name: '',
-    nicname: '',
-    email: `${user.email}`,
-    profileImg: '',
-    call1: '',
-    call2: '',
-    call3: '',
-    age: '',
-    gender: '',
-    height: '',
-    weight: '',
-    regDate: '',
-    password: '',
-  });
-  console.log(profile.accessToken);
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      await axios
-        .get(`http://localhost:8080/api/v1/users/${user.usersId}`)
-        .then(res => {
-          const getUser = res.data;
-          const getBio = res.data.biosDto;
-          console.log(getUser);
-          console.log(getBio);
-          setProfile(prev => ({
-            ...profile,
-            name: getUser.usersName,
-            profileImg: getUser.profileImg,
-            age: getBio.age,
-            gender: getBio.gender,
-            height: getBio.height,
-            weight: getBio.weight,
-            regDate: getUser.regDate.substring(0, 10),
-            password: getUser.password,
-          }));
-        })
-        .catch(e => console.log(e.response.data, e));
-    };
-    fetchProfile();
-  }, []);
+    // 초기 프로필 데이터 설정
+    const [profile, setProfile] = useState({
+        'accessToken':`${user.accessToken}`,
+        'usersId':`${user.usersId}`,
+        'name': '',
+        'nickname': '',
+        'email':`${user.email}`,
+        'profileImg':'',
+        'call1': '',
+        'call2': '',
+        'call3': '',
+        'age': '',
+        'gender':'',
+        'height':'',
+        'weight': '',
+        "regDate": '',
+        "password": ''
+    });
+    console.log(profile.accessToken);
 
-  console.log(profile);
+    useEffect(()=>{
+        const fetchProfile = async()=>{
+            await axios.get(`http://localhost:8080/api/v1/users/${user.usersId}`)
+                        .then(res=>{
+                            const getUser = res.data;
+                            const getBio = res.data.biosDto;
+                            console.log(getUser);
+                            console.log(getBio);
+                            setProfile(prev=>({...profile, name:getUser.usersName, 
+                                                    profileImg:getUser.profileImg,
+                                                    age:getBio.age,
+                                                    gender:getBio.gender,
+                                                    height:getBio.height,
+                                                    weight:getBio.weight,
+                                                    regDate:getUser.regDate.substring(0,10),
+                                                    password:getUser.authDto.password
+                            }));
+                            console.log('profile(state):',profile);
+                        })
+                        .catch(e=>console.log(e.response.data,e));
+        };
+        fetchProfile();
+    },[]);
 
   return (
     <>
@@ -68,7 +66,7 @@ export default function Profile() {
                   src="/img/userAvatar.png"
                   alt="meaicon - Flaticon 기본이미지"
                 />
-                <span className="font-weight-bold fs-2">{profile.nicname}</span>
+                <span className="font-weight-bold fs-2">{profile.nickname}</span>
                 <span className="font-weight-bold fs-4">{profile.name}</span>
                 <span className="text-black-50">{profile.email}</span>
               </div>
@@ -84,7 +82,7 @@ export default function Profile() {
                     <hr className="text-secondary" />
                     <div className="profile-nickname pt-2">
                       <p>닉네임</p>
-                      <h6 className="text-muted">{profile.nicname}</h6>
+                      <h6 className="text-muted">{profile.nickname}</h6>
                     </div>
                     <hr className="text-secondary" />
                     <div className="profile-email pt-2">
