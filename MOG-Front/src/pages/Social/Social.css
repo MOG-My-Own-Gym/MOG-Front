@@ -6,7 +6,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.5em;
-  overflow-y: auto;
+  overflow-y: visible; 
   justify-content: center;
   margin-top: 100px;
 }
@@ -20,19 +20,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-.card h3 {
-  margin-top: 0.5em;
-  font-size: 1.1em;
-}
-.card p {
-  font-size: 0.9em;
-  color: #666;
-  flex-grow: 1;
-
-}
-.card button:hover {
-  background-color: #a0521e;
 }
 .card-img {
   width: 100%;
@@ -64,22 +51,58 @@
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1em;
-  font-size: 1.2em;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  pointer-events: auto;
+  z-index: 10;
+
+  /* 중앙 정렬 삭제 → 구석으로 보이게 변경 */
+  display: flex;
+  justify-content: flex-end;  
+  align-items: flex-end;      
+  padding: 10px
+}
+.icon-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   cursor: pointer;
+  pointer-events: auto;
+  z-index: 20;
 }
 
 .card:hover .card-overlay {
   opacity: 1;
+  cursor: pointer;
 }
 .icon {
   width: 30px;
   height: 30px;
   transition: transform 0.2s ease;
 }
+.card-title {/*사진 타이틀*/
+  position: absolute;
+  top: 25px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: normal;
+  color: white;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.black-navbar #mainNav {
+  background-color: rgba(9, 8, 8, 0.963) !important;
+}
+
+.black-navbar #mainNav .nav-link,
+.black-navbar #mainNav .navbar-brand span {
+  color: rgb(255, 217, 0) !important;
+}
+
+.black-navbar #mainNav .nav-link:hover {
+  color: rgb(255, 217, 0) !important;
+}
+
