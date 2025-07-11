@@ -1,6 +1,7 @@
 
 import React from 'react';
 import './LoginPage.css';
+import { Link } from 'react-router-dom';
 
 
 export default function LoginPage() {
@@ -39,9 +40,9 @@ export default function LoginPage() {
       </div>
       
       <div className="bottom-links">
-        <a href="/find-id">아이디 찾기</a>
+        <Link to="/find-id">아이디 찾기</Link>
         <span className="link-separator">|</span>
-        <a href="/forgot-password">비밀번호 찾기</a>
+        <Link to="/find-pw">비밀번호 찾기</Link>
         <span className="link-separator">|</span>
         <a href="/sign-up">회원가입</a>
       </div>
