@@ -14,7 +14,7 @@ export default function Profile() {
         'accessToken':`${user.accessToken}`,
         'usersId':`${user.usersId}`,
         'name': '',
-        'nickname': '',
+        'nickName': '',
         'email':`${user.email}`,
         'profileImg':'',
         'call': '',
@@ -33,6 +33,7 @@ export default function Profile() {
                             const getUser = res.data;
                             const getBio = res.data.biosDto;
                             setProfile(prev=>({...profile, name:getUser.usersName, 
+                                                    nickName:getUser.nickName,
                                                     profileImg:getUser.profileImg,
                                                     age:getBio.age,
                                                     gender:getBio.gender,
@@ -57,10 +58,10 @@ export default function Profile() {
                 <img
                   className="rounded-circle mt-5"
                   width="150px"
-                  src="/img/userAvatar.png"
-                  alt="meaicon - Flaticon 기본이미지"
+                  src={profile.profileImg}
+                  alt={profile.profileImg.trim()==="/img/userAvatar.png" ? "meaicon - Flaticon 기본이미지" : "개인 프로필 이미지"}
                 />
-                <span className="font-weight-bold fs-2">{profile.nickname}</span>
+                <span className="font-weight-bold fs-2">{profile.nickName}</span>
                 <span className="font-weight-bold fs-4">{profile.name}</span>
                 <span className="text-black-50">{profile.email}</span>
               </div>
@@ -76,7 +77,7 @@ export default function Profile() {
                     <hr className="text-secondary" />
                     <div className="profile-nickname pt-2">
                       <p>닉네임</p>
-                      <h6 className="text-muted">{profile.nickname}</h6>
+                      <h6 className="text-muted">{profile.nickName}</h6>
                     </div>
                     <hr className="text-secondary" />
                     <div className="profile-email pt-2">
