@@ -9,10 +9,11 @@ import {
   PointElement,
   LineElement,
 } from 'chart.js';
+import { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { Line } from 'react-chartjs-2';
 
-export default function LineChart() {
+export default function LineChart({ lineData }) {
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -23,6 +24,50 @@ export default function LineChart() {
     PointElement,
     LineElement,
   );
+  const [lineState, setLineState] = useState(null);
+  const rowData = lineData?.map(data => {
+    return data.date.substring(0, 10);
+  });
+  const chartRow = rowData?.filter((data, index) => {
+    return rowData.indexOf(data) === index;
+  });
+  const chartData = chartRow?.reduce((acc, date) => {
+    acc[date] = [];
+    return acc;
+  }, {});
+  console.log(chartData);
+  lineData?.forEach(data => {
+    chartData[data.date.substring(0, 10)].push(data.kcal);
+  });
+
+  console.log(lineData);
+  let lineDataSets;
+  switch (lineState) {
+    case 'muscle':
+      lineDataSets = {
+        type: 'line',
+        label: '칼로리 소모 추이',
+        data: chartRow?.map(label => {
+          const values = Array.from({ length: maxLength }, (_, i) => chartData[label][i] ?? 0);
+          const sum = values.reduce((a, b) => a + b, 0);
+          console.log(sum / values.length);
+          return values.length ? sum / values.length : 0;
+        }),
+        borderColor: 'rgba(0, 0, 0, 1)',
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        fill: false,
+        tension: 0,
+        yAxisID: 'y',
+      };
+      break;
+    case 'setTotal':
+      break;
+    case 'volumeTotal':
+      break;
+    case 'rouTime':
+      break;
+  }
+  console.log(lineDataSets);
   const data = {
     labels: ['월', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
     datasets: [
