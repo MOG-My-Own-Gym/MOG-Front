@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import './Home.css';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
@@ -6,6 +7,9 @@ import "slick-carousel/slick/slick-theme.css";
 
 
 export default function Home() {
+  const [user, setUser] = useState(null);
+  const [exerciseData, setExerciseData] = useState(null);
+
   // 슬라이드 설정
   const sliderSettings = {
     dots: true, 
@@ -17,6 +21,37 @@ export default function Home() {
     autoplay: true,
     autoplaySpeed:3000,    
   };
+    //로그인한 경우에만 최근 운동기록을 백엔드에서 가져옴 
+    useEffect(() => {
+    //로그인 된 사용자 정보 저장용 상태 
+    const token = localStorage.getItem("token");
+    //사용자 최근 운동기록 저장용 상태
+    const userInfo = localStorage.getItem("user");
+
+    if (userInfo) {
+      setUser(JSON.parse(userInfo));
+    }
+
+    if (!token) return;
+    //운동기록 api요청 (토큰 인증 포함)
+    fetch("http://localhost:8080/api/exercise/latest", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("운동 기록을 불러오지 못했습니다");
+        return res.json();
+      })
+      .then((data) => {
+        setExerciseData(data);//운동 기록 저장 
+      })
+      .catch((err) => {
+        console.error(err);
+        setExerciseData(null); // 신규 회원일 경우 등 기록이 없을때 
+      });
+    }, []);
+
 useEffect(() => {
     const scriptId = 'kakao-map-script';
 
@@ -111,7 +146,7 @@ useEffect(() => {
         });
         labelOverlay.setMap(map);
 
-      const keywords=['헬스장','헬스','휘트니스','짐','PT','피트니스','애니스포츠','스포츠'];
+      const keywords=['헬스장','헬스','휘트니스','짐','PT','피트니스','헬스클럽'];
       keywords.forEach((word)=>{
 
      
@@ -135,12 +170,12 @@ useEffect(() => {
               `);
                 infowindow.open(map, marker);
             });
-
             bounds.extend(new window.kakao.maps.LatLng(place.y, place.x));
           });
-
-         
         }
+      },{
+        location: center,
+        radius: 3000
       });
       });
     }
@@ -192,23 +227,45 @@ useEffect(() => {
 
       {/* 운동 분석 섹션 */}
       <section className='analytics-section'>
-        <h2>운동 분석</h2>
-        <p className='analytics-subtext'>회원에게만 제공되는 맞춤 통계 & 피드백</p>
-        <div className='analytics-cards'>
-          <div className='analytics-card'>
-            <h3>소모 칼로리</h3>
-            <p>320 kcal</p>
-          </div>
-          <div className='analytics-card'>
-            <h3>운동 시간</h3>
-            <p>45분</p>
-          </div>
-          <div className='analytics-card'>
-            <h3>자세 피드백</h3>
-            <p>자세 피드백 요약</p>
-          </div>
-        </div>
-      </section>
+      <h2>운동 분석</h2>
+      <p className='analytics-subtext'>회원에게만 제공되는 맞춤 통계 & 피드백</p>
+      <div className='analytics-cards'>
+        {user && exerciseData ? (
+          <>
+            <div className='analytics-card'>
+              <h3>소모 칼로리</h3>
+              <p>{exerciseData.calories || 0} kcal</p>
+            </div>
+            <div className='analytics-card'>
+              <h3>운동 시간</h3>
+              <p>{exerciseData.duration || 0}분</p>
+            </div>
+            <div className='analytics-card'>
+              <h3>자세 피드백</h3>
+              <p>{exerciseData.feedback || '분석 없음'}</p>
+            </div>
+          </>
+            ) : user && exerciseData === null ? (
+              <p>아직 운동 기록이 없습니다. 첫 운동을 기록해보세요!</p>
+            ) : (
+              <>
+            <div className='analytics-card'>
+              <h3>소모 칼로리</h3>
+              <p>320 kcal</p>
+            </div>
+            <div className='analytics-card'>
+              <h3>운동 시간</h3>
+              <p>45분</p>
+            </div>
+            <div className='analytics-card'>
+              <h3>자세 피드백</h3>
+              <p>회원님의 운동 자세에<br/>대해 말해줘요</p>
+            </div>
+          </>
+        )}
+      </div>
+        </section>
+
 
       {/* 헬스장 찾기 섹션 */}
       <section className='gymmap-section'>
@@ -221,11 +278,11 @@ useEffect(() => {
         </div>
         </div>
       </section>
-
       {/* Footer */}
       <footer className='footer'>
         <p>MOG ⓒ 2025</p>
       </footer>
     </div>
+    
   );
 }
