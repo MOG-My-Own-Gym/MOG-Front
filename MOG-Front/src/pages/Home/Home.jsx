@@ -1,7 +1,22 @@
 import React, { useEffect } from 'react';
 import './Home.css';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
 
 export default function Home() {
+  // 슬라이드 설정
+  const sliderSettings = {
+    dots: true, 
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,  
+    slidesToScroll: 1,
+    arrows: true,
+    autoplay: true,
+    autoplaySpeed:3000,    
+  };
 useEffect(() => {
     const scriptId = 'kakao-map-script';
 
@@ -121,7 +136,7 @@ useEffect(() => {
             bounds.extend(new window.kakao.maps.LatLng(place.y, place.x));
           });
 
-          //map.setBounds(bounds);
+         
         }
       });
     }
@@ -154,11 +169,22 @@ useEffect(() => {
       {/* 추천 루틴 섹션 */}
       <section className='routine-section'>
         <h2>오늘의 추천 루틴</h2>
-        <div className='routine-cards'>
-          <div className='routine-card'>하체 강화 루틴</div>
-          <div className='routine-card'>전신 유산소 루틴</div>
+        <div className='routine-slider-wrapper'>
+        <Slider {...sliderSettings}>
+        <div>
+        <div className='routine-card'>상체 루틴</div>
         </div>
-      </section>
+        <div>
+            <div className='routine-card'>하체 강화 루틴</div>
+            </div>
+            <div>
+            <div className='routine-card'>전신 유산소 루틴</div>
+            </div>
+            </Slider>
+            </div>
+            </section>
+       
+      
 
       {/* 운동 분석 섹션 */}
       <section className='analytics-section'>
@@ -182,7 +208,7 @@ useEffect(() => {
 
       {/* 헬스장 찾기 섹션 */}
       <section className='gymmap-section'>
-        <h2>내 주변 헬스장</h2>
+        <h2>MOG가 찾은 헬스장</h2>
         <div className='map-wrapper'>
         <div id='map' className='map-placeholder'></div>
         <div className='map-controls'>
