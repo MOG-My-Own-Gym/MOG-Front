@@ -111,8 +111,11 @@ useEffect(() => {
         });
         labelOverlay.setMap(map);
 
+      const keywords=['헬스장','헬스','휘트니스','짐','PT','피트니스','애니스포츠','스포츠'];
+      keywords.forEach((word)=>{
 
-      ps.keywordSearch('헬스장', (data, status) => {
+     
+      ps.keywordSearch(word, (data, status) => {
         if (status === window.kakao.maps.services.Status.OK) {
           const bounds = new window.kakao.maps.LatLngBounds();
 
@@ -138,6 +141,7 @@ useEffect(() => {
 
          
         }
+      });
       });
     }
   }, []);
@@ -189,7 +193,7 @@ useEffect(() => {
       {/* 운동 분석 섹션 */}
       <section className='analytics-section'>
         <h2>운동 분석</h2>
-        <p className='analytics-subtext'>MOG가 제공하는 통계와 피드백</p>
+        <p className='analytics-subtext'>회원에게만 제공되는 맞춤 통계 & 피드백</p>
         <div className='analytics-cards'>
           <div className='analytics-card'>
             <h3>소모 칼로리</h3>
