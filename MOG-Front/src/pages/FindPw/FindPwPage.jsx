@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function FindPwPage() {
   const [message, setMessage] = useState('');
-  const [userId, setUserId] = useState('');
+  const [usersId, setusersId] = useState('');
   const [email, setEmail] = useState('');
   const [isError, setIsError] = useState(false);
 
@@ -11,7 +11,7 @@ export default function FindPwPage() {
     e.preventDefault();
 
     const requestData = {
-      userId: userId,
+      usersId: usersId,
       email: email,
     };
 
@@ -45,8 +45,8 @@ export default function FindPwPage() {
           placeholder="아이디 입력"
           required
           className="login-input"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
+          value={usersId}
+          onChange={(e) => setusersId(e.target.value)}
         />
         <input
           type="email"
