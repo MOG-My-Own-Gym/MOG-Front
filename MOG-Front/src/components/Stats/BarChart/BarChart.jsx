@@ -12,7 +12,7 @@ import {
 import { Card } from 'react-bootstrap';
 import { Bar, Chart, Line } from 'react-chartjs-2';
 
-export default function BarChart({ barData }) {
+export default function BarChart({ barData, isMobile }) {
   ChartJS.register(
     BarElement,
     CategoryScale,
@@ -22,9 +22,8 @@ export default function BarChart({ barData }) {
     Legend,
     Tooltip,
   );
-  console.log(barData);
   //한달 예시 샘플 데이터
-  
+  /*
   barData = [
     { date: '2025-07-01T08:23:00.0000000', kcal: 479 },
     { date: '2025-07-01T09:15:00.0000000', kcal: 210 },
@@ -71,7 +70,7 @@ export default function BarChart({ barData }) {
     { date: '2025-07-31T08:27:00.0000000', kcal: 367 },
     { date: '2025-07-31T09:00:00.0000000', kcal: 220 },
   ];
-  
+  */
   const rowData = barData?.map(data => {
     return data.date.substring(0, 10);
   });
@@ -82,7 +81,6 @@ export default function BarChart({ barData }) {
     acc[date] = [];
     return acc;
   }, {});
-  console.log(chartData);
   barData?.forEach(data => {
     chartData[data.date.substring(0, 10)].push(data.kcal);
   });
@@ -103,7 +101,7 @@ export default function BarChart({ barData }) {
       label: `루틴 ${i + 1}`,
       data: chartRow.map(label => chartData[label][i] ?? null),
       backgroundColor: `hsl(${baseHue}, ${baseSaturation}%, ${lightness}%)`,
-      barThickness: chartRow.length>7?20:50,
+      barThickness: chartRow.length > 7 ? (isMobile ? 5 : 20) : isMobile ? 20 : 50,
     };
   });
 
@@ -113,19 +111,15 @@ export default function BarChart({ barData }) {
     data: chartRow?.map(label => {
       const values = Array.from({ length: maxLength }, (_, i) => chartData[label][i] ?? 0);
       const sum = values.reduce((a, b) => a + b, 0);
-      console.log(sum / values.length);
       return values.length ? sum / values.length : 0;
     }),
     borderColor: 'rgba(0, 0, 0, 1)',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#ffc800',
     fill: false,
     tension: 0,
     yAxisID: 'y',
   };
   const datasets = [lineDataset, ...stackedBarDatasets];
-  console.log(stackedBarDatasets);
-  console.log(lineDataset.data);
-  console.log(datasets);
   const data = barData
     ? {
         labels: chartRow,
@@ -150,7 +144,7 @@ export default function BarChart({ barData }) {
   return (
     <Card
       style={{
-        width: '100%',
+        width: '90%',
         height: '100%',
         zIndex: '10',
         position: 'relative',
