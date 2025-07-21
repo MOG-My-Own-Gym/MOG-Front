@@ -1,11 +1,11 @@
-import { useFetcher, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './css/profile.css';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Login/AuthContext';
+
 export default function Profile() {
   const navigate = useNavigate();
-  const { state } = useLocation();
   const { user } = useContext(AuthContext);
 
 

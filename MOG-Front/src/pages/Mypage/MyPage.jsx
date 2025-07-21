@@ -6,9 +6,21 @@ import MySocial from "./MySocial";
 import Settings from "./Settings";
 import Support from "./Support";
 import ProfileEdit from "./ProfileEdit";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { AuthContext } from "../Login/AuthContext";
 
 export default function MyPage(){
+    const { user } = useContext(AuthContext);
+    const [userName, setUserName] = useState('');
 
+    useEffect(()=>{
+        axios.get(`http://localhost:8080/api/v1/users/${user.usersId}`)
+            .then(res=>{
+                setUserName(res.data.nickName);
+            })
+            .catch(err=>console.log(err));
+    },[]);
 
     return<>
         <div className="d-flex">
@@ -55,7 +67,7 @@ export default function MyPage(){
                         <hr className='text-secondary'/>
                         <div className='d-flex justify-content-center'>
                             <i className="fa-solid fa-user fs-5 me-2"></i>
-                            <span className='d-none d-sm-inline'>Username</span>
+                            <span className='d-none d-sm-inline'>{userName}</span>
                         </div>
                     </div>
                 </div>
