@@ -1,10 +1,8 @@
 import { useRef, useState } from "react";
 import './SignUp.css'
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export default function SignUp(){
-    const navigate = useNavigate();
     const [formData, setFormData]=useState({
         name:'',
         nickname:'',
@@ -24,22 +22,26 @@ export default function SignUp(){
     const checkPasswordRef=useRef();
     const passwordCheckResult=useRef();
     const emailCheckResult=useRef();
-    const emailRef=useRef();
+    const buttonRef=useRef();
     const passwordRef=useRef();
 
-    const handleChange =(e)=>{
-        const {name,value} = e.target;
-        //유효성 체크
-        if(name==='email') checkEmailRef.current.textContent = value.trim() === '' ? '이메일을 입력하세요' : '';
-        else if(name==='name') checkNameRef.current.textContent = value.trim() === '' ? '이름을 입력하세요' : '';
-        else if(name==='nickname') checkNicknameRef.current.textContent = value.trim() === '' ? '닉네임을 입력하세요' : '';
-        else if(name==='password') checkPasswordRef.current.textContent = value.trim() === '' ? '비밀번호를 입력하세요' : '';
+  const handleChange = e => {
+    const { name, value } = e.target;
+    //유효성 체크
+    if (name === 'email')
+      checkEmailRef.current.textContent = value.trim() === '' ? '이메일을 입력하세요' : '';
+    else if (name === 'name')
+      checkNameRef.current.textContent = value.trim() === '' ? '이름을 입력하세요' : '';
+    else if (name === 'nickname')
+      checkNicknameRef.current.textContent = value.trim() === '' ? '닉네임을 입력하세요' : '';
+    else if (name === 'password')
+      checkPasswordRef.current.textContent = value.trim() === '' ? '비밀번호를 입력하세요' : '';
 
         //비밀번호 확인
         if(name==='confirmPassword'){
             if(value === passwordRef.current.value){
                 passwordCheckResult.current.textContent = value.trim()===''?'':'비밀번호 일치';
-                setFormData(prev=>({...prev,confirmPassword:value}));//비밀번호 일치시에만 confirmPassword저장
+                setFormData(prev=>({...prev,confirmPassword:value}));
             }
             else if(value !== passwordRef.current.value) {
                 passwordCheckResult.current.textContent = value.trim()===''?'':'비밀번호가 일치하지 않습니다';
@@ -63,13 +65,11 @@ export default function SignUp(){
                 window.alert('필수 항목(*)은 반드시 입력해 주세요');
                 return;
         }
-        //이메일 중복여부 체크
         if(emailCheckResult.current.textContent.trim()===''){
             window.alert('아이디의 중복여부를 확인해 주세요')
             buttonRef.current.focus();
             return;
         }
-        //confirmPassword가 저장되어있지 않으면 return
         if(confirmPassword.trim().length===0){
             window.alert('비밀번호가 일치하지 않습니다.')
             document.querySelector('input[name="confirmPassword"]').focus();
@@ -95,24 +95,23 @@ export default function SignUp(){
             .then(resp=>{
                 console.log(resp.data);
                 window.alert('회원가입 완료');
-                navigate('/login');
+                navigator('/login');
             })
             .catch(err=>console.log(err));
     };
     
-    //아이디 중복확인 버튼 처리용
     const handleCheckEmail=(e)=>{
         e.preventDefault();
         axios.get(`http://localhost:8080/api/v1/users/${email}`)
-        .then(res=>{//입력한 아이디(이메일)로 단일 회원 조회하여 회원이 조회된 경우(중복아이디일때)
+        .then(res=>{
             console.log(res);
             emailCheckResult.current.textContent='이미 존재하는 아이디 입니다';
-            emailRef.current.value='';//입력한 아이디 전부 삭제->제출시 유효성체크에 걸림
-            emailRef.current.focus();
+            buttonRef.current.value='';
+            buttonRef.current.focus();
         })
-        .catch(err=>{//모든 에러 발생시
+        .catch(err=>{
             console.log(err);
-            if(err.status===404) emailCheckResult.current.textContent='사용 가능한 아이디입니다';//404에러(회원이 조회되지 않은경우)시에만 사용가능
+            if(err.status===404) emailCheckResult.current.textContent='사용 가능한 아이디입니다';
         })
     }
 
@@ -128,7 +127,7 @@ export default function SignUp(){
                             <span className="text-danger fs-5 mx-2">*</span>
                             <span ref={emailCheckResult} style={{color:'#0000FF'}}></span>
                             <div className="check-row">
-                                <input ref={emailRef} name="email" placeholder="이메일" onChange={handleChange}/>
+                                <input ref={buttonRef} name="email" placeholder="이메일" onChange={handleChange}/>
                                 <button type="button" className="check-btn" onClick={handleCheckEmail}>중복확인</button>
                             </div>
                             <span ref={checkEmailRef} style={{color:'#FF0000'}}></span>
@@ -159,44 +158,69 @@ export default function SignUp(){
                         </div>
                     </div>
 
-                    {/*선택 항목세션? */}
-                    <hr className="mt-4"/>
-                    <div className="signup-section-title">선택 정보</div>
-                    <div>
-                        <label>성별</label>
-                        <div className="d-flex flex-column">
-                            <div className="form-check d-flex flex-row">
-                                <input className="mx-3" type="radio" name="gender" value="false" onChange={handleChange}/>
-                                <label htmlFor="male">남자</label>
-                            </div>
-                            <div className="form-check d-flex flex-row">
-                                <input className="mx-3" type="radio" name="gender" value="true" onChange={handleChange}/>
-                                <label htmlFor="female">여자</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="d-flex flex-column">
-                        <label>나이</label>
-                        <input className="col-6" name="age" type="number" placeholder="나이 (선택)" onChange={handleChange}/>
-
-                        <label>키</label>
-                        <div>
-                            <input name="height" type="number" placeholder="키 (cm)" onChange={handleChange}/>
-                            <span className="mx-2">cm</span>
-                        </div>
-
-                        <label>몸무게</label>
-                        <div>
-                            <input name="weight" type="number" placeholder="몸무게 (kg)" onChange={handleChange}/>
-                            <span className="mx-2">kg</span>
-                        </div>
-                    </div>
-                    <div className="d-flex justify-content-center pt-5">
-                        <button type="submit" className="signup-button">회원가입</button>
-                    </div>
+            {/*선택 항목세션? */}
+            <hr className="mt-4" />
+            <div className="signup-section-title">선택 정보</div>
+            <div>
+              <label>성별</label>
+              <div className="d-flex flex-column">
+                <div className="form-check d-flex flex-row">
+                  <input
+                    className="mx-3"
+                    type="radio"
+                    name="gender"
+                    value="false"
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="male">남자</label>
                 </div>
-            </form>
-        </div>
-    
+                <div className="form-check d-flex flex-row">
+                  <input
+                    className="mx-3"
+                    type="radio"
+                    name="gender"
+                    value="true"
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="female">여자</label>
+                </div>
+              </div>
+            </div>
+            <div className="d-flex flex-column">
+              <label>나이</label>
+              <input
+                className="col-6"
+                name="age"
+                type="number"
+                placeholder="나이 (선택)"
+                onChange={handleChange}
+              />
+
+              <label>키</label>
+              <div>
+                <input name="height" type="number" placeholder="키 (cm)" onChange={handleChange} />
+                <span className="mx-2">cm</span>
+              </div>
+
+              <label>몸무게</label>
+              <div>
+                <input
+                  name="weight"
+                  type="number"
+                  placeholder="몸무게 (kg)"
+                  onChange={handleChange}
+                />
+                <span className="mx-2">kg</span>
+              </div>
+            </div>
+            <div className="d-flex justify-content-center pt-5">
+              <button type="submit" className="signup-button">
+                회원가입
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </>
+  );
 }
