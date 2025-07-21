@@ -11,29 +11,7 @@ export default function Support(){
     const location = useLocation();
     let currentPath = location.pathname;
 
-    const cardActive =()=>{
-        const [isActive, setIsActive] = useState(false);
-
-        if(currentPath === '/mypage/support') setIsActive(!isActive);
-
-        return <>
-            <li className="nav-item">
-                {isActive?
-                (<Link aria-current="true" to="/mypage/support" className="nav-link active">비밀번호 변경</Link>)
-                :
-                (<Link aria-current="false" to="/mypage/support" className="nav-link">비밀번호 변경</Link>)
-                }
-            </li>
-            <li className="nav-item">
-                {isActive?
-                (<Link aria-current="false" to="/mypage/support/withdrawal" className="nav-link">회원 탈퇴</Link>)
-                :
-                (<Link aria-current="true" to="/mypage/support/withdrawal" className="nav-link active">회원 탈퇴</Link>)
-                }
-            </li>  
-        </>
-    };
-
+    
     useEffect(()=>{
         axios.get(`http://localhost:8080/api/v1/users/${user.usersId}`)
             .then(res=>{
@@ -190,13 +168,37 @@ export default function Support(){
         </>
     };
 
+    const CardActive =()=>{
+        const [isActive, setIsActive] = useState(false);
+        useEffect(()=>{
+            if(currentPath === '/mypage/support') setIsActive(!isActive);
+        },[])
+
+        return <>
+            <li className="nav-item">
+                {isActive?
+                (<Link aria-current="true" to="/mypage/support" className="nav-link active">비밀번호 변경</Link>)
+                :
+                (<Link aria-current="false" to="/mypage/support" className="nav-link">비밀번호 변경</Link>)
+                }
+            </li>
+            <li className="nav-item">
+                {isActive?
+                (<Link aria-current="false" to="/mypage/support/withdrawal" className="nav-link">회원 탈퇴</Link>)
+                :
+                (<Link aria-current="true" to="/mypage/support/withdrawal" className="nav-link active">회원 탈퇴</Link>)
+                }
+            </li>  
+        </>
+    };
+
     return<>
-        <div className="container">
+        <div className="container pt-5">
             <div className="container-fluid d-flex">
                 <div className="card w-100 h-100">
                     <div className="card-header text-center">
                         <ul className="nav nav-tabs card-header-tabs">
-                            <cardActive/>
+                        <CardActive/>
                         </ul>
                     </div>
                     <div className="card-body p-4">

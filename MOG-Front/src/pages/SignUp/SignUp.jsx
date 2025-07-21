@@ -133,7 +133,7 @@ export default function SignUp(){
                             <span className="text-danger fs-5 mx-2">*</span>
                             <span ref={emailCheckResult} style={{color:'#0000FF'}}></span>
                             <div className="check-row">
-                                <input ref={emailRef} name="email" placeholder="이메일" onChange={handleChange}/>
+                                <input ref={emailRef} className="form-control" type="email" name="email" placeholder="이메일" onChange={handleChange}/>
                                 <button type="button" className="check-btn" onClick={handleCheckEmail}>중복확인</button>
                             </div>
                             <span ref={checkEmailRef} style={{color:'#FF0000'}}></span>
