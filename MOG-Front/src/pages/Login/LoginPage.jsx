@@ -71,44 +71,18 @@ export default function LoginPage() {
         .then(res => {
           console.log(res);
           const { access_token } = res.data;
+          console.log(access_token);
           axios
-            .post(
-              `https://kapi.kakao.com/v2/user/me`,
-              {},
-              {
-                headers: {
-                  Authorization: `Bearer ${access_token}`,
-                  'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-                },
-              },
-            )
+            .post(`http://localhost:8080/api/v1/users/login/kakao`, {
+              socialType: 'kakao',
+              accessToken: access_token,
+            })
             .then(res => {
-              const userData = res.data;
-              axios
-                .post(`http://localhost:8080/api/v1/users/signup`, {
-                  usersName: userData.kakao_account.profile.nickname,
-                  email: `user${userData.id}@kakao.com`,
-                  profileImg: userData.kakao_account.profile.profile_image_url,
-                  nickName: userData.kakao_account.profile.nickname,
-                  biosDto: null,
-                  authDto: {
-                    password: access_token,
-                  },
-                })
-                .then(res => {
-                  axios
-                    .post(`http://localhost:8080/api/v1/users/login`, {
-                      email: `user${userData.id}@kakao.com`,
-                      password: access_token,
-                    })
-                    .then(res => {
-                      console.log(res);
-                      console.log('kakao login successful');
-                      dispatch({ type: 'LOGIN', user: res.data });
-                      navigate('/', { replace: true });
-                    });
-                });
-            });
+              console.log('kakao login successful');
+              dispatch({ type: 'LOGIN', user: res.data });
+              navigate('/', { replace: true });
+            })
+            .catch();
         })
         .catch(error => {
           //toast

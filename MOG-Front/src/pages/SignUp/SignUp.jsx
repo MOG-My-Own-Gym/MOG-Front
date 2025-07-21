@@ -103,7 +103,7 @@ export default function SignUp() {
   const handleCheckEmail = e => {
     e.preventDefault();
     axios
-      .get(`http://localhost:8080/api/v1/users/${email}`)
+      .get(`http://localhost:8080/api/v1/users/email/${email}`)
       .then(res => {
         console.log(res);
         emailCheckResult.current.textContent = '이미 존재하는 아이디 입니다';
