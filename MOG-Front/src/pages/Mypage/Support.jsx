@@ -17,30 +17,22 @@ export default function Support(){
         if(currentPath === '/mypage/support') setIsActive(!isActive);
 
         return <>
-            <div>
-                <button className="btn-routine" onClick={toggleHeart}>
-                    {isLiked ? (
-                        <img className="img-fluid img-routine" src="/img/like.png" alt="Filled Heart" />
-                    ) : (
-                        <img className="img-fluid img-routine" src="/img/empty-like.png" alt="Empty Heart" />
-                    )}
-                </button>
-            </div>
-        
+            <li className="nav-item">
+                {isActive?
+                (<Link aria-current="true" to="/mypage/support" className="nav-link active">비밀번호 변경</Link>)
+                :
+                (<Link aria-current="false" to="/mypage/support" className="nav-link">비밀번호 변경</Link>)
+                }
+            </li>
+            <li className="nav-item">
+                {isActive?
+                (<Link aria-current="false" to="/mypage/support/withdrawal" className="nav-link">회원 탈퇴</Link>)
+                :
+                (<Link aria-current="true" to="/mypage/support/withdrawal" className="nav-link active">회원 탈퇴</Link>)
+                }
+            </li>  
         </>
-
     };
-    const cardAriaCurrent='';
-    const cardClassName='';
-
-    if(currentPath==='/mypage/support'){
-        cardAriaCurrent="true";
-        cardClassName="nav-link active";
-    }
-    else{
-        cardAriaCurrent="false";
-        cardClassName="nav-link";
-    }
 
     useEffect(()=>{
         axios.get(`http://localhost:8080/api/v1/users/${user.usersId}`)
@@ -204,22 +196,7 @@ export default function Support(){
                 <div className="card w-100 h-100">
                     <div className="card-header text-center">
                         <ul className="nav nav-tabs card-header-tabs">
-                            <li className="nav-item">
-                                <Link aria-current="true" to="/mypage/support" className={
-                                    currentPath === '/mypage/support' ?
-                                    "nav-link active" 
-                                    :
-                                    "nav-link"
-                                }>비밀번호 변경</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/mypage/support/withdrawal" className={
-                                    currentPath === '/mypage/support/withdrawal' ?
-                                    "nav-link active" 
-                                    :
-                                    "nav-link"
-                                }>회원 탈퇴</Link>
-                            </li>
+                            <cardActive/>
                         </ul>
                     </div>
                     <div className="card-body p-4">
