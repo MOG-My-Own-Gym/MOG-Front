@@ -79,7 +79,7 @@ export default function MyPage(){
                     <Route path="/myroutine" element={<MyRoutine/>}></Route>
                     <Route path="/mysocial" element={<MySocial/>}></Route>
                     <Route path="/settings" element={<Settings/>}></Route>            
-                    <Route path="/support" element={<Support/>}></Route>
+                    <Route path="/support/*" element={<Support/>}></Route>
                 </Routes>
             </div>
         </div>

@@ -16,15 +16,12 @@ export default function ProfileEdit() {
   const [inputs, setInputs] = useState({
     name: state.name,
     nickName: state.nickName,
-    call1: state.call.split('-')[0],
-    call2: state.call.split('-')[1],
-    call3: state.call.split('-')[2],
     age: state.age,
     gender: state.gender,
     height: state.height,
     weight: state.weight,
   });
-  const { name, nickName, call1, call2, call3, age, gender, height, weight } = inputs;
+  const { name, nickName, age, gender, height, weight } = inputs;
   console.log(inputs);
 
   const handleChange = e => {
@@ -145,39 +142,6 @@ export default function ProfileEdit() {
                         value={state.email}
                         disabled
                       />
-                    </div>
-                    <hr className="text-secondary" />
-                    <div className="profile-call pt-2">
-                      <label className="labels">전화번호</label>
-                      <div className="d-flex">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="전화번호를 입력해주세요"
-                          name="call1"
-                          id="call1"
-                          value={call1}
-                          onChange={handleChange}
-                        />
-                        <span className="fs-4 mx-1">-</span>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="전화번호를 입력해주세요"
-                          name="call2"
-                          value={call2}
-                          onChange={handleChange}
-                        />
-                        <span className="fs-4 mx-1">-</span>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="전화번호를 입력해주세요"
-                          name="call3"
-                          value={call3}
-                          onChange={handleChange}
-                        />
-                      </div>
                     </div>
                   </fieldset>
                 </div>

@@ -1,8 +1,10 @@
 import { useRef, useState } from "react";
 import './SignUp.css'
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp(){
+    const navigator = useNavigate();
     const [formData, setFormData]=useState({
         name:'',
         nickname:'',
@@ -22,7 +24,7 @@ export default function SignUp(){
     const checkPasswordRef=useRef();
     const passwordCheckResult=useRef();
     const emailCheckResult=useRef();
-    const buttonRef=useRef();
+    const emailRef=useRef();
     const passwordRef=useRef();
 
   const handleChange = e => {
@@ -67,7 +69,7 @@ export default function SignUp(){
         }
         if(emailCheckResult.current.textContent.trim()===''){
             window.alert('아이디의 중복여부를 확인해 주세요')
-            buttonRef.current.focus();
+            emailRef.current.focus();
             return;
         }
         if(confirmPassword.trim().length===0){
@@ -102,16 +104,20 @@ export default function SignUp(){
     
     const handleCheckEmail=(e)=>{
         e.preventDefault();
-        axios.get(`http://localhost:8080/api/v1/users/${email}`)
+        axios.get(`http://localhost:8080/api/v1/users/list`)
         .then(res=>{
             console.log(res);
-            emailCheckResult.current.textContent='이미 존재하는 아이디 입니다';
-            buttonRef.current.value='';
-            buttonRef.current.focus();
+            const users=res.data;
+            const findUser = users.findIndex(user=>user.email === emailRef.current.value);
+            if(findUser!==-1) {
+                emailCheckResult.current.textContent='이미 존재하는 아이디 입니다';
+                emailRef.current.value='';
+                emailRef.current.focus();
+            }
+            else emailCheckResult.current.textContent='사용 가능한 아이디입니다';
         })
         .catch(err=>{
             console.log(err);
-            if(err.status===404) emailCheckResult.current.textContent='사용 가능한 아이디입니다';
         })
     }
 
@@ -127,7 +133,7 @@ export default function SignUp(){
                             <span className="text-danger fs-5 mx-2">*</span>
                             <span ref={emailCheckResult} style={{color:'#0000FF'}}></span>
                             <div className="check-row">
-                                <input ref={buttonRef} name="email" placeholder="이메일" onChange={handleChange}/>
+                                <input ref={emailRef} name="email" placeholder="이메일" onChange={handleChange}/>
                                 <button type="button" className="check-btn" onClick={handleCheckEmail}>중복확인</button>
                             </div>
                             <span ref={checkEmailRef} style={{color:'#FF0000'}}></span>

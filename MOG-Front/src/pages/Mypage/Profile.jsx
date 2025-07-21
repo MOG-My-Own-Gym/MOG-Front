@@ -16,13 +16,11 @@ export default function Profile() {
     nickName: '',
     email: `${user.email}`,
     profileImg: '',
-    call: '',
     age: '',
     gender: '',
     height: '',
     weight: '',
-    regDate: '',
-    password: '',
+    regDate: ''
   });
 
   useEffect(() => {
@@ -56,10 +54,7 @@ export default function Profile() {
           <div className="row d-flex justify-content-around">
             <div className="col-md-3 border-right">
               <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img
-                  className="rounded-circle mt-5"
-                  width="150px"
-                  src={profile.profileImg}
+                <img className="rounded-circle mt-5" width="150px" src={profile.profileImg} 
                   alt={
                     profile.profileImg.trim() === '/img/userAvatar.png'
                       ? 'meaicon - Flaticon 기본이미지'
@@ -88,18 +83,6 @@ export default function Profile() {
                     <div className="profile-email pt-2">
                       <p>아이디</p>
                       <h6 className="text-muted">{profile.email}</h6>
-                    </div>
-                    <hr className="text-secondary" />
-                    <div className="profile-call pt-2">
-                      <p>전화번호</p>
-                      {profile.call !== '' ? (
-                        <h6 className="text-muted">
-                          {profile.call.split('-')[0]}-{profile.call.split('-')[1]}-
-                          {profile.call.split('-')[2]}
-                        </h6>
-                      ) : (
-                        <h6 className="text-muted">전화번호 정보가 없습니다.</h6>
-                      )}
                     </div>
                     <hr className="text-secondary" />
                     <div className="profile-regDate pt-2">
