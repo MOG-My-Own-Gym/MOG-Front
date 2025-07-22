@@ -11,13 +11,12 @@ export default function Profile() {
   // 초기 프로필 데이터 설정
   const [profile, setProfile] = useState({
     accessToken: `${user.accessToken}`,
+    usersId: `${user.usersId}`,
     name: '',
-    nicname: '',
+    nickName: '',
     email: `${user.email}`,
     profileImg: '',
-    call1: '',
-    call2: '',
-    call3: '',
+    call: '',
     age: '',
     gender: '',
     height: '',
@@ -25,7 +24,6 @@ export default function Profile() {
     regDate: '',
     password: '',
   });
-  console.log(profile.accessToken);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -34,26 +32,22 @@ export default function Profile() {
         .then(res => {
           const getUser = res.data;
           const getBio = res.data.biosDto;
-          console.log(getUser);
-          console.log(getBio);
           setProfile(prev => ({
             ...profile,
             name: getUser.usersName,
+            nickName: getUser.nickName,
             profileImg: getUser.profileImg,
-            age: getBio.age,
-            gender: getBio.gender,
-            height: getBio.height,
-            weight: getBio.weight,
+            age: getBio ? getBio.age : null,
+            gender: getBio ? getBio.gender : null,
+            height: getBio ? getBio.height : null,
+            weight: getBio ? getBio.weight : null,
             regDate: getUser.regDate.substring(0, 10),
-            password: getUser.password,
           }));
         })
         .catch(e => console.log(e.response.data, e));
     };
     fetchProfile();
   }, []);
-
-  console.log(profile);
 
   return (
     <>
@@ -65,10 +59,14 @@ export default function Profile() {
                 <img
                   className="rounded-circle mt-5"
                   width="150px"
-                  src="/img/userAvatar.png"
-                  alt="meaicon - Flaticon 기본이미지"
+                  src={profile.profileImg}
+                  alt={
+                    profile.profileImg.trim() === '/img/userAvatar.png'
+                      ? 'meaicon - Flaticon 기본이미지'
+                      : '개인 프로필 이미지'
+                  }
                 />
-                <span className="font-weight-bold fs-2">{profile.nicname}</span>
+                <span className="font-weight-bold fs-2">{profile.nickName}</span>
                 <span className="font-weight-bold fs-4">{profile.name}</span>
                 <span className="text-black-50">{profile.email}</span>
               </div>
@@ -84,7 +82,7 @@ export default function Profile() {
                     <hr className="text-secondary" />
                     <div className="profile-nickname pt-2">
                       <p>닉네임</p>
-                      <h6 className="text-muted">{profile.nicname}</h6>
+                      <h6 className="text-muted">{profile.nickName}</h6>
                     </div>
                     <hr className="text-secondary" />
                     <div className="profile-email pt-2">
@@ -94,9 +92,10 @@ export default function Profile() {
                     <hr className="text-secondary" />
                     <div className="profile-call pt-2">
                       <p>전화번호</p>
-                      {profile.call1 !== '' ? (
+                      {profile.call !== '' ? (
                         <h6 className="text-muted">
-                          {profile.call1}-{profile.call2}-{profile.call3}
+                          {profile.call.split('-')[0]}-{profile.call.split('-')[1]}-
+                          {profile.call.split('-')[2]}
                         </h6>
                       ) : (
                         <h6 className="text-muted">전화번호 정보가 없습니다.</h6>
