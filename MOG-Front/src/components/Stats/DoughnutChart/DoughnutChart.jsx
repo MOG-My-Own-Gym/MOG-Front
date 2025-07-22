@@ -16,6 +16,7 @@ import {
 import { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { Bar, Chart, Line, PolarArea } from 'react-chartjs-2';
+import RadialGradientSpinner from '../../Loader/RadialGradientSpinner';
 
 export default function DoughnutChart({ doughnutData, isMobile, isPolar }) {
   ChartJS.register(
@@ -125,7 +126,7 @@ export default function DoughnutChart({ doughnutData, isMobile, isPolar }) {
         ],
       });
   }, [sortedDoughnutData, sortedRowData]);
-
+  console.log(chartData);
   return (
     <Card
       style={{
@@ -135,10 +136,12 @@ export default function DoughnutChart({ doughnutData, isMobile, isPolar }) {
         position: 'relative',
         overflow: 'hidden',
         zIndex: '0!important',
-        padding: '20px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
-      {chartData ? (
+      {doughnutData && chartData ? (
         isPolar ? (
           <Chart
             type="polarArea"
@@ -155,7 +158,17 @@ export default function DoughnutChart({ doughnutData, isMobile, isPolar }) {
           />
         )
       ) : (
-        <>'데이터 요청에 실패했습니다 다시 시도해주세요'</>
+        <div
+          style={{
+            minHeight: '300px',
+            background: 'transparent',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <RadialGradientSpinner />
+        </div>
       )}
     </Card>
   );

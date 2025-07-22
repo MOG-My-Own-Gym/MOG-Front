@@ -10,6 +10,7 @@ import styles from './Stats.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Login/AuthContext';
 import DoughnutChart from '../../components/Stats/DoughnutChart/DoughnutChart';
+import RadialGradientSpinner from '../../components/Loader/RadialGradientSpinner';
 
 export default function Stats() {
   const { user } = useContext(AuthContext);
@@ -91,6 +92,9 @@ export default function Stats() {
       })
       .then(res => {
         return res.data;
+      })
+      .catch(err => {
+        return undefined;
       });
 
     return data;
@@ -135,7 +139,7 @@ export default function Stats() {
                     <div className={styles['title-dropdown']}>
                       <div className={styles['title']}>
                         <h2>
-                          이번 주 <span></span> 성장 추이
+                          이번 주 <span>{keyMap[selectMenu]}</span> 성장 추이
                         </h2>
                         <h5>저번주보다 0 kcal 더 성장했어요</h5>
                       </div>
@@ -190,14 +194,18 @@ export default function Stats() {
               <Container className={styles['stats-chart-side']}>
                 <Container className={styles['chart-title']}>
                   <Container className={styles['title-container']}>
-                    <h2>이번 주 운동 트렌드</h2>
+                    <h2>
+                      이번 주 운동 <span>트렌드</span>
+                    </h2>
                     <h5>{`이번 주는 ${'...'}등을 가장 많이 했어요`}</h5>
                   </Container>
                 </Container>
                 <DoughnutChart doughnutData={doughnutData} isPolar={true} />
                 <Container className={styles['chart-title']}>
                   <Container className={styles['title-container']}>
-                    <h2>이번 주 운동 퍼포먼스</h2>
+                    <h2>
+                      이번 주 운동 <span>퍼포먼스</span>
+                    </h2>
                     <h5>저번주보다 0 kcal 더 소모했어요</h5>
                   </Container>
                 </Container>
@@ -212,42 +220,61 @@ export default function Stats() {
                     <h5>이번 주 운동의 더 상세한 데이터를 볼 수 있어요</h5>
                   </Container>
                 </Container>
-                <Container className={styles['stats-logs']}>
-                  <Container>
-                    {originData?.map((data, i) => {
-                      console.log(data, i);
-                      return (
-                        <Card style={{ width: '100%' }}>
-                          <Card.Header>{`루틴 ${data.tStart.substring(0, 10)} ${data.tstart.substring(11, 16)} ~ ${data.tEnd.substring(11, 16)}`}</Card.Header>
-                          <Card.Body>
+                {originData ? (
+                  <Container className={styles['stats-logs']}>
+                    <Container>
+                      {originData?.map((data, i) => {
+                        console.log(data, i);
+                        console.log(originData);
+                        return (
+                          <Card style={{ width: '100%' }}>
+                            <Card.Header>{`루틴 ${data.tStart.substring(0, 10)} ${data.tStart.substring(11, 16)} ~ ${data.tEnd.substring(11, 16)}`}</Card.Header>
                             <Card.Body>
-                              <div className={styles['red-details']}>
-                                {Object.entries(data.routineResult).map(entry => {
-                                  if (entry[0] == 'rrId') return;
-                                  console.log(entry);
+                              <Card.Body>
+                                <div className={styles['red-details']}>
+                                  {Object.entries(data.routineResult).map(entry => {
+                                    if (entry[0] == 'rrId') return;
+                                    console.log(entry);
+                                    return (
+                                      <div className={styles['red-detail']}>
+                                        <div className={styles['red-key']}>
+                                          {redKeyMap[entry[0]]}
+                                        </div>
+                                        <div className={styles['red-value']}>{entry[1]}</div>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                                {data.routineEndDetails.map(red => {
                                   return (
-                                    <div className={styles['red-detail']}>
-                                      <div className={styles['red-key']}>{redKeyMap[entry[0]]}</div>
-                                      <div className={styles['red-value']}>{entry[1]}</div>
-                                    </div>
+                                    <Badge bg="undefined" className={styles['red-badge']}>
+                                      {red.srName}
+                                    </Badge>
                                   );
                                 })}
-                              </div>
-                              {data.routineEndDetails.map(red => {
-                                return (
-                                  <Badge bg="undefined" className={styles['red-badge']}>
-                                    {red.srName}
-                                  </Badge>
-                                );
-                              })}
+                              </Card.Body>
                             </Card.Body>
-                          </Card.Body>
-                        </Card>
-                      );
-                    })}
+                          </Card>
+                        );
+                      })}
+                    </Container>
                   </Container>
-                </Container>
+                ) : (
+                  <div
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      background: 'transparent',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <RadialGradientSpinner />
+                  </div>
+                )}
               </Container>
+              :
             </div>
           </Container>
         </Container>
@@ -343,25 +370,40 @@ export default function Stats() {
           </Container>
           <Card>
             <Container className={styles['stats-logs']}>
-              <Container>
-                {originData?.map((data, i) => {
-                  console.log(data, i);
-                  return (
-                    <Card style={{ width: '100%' }}>
-                      <Card.Header>{`루틴 ${data.tStart.substring(0, 10)} ${data.tstart.substring(11, 16)} ~ ${data.tEnd.substring(11, 16)}`}</Card.Header>
-                      <Card.Body>
-                        {data.routineEndDetails.map(red => {
-                          return (
-                            <Badge bg="undefined" className={styles['red-badge']}>
-                              {red.srName}
-                            </Badge>
-                          );
-                        })}
-                      </Card.Body>
-                    </Card>
-                  );
-                })}
-              </Container>
+              {originData ? (
+                <Container>
+                  {originData?.map((data, i) => {
+                    console.log(data, i);
+                    return (
+                      <Card style={{ width: '100%' }}>
+                        <Card.Header>{`루틴 ${data.tStart.substring(0, 10)} ${data.tStart.substring(11, 16)} ~ ${data.tEnd.substring(11, 16)}`}</Card.Header>
+                        <Card.Body>
+                          {data.routineEndDetails.map(red => {
+                            return (
+                              <Badge bg="undefined" className={styles['red-badge']}>
+                                {red.srName}
+                              </Badge>
+                            );
+                          })}
+                        </Card.Body>
+                      </Card>
+                    );
+                  })}
+                </Container>
+              ) : (
+                <div
+                  style={{
+                    width: '100%',
+                    minHeight: '300px',
+                    background: 'transparent',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <RadialGradientSpinner />
+                </div>
+              )}
             </Container>
           </Card>
         </>

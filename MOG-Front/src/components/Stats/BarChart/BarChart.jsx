@@ -11,6 +11,7 @@ import {
 } from 'chart.js';
 import { Card } from 'react-bootstrap';
 import { Bar, Chart, Line } from 'react-chartjs-2';
+import RadialGradientSpinner from '../../Loader/RadialGradientSpinner';
 
 export default function BarChart({ barData, isMobile }) {
   ChartJS.register(
@@ -150,6 +151,9 @@ export default function BarChart({ barData, isMobile }) {
         position: 'relative',
         overflow: 'hidden',
         zIndex: '0!important',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       {barData ? (
@@ -159,7 +163,17 @@ export default function BarChart({ barData, isMobile }) {
           style={{ minHeight: '300px', background: 'transparent' }}
         />
       ) : (
-        <>'데이터 요청에 실패했습니다 다시 시도해주세요'</>
+        <div
+          style={{
+            minHeight: '300px',
+            background: 'transparent',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <RadialGradientSpinner />
+        </div>
       )}
     </Card>
   );

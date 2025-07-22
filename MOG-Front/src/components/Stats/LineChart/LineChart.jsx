@@ -13,9 +13,10 @@ import {
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { Chart, Line } from 'react-chartjs-2';
+import RadialGradientSpinner from '../../Loader/RadialGradientSpinner';
+import LoadFail from '../../Loader/LoadFail/LoadFail';
 
 export default function LineChart({ lineData, lineState }) {
-  if (!lineData) return null;
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -28,7 +29,7 @@ export default function LineChart({ lineData, lineState }) {
     Filler,
   );
   const [selectDataSet, setSelectDataSet] = useState(null);
-  const rowData = lineData.map(data => {
+  const rowData = lineData?.map(data => {
     return data.date.substring(0, 10);
   });
   const chartRow = rowData?.filter((data, index) => {
@@ -45,7 +46,7 @@ export default function LineChart({ lineData, lineState }) {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-
+    zIndex: 0,
     scales: {
       x: {
         beginAtZero: true,
@@ -153,11 +154,13 @@ export default function LineChart({ lineData, lineState }) {
       };
       break;
   }
-  console.log(lineDataSets, lineState);
-  const data = {
-    labels: chartRow,
-    datasets: [lineDataSets],
-  };
+  console.log(lineDataSets, lineState, lineData, chartRow);
+  const data = lineData
+    ? {
+        labels: chartRow,
+        datasets: [lineDataSets],
+      }
+    : null;
   return (
     <Card
       style={{
@@ -167,9 +170,28 @@ export default function LineChart({ lineData, lineState }) {
         position: 'relative',
         overflow: 'hidden',
         zIndex: '0!important',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
-      {lineDataSets && <Line data={data} options={options} style={{ minHeight: '300px' }} />}
+      {lineData ? (
+        <Line data={data} options={options} style={{ minHeight: '300px' }} />
+      ) : lineData == undefined ? (
+        <LoadFail />
+      ) : (
+        <div
+          style={{
+            minHeight: '300px',
+            background: 'transparent',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <RadialGradientSpinner />
+        </div>
+      )}
     </Card>
   );
 }
