@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 import "./css/mypage.css";
 import Profile from "./Profile";
 import MyRoutine from "./MyRoutine";
@@ -13,6 +13,11 @@ import { AuthContext } from "../Login/AuthContext";
 export default function MyPage(){
     const { user } = useContext(AuthContext);
     const [userName, setUserName] = useState('');
+    const location = useLocation();
+
+    const isPathMatch = pathname =>{
+        return location.pathname === pathname;
+    };
 
     useEffect(()=>{
         axios.get(`http://localhost:8080/api/v1/users/${user.usersId}`)
@@ -28,35 +33,35 @@ export default function MyPage(){
                 {/*사이드바 시작 */}
                 <div className="sidebar d-flex flex-column col-auto justify-content-between bg-black text-white px-3 h-100">
                     <div>
-                        <ul className="nav nav-pills flex-column px-0">
+                        <ul className="nav nav-pills-mypage flex-column px-0">
                             <li className="nav-item fs-4 my-1 py-2 py-sm-0 mt-4">
-                                <Link to="/mypage" className="nav-link text-white px-2 fs-5">
+                                <Link to="/mypage" className={isPathMatch('/mypage') || isPathMatch('/mypage/edit') ? "nav-link text-white px-2 fs-5 active-link" : "nav-link text-white px-2 fs-5"}>
                                     <i className="fa-solid fa-circle-user me-3 ps-sm-0 ps-3"></i>
                                     <span className='d-none d-sm-inline'>프로필</span>
                                 </Link>
                             </li>
                             <hr className="text-secondary d-none d-sm-block"/>
                             <li className="nav-item fs-4 my-1 py-2 py-sm-0 mt-4">
-                                <Link to="/mypage/myroutine" className="nav-link text-white px-2 fs-5">
+                                <Link to="/mypage/myroutine" className={isPathMatch('/mypage/myroutine') ? "nav-link text-white px-2 fs-5 active-link" : "nav-link text-white px-2 fs-5"}>
                                     <i className="fa-solid fa-dumbbell me-3 ps-sm-0 ps-3"></i>
                                     <span className='d-none d-sm-inline'>나의 루틴</span>
                                 </Link>
                             </li>
                             <li className="nav-item fs-4 my-1 py-2 py-sm-0 mt-4">
-                                <Link to="/mypage/mysocial" className="nav-link text-white px-2 fs-5">
+                                <Link to="/mypage/mysocial" className={isPathMatch('/mypage/mysocial') ? "nav-link text-white px-2 fs-5 active-link" : "nav-link text-white px-2 fs-5"}>
                                     <i className="fa-solid fa-image me-3 ps-sm-0 ps-3"></i>
                                     <span className='d-none d-sm-inline'>나의 소셜</span>
                                 </Link>
                             </li>
                             <hr className="text-secondary d-none d-sm-block"/>
                             <li className="nav-item fs-4 my-1 py-2 py-sm-0 mt-4">
-                                <Link to="/mypage/settings" className="nav-link text-white px-2 fs-5">
+                                <Link to="/mypage/settings" className={isPathMatch('/mypage/settings') ? "nav-link text-white px-2 fs-5 active-link" : "nav-link text-white px-2 fs-5"}>
                                     <i className="fa-solid fa-gear me-3 ps-sm-0 ps-3"></i>
                                     <span className='d-none d-sm-inline'>환경설정</span>
                                 </Link>
                             </li>
                             <li className="nav-item fs-4 my-1 py-2 py-sm-0 mt-4">
-                                <Link to="/mypage/support" className="nav-link text-white px-2 fs-5">
+                                <Link to="/mypage/support" className={isPathMatch('/mypage/support') || isPathMatch('/mypage/support/withdrawal') ? "nav-link text-white px-2 fs-5 active-link" : "nav-link text-white px-2 fs-5"}>
                                     <i className="fa-solid fa-phone me-3 ps-sm-0 ps-3"></i>
                                     <span className='d-none d-sm-inline'>고객센터</span>
                                 </Link>

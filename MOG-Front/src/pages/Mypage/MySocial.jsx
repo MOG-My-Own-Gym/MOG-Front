@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./css/mysocial.css";
 import { Link } from "react-router-dom";
 export default function MySocial(){
 
@@ -15,9 +14,9 @@ export default function MySocial(){
                 <div>
                     <button className="btn-social" onClick={toggleHeart}>
                         {isLiked ? (
-                            <img className="img-fluid img-routine" src="/img/like.png" alt="Filled Heart" />
+                            <img className="img-fluid img-routine" src="/img/like.png" alt="Filled Heart" style={{ height: '30px' }}/>
                         ) : (
-                            <img className="img-fluid img-routine" src="/img/empty-like.png" alt="Empty Heart" />
+                            <img className="img-fluid img-routine" src="/img/empty-like.png" alt="Empty Heart" style={{ height: '30px' }}/>
                         )}
                     </button>
                 </div>

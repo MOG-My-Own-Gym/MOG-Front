@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import './css/profile.css';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Login/AuthContext';
@@ -77,17 +76,17 @@ export default function Profile() {
                     <hr className="text-secondary" />
                     <div className="profile-nickname pt-2">
                       <p>닉네임</p>
-                      <h6 className="text-muted">{profile.nickName}</h6>
+                      <h6 className="text-muted fw-bold">{profile.nickName}</h6>
                     </div>
                     <hr className="text-secondary" />
                     <div className="profile-email pt-2">
                       <p>아이디</p>
-                      <h6 className="text-muted">{profile.email}</h6>
+                      <h6 className="text-muted fw-bold">{profile.email}</h6>
                     </div>
                     <hr className="text-secondary" />
                     <div className="profile-regDate pt-2">
                       <p>가입일</p>
-                      <h6 className="text-muted">{profile.regDate}</h6>
+                      <h6 className="text-muted fw-bold">{profile.regDate}</h6>
                     </div>
                   </fieldset>
                 </div>
@@ -99,10 +98,12 @@ export default function Profile() {
                   <legend className="float-none w-auto px-3">신체 정보</legend>
                   <div className="physical-info-height">
                     <p>나이</p>
-                    <span className="text-muted fw-bold">{profile.age}</span>
-                    <span className="text-muted fw-bold" id="unit">
-                      세
-                    </span>
+                    { 
+                    profile.age!==0 ?
+                    (<span className="text-muted fw-bold">{profile.age}세</span>)
+                    :
+                    (<span className="text-muted">나이 정보가 없습니다.</span>)
+                    }
                   </div>
                   <hr className="text-secondary" />
                   <div className="physical-info-height">
@@ -114,18 +115,22 @@ export default function Profile() {
                   <hr className="text-secondary" />
                   <div className="physical-info-height">
                     <p>키</p>
-                    <span className="text-muted fw-bold">{profile.height}</span>
-                    <span className="text-muted fw-bold" id="unit">
-                      cm
-                    </span>
+                    { 
+                    profile.height!==0 ?
+                    (<span className="text-muted fw-bold">{profile.height}cm</span>)
+                    :
+                    (<span className="text-muted">나이 정보가 없습니다.</span>)
+                    }
                   </div>
                   <hr className="text-secondary" />
                   <div className="physical-info-height">
                     <p>몸무게</p>
-                    <span className="text-muted fw-bold">{profile.weight}</span>
-                    <span className="text-muted fw-bold" id="unit">
-                      kg
-                    </span>
+                    { 
+                    profile.weight!==0 ?
+                    (<span className="text-muted fw-bold">{profile.weight}kg</span>)
+                    :
+                    (<span className="text-muted">나이 정보가 없습니다.</span>)
+                    }
                   </div>
                 </fieldset>
               </div>

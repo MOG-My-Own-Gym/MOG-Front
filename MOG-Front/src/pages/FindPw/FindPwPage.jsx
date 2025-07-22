@@ -1,70 +1,103 @@
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function FindPwPage() {
-  const [message, setMessage] = useState('');
-  const [usersId, setusersId] = useState('');
-  const [email, setEmail] = useState('');
-  const [isError, setIsError] = useState(false);
+  const [usersProfile, setUsersProfile]=useState({
+    "usersId": "",
+    "biosDto": {
+        "bioId": "",
+        "age": "",
+        "gender": "",
+        "height": "",
+        "weight": ""
+    },
+    "usersName": "",
+    "nickName": "",
+    "email": "",
+    "profileImg": "",
+    "regDate": "",
+    "updateDate": ""
+  })
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const emailRef = useRef();
+  const usernameRef = useRef();
+  const spanErrorRef = useRef();
+
+  const handleChange =e=>{
+    //제출 전에는 유효성 체크x
+      if(e.target.name==='email')
+        setUsersProfile(prev => ({ ...prev, email:e.target.value }));
+  }
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+    spanErrorRef.current.textContent='';
 
-    const requestData = {
-      usersId: usersId,
-      email: email,
-    };
-
-    try {
-      const response = await axios.post(
-        'https://jsonplaceholder.typicode.com/posts', // 테스트용 주소
-        requestData
-      );
-
-      // 테스트용 API는 'id' 값만 반환하므로 임시 처리
-      if (response.data.id) {
-        setMessage('임시 비밀번호가 발송되었습니다.');
-        setIsError(false);
-      } else {
-        setMessage('비밀번호를 찾을 수 없습니다.');
-        setIsError(true);
-      }
-    } catch (error) {
-      console.log('전송된 데이터:', requestData);
-      setMessage('서버 연결 실패');
-      setIsError(true);
+    //유효성 체크
+    if(emailRef.current.value === '' && usernameRef.current.value ===''){
+      spanErrorRef.current.textContent="이름 및 이메일을 모두 입력해주세요";
+      return;
     }
+    else if(emailRef.current.value === ''){
+      spanErrorRef.current.textContent="이메일을 입력해주세요";
+      return;
+    }
+    else if(usernameRef.current.value === ''){
+      spanErrorRef.current.textContent="이름을 입력해주세요";
+      return;
+    }
+    axios.get(`http://localhost:8080/api/v1/users/email/${usersProfile.email}`)
+        .then(res => {
+          console.log(res);
+          
+          if(res.data.usersName===usernameRef.current.value){
+            setUsersProfile(res.data);
+            navigate('/find-pw/change', { state: usersProfile })
+          }
+          else{
+            //이름이 일치하지 않을때 에러 메세지 뿌리기
+            spanErrorRef.current.textContent='가입된 이름이 일치하지 않습니다.';
+            usernameRef.current.focus();
+          }
+
+        })
+        .catch(err=>{
+          console.log(err);
+          //이메일 조회 실패 에러 메세지 뿌리기
+          spanErrorRef.current.textContent='해당 회원이 존재하지 않습니다.';
+          emailRef.current.focus();
+        });
+
   };
+
 
   return <>
     <div className="login-container">
       <h1 className="login-title">비밀번호 찾기</h1>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="아이디 입력"
-          required
-          className="login-input"
-          value={usersId}
-          onChange={(e) => setusersId(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="가입한 이메일"
-          required
-          className="login-input"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <button type="submit" className="login-button">
-          비밀번호 찾기
-        </button>
-      </form>
-      {message && (
-        <p className={`info-message ${isError ? 'error-message' : ''}`}>
-          {message}
-        </p>
-      )}
-    </div>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <input 
+            type="text"
+            name='username'
+            placeholder="이름 입력"
+            className="login-input"
+            ref={usernameRef}
+            onChange={handleChange}
+          />
+          <input
+            type="email"
+            name='email'
+            placeholder="가입한 이메일"
+            className="login-input"
+            ref={emailRef}
+            onChange={handleChange}
+          />
+          <button type="submit" className="login-button">
+            비밀번호 찾기
+          </button>
+        </form>
+        <span ref={spanErrorRef} style={{ color: '#FF0000' }}></span> 
+      </div>
   </>
-}
+};

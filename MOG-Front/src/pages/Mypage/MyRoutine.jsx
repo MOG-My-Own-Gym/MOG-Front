@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./css/myroutine.css";
 export default function MyRoutine(){
 
     const HeartItem =()=>{
@@ -14,9 +13,9 @@ export default function MyRoutine(){
             <div>
                 <button className="btn-routine" onClick={toggleHeart}>
                     {isLiked ? (
-                        <img className="img-fluid img-routine" src="/img/like.png" alt="Filled Heart" />
+                        <img className="img-fluid img-routine" src="/img/like.png" alt="Filled Heart" style={{ height: '1.4em' }}/>
                     ) : (
-                        <img className="img-fluid img-routine" src="/img/empty-like.png" alt="Empty Heart" />
+                        <img className="img-fluid img-routine" src="/img/empty-like.png" alt="Empty Heart" style={{ height: '1.4em' }}/>
                     )}
                 </button>
             </div>

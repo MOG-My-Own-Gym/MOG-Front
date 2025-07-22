@@ -1,5 +1,4 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import './css/profile.css';
 import { useRef, useState } from 'react';
 import axios from 'axios';
 

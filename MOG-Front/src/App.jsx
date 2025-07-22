@@ -21,6 +21,7 @@ import { AuthProvider } from './pages/Login/AuthContext';
 import SignUp from './pages/SignUp/SignUp';
 import FindIdPage from './pages/FindId/FindIdPage';
 import FindPwPage from './pages/FindPw/FindPwPage';
+import ChangePwPage from './pages/FindPw/ChangePwPage';
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -52,6 +53,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/find-id" element={<FindIdPage />} />
           <Route path="/find-pw" element={<FindPwPage />} />
+          <Route path='/find-pw/change' element={<ChangePwPage/>} /> 
         </Routes>
       </AuthProvider>
     </div>
