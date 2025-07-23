@@ -16,6 +16,8 @@ import {
 import { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { Bar, Chart, Line, PolarArea } from 'react-chartjs-2';
+import RadialGradientSpinner from '../../Loader/RadialGradientSpinner';
+import LoadFail from '../../Loader/LoadFail/LoadFail';
 
 export default function DoughnutChart({ doughnutData, isMobile, isPolar }) {
   ChartJS.register(
@@ -125,7 +127,6 @@ export default function DoughnutChart({ doughnutData, isMobile, isPolar }) {
         ],
       });
   }, [sortedDoughnutData, sortedRowData]);
-
   return (
     <Card
       style={{
@@ -135,11 +136,28 @@ export default function DoughnutChart({ doughnutData, isMobile, isPolar }) {
         position: 'relative',
         overflow: 'hidden',
         zIndex: '0!important',
-        padding: '20px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
-      {chartData ? (
-        isPolar ? (
+      {doughnutData && chartData ? (
+        Object.values(doughnutData).length === 0 ? (
+          <div
+            style={{
+              minHeight: '300px',
+              background: 'transparent',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              gap: '1em',
+            }}
+          >
+            <i className={`fa-solid fa-file-circle-xmark fa-4x`} style={{ color: '#808080ff' }}></i>
+            기간 내 운동 기록이 없어요
+          </div>
+        ) : isPolar ? (
           <Chart
             type="polarArea"
             data={chartData}
@@ -154,8 +172,30 @@ export default function DoughnutChart({ doughnutData, isMobile, isPolar }) {
             style={{ minHeight: '300px', background: 'transparent' }}
           />
         )
+      ) : doughnutData === undefined ? (
+        <div
+          style={{
+            minHeight: '300px',
+            background: 'transparent',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <LoadFail />
+        </div>
       ) : (
-        <>'데이터 요청에 실패했습니다 다시 시도해주세요'</>
+        <div
+          style={{
+            minHeight: '300px',
+            background: 'transparent',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <RadialGradientSpinner />
+        </div>
       )}
     </Card>
   );
