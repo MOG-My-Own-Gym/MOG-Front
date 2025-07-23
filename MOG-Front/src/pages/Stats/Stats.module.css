@@ -36,13 +36,13 @@
     overflow: hidden;
   }
 }
-h2 {
+.stats-h2 {
   font-weight: bold !important;
 }
-h5 {
+.stats-h5 {
   color: #ffc800 !important;
 }
-span {
+.stats-span {
   color: #ffc800 !important;
 }
 .stats {
