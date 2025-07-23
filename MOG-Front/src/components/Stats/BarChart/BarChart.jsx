@@ -12,6 +12,7 @@ import {
 import { Card } from 'react-bootstrap';
 import { Bar, Chart, Line } from 'react-chartjs-2';
 import RadialGradientSpinner from '../../Loader/RadialGradientSpinner';
+import LoadFail from '../../Loader/LoadFail/LoadFail';
 
 export default function BarChart({ barData, isMobile }) {
   ChartJS.register(
@@ -157,11 +158,40 @@ export default function BarChart({ barData, isMobile }) {
       }}
     >
       {barData ? (
-        <Chart
-          data={data}
-          options={options}
-          style={{ minHeight: '300px', background: 'transparent' }}
-        />
+        barData.length === 0 ? (
+          <div
+            style={{
+              minHeight: '300px',
+              background: 'transparent',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              gap: '1em',
+            }}
+          >
+            <i className={`fa-solid fa-file-circle-xmark fa-4x`} style={{ color: '#808080ff' }}></i>
+            기간 내 운동 기록이 없어요
+          </div>
+        ) : (
+          <Chart
+            data={data}
+            options={options}
+            style={{ minHeight: '300px', background: 'transparent' }}
+          />
+        )
+      ) : barData === undefined ? (
+        <div
+          style={{
+            minHeight: '300px',
+            background: 'transparent',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <LoadFail />
+        </div>
       ) : (
         <div
           style={{

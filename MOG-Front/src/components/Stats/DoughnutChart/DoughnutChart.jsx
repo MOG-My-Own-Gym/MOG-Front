@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { Bar, Chart, Line, PolarArea } from 'react-chartjs-2';
 import RadialGradientSpinner from '../../Loader/RadialGradientSpinner';
+import LoadFail from '../../Loader/LoadFail/LoadFail';
 
 export default function DoughnutChart({ doughnutData, isMobile, isPolar }) {
   ChartJS.register(
@@ -126,7 +127,6 @@ export default function DoughnutChart({ doughnutData, isMobile, isPolar }) {
         ],
       });
   }, [sortedDoughnutData, sortedRowData]);
-  console.log(chartData);
   return (
     <Card
       style={{
@@ -142,7 +142,22 @@ export default function DoughnutChart({ doughnutData, isMobile, isPolar }) {
       }}
     >
       {doughnutData && chartData ? (
-        isPolar ? (
+        Object.values(doughnutData).length === 0 ? (
+          <div
+            style={{
+              minHeight: '300px',
+              background: 'transparent',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              gap: '1em',
+            }}
+          >
+            <i className={`fa-solid fa-file-circle-xmark fa-4x`} style={{ color: '#808080ff' }}></i>
+            기간 내 운동 기록이 없어요
+          </div>
+        ) : isPolar ? (
           <Chart
             type="polarArea"
             data={chartData}
@@ -157,6 +172,18 @@ export default function DoughnutChart({ doughnutData, isMobile, isPolar }) {
             style={{ minHeight: '300px', background: 'transparent' }}
           />
         )
+      ) : doughnutData === undefined ? (
+        <div
+          style={{
+            minHeight: '300px',
+            background: 'transparent',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <LoadFail />
+        </div>
       ) : (
         <div
           style={{

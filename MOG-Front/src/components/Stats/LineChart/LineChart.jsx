@@ -39,7 +39,6 @@ export default function LineChart({ lineData, lineState }) {
     acc[date] = [];
     return acc;
   }, {});
-  console.log(lineState);
   let lineDataSets;
   let maxLength;
 
@@ -64,7 +63,6 @@ export default function LineChart({ lineData, lineState }) {
       lineData?.forEach(data => {
         chartData[data.date.substring(0, 10)].push(data.muscle);
       });
-      console.log(chartData);
       maxLength = chartData ? Math.max(...Object.values(chartData).map(arr => arr.length)) : null;
       lineDataSets = {
         type: 'line',
@@ -81,7 +79,6 @@ export default function LineChart({ lineData, lineState }) {
         yAxisID: 'y',
       };
 
-      console.log(lineDataSets);
       break;
     case 'setTotal':
       chartRow?.forEach(row => {
@@ -154,7 +151,6 @@ export default function LineChart({ lineData, lineState }) {
       };
       break;
   }
-  console.log(lineDataSets, lineState, lineData, chartRow);
   const data = lineData
     ? {
         labels: chartRow,
@@ -176,9 +172,36 @@ export default function LineChart({ lineData, lineState }) {
       }}
     >
       {lineData ? (
-        <Line data={data} options={options} style={{ minHeight: '300px' }} />
-      ) : lineData == undefined ? (
-        <LoadFail />
+        lineData.length === 0 ? (
+          <div
+            style={{
+              minHeight: '300px',
+              background: 'transparent',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              gap: '1em',
+            }}
+          >
+            <i className={`fa-solid fa-file-circle-xmark fa-4x`} style={{ color: '#808080ff' }}></i>
+            기간 내 운동 기록이 없어요
+          </div>
+        ) : (
+          <Line data={data} options={options} style={{ minHeight: '300px' }} />
+        )
+      ) : lineData === undefined ? (
+        <div
+          style={{
+            minHeight: '300px',
+            background: 'transparent',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <LoadFail />
+        </div>
       ) : (
         <div
           style={{
