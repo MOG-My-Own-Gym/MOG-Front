@@ -15,6 +15,7 @@ export default function Profile() {
     nickName: '',
     email: `${user.email}`,
     profileImg: '',
+    phoneNum:'',
     age: '',
     gender: '',
     height: '',
@@ -34,6 +35,7 @@ export default function Profile() {
             name: getUser.usersName,
             nickName: getUser.nickName,
             profileImg: getUser.profileImg,
+            phoneNum: getUser.phoneNum,
             age: getBio.age,
             gender: getBio.gender,
             height: getBio.height,
@@ -82,6 +84,16 @@ export default function Profile() {
                     <div className="profile-email pt-2">
                       <p>아이디</p>
                       <h6 className="text-muted fw-bold">{profile.email}</h6>
+                    </div>
+                    <hr className="text-secondary" />
+                    <div className="profile-phoneNum pt-2">
+                      <p>전화번호</p>
+                      {
+                      profile.phoneNum.trim().length===11?
+                      <h6 className="text-muted fw-bold">{profile.phoneNum.substring(0,3)}-{profile.phoneNum.substring(3,7)}-{profile.phoneNum.substring(7,profile.phoneNum.length)}</h6>
+                      :
+                      <h6 className="text-muted fw-bold">{profile.phoneNum}</h6>
+                      }
                     </div>
                     <hr className="text-secondary" />
                     <div className="profile-regDate pt-2">

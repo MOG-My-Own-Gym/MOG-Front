@@ -7,18 +7,8 @@ export default function Support(){
 
     const navigate=useNavigate();
     const { user, dispatch } = useContext(AuthContext);
-    let userProfile=null;
     const location = useLocation();
     let currentPath = location.pathname;
-
-    
-    useEffect(()=>{
-        axios.get(`http://localhost:8080/api/v1/users/${user.usersId}`)
-            .then(res=>{
-                userProfile=res.data;
-            })
-            .catch(err=>console.log(err));
-    },[])
 
     const UpdatePassword=()=>{
 
@@ -62,32 +52,43 @@ export default function Support(){
                 return;
             }
 
-            if(exPassword!==userProfile.authDto.password){
-                window.alert('현재 비밀번호가 일치하지 않습니다');
-                document.querySelector('#exPassword').focus();
-                return;
-            }
             if(newPasswordCheck.trim().length===0){
                 window.alert('새 비밀번호가 일치하지 않습니다');
                 document.querySelector('#newPasswordCheck').focus();
                 return;
             }
 
-            axios.put(`http://localhost:8080/api/v1/users/update/${user.usersId}`,
-                {...userProfile,
-                    authDto:{password:newPasswordCheck}
-                },
-                {withCredentials:true,
-                    headers: {
-                    Authorization: `Bearer ${user.accessToken}`
-                    }
-            })
-            .then(res=>{
-                console.log(res.data);
-                window.alert('비밀번호가 변경되었습니다');
-                navigate('/support');
-            })
-            .catch(err=>console.log(err));
+            async function fetchPassword() {
+                try {
+                    const res1 = await axios.get('http://localhost:8080/api/v1/users/auth/password/check',{password:newPasswordCheck});
+                    console.log('비밀번호 확인 성공:', res1.data);
+                } catch (err1) {
+                    console.log('첫 번째 호출 오류 발생:', err1);
+                    window.alert('현재 비밀번호가 일치하지 않습니다');
+                    return;
+                }
+
+                try {
+                    const res2 = await axios.get('http://localhost:8080/api/v1/users/auth/password/update',
+                        {
+                            originPassword:exPassword,
+                            newPassword:newPasswordCheck
+                        },
+                        {
+                            withCredentials:true,
+                            headers: {
+                            Authorization: `Bearer ${user.accessToken}`
+                        }}
+                    );
+                    console.log('비밀번호 변경 성공:', res2.data);
+                    window.alert('비밀번호가 변경되었습니다');
+                    navigate('/support');
+                } catch (err2) {
+                    console.log('두 번째 호출 오류 발생:', err2);
+                    window.alert('비밀번호 변경에 실패하였습니다');
+                }
+            }
+            fetchPassword();
         }
 
         return<>
@@ -119,39 +120,48 @@ export default function Support(){
     const WithdrawalUser=()=>{
         
         const passwordRef=useRef();
-        let password='';
 
         const handleChange=e=>{
             if(e.target.value==='') passwordRef.current.textContent='';
-            else{
-                if(e.target.value===userProfile.authDto.password) {
-                    passwordRef.current.textContent='';
-                    password=e.target.value;
-                }
-                else {
-                    passwordRef.current.textContent='비밀번호가 일치하지 않습니다';
-                    password='';
-                }
-            }
         };
 
         const handleClick=e=>{
             e.preventDefault();
-            if(password!==''){
-                if(window.confirm('정말로 탈퇴하시겠습니까?')){
-                    axios.delete(`http://localhost:8080/api/v1/users/delete/${user.usersId}`)
-                        .then(res=>{
-                            console.log(res);
-                            window.alert('탈퇴되었습니다');
-                            dispatch({type:'LOGOUT'});
-                            navigate('/');
-                        })
-                        .catch(err=>console.log(err));
+            async function fetchWithdrawal() {
+                try {
+                    const res1 = await axios.get('http://localhost:8080/api/v1/users/auth/password/check',{password:passwordRef.current.value});
+                    console.log('비밀번호 확인 성공:', res1.data);
+
+                } catch (err1) {
+                    console.log('첫 번째 호출 오류 발생:', err1);
+                    window.alert('현재 비밀번호가 일치하지 않습니다');
+                    return;
                 }
-                else{
-                    window.alert('취소되었습니다');
+
+                const confirmWithdrawal = confirm('정말 탈퇴하시겠습니까?');
+
+                if(confirmWithdrawal){
+                    try {
+                        const res2 = await axios.delete(`http://localhost:8080/api/v1/users/delete/${res1.data.usersId}`,
+                            {
+                                withCredentials:true,
+                                headers: {
+                                Authorization: `Bearer ${user.accessToken}`
+                            }}
+                        );
+                        console.log('회원탈퇴 성공:', res2.data);
+                        window.alert('탈퇴되었습니다');
+                        dispatch({type:'LOGOUT'});
+                        navigate('/');
+
+                    } catch (err2) {
+                        console.log('두 번째 호출 오류 발생:', err2);
+                        window.alert('회원탈퇴에 실패하였습니다');
+                    }
                 }
+                else window.alert('회원탈퇴가 취소되었습니다');
             }
+            fetchWithdrawal();
         }
 
         return<>

@@ -11,12 +11,13 @@ export default function SignUp(){
         email:'',
         password:'',
         confirmPassword:'',
+        phoneNum:'',
         age:'',
         gender:'',
         height:'',
         weight:''
     });
-    const {name,nickname,email,password,confirmPassword,age,gender,height,weight}=formData;
+    const {name,nickname,email,password,confirmPassword,phoneNum,age,gender,height,weight}=formData;
 
     const checkEmailRef=useRef();
     const checkNameRef=useRef();
@@ -26,6 +27,7 @@ export default function SignUp(){
     const emailCheckResult=useRef();
     const emailRef=useRef();
     const passwordRef=useRef();
+    const checkCallRef=useRef();
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -38,6 +40,8 @@ export default function SignUp(){
       checkNicknameRef.current.textContent = value.trim() === '' ? '닉네임을 입력하세요' : '';
     else if (name === 'password')
       checkPasswordRef.current.textContent = value.trim() === '' ? '비밀번호를 입력하세요' : '';
+    else if (name === 'phoneNum')
+      checkCallRef.current.textContent = value.trim() === '' ? '전화번호를 입력하세요' : '';
 
         //비밀번호 확인
         if(name==='confirmPassword'){
@@ -62,7 +66,8 @@ export default function SignUp(){
         if(email.trim().length===0 ||
             nickname.trim().length===0 || 
             name.trim().length===0 ||
-            password.trim().length===0 
+            password.trim().length===0 ||
+            phoneNum.trim().length===0
             ){
                 window.alert('필수 항목(*)은 반드시 입력해 주세요');
                 return;
@@ -84,6 +89,7 @@ export default function SignUp(){
                 email:email,
                 profileImg:"/img/userAvatar.png",
                 nickName:nickname,
+                phoneNum:phoneNum,
                 biosDto:{
                     gender:gender,
                     age:age,
@@ -99,7 +105,10 @@ export default function SignUp(){
                 window.alert('회원가입 완료');
                 navigator('/login');
             })
-            .catch(err=>console.log(err));
+            .catch(err=>{
+              console.log(err)
+              window.alert('회원가입 실패');
+            });
     };
     
     const handleCheckEmail=(e)=>{
@@ -139,16 +148,16 @@ export default function SignUp(){
                             <span ref={checkEmailRef} style={{color:'#FF0000'}}></span>
                         </div>
                         <div>
-                            <label>닉네임</label>
-                            <span className="text-danger fs-5 mx-2">*</span>
-                            <input className="form-control" name="nickname" placeholder="닉네임" onChange={handleChange}/>
-                            <span ref={checkNicknameRef} style={{color:'#FF0000'}}></span>
-                        </div>
-                        <div>
                             <label>이름</label>
                             <span className="text-danger fs-5 mx-2">*</span>
                             <input className="form-control" name="name" placeholder="이름" onChange={handleChange}/>
                             <span ref={checkNameRef} style={{color:'#FF0000'}}></span>
+                        </div>
+                        <div>
+                            <label>닉네임</label>
+                            <span className="text-danger fs-5 mx-2">*</span>
+                            <input className="form-control" name="nickname" placeholder="닉네임" onChange={handleChange}/>
+                            <span ref={checkNicknameRef} style={{color:'#FF0000'}}></span>
                         </div>
                         <div>
                             <label>비밀번호</label>
@@ -161,6 +170,12 @@ export default function SignUp(){
                             <span className="text-danger fs-5 mx-2">*</span>
                             <input className="form-control" name="confirmPassword" type="password" placeholder="비밀번호 확인" onChange={handleChange} />
                             <span ref={passwordCheckResult} style={{color:'#0000FF'}}></span>
+                        </div>
+                        <div>
+                            <label>전화번호</label>
+                            <span className="text-danger fs-5 mx-2">*</span>
+                            <input className="form-control" name="phoneNum" type="number" placeholder="전화번호 (-을 제외한 숫자만 입력해 주세요)" onChange={handleChange} />
+                            <span ref={checkCallRef} style={{color:'#FF0000'}}></span>
                         </div>
                     </div>
 

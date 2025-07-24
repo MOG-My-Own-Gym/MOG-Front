@@ -61,7 +61,6 @@ export default function FindPwPage() {
             spanErrorRef.current.textContent='가입된 이름이 일치하지 않습니다.';
             usernameRef.current.focus();
           }
-
         })
         .catch(err=>{
           console.log(err);

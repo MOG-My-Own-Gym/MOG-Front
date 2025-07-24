@@ -6,22 +6,22 @@ export default function ProfileEdit() {
   const navigete = useNavigate();
 
   const { state } = useLocation();
-  console.log('state:', state);
 
   //에러 메시지 뿌리기 위한 Span Ref객체
   const spanNameRef = useRef();
   const spanNicknameRef = useRef();
+  const spanPhoneNumRef = useRef();
 
   const [inputs, setInputs] = useState({
     name: state.name,
     nickName: state.nickName,
+    phoneNum: state.phoneNum,
     age: state.age,
     gender: state.gender,
     height: state.height,
     weight: state.weight,
   });
-  const { name, nickName, age, gender, height, weight } = inputs;
-  console.log(inputs);
+  const { name, nickName, phoneNum, age, gender, height, weight } = inputs;
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -30,6 +30,8 @@ export default function ProfileEdit() {
       spanNameRef.current.textContent = value.trim() === '' ? '이름을 입력하세요' : '';
     } else if (name === 'nickName') {
       spanNicknameRef.current.textContent = value.trim() === '' ? '닉네임을 입력하세요' : '';
+    } else if (name === 'phoneNum') {
+      spanPhoneNumRef.current.textContent = value.trim() === '' ? '전화번호를 숫자만 입력해주세요' : '';
     }
 
     if (name === 'gender') {
@@ -42,12 +44,13 @@ export default function ProfileEdit() {
     e.preventDefault();
     const isLengthName = name.trim().length === 0;
     const isLengthNickname = nickName.trim().length === 0;
-    if (isLengthName || isLengthNickname) {
+    const isLengthPhoneNum = phoneNum.trim().length === 0;
+    if (isLengthName || isLengthNickname || isLengthPhoneNum) {
       if (isLengthName) spanNameRef.current.textContent = '이름은 필수 입력값입니다.';
       if (isLengthNickname) spanNicknameRef.current.textContent = '닉네임은 필수 입력값입니다.';
+      if (isLengthNickname) spanNicknameRef.current.textContent = '전화번호는 필수 입력값입니다.';
       return;
     }
-    console.log(state);
     axios
       .put(
         `http://localhost:8080/api/v1/users/update/${state.usersId}`,
@@ -56,12 +59,13 @@ export default function ProfileEdit() {
           nickName: nickName,
           email: state.email,
           profileImg: state.profileImg,
+          phoneNum: phoneNum,
           biosDto: {
             gender: gender,
             age: age,
             height: height,
             weight: weight,
-          },
+          }
         },
         {
           withCredentials: true,
@@ -71,10 +75,12 @@ export default function ProfileEdit() {
         },
       )
       .then(res => {
-        console.log(res);
         navigete('/mypage');
       })
-      .catch(e => console.log(e));
+      .catch(e => {
+        console.log(e);
+        window.alert('프로필 수정 실패');
+      });
   };
 
   return (
@@ -125,7 +131,7 @@ export default function ProfileEdit() {
                         type="text"
                         className="form-control"
                         placeholder="닉네임을 입력해주세요"
-                        name="nickname"
+                        name="nickName"
                         value={nickName}
                         onChange={handleChange}
                       />
@@ -141,6 +147,20 @@ export default function ProfileEdit() {
                         value={state.email}
                         disabled
                       />
+                    </div>
+                    <hr className="text-secondary" />
+                    <div className="profile-phoneNum pt-2 ">
+                      <label className="labels">전화번호</label>
+                      <span className="text-danger">*</span>
+                      <input
+                        type="number"
+                        className="form-control"
+                        placeholder="전화번호를 숫자만 입력해주세요"
+                        name="phoneNum"
+                        value={phoneNum}
+                        onChange={handleChange}
+                      />
+                      <span ref={spanPhoneNumRef} style={{ color: '#FF0000' }}></span>
                     </div>
                   </fieldset>
                 </div>
