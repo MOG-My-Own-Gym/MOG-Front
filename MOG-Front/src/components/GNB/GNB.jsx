@@ -16,7 +16,7 @@ export default function GNB() {
 
   return (
     <nav
-      className='navbar navbar-expand-lg navbar-dark fixed-top'
+      className='navbar navbar-expand-md navbar-dark fixed-top'
       id="mainNav"
       style={{ zIndex: 10, backgroundColor: 'black' }}
     >
