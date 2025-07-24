@@ -1,8 +1,10 @@
 import { useRef, useState } from "react"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useModalAlert } from "../../context/ModalAlertContext";
 
 export default function FindIdPage(){
+    const {showModal}=useModalAlert();
 
     const [formData, setFormData]= useState({
         usersName:'',
@@ -50,7 +52,7 @@ export default function FindIdPage(){
             })
             .catch(err=>{
                 console.log(err);
-                window.alert('아이디 찾기에 실패하였습니다.');
+                showModal('아이디 찾기에 실패하였습니다.');
             })
     };
 

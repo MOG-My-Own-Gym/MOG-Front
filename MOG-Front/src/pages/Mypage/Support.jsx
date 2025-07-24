@@ -2,8 +2,10 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Login/AuthContext";
 import axios from "axios";
+import { useModalAlert } from "../../context/ModalAlertContext";
 
 export default function Support(){
+    const {showModal}=useModalAlert();
 
     const navigate=useNavigate();
     const { user, dispatch } = useContext(AuthContext);
@@ -53,7 +55,7 @@ export default function Support(){
             }
 
             if(newPasswordCheck.trim().length===0){
-                window.alert('새 비밀번호가 일치하지 않습니다');
+                showModal('새 비밀번호가 일치하지 않습니다');
                 document.querySelector('#newPasswordCheck').focus();
                 return;
             }
@@ -64,7 +66,7 @@ export default function Support(){
                     console.log('비밀번호 확인 성공:', res1.data);
                 } catch (err1) {
                     console.log('첫 번째 호출 오류 발생:', err1);
-                    window.alert('현재 비밀번호가 일치하지 않습니다');
+                    showModal('현재 비밀번호가 일치하지 않습니다');
                     return;
                 }
 
@@ -81,11 +83,11 @@ export default function Support(){
                         }}
                     );
                     console.log('비밀번호 변경 성공:', res2.data);
-                    window.alert('비밀번호가 변경되었습니다');
+                    showModal('비밀번호가 변경되었습니다');
                     navigate('/support');
                 } catch (err2) {
                     console.log('두 번째 호출 오류 발생:', err2);
-                    window.alert('비밀번호 변경에 실패하였습니다');
+                    showModal('비밀번호 변경에 실패하였습니다');
                 }
             }
             fetchPassword();
@@ -134,7 +136,7 @@ export default function Support(){
 
                 } catch (err1) {
                     console.log('첫 번째 호출 오류 발생:', err1);
-                    window.alert('현재 비밀번호가 일치하지 않습니다');
+                    showModal('현재 비밀번호가 일치하지 않습니다');
                     return;
                 }
 
@@ -150,16 +152,16 @@ export default function Support(){
                             }}
                         );
                         console.log('회원탈퇴 성공:', res2.data);
-                        window.alert('탈퇴되었습니다');
+                        showModal('탈퇴되었습니다');
                         dispatch({type:'LOGOUT'});
                         navigate('/');
 
                     } catch (err2) {
                         console.log('두 번째 호출 오류 발생:', err2);
-                        window.alert('회원탈퇴에 실패하였습니다');
+                        showModal('회원탈퇴에 실패하였습니다');
                     }
                 }
-                else window.alert('회원탈퇴가 취소되었습니다');
+                else showModal('회원탈퇴가 취소되었습니다');
             }
             fetchWithdrawal();
         }

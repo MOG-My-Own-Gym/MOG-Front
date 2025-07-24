@@ -3,8 +3,10 @@ import './LoginPage.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
+import { useModalAlert } from '../../context/ModalAlertContext';
 
 export default function LoginPage() {
+  const {showModal}=useModalAlert();
   const navigate = useNavigate();
   const { dispatch } = useContext(AuthContext);
 
@@ -40,7 +42,17 @@ export default function LoginPage() {
         navigate('/', { replace: true });
       })
       .catch(e => {
-        setLoginErrMsg(e.response.data.split(':')[1]); //로그인 실패시 오류메세지 화면에 띄워주기
+        console.log(e);
+        
+        if(e.code!=="ERR_NETWORK") {
+          if(e.status===400)
+            setLoginErrMsg(e.response.data.split(':')[1]); //로그인 실패시 오류메세지 화면에 띄워주기
+          else showModal('로그인에 실패하였습니다');
+        }
+        else {
+          setLoginErrMsg('');
+          showModal('로그인에 실패하였습니다');
+        }
       });
   };
 

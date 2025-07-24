@@ -2,8 +2,10 @@ import { useRef, useState } from "react";
 import './SignUp.css'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useModalAlert } from "../../context/ModalAlertContext";
 
 export default function SignUp(){
+    const {showModal}=useModalAlert();
     const navigator = useNavigate();
     const [formData, setFormData]=useState({
         name:'',
@@ -69,16 +71,16 @@ export default function SignUp(){
             password.trim().length===0 ||
             phoneNum.trim().length===0
             ){
-                window.alert('필수 항목(*)은 반드시 입력해 주세요');
+                showModal('필수 항목(*)은 반드시 입력해 주세요');
                 return;
         }
         if(emailCheckResult.current.textContent.trim()===''){
-            window.alert('아이디의 중복여부를 확인해 주세요')
+            showModal('아이디의 중복여부를 확인해 주세요')
             emailRef.current.focus();
             return;
         }
         if(confirmPassword.trim().length===0){
-            window.alert('비밀번호가 일치하지 않습니다.')
+            showModal('비밀번호가 일치하지 않습니다.')
             document.querySelector('input[name="confirmPassword"]').focus();
             return;
         }
@@ -102,12 +104,12 @@ export default function SignUp(){
             })
             .then(resp=>{
                 console.log(resp.data);
-                window.alert('회원가입 완료');
+                showModal('회원가입 완료');
                 navigator('/login');
             })
             .catch(err=>{
               console.log(err)
-              window.alert('회원가입 실패');
+              showModal('회원가입 실패');
             });
     };
     

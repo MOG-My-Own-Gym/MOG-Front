@@ -1,8 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import axios from 'axios';
+import { useModalAlert } from '../../context/ModalAlertContext';
 
 export default function ProfileEdit() {
+  const{showModal}=useModalAlert();
   const navigete = useNavigate();
 
   const { state } = useLocation();
@@ -79,7 +81,7 @@ export default function ProfileEdit() {
       })
       .catch(e => {
         console.log(e);
-        window.alert('프로필 수정 실패');
+        showModal('프로필 수정 실패');
       });
   };
 
