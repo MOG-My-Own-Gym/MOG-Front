@@ -1,17 +1,27 @@
-import React, { useContext, useRef, useState } from 'react';
+'use client';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './LoginPage.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { CLIENT_ID, KAKAO_AUTH_URL, REDIRECT_URI } from '../../utils/auth/oAuth';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { dispatch } = useContext(AuthContext);
+
+  const query = new URLSearchParams(location.search);
+
+  const kakaoCode = query.get('code');
 
   //유효성 검증용
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const [loginErrMsg, setLoginErrMsg] = useState('');
+
+  //카카오 로그인용
+  const kakaoRef = useRef(null);
 
   //로그인 버튼 이벤트 처리
   const handleLogin = e => {
@@ -44,6 +54,41 @@ export default function LoginPage() {
       });
   };
 
+  //카카오 로그인
+  useEffect(() => {
+    const grantType = 'authorization_code';
+    if (kakaoCode) {
+      axios
+        .post(
+          `https://kauth.kakao.com/oauth/token?grant_type=${grantType}&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&code=${kakaoCode}`,
+          {},
+          {
+            headers: {
+              'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+            },
+          },
+        )
+        .then(res => {
+          console.log(res);
+          const { access_token } = res.data;
+          console.log(access_token);
+          axios
+            .post(`http://localhost:8080/api/v1/users/login/kakao`, {
+              socialType: 'kakao',
+              accessToken: access_token,
+            })
+            .then(res => {
+              console.log('kakao login successful');
+              dispatch({ type: 'LOGIN', user: res.data });
+              navigate('/', { replace: true });
+            })
+            .catch();
+        })
+        .catch(error => {
+          //toast
+        });
+    }
+  }, [kakaoCode]);
   return (
     <div className="login-container">
       {/*<img src="/img/moglogo.png" alt="MOG Logo" />*/}
@@ -78,7 +123,15 @@ export default function LoginPage() {
       <div className="social-section">
         <span className="social-text">─── 또는 소셜 계정으로 로그인 ───</span>
         <div className="social-buttons">
-          <button className="social-btn kakao">카카오</button>
+          <button
+            className="social-btn kakao"
+            onClick={() => {
+              kakaoRef.current.click();
+            }}
+          >
+            <a href={KAKAO_AUTH_URL} ref={kakaoRef} hidden></a>
+            카카오
+          </button>
           <button className="social-btn google">구글</button>
           <button className="social-btn naver">네이버</button>
         </div>

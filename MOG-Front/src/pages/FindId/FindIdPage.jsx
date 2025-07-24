@@ -21,8 +21,8 @@ export default function FindIdPage(){
                
             });
             console.log('서버 응답:', response.data);
-            if(response.data.userId){
-            setMessage('아이디:'+response.data.userId)
+            if(response.data.usersId){
+            setMessage('아이디:'+response.data.usersId)
             setIsError(false);
             }else {
                 setMessage('조회된 아이디가 없습니다');
