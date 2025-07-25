@@ -13,25 +13,34 @@ import { useModalAlert } from "../../context/ModalAlertContext";
 
 export default function MyPage(){
     const {showModal}=useModalAlert();
+    //저장되어있는 유저정보 가져오기
     const { user } = useContext(AuthContext);
-    const [userName, setUserName] = useState('');
+    //유저 닉네임 저장할 state(사이드바 제일 아래쪽에 닉네임 띄워주기 위함)
+    const [userNickName, setUserNickName] = useState('');
+    //모바일메뉴가 열려있는지 여부 판단하는 state
     const [isMobileMenuOpen, setIsMobileMenuOpen]=useState(false);
+    //현재 path경로 가져오기 위한 useLocation
     const location = useLocation();
 
+    //사이드바 글씨색상을 변하게하기 위한 path경로 일치 여부 판단 함수
     const isPathMatch = pathname =>{
         if(pathname === '/mypage'){
+            //mypage로 시작하는 경로 중 /mypage(Profile)와 /mypage/edit(ProfileEdit)을 같은 경로 취급
             return location.pathname === '/mypage' || location.pathname ==='/mypage/edit';
         }
         if(pathname === '/mypage/support'){
+            //mypage/support로 시작하는 경로 같은 경로 취급
             return location.pathname.startsWith('/mypage/support');
         }
         return location.pathname === pathname;
     };
 
+    //최초렌더링 시 유저정보 조회
     useEffect(()=>{
         axios.get(`http://localhost:8080/api/v1/users/${user.usersId}`)
             .then(res=>{
-                setUserName(res.data.nickName);
+                //조회한 유저정보의 닉네임 저장 -> 사이드바 아래에 뿌려주기위함
+                setUserNickName(res.data.nickName);
             })
             .catch(err=>{
                 console.log(err);
@@ -39,12 +48,15 @@ export default function MyPage(){
         });
     },[]);
 
+    //플로팅버튼을 누름에 따라 모바일메뉴 오픈 여부 토글하는 함수
     const toggleMobileMenu =e=>{
         e.preventDefault();
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
+    //최초렌더링시와 isMobileMenuOpen스테이트에 따라 렌더링된다
     useEffect(()=>{
+        //모바일메뉴가 열려있으면 스크롤기능x
         if(isMobileMenuOpen){
             document.body.style.overflow='hidden';
         }else{
@@ -56,10 +68,12 @@ export default function MyPage(){
         };
     },[isMobileMenuOpen]);
 
+    //모바일메뉴에서 연결된 다른 페이지(예:프로필->고객센터)로 넘어갔을때 모바일메뉴 닫는 함수
     useEffect(()=>{
         setIsMobileMenuOpen(false);
     },[location.pathname]);
 
+    //모바일의 Link용 배열(데스크톱/태블릿용은 간헐적으로 괘선이 포함되어있어 사용하지 않는 편이 코드가 덜 지저분 하다)
     const menuItem =[
         { path: '/mypage', icon: 'fa-solid fa-circle-user', name: '프로필' },
         { path: '/mypage/myroutine', icon: 'fa-solid fa-dumbbell', name: '나의 루틴' },
@@ -109,11 +123,12 @@ export default function MyPage(){
                             </li>
                         </ul>
                     </div>
+                    {/*사이드바 맨 아래쪽에 유저닉네임 띄워주는 코드 */}
                     <div className='py-4'>
                         <hr className='text-secondary'/>
                         <div className='d-flex justify-content-center'>
                             <i className="fa-solid fa-user fs-5 me-2"></i>
-                            <span className='d-none d-sm-inline'>{userName}</span>
+                            <span className='d-none d-sm-inline'>{userNickName}</span>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 export default function MyRoutine(){
 
+    //하트버튼 누르는 토글여부에 따라 꽉 찬 하트와 빈 하트를 보여주는 컴포넌트
     const HeartItem =()=>{
         const [isLiked, setIsLiked] = useState(false);
       

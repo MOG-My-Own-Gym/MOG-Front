@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 export default function MySocial(){
 
+    //하트버튼 누르는 토글여부에 따라 꽉 찬 하트와 빈 하트를 보여주는 컴포넌트
     const HeartItemSocial =()=>{
             const [isLiked, setIsLiked] = useState(false);
           

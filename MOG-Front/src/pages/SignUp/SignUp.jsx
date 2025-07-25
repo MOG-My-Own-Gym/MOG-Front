@@ -7,6 +7,8 @@ import { useModalAlert } from "../../context/ModalAlertContext";
 export default function SignUp(){
     const {showModal}=useModalAlert();
     const navigator = useNavigate();
+
+    //input입력값 저장하기위한 state
     const [formData, setFormData]=useState({
         name:'',
         nickname:'',
@@ -21,6 +23,7 @@ export default function SignUp(){
     });
     const {name,nickname,email,password,confirmPassword,phoneNum,age,gender,height,weight}=formData;
 
+    //input및 유효성 체크용 Ref
     const checkEmailRef=useRef();
     const checkNameRef=useRef();
     const checkNicknameRef=useRef();
@@ -31,6 +34,7 @@ export default function SignUp(){
     const passwordRef=useRef();
     const checkCallRef=useRef();
 
+  //input입력값 제어하는 함수
   const handleChange = e => {
     const { name, value } = e.target;
     //유효성 체크
@@ -49,12 +53,14 @@ export default function SignUp(){
         if(name==='confirmPassword'){
             if(value === passwordRef.current.value){
                 passwordCheckResult.current.textContent = value.trim()===''?'':'비밀번호 일치';
+                //비밀번호가 일치하는 경우만 confirmPassword 키 저장
                 setFormData(prev=>({...prev,confirmPassword:value}));
             }
             else if(value !== passwordRef.current.value) {
                 passwordCheckResult.current.textContent = value.trim()===''?'':'비밀번호가 일치하지 않습니다';
             }
         }
+        //gender값 저장용
         else if(name === 'gender'){
             if(value=== 'true') setFormData(prev=>({...prev,gender:true}));
             else setFormData(prev=>({...prev,gender:false}));
@@ -62,8 +68,10 @@ export default function SignUp(){
         else setFormData(prev=>({...prev,[name]:value}));
     };
 
+    //회원가입버튼 제어용 함수
     const handleSubmit=(e)=>{
         e.preventDefault();
+
         //유효성 체크
         if(emailRef.current.value.trim().length===0 ||
             nickname.trim().length===0 || 
@@ -85,11 +93,12 @@ export default function SignUp(){
             return;
         }
         
+        //유효성 체크를 통과한경우에만 회원가입 api 요청
         axios.post('http://localhost:8080/api/v1/users/signup',
             {
                 usersName:name,
                 email:email,
-                profileImg:"/img/userAvatar.png",
+                profileImg:"/img/userAvatar.png",//프로필이미지는 기본이미지로 전달
                 nickName:nickname,
                 phoneNum:phoneNum,
                 biosDto:{
@@ -103,7 +112,6 @@ export default function SignUp(){
                 }
             })
             .then(resp=>{
-                console.log(resp.data);
                 showModal('회원가입 완료');
                 navigator('/login');
             })
@@ -112,17 +120,20 @@ export default function SignUp(){
               showModal('회원가입 실패');
             });
     };
-    
+
+    //이메일 중복여부 체크하는 함수
     const handleCheckEmail=(e)=>{
         e.preventDefault();
+        //단일회원조회(이메일)api요청
         axios.get(`http://localhost:8080/api/v1/users/email/${emailRef.current.value}`)
         .then(res=>{
-            console.log(res);
+            //회원조회에 성공한 경우 -> 중복되는 이메일인 경우
             emailCheckResult.current.textContent='이미 존재하는 아이디 입니다';
             emailRef.current.value='';//email을 지워주므로 회원가입하려면 다시 입력해야함
             emailRef.current.focus();
         })
         .catch(err=>{
+            //조회에 실패한 경우 -> 존재하지 않는 회원 즉, 중복되지 않은 이메일인 경우
             console.log(err);
             emailCheckResult.current.textContent='사용 가능한 아이디입니다';
         })

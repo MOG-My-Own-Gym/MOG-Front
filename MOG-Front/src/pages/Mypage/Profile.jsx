@@ -23,13 +23,15 @@ export default function Profile() {
     regDate: ''
   });
 
+  //최초렌더링 및 userId가 변하는 경우에 따라 user정보 네트워크로부터 읽어오기
   useEffect(() => {
     const fetchProfile = async () => {
       await axios
-        .get(`http://localhost:8080/api/v1/users/${user.usersId}`)
+        .get(`http://localhost:8080/api/v1/users/${user.usersId}`)//로그인시 저장된 userId에 따라 단일 회원 조회 api요청
         .then(res => {
           const getUser = res.data;
           const getBio = res.data.biosDto;
+          //읽어온 정보로 프로필 state설정
           setProfile(prev => ({
             ...prev,
             name: getUser.usersName,
@@ -91,7 +93,7 @@ export default function Profile() {
                     <hr className="text-secondary" />
                     <div className="profile-phoneNum pt-2">
                       <p>전화번호</p>
-                      {
+                      {//전화번호가 11자리(핸드폰번호)인 경우 각 번호 사이에 - 표시하기
                       profile.phoneNum.trim().length===11?
                       <h6 className="text-muted fw-bold">{profile.phoneNum.substring(0,3)}-{profile.phoneNum.substring(3,7)}-{profile.phoneNum.substring(7,profile.phoneNum.length)}</h6>
                       :
@@ -113,7 +115,7 @@ export default function Profile() {
                   <legend className="float-none w-auto px-3">신체 정보</legend>
                   <div className="physical-info-height">
                     <p>나이</p>
-                    { 
+                    { //선택정보가 없는 경우 정보가 없다고 표시
                     profile.age!==0 ?
                     (<span className="text-muted fw-bold">{profile.age}세</span>)
                     :

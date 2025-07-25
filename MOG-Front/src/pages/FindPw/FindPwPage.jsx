@@ -1,38 +1,34 @@
 import axios from "axios";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useModalAlert } from "../../context/ModalAlertContext";
 
 export default function FindPwPage() {
-  const [usersProfile, setUsersProfile]=useState({
-    "usersId": "",
-    "biosDto": {
-        "bioId": "",
-        "age": "",
-        "gender": "",
-        "height": "",
-        "weight": ""
-    },
-    "usersName": "",
-    "nickName": "",
-    "email": "",
-    "profileImg": "",
-    "regDate": "",
-    "updateDate": ""
-  })
+  const {showModal}=useModalAlert();
+
+  //form으로 받은 이메일 데이터를 저장할 state
+  const [email, setEmail]=useState('')
+
+  //비밀번호 변경 페이지로 이동하기 위한 navigate
   const navigate = useNavigate();
 
+  //input입력값과 유효성체크메세지를 출력해주기 위한 ref
   const emailRef = useRef();
   const usernameRef = useRef();
   const spanErrorRef = useRef();
 
+  //input입력값 제어하는 함수
   const handleChange =e=>{
-    //제출 전에는 유효성 체크x
+    //제출 전에는 유효성 체크x, email입력값만 email에 저장하기
       if(e.target.name==='email')
-        setUsersProfile(prev => ({ ...prev, email:e.target.value }));
+        setEmail(e.target.value);
   }
 
+  //비밀번호찾기 버튼 눌렀을때 적용되는 함수
   const handleSubmit = (e) => {
+    //제출기능막기
     e.preventDefault();
+    //에러메세지 초기화
     spanErrorRef.current.textContent='';
 
     //유효성 체크
@@ -48,24 +44,24 @@ export default function FindPwPage() {
       spanErrorRef.current.textContent="이름을 입력해주세요";
       return;
     }
-    axios.get(`http://localhost:8080/api/v1/users/email/${usersProfile.email}`)
+
+    //유효성 체크에 통과하면 단일회원조회(이메일) api요청
+    axios.get(`http://localhost:8080/api/v1/users/email/${email}`)
         .then(res => {
-          console.log(res);
-          
+          //이메일로 조회한 유저정보의 이름이 사용자가 입력한 이름과 같으면 비밀번호변경 페이지로 이동
           if(res.data.usersName===usernameRef.current.value){
-            setUsersProfile(res.data);
-            navigate('/find-pw/change', { state: usersProfile })
+            navigate('/find-pw/change');
           }
           else{
-            //이름이 일치하지 않을때 에러 메세지 뿌리기
-            spanErrorRef.current.textContent='가입된 이름이 일치하지 않습니다.';
+            //이름이 일치하지 않을때 모달알러트 띄우기
+            showModal('가입된 이름이 일치하지 않습니다');
             usernameRef.current.focus();
           }
         })
         .catch(err=>{
           console.log(err);
-          //이메일 조회 실패 에러 메세지 뿌리기
-          spanErrorRef.current.textContent='해당 회원이 존재하지 않습니다.';
+          //이메일 조회 실패 모달알러트 띄우기
+          showModal('해당 회원이 존재하지 않습니다');
           emailRef.current.focus();
         });
 

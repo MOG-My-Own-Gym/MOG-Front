@@ -12,8 +12,9 @@ export default function Support(){
     const location = useLocation();
     let currentPath = location.pathname;
 
+    //비밀번호 변경 페이지
     const UpdatePassword=()=>{
-
+        //input입력값 저장하는 state
         const [passwords, setPasswords]=useState({
             exPassword:'',
             newPassword:'',
@@ -21,23 +22,27 @@ export default function Support(){
         });
         const {exPassword,newPassword,newPasswordCheck}=passwords;
         
+        //유효성체크를 위한 Ref
         const exPasswordRef = useRef();
         const newPasswordRef=useRef();
         const checkPasswordRef=useRef();
 
+        //input입력값 제어하는 함수
         const handleChange=e=>{
             const {name,value}=e.target;
+            //새 비밀번호와 비밀번호확인이 일치하는지 체크
             if(name==='newPasswordCheck'){
                 const checkPassword = document.querySelector('#newPassword').value.trim();
                 if(value === checkPassword){
                     checkPasswordRef.current.textContent = value.trim()===''?'':'비밀번호 일치';
+                    //일치하는 경우에만 newPasswordCheck에 입력값 저장
                     setPasswords(prev=>({...prev,newPasswordCheck:value}));
                 }
                 else if(value !== checkPassword) {
                     checkPasswordRef.current.textContent = value.trim()===''?'':'비밀번호가 일치하지 않습니다';
                 }
             }
-            else setPasswords(prev=>({...prev,[name]:value}));
+            else setPasswords(prev=>({...prev,[name]:value})); //newPasswordCheck를 제외한 키값은 유효성 체크 없이 바로 저장
         };
 
         const handleClick=e=>{
@@ -54,12 +59,14 @@ export default function Support(){
                 return;
             }
 
+            //비밀번호확인이 일치하지 않은채로 제출버튼을 누른경우
             if(newPasswordCheck.trim().length===0){
                 showModal('새 비밀번호가 일치하지 않습니다');
                 document.querySelector('#newPasswordCheck').focus();
                 return;
             }
 
+            //유효성체크에 모두 통과한 경우 입력한 현재비밀번호가 네트워크에 저장된 user의 비밀번호와 일치하는지 판단 
             async function fetchPassword() {
                 try {
                     const res1 = await axios.post('http://localhost:8080/api/v1/users/auth/password/check',
@@ -68,13 +75,12 @@ export default function Support(){
                             headers: { Authorization: `Bearer ${user.accessToken}`},
                         },
                     );
-                    console.log('비밀번호 확인 성공:', res1.data);
                 } catch (err1) {
                     console.log('첫 번째 호출 오류 발생:', err1);
                     showModal('현재 비밀번호가 일치하지 않습니다');
                     return;
                 }
-
+                //입력한 현재 비밀번호가 일치한다면 비밀번호변경api 요청
                 try {
                     const res2 = await axios.put('http://localhost:8080/api/v1/users/auth/password/update',
                         {
@@ -87,8 +93,8 @@ export default function Support(){
                             Authorization: `Bearer ${user.accessToken}`
                         }}
                     );
-                    console.log('비밀번호 변경 성공:', res2.data);
                     showModal('비밀번호가 변경되었습니다');
+                    //변경된 경우 새로고침
                     navigate('/mypage/support');
                 } catch (err2) {
                     console.log('두 번째 호출 오류 발생:', err2);
@@ -98,6 +104,7 @@ export default function Support(){
             fetchPassword();
         }
 
+        //비밀번호변경 UI
         return<>
             <div>
                 <div>
@@ -124,17 +131,21 @@ export default function Support(){
         </>
     };
     
+    //회원 탈퇴 페이지
     const WithdrawalUser=()=>{
         
         const passwordRef=useRef();
 
+        //input에 입력값이 없는 경우 유효성체크용 에러메세지 초기화
         const handleChange=e=>{
             if(e.target.value==='') passwordRef.current.textContent='';
         };
 
+        //회원탈퇴버튼 제어하는 함수
         const handleClick=e=>{
             e.preventDefault();
             let res1='';
+            //입력한 비밀번호가 네트워크에 저장된 user의 비밀번호와 일치하는지 판단
             async function fetchWithdrawal() {
                 try {
                     res1 = await axios.post('http://localhost:8080/api/v1/users/auth/password/check',
@@ -143,16 +154,16 @@ export default function Support(){
                             headers: { Authorization: `Bearer ${user.accessToken}`},
                         }
                     );
-                    console.log('비밀번호 확인 성공:', res1.data);
-
                 } catch (err1) {
                     console.log('첫 번째 호출 오류 발생:', err1);
                     showModal('현재 비밀번호가 일치하지 않습니다');
-                    return;
+                    return;//일치하지 않는경우 바로 return
                 }
 
+                //일치한다면 탈퇴여부를 확인하는 알림창 한번 더 띄우기
                 const confirmWithdrawal = confirm('정말 탈퇴하시겠습니까?');
 
+                //사용자가 '확인'을 누른 경우 회원탈퇴 api요청 
                 if(confirmWithdrawal){
                     try {
                         const res2 = await axios.delete(`http://localhost:8080/api/v1/users/delete/${res1.data.usersId}`,
@@ -162,21 +173,24 @@ export default function Support(){
                                 Authorization: `Bearer ${user.accessToken}`
                             }}
                         );
-                        console.log('회원탈퇴 성공:', res2.data);
+                        //탈퇴되었다는 알러트 띄우기
                         showModal('탈퇴되었습니다');
+                        //로그아웃 처리
                         dispatch({type:'LOGOUT'});
+                        //홈으로 이동
                         navigate('/');
 
                     } catch (err2) {
                         console.log('두 번째 호출 오류 발생:', err2);
                         showModal('회원탈퇴에 실패하였습니다');
                     }
-                }
+                }//'취소'를 누른경우 회원탈퇴 취소
                 else showModal('회원탈퇴가 취소되었습니다');
             }
             fetchWithdrawal();
         }
 
+        //회원탈퇴 UI
         return<>
             <div>
                 <div>
@@ -191,12 +205,17 @@ export default function Support(){
         </>
     };
 
+    //고객센터 페이지 
     const CardActive =()=>{
+        //카드헤더탭 액티브 여부 판단용
         const [isActive, setIsActive] = useState(false);
+
+        //최초렌더링시 경로에 따라 액티브 여부 토글
         useEffect(()=>{
             if(currentPath === '/mypage/support') setIsActive(!isActive);
         },[])
 
+        //카드 헤더 탭 UI
         return <>
             <li className="nav-item">
                 {isActive?
@@ -215,6 +234,7 @@ export default function Support(){
         </>
     };
 
+    //고객센터페이지 UI
     return<>
         <div className="container pt-5">
             <div className="container-fluid d-flex">

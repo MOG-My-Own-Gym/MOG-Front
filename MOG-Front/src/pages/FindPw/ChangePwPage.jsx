@@ -1,16 +1,17 @@
 import axios from "axios";
-import { useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useModalAlert } from "../../context/ModalAlertContext";
 
 export default function ChangePwPage(){
     const {showModal}=useModalAlert();
-    const { state } = useLocation();
     const navigate = useNavigate();
 
+    //유효성체크용 Ref
     const passwordRef = useRef();
     const spanErrorRef = useRef();
 
+    //새 비밀번호와 비밀번호확인이 일치하는지 판단할 변수
     let isPasswordMatch = false;
 
     const handleChange=e=>{
@@ -33,9 +34,11 @@ export default function ChangePwPage(){
         if(isPasswordMatch){
             //비밀번호 변경 로직 처리
             showModal('이메일을 통한 비밀번호 변경 로직 처리 예정');
+            //로그인 페이지로 이동
+            navigate('/login');
             return;
         }
-        else {
+        else {//비밀번호가 서로 일치하지 않은채로 제출하면 알림띄우기
             showModal('비밀번호가 일치하지 않습니다');
             return;
         }

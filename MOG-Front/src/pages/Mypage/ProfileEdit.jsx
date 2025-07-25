@@ -16,6 +16,7 @@ export default function ProfileEdit() {
   const spanNicknameRef = useRef();
   const spanPhoneNumRef = useRef();
 
+  //profile페이지에서 넘겨받은 state로 input채우기
   const [inputs, setInputs] = useState({
     name: state.name,
     nickName: state.nickName,
@@ -27,6 +28,7 @@ export default function ProfileEdit() {
   });
   const { name, nickName, phoneNum, age, gender, height, weight } = inputs;
 
+  //input입력값 제어하는 함수
   const handleChange = e => {
     const { name, value } = e.target;
     //유효성 검증
@@ -38,23 +40,29 @@ export default function ProfileEdit() {
       spanPhoneNumRef.current.textContent = value.trim() === '' ? '전화번호를 숫자만 입력해주세요' : '';
     }
 
+    //gender라디오 버튼인 경우 true혹은 false로 저장(저장된 state는 문자열로 읽어오기 때문에 문자열-> 불린값으로 바꿔주기 위함)
     if (name === 'gender') {
       if (value === 'true') setInputs(prev => ({ ...prev, gender: true }));
       else setInputs(prev => ({ ...prev, gender: false }));
     } else setInputs(prev => ({ ...prev, [name]: value }));
   };
 
+  //프로필변경 저장 버튼 클릭시
   const toProfile = e => {
     e.preventDefault();
     const isLengthName = name.trim().length === 0;
     const isLengthNickname = nickName.trim().length === 0;
     const isLengthPhoneNum = phoneNum.trim().length === 0;
+
+    //필수 입력정보를 입력하지 않았을경우 바로 return
     if (isLengthName || isLengthNickname || isLengthPhoneNum) {
       if (isLengthName) spanNameRef.current.textContent = '이름은 필수 입력값입니다.';
       if (isLengthNickname) spanNicknameRef.current.textContent = '닉네임은 필수 입력값입니다.';
-      if (isLengthNickname) spanNicknameRef.current.textContent = '전화번호는 필수 입력값입니다.';
+      if (isLengthPhoneNum) spanPhoneNumRef.current.textContent = '전화번호는 필수 입력값입니다.';
       return;
     }
+
+    //유효성 체크 통과한 경우 회원정보수정 api 요청
     axios
       .put(
         `http://localhost:8080/api/v1/users/update/${user.usersId}`,
@@ -79,6 +87,7 @@ export default function ProfileEdit() {
         }
       )
       .then(res => {
+        //회원정보수정에 성공한 경우 profile페이지로 바로 이동
         navigete('/mypage');
       })
       .catch(e => {
