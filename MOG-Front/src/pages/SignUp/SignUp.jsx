@@ -65,7 +65,7 @@ export default function SignUp(){
     const handleSubmit=(e)=>{
         e.preventDefault();
         //유효성 체크
-        if(email.trim().length===0 ||
+        if(emailRef.current.value.trim().length===0 ||
             nickname.trim().length===0 || 
             name.trim().length===0 ||
             password.trim().length===0 ||
@@ -115,20 +115,16 @@ export default function SignUp(){
     
     const handleCheckEmail=(e)=>{
         e.preventDefault();
-        axios.get(`http://localhost:8080/api/v1/users/list`)
+        axios.get(`http://localhost:8080/api/v1/users/email/${emailRef.current.value}`)
         .then(res=>{
             console.log(res);
-            const users=res.data;
-            const findUser = users.findIndex(user=>user.email === emailRef.current.value);
-            if(findUser!==-1) {
-                emailCheckResult.current.textContent='이미 존재하는 아이디 입니다';
-                emailRef.current.value='';
-                emailRef.current.focus();
-            }
-            else emailCheckResult.current.textContent='사용 가능한 아이디입니다';
+            emailCheckResult.current.textContent='이미 존재하는 아이디 입니다';
+            emailRef.current.value='';//email을 지워주므로 회원가입하려면 다시 입력해야함
+            emailRef.current.focus();
         })
         .catch(err=>{
             console.log(err);
+            emailCheckResult.current.textContent='사용 가능한 아이디입니다';
         })
     }
 
