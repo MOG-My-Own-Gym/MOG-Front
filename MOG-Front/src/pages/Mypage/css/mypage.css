@@ -1,6 +1,5 @@
 /*mypage.css*/
     /*기존 데스크톱/태블릿용 사이드바 스타일*/
-
     .nav-pills-mypage li:hover,
     .nav-pills-mypage li.active{
         background-color: rgba(255, 200, 2, 0.5);
@@ -13,13 +12,14 @@
     }
 
     /*모바일용 플로팅 버튼 스타일 */
-    .floating-button-container{
+     .floating-button-container{
         position: fixed;
         bottom: 20px;
         right: 20px;
         z-index: 1060;
+        border: none;
     }
-
+    
     .floating-button{
         width: 60px;
         height: 60px;
@@ -33,6 +33,7 @@
 
     .floating-button.active{
         background-color: #dc3545 !important;
+        border:none;
     }
 
     /*모바일 메뉴 오버레이 및 내용 스타일*/
@@ -41,44 +42,32 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 100px;
+        height: 100%;
         background-color: rgba(0,0,0,0.4);
         z-index: 1050;
         display: block;
     }
-
+    
     .mobile-menu-content{
         position: fixed;
         bottom: 90px;
         right: 20px;
-        z-index: 1055;
+        z-index: 1060;
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.25);
         min-width: 180px;
         max-width: 250px;
         padding: 0.5rem 0;
-        /*애니메이션 효과*/
-        transform: translateY(20px);
-        opacity: 0;
-        visibility: hidden;
-        transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-out;
     }
-
-    /*모바일 메뉴가 열렸을때의 스타일*/
-    .mobile-menu-content[style]{
-        transform: translateY(0) !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-
+   
     /*모바일 메뉴 아이템 스타일*/
     .mobile-menu-content .list-group-item{
         border: none;
-        padding: 0;
+        padding: 0.2rem;
         background-color: transparent;
     }
-
+    
     .mobile-menu-content .nav-link{
         color: #343a40;
         padding: 0.75rem 1rem;
@@ -87,8 +76,9 @@
     }
 
     .mobile-menu-content .nav-link:hover{
-        background-color:#f8f9fa;
-        color:#ffc107;
+        background-color:#ffc107;
+        border-radius: 1em;
+        color:#fff;
     }
     
     .mobile-menu-content .nav-link.active-link{
