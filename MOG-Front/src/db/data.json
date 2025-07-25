@@ -211,6 +211,29 @@
         "rouTime": "38",
         "exVolum": "980"
       }
+    },
+    {
+      "id": "7",
+      "retId": "2",
+      "tStart": "2025-07-24T10:30:51.210Z",
+      "tEnd": "2025-07-24T10:30:54.675Z",
+      "routineEndDetails": [
+        {
+          "srName": "90/90 Hamstring",
+          "setNumber": "1",
+          "reps": "10",
+          "weight": "1"
+        }
+      ],
+      "routineResult": {
+        "muscle": "28",
+        "kcal": "230",
+        "reSet": "2",
+        "setNum": "4",
+        "volum": "1000",
+        "rouTime": "38",
+        "exVolum": "980"
+      }
     }
   ],
   "routine_detail": [

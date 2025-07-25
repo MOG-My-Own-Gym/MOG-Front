@@ -74,7 +74,7 @@ function Model({
             setCurrentRrcodingRoutineId(0);
             resetTimer();
             reset();
-            navigate(`/data/routineresult`);
+            navigate(`/data/routineresult`,{state:inputResult});
         }else{
             localStorage.removeItem("detailSetData")
             setStartRrcodResultData(false);

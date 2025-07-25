@@ -29,7 +29,7 @@ function App() {
   }, [toast]);
 
   return (
-    <div style={{ padding: '5em 0 0 0' }}>
+    <div style={{ padding: '4.5em 0 0 0' }}>
       <AuthProvider>
         <GNB />
         <Routes>
