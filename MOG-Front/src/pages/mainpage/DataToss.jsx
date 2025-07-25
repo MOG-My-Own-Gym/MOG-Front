@@ -24,6 +24,8 @@ const DataToss=()=>{
     const [subDetailTime,setSubDetailTime]=useState(0);
     const [currentRrcodingRoutineId,setCurrentRrcodingRoutineId] = useState(0);
     const [resetTimeCheckBoolean,setResetTimeCheckBoolean]= useState(false);
+    const [checkRoutineUser,setCheckRoutineUser] = useState([]);//유저 구분 후 루틴 값
+
     const [elapsed, setElapsed] = useState(0); // 총 경과 시간 (초)
     const [isRunning, setIsRunning] = useState(false);
     const startTimeRef = useRef(null);
@@ -37,6 +39,7 @@ const DataToss=()=>{
         await axios.get(URL.ROUTINEDETAIL)
             .then(res=>setDetailExData(res.data))
     }
+
     const closeModal = () => setIsOpen(false);
 
     const reset = () => {
@@ -66,28 +69,29 @@ const DataToss=()=>{
         }
     };
 
-        // 초기화
-        const resetTimer = () => {
-            clearInterval(intervalRef.current);
-            setElapsed(0);
-            setIsRunning(false);
-            startTimeRef.current = null;
-        };
+    // 초기화
+    const resetTimer = () => {
+        clearInterval(intervalRef.current);
+        setElapsed(0);
+        setIsRunning(false);
+        startTimeRef.current = null;
+    };
 
-        // 언마운트 시 타이머 정리
-        useEffect(() => {
-            return () => clearInterval(intervalRef.current);
-        }, []);
+    // 언마운트 시 타이머 정리
+    useEffect(() => {
+       
+        return () => clearInterval(intervalRef.current);
+    }, []);
 
-        // 시간 포맷
-        const formatTime = () => {
-            const h = String(Math.floor(elapsed / 3600)).padStart(2, '0');
-            const m = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
-            const s = String(elapsed % 60).padStart(2, '0');
-            if (elapsed < 60) return `${s}s`;
-            if (elapsed < 3600) return `${m}:${s}`;
-            return `${h}:${m}:${s}`;
-        };
+    // 시간 포맷
+    const formatTime = () => {
+        const h = String(Math.floor(elapsed / 3600)).padStart(2, '0');
+        const m = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
+        const s = String(elapsed % 60).padStart(2, '0');
+        if (elapsed < 60) return `${s}s`;
+        if (elapsed < 3600) return `${m}:${s}`;
+        return `${h}:${m}:${s}`;
+    };
 
     return <>
         {isOpen&&<Model 
@@ -104,7 +108,7 @@ const DataToss=()=>{
             reset={reset}
             setResetTimeCheckBoolean={setResetTimeCheckBoolean}
             resetTimeCheckBoolean={resetTimeCheckBoolean}
-
+            elapsed={elapsed}
         />}
         <Routes>
             <Route path="" element={<SelectMainpage 
@@ -118,6 +122,8 @@ const DataToss=()=>{
                 isRunning={isRunning}
                 setIsOpen={setIsOpen}
                 setResetTimeCheckBoolean={setResetTimeCheckBoolean}
+                setCheckRoutineUser={setCheckRoutineUser}
+                checkRoutineUser={checkRoutineUser}
                 />}>
             </Route>
             <Route path="/select" element={<CategoryPage 
@@ -125,6 +131,7 @@ const DataToss=()=>{
                 fetchData={fetchData} 
                 detailData={detailData} 
                 useDetailExData={useDetailExData}
+                checkRoutineUser={checkRoutineUser}
                 />}>
             </Route>
             <Route path="/routine" element={<RoutinePage 

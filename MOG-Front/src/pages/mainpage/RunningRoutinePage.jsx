@@ -50,47 +50,7 @@ export default function RunningRoutinePage({
         ); return res;})
         .then(res=> setCheckRouData(res.data))
     }
-    /*
-    const exSendResultData = async (e)=>{
-        await axios.get(`${URL.ROUTINERESULT}/${routineId}`)
-                    .then(res=>{
-                        const inputData = res.data.routineEndDetails;
-                        if(inputData.length===0){
-                            axios.put(`${URL.ROUTINERESULT}/${routineId}`,{
-                                "id": res.data.id,
-                                "retId":res.data.retId,
-                                "tStart": res.data.tStart,
-                                "tEnd": new Date(),
-                                "routineEndDetails": [
-                                    { 
-                                        "srName": showDetail[0].names, 
-                                        "setNumber": e.target.id, 
-                                        "reps": addSetState[parseInt(e.target.id)-1].weight, 
-                                        "weight": addSetState[parseInt(e.target.id)-1].many 
-                                    }
-                                ]
-                            })
-                        }
-                        else{
-                            inputData.push({
-                                "srName": showDetail[0].names, 
-                                "setNumber": e.target.id, 
-                                "reps": addSetState[parseInt(e.target.id)-1].weight, 
-                                "weight": addSetState[parseInt(e.target.id)-1].many
-                            })
-                            axios.put(`${URL.ROUTINERESULT}/${routineId}`,{
-                                "id": res.data.id,
-                                "retId":res.data.retId,
-                                "tStart": res.data.tStart,
-                                "tEnd": new Date(),
-                                "routineEndDetails": [
-                                    ...inputData
-                                ]
-                            })
-                        }
-                    });
-    }
-    */
+   
     const exSendResultData=(e)=>{
         if(e.target.dataset.id==="complete"){
             reset();

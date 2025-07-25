@@ -9,7 +9,8 @@ export default function CategoryPage({
         useDataRoutine,
         fetchData,
         detailData,
-        useDetailExData
+        useDetailExData,
+        checkRoutineUser
     }){
 
     const makeListNode =[];
@@ -67,14 +68,13 @@ export default function CategoryPage({
     
     const makeRoutineButton= async () => {
         //e.preventDefault();
+        const userInfo = JSON.parse(localStorage.getItem('user'));
         if(state===null) {alert('루틴 생성 실패'); return;}
         const makeDetailNode =[];
         if(state===true){
-            //setConunt(prev=>prev+1);
-            //setSaveExercise(res=>res.map((item,index)=>({...item,id:String(1+index)})));
             addSetId = initSaveExercise.map((item,index)=>({...item,set_id: String(index + 1)}));
-            const nameR = 'routine'+String(useDataRoutine.length<=0?1:parseInt(useDataRoutine[useDataRoutine.length-1].id)+1);
-            await axios.post(URL.ROUNTINE,{id:String(useDataRoutine.length<=0?1:parseInt(useDataRoutine[useDataRoutine.length-1].id)+1),name:nameR,state:[...addSetId]})
+            const routineName = 'routine'+String(checkRoutineUser.length<=0?1:checkRoutineUser.length+1);
+            await axios.post(URL.ROUNTINE,{id:String(useDataRoutine.length<=0?1:parseInt(useDataRoutine[useDataRoutine.length-1].id)+1),name:routineName,userId:String(userInfo.usersId),state:[...addSetId]})
             for(let i=0;i <= addSetId.length-1;i++){
                 makeDetailNode.push({
                     id: addSetId[i].set_id,
@@ -89,12 +89,11 @@ export default function CategoryPage({
                 })         
             }
             await axios.post(URL.ROUTINEDETAIL,{id:String(useDataRoutine.length<=0?1:parseInt(useDataRoutine[useDataRoutine.length-1].id)+1),state:[...makeDetailNode]})
-            //setDataRoutine(prev=>[...prev,response.data]);
             navigate(`/data/routine?routineId=${useDataRoutine.length+1}`)
         }else{
             const makeRoutineId = useDataRoutine[state-1].state.length===0?0:Math.max(...useDataRoutine[state-1].state.map(item=>parseInt(item.set_id)));
             addSetId = initSaveExercise.map((item,index)=>({...item,set_id: String(makeRoutineId + index + 1)}));
-            await axios.put(`${URL.ROUNTINE}/${state}`,{id:String(useDataRoutine[state-1].id),name:useDataRoutine[state-1].name,state:[...useDataRoutine[state-1].state, ...addSetId]})
+            await axios.put(`${URL.ROUNTINE}/${state}`,{id:String(useDataRoutine[state-1].id),name:useDataRoutine[state-1].name,userId:String(userInfo.usersId),state:[...useDataRoutine[state-1].state, ...addSetId]})
             for(let i=0;i <= addSetId.length-1;i++){
                 makeDetailNode.push({
                     id: addSetId[i].set_id,
@@ -120,11 +119,9 @@ export default function CategoryPage({
         setSaveExercise(prev=>[...prev,...saveR]); 
         countSaveRoutineInt = initSaveExercise.filter(item=>item.names===e.currentTarget.id).length+1;
         e.target.children[1].textContent=countSaveRoutineInt;
-        //console.log(e.target.children[1].id);
         setSaveExerciseSpan(prev=>{
             const inputExSpan = [...prev,e.target.children[1].id]
             setIsHidden(inputExSpan.length===0?true:false);
-            console.log("1:",inputExSpan)
             return inputExSpan
         });
         
@@ -139,11 +136,8 @@ export default function CategoryPage({
             const spanNode = document.getElementById(res[res.length -1]);
             setIsHidden(delExDate.length===0?true:false);
             const compreToDeleteEx = spanNode.id.slice(0,-4);
-            console.log("compreToDeleteEx:",compreToDeleteEx)
             countSaveRoutineInt = initSaveExercise.filter(item=>item.names===compreToDeleteEx).length-1;
-            console.log("countSaveRoutineInt:",countSaveRoutineInt)
             spanNode.textContent=countSaveRoutineInt===0?"":countSaveRoutineInt;
-            console.log("2:",delExDate)
             return delExDate;
         });
     }
@@ -189,7 +183,6 @@ export default function CategoryPage({
                         imgfile:`https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/${name2}/images/0.jpg`
                     })
                 }
-                //const addListImg ={...makeDetailNode,imgfile:imgfile};
                 makeListNode.push({
                     names: nameR,
                     category: [...new Set(category)],

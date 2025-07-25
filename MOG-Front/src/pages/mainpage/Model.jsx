@@ -16,7 +16,8 @@ function Model({
         resetTimer,
         reset,
         setResetTimeCheckBoolean,
-        resetTimeCheckBoolean
+        resetTimeCheckBoolean,
+        elapsed,
     }){
     const [getRoutineLength,setRoutineLength] = useState();
     const navigate = useNavigate();
@@ -55,18 +56,21 @@ function Model({
     const stopRrcodResultData=()=>{
         if(!resetTimeCheckBoolean){
             const resultData = JSON.parse(localStorage.getItem("detailSetData"));
+            const allSetNum = resultData.routineEndDetails.reduce((index,item)=>index+parseInt(item.setNumber),0);
+            const allReps = resultData.routineEndDetails.reduce((index,item)=>index+parseInt(item.reps),0);
+            const allWeight = resultData.routineEndDetails.reduce((index,item)=>index+parseInt(item.weight),0);
             const inputResult = {...resultData,tEnd: new Date(),
                 "routineResult": { 
                     "muscle": "28", 
-                    "kcal": "230", 
-                    "reSet": "2", 
-                    "setNum": "4", 
-                    "volum": "1000", 
-                    "rouTime": "38", 
-                    "exVolum": "980" 
+                    "kcal": String(Math.trunc(6*70*(elapsed/3600))), //사용 칼로리
+                    "reSet": String(allSetNum), //총 세트수
+                    "setNum": String(allReps), //총 운동 횟수
+                    "volum": "1000", //운동 볼륨
+                    "rouTime": String(Math.trunc(elapsed/60)), //총 운동 시간
+                    "exVolum": String(allWeight) //총 무게 값
                 }
             }
-            axios.post(URL.ROUTINERESULT,{
+            axios.post(URL.REALDATA,{
                 ...inputResult
             })
             .then(localStorage.removeItem("detailSetData"))

@@ -15,7 +15,6 @@ function SetTime({
         setDetailTime,
         setIsCurrentRunning,
         startRrcodResultData,
-        currentRrcodingRoutineId
     }) {
 
     const [initDetail,setDetail] = useState();
@@ -97,42 +96,42 @@ function SetTime({
     }, [isCurrentTimeRunning, subDetailTime]);
     
     const ITEM_HEIGHT = 50;
-const VISIBLE_COUNT = 3;
-const PADDING_HEIGHT = (ITEM_HEIGHT * VISIBLE_COUNT) / 2 - ITEM_HEIGHT / 2;
+    const VISIBLE_COUNT = 3;
+    const PADDING_HEIGHT = (ITEM_HEIGHT * VISIBLE_COUNT) / 2 - ITEM_HEIGHT / 2;
 
-const items = [
-  '10','20','30','40','50','60','70','80','90','100',
-  '110','120','130','140','150','160','170','180','190','200',
-  '210','220','230','240','250','260','270','280','290','300'
-];
- const containerRef = useRef(null);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const scrollTimeout = useRef(null);
+    const items = [
+    '10','20','30','40','50','60','70','80','90','100',
+    '110','120','130','140','150','160','170','180','190','200',
+    '210','220','230','240','250','260','270','280','290','300'
+    ];
+    const containerRef = useRef(null);
+    const [selectedIndex, setSelectedIndex] = useState(0);
+    const scrollTimeout = useRef(null);
 
-  const onScroll = () => {
-    if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+    const onScroll = () => {
+        if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
 
-    scrollTimeout.current = setTimeout(() => {
-      const container = containerRef.current;
-      if (!container) return;
+        scrollTimeout.current = setTimeout(() => {
+        const container = containerRef.current;
+        if (!container) return;
 
-      const scrollMid = container.scrollTop + container.clientHeight / 2;
+        const scrollMid = container.scrollTop + container.clientHeight / 2;
 
-      let closestIndex = 0;
-      let minDist = Infinity;
+        let closestIndex = 0;
+        let minDist = Infinity;
 
-      items.forEach((_, idx) => {
-        const itemMid = PADDING_HEIGHT + idx * ITEM_HEIGHT + ITEM_HEIGHT / 2;
-        const dist = Math.abs(scrollMid - itemMid);
-        if (dist < minDist) {
-          minDist = dist;
-          closestIndex = idx;
-        }
-      });
+        items.forEach((_, idx) => {
+            const itemMid = PADDING_HEIGHT + idx * ITEM_HEIGHT + ITEM_HEIGHT / 2;
+            const dist = Math.abs(scrollMid - itemMid);
+            if (dist < minDist) {
+            minDist = dist;
+            closestIndex = idx;
+            }
+        });
 
-      setSelectedIndex(closestIndex);
-    }, 10);
-  };
+        setSelectedIndex(closestIndex);
+        }, 10);
+    };
 
   useEffect(() => {
     const container = containerRef.current;
@@ -143,7 +142,7 @@ const items = [
   }, []);
 
     return <>
-        <div className={` ${styles.header} container`} style={{position:'fixed',top:'75px',zIndex:'100'}}>
+        <div className={` ${styles.header} container`} style={{position:'fixed',top:'85px',zIndex:'100'}}>
             <a href='#' style={{textDecoration: "none"}} onClick={()=>setShow(true)}><h2>{subDetailTime}</h2></a>
             <Button className={` btn btn-primary`} type="button" onClick={e=>plus()}>+</Button>
             <Button className={` btn btn-primary`} type="button" onClick={e=>minus()}>-</Button>
