@@ -83,12 +83,12 @@ export default function FindIdPage(){
             </form>)
             :
             (<div>
-                <span className="text-bold fs-4 text-warning">{user.nickName}</span>
+                <span className="text-bold fs-4" style={{color:"rgb(255, 200, 2)"}}>{user.nickName}</span>
                 <span className="fs-5">님의 아이디는 </span>
-                <span className="text-bold fs-3 text-danger">{user.email}</span>
+                <span className="text-bold fs-3" style={{color:"rgb(255, 200, 2)"}}>{user.email}</span>
                 <span className="fs-5">입니다.</span>
                 <div>
-                    <button className="btn btn-warning mt-5" onClick={e=>{
+                    <button className="btn mt-5" style={{backgroundColor:"rgb(255, 200, 2)", color:"white"}} onClick={e=>{
                         e.preventDefault();
                         navigate('/login')}}>로그인페이지로 이동</button>
                 </div>

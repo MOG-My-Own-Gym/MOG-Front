@@ -1,11 +1,13 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import axios from 'axios';
 import { useModalAlert } from '../../context/ModalAlertContext';
+import { AuthContext } from '../Login/AuthContext';
 
 export default function ProfileEdit() {
   const{showModal}=useModalAlert();
   const navigete = useNavigate();
+  const {user} = useContext(AuthContext);
 
   const { state } = useLocation();
 
@@ -55,7 +57,7 @@ export default function ProfileEdit() {
     }
     axios
       .put(
-        `http://localhost:8080/api/v1/users/update/${state.usersId}`,
+        `http://localhost:8080/api/v1/users/update/${user.usersId}`,
         {
           usersName: name,
           nickName: nickName,
@@ -72,9 +74,9 @@ export default function ProfileEdit() {
         {
           withCredentials: true,
           headers: {
-            Authorization: `Bearer ${state.accessToken}`,
+            Authorization: `Bearer ${user.accessToken}`,
           },
-        },
+        }
       )
       .then(res => {
         navigete('/mypage');

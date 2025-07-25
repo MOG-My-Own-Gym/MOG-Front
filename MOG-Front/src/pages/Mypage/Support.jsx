@@ -62,7 +62,12 @@ export default function Support(){
 
             async function fetchPassword() {
                 try {
-                    const res1 = await axios.get('http://localhost:8080/api/v1/users/auth/password/check',{password:newPasswordCheck});
+                    const res1 = await axios.post('http://localhost:8080/api/v1/users/auth/password/check',
+                        {password:exPassword},
+                        {   withCredentials: true,
+                            headers: { Authorization: `Bearer ${user.accessToken}`},
+                        },
+                    );
                     console.log('비밀번호 확인 성공:', res1.data);
                 } catch (err1) {
                     console.log('첫 번째 호출 오류 발생:', err1);
@@ -71,7 +76,7 @@ export default function Support(){
                 }
 
                 try {
-                    const res2 = await axios.get('http://localhost:8080/api/v1/users/auth/password/update',
+                    const res2 = await axios.put('http://localhost:8080/api/v1/users/auth/password/update',
                         {
                             originPassword:exPassword,
                             newPassword:newPasswordCheck
@@ -84,7 +89,7 @@ export default function Support(){
                     );
                     console.log('비밀번호 변경 성공:', res2.data);
                     showModal('비밀번호가 변경되었습니다');
-                    navigate('/support');
+                    navigate('/mypage/support');
                 } catch (err2) {
                     console.log('두 번째 호출 오류 발생:', err2);
                     showModal('비밀번호 변경에 실패하였습니다');
@@ -129,9 +134,15 @@ export default function Support(){
 
         const handleClick=e=>{
             e.preventDefault();
+            let res1='';
             async function fetchWithdrawal() {
                 try {
-                    const res1 = await axios.get('http://localhost:8080/api/v1/users/auth/password/check',{password:passwordRef.current.value});
+                    res1 = await axios.post('http://localhost:8080/api/v1/users/auth/password/check',
+                        {password:document.querySelector('#currentPassword').value},
+                        {   withCredentials: true,
+                            headers: { Authorization: `Bearer ${user.accessToken}`},
+                        }
+                    );
                     console.log('비밀번호 확인 성공:', res1.data);
 
                 } catch (err1) {
@@ -170,7 +181,7 @@ export default function Support(){
             <div>
                 <div>
                     <label>현재 비밀번호</label>
-                    <input type="password" className="form-control" placeholder="현재 비밀번호" name="password" onChange={handleChange}/>
+                    <input id="currentPassword" type="password" className="form-control" placeholder="현재 비밀번호" name="password" onChange={handleChange}/>
                     <span ref={passwordRef} style={{color:'#FF0000'}}></span>
                 </div>
                 <div className="d-flex justify-content-center">

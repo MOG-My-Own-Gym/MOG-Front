@@ -2,19 +2,19 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Login/AuthContext';
+import { useModalAlert } from '../../context/ModalAlertContext';
 
 export default function Profile() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const {showModal}=useModalAlert();
 
   // 초기 프로필 데이터 설정
   const [profile, setProfile] = useState({
-    accessToken: `${user.accessToken}`,
-    usersId: `${user.usersId}`,
     name: '',
     nickName: '',
     email: `${user.email}`,
-    profileImg: '',
+    profileImg: '/img/userAvatar.png',//초기데이터 기본 프로필이미지로 설정
     phoneNum:'',
     age: '',
     gender: '',
@@ -31,7 +31,7 @@ export default function Profile() {
           const getUser = res.data;
           const getBio = res.data.biosDto;
           setProfile(prev => ({
-            ...profile,
+            ...prev,
             name: getUser.usersName,
             nickName: getUser.nickName,
             profileImg: getUser.profileImg,
@@ -43,10 +43,13 @@ export default function Profile() {
             regDate: getUser.regDate.substring(0, 10),
           }));
         })
-        .catch(e => console.log(e.response.data, e));
+        .catch(e => {
+          console.log(e.response.data, e);
+          showModal('프로필을 읽어오는 중 오류가 발생하였습니다');
+        });
     };
     fetchProfile();
-  }, []);
+  }, [user.usersId]);
 
   return (
     <>
