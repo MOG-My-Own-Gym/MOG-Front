@@ -17,6 +17,7 @@ import SignUp from './pages/SignUp/SignUp';
 import FindIdPage from './pages/FindId/FindIdPage';
 import FindPwPage from './pages/FindPw/FindPwPage';
 import DataToss from './components/mainpage/DataToss';
+import PoseCheck from './pages/PoseCheck/PoseCheck';
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -44,6 +45,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/find-id" element={<FindIdPage />} />
           <Route path="/find-pw" element={<FindPwPage />} />
+          <Route path="/pose" element={<PoseCheck />} />
         </Routes>
       </AuthProvider>
     </div>
