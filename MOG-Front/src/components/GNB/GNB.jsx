@@ -55,7 +55,7 @@ export default function GNB() {
           <li className="nav-item">
             {user ? (
               <Link className="nav-link" to="/data">
-                {currentPath === '/data' ? (
+                {currentPath === '/routine' ? (
                   <span style={{ color: '#ffc800' }}>
                     <strong>루틴</strong>
                   </span>

@@ -1,0 +1,66 @@
+.exercise {
+  max-width: 1540px !important;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 1em;
+  height: 100%;
+}
+.image-loader {
+  background-color: white;
+  font-size: 10px !important;
+  border-radius: 10px;
+}
+.searchbar {
+  display: flex;
+  height: 50px;
+  border-radius: 10px;
+  text-indent: 10px;
+}
+.exercise-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.exercise-container {
+  padding: 10px;
+  background-color: grey;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.exercise-item {
+  display: flex;
+
+  gap: 1em;
+}
+.exercise-img {
+  display: flex;
+  border-radius: 20px;
+  width: 200px;
+}
+.exercise-button-container {
+  max-width: 1540px !important;
+  padding: 0 2em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  position: fixed;
+  bottom: 1%;
+  left: 0%;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden; /* 내용 넘침 방지 */
+}
+.exercise-button {
+  background-color: #ffc800;
+  border-radius: 10px;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

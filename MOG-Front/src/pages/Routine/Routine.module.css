@@ -1,0 +1,38 @@
+.routine {
+  max-width: 1540px !important;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.routine-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: scroll;
+  height: 500px;
+}
+.routine-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+.routine-item {
+  background-color: #ffc800;
+  border-radius: 5px;
+  height: 50px;
+  display: flex;
+  padding: 1em;
+  align-items: center;
+  cursor: pointer;
+}
+.routine-button {
+  width: 100%;
+  height: 50px;
+  background-color: grey;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
