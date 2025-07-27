@@ -37,7 +37,7 @@ export default function Routine() {
               <div
                 className={styles['routine-item']}
                 onClick={() => {
-                  navigate(`/select?routineId=${routine.setId}`);
+                  navigate(`run?routineId=${routine.setId}`);
                 }}
               >
                 {routine.routineName}
@@ -48,7 +48,7 @@ export default function Routine() {
         <div
           className={styles['routine-button']}
           onClick={() => {
-            navigate(`/select`);
+            navigate(`select`);
           }}
         >
           루틴 생성하기

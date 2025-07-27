@@ -54,7 +54,7 @@ export default function GNB() {
         <ul className="navbar-nav text-uppercase ms-auto py-4 py-lg-0" style={{ flexWrap: 'wrap' }}>
           <li className="nav-item">
             {user ? (
-              <Link className="nav-link" to="/data">
+              <Link className="nav-link" to="/routine">
                 {currentPath === '/routine' ? (
                   <span style={{ color: '#ffc800' }}>
                     <strong>루틴</strong>

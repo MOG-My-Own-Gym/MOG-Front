@@ -20,6 +20,10 @@ import Routine from './pages/Routine/Routine';
 import CategoryPage from './pages/mainpage/CategoryPage';
 import DataToss from './pages/mainpage/DataToss';
 import SelectExercises from './pages/Routine/SelectExercises/SelectExercises';
+import { RoutineProvider } from './pages/Routine/RoutineContext';
+import RoutineDetail from './pages/Routine/RoutineDetail/RoutineDetail';
+import './App.css';
+import RoutineRun from './pages/Routine/RoutineRun/RoutineRun';
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -34,22 +38,28 @@ function App() {
   return (
     <div style={{ padding: '4.5em 0 0 0' }}>
       <AuthProvider>
-        <GNB />
-        <Routes>
-          <Route path="/data/*" element={<DataToss />}></Route>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/stats" element={<Stats />}></Route>
-          <Route path="/record" element={<RecordPage />} />
-          <Route path="/social" element={<Social />} />
-          <Route path="/post/:id" element={<SocialDetail />} />
-          <Route path="/mypage/*" element={<MyPage />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/find-id" element={<FindIdPage />} />
-          <Route path="/find-pw" element={<FindPwPage />} />
-          <Route path="/routine" element={<Routine />} />
-          <Route path="/select" element={<SelectExercises />} />
-        </Routes>
+        <RoutineProvider>
+          <GNB />
+          <Toast isToast={toast.isToast} content={toast.content} />
+          <Routes>
+            <Route path="/data/*" element={<DataToss />}></Route>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/stats" element={<Stats />}></Route>
+            <Route path="/record" element={<RecordPage />} />
+            <Route path="/social" element={<Social />} />
+            <Route path="/post/:id" element={<SocialDetail />} />
+            <Route path="/mypage/*" element={<MyPage />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/find-id" element={<FindIdPage />} />
+            <Route path="/find-pw" element={<FindPwPage />} />
+            {/* 루틴 실행 */}
+            <Route path="/routine" element={<Routine />} />
+            <Route path="/routine/select" element={<SelectExercises />} />
+            <Route path="/routine/detail" element={<RoutineDetail />} />
+            <Route path="/routine/run" element={<RoutineRun />} />
+          </Routes>
+        </RoutineProvider>
       </AuthProvider>
     </div>
   );

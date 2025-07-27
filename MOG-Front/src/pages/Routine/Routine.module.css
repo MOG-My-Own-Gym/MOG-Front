@@ -27,7 +27,10 @@
   cursor: pointer;
 }
 .routine-button {
-  width: 100%;
+  position: fixed;
+  left: 5%;
+  bottom: 1%;
+  width: 90%;
   height: 50px;
   background-color: grey;
   border-radius: 20px;
