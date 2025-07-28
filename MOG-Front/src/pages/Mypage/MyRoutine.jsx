@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./css/myroutine.css";
 export default function MyRoutine(){
 
+    //하트버튼 누르는 토글여부에 따라 꽉 찬 하트와 빈 하트를 보여주는 컴포넌트
     const HeartItem =()=>{
         const [isLiked, setIsLiked] = useState(false);
       
@@ -14,9 +14,9 @@ export default function MyRoutine(){
             <div>
                 <button className="btn-routine" onClick={toggleHeart}>
                     {isLiked ? (
-                        <img className="img-fluid img-routine" src="/img/like.png" alt="Filled Heart" />
+                        <img className="img-fluid img-routine" src="/img/like.png" alt="Filled Heart" style={{ height: '1.4em' }}/>
                     ) : (
-                        <img className="img-fluid img-routine" src="/img/empty-like.png" alt="Empty Heart" />
+                        <img className="img-fluid img-routine" src="/img/empty-like.png" alt="Empty Heart" style={{ height: '1.4em' }}/>
                     )}
                 </button>
             </div>
