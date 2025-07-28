@@ -10,6 +10,10 @@
   height: 150px;
 }
 .image-loader {
+  display: flex;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
   background-color: white;
   font-size: 10px !important;
   border-radius: 10px;

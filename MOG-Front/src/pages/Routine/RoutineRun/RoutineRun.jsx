@@ -7,15 +7,20 @@ import { AuthContext } from '../../Login/AuthContext';
 import ExerciseImage from '../../../components/Image/Routine/ExerciseImage';
 import RoutineButton from '../../../components/Button/Routine/RoutineButton/RoutineButton';
 import PageBackButton from '../../../components/Button/Routine/PageBackButton/PageBackButton';
+import RadialGradientSpinner from '../../../components/Loader/RadialGradientSpinner';
+import { RoutineContext } from '../RoutineContext';
+import { RunContext } from '../RunContext';
 
 export default function RoutineRun() {
   const navigate = useNavigate();
   const [param] = useSearchParams();
   const routineId = param.get('routineId');
   const { user } = useContext(AuthContext);
+  const { routine, disaptch: dispatchRoutine } = useContext(RoutineContext);
+  const { isRunning, dispatch: dispatchRun } = useContext(RunContext);
 
   console.log(routineId);
-
+  console.log(routine);
   const [routineData, setRoutineData] = useState(null);
   useEffect(() => {
     const fetchRoutine = async () => {
@@ -28,6 +33,7 @@ export default function RoutineRun() {
         .then(res => {
           console.log(res.data);
           setRoutineData(res.data);
+          dispatchRoutine({ type: 'SAVE', routine: res.data });
         });
     };
     fetchRoutine();
@@ -36,7 +42,7 @@ export default function RoutineRun() {
   useEffect(() => {
     console.log(routineData);
     console.log(routineData?.saveRoutineDto);
-    console.log(routineData?.length);
+    console.log(routineData?.saveRoutineDto.length);
   }, [routineData]);
 
   return (
@@ -67,7 +73,7 @@ export default function RoutineRun() {
             <div>운동 정보가 없습니다 운동을 추가해주세요!</div>
           )
         ) : (
-          <div>정보 호출에 실패했습니다</div>
+          <RadialGradientSpinner />
         )}
       </div>
       <RoutineButton type={'RUN'} routineId={parseInt(routineId)} />
