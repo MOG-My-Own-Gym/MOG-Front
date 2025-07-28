@@ -1,3 +1,13 @@
+## 리액트 실행 시 주의 사항
+### Routine 브런치 파일의 리액트 버전의 경우 JSON-server 필요(추후 삭제 예정)
+### 리액트와 같이 실행 후 사용
+
+1. JSON-server 설치(처음 실행시)
+    - `npm install -g json-server`
+2. JSON-server 실행(포트는 고정이라 수정 시 소스 수정 필요)
+    - `json-server --watch ./src/db/data.json --port 3002`
+
+*******************
 ## mainpage 폴더 안 jsx 파일의 컨포넌트 실행 순서
 ### 로그인 성공 시 기준 작성
 1. 메인 화면

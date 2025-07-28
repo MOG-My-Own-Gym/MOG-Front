@@ -3,11 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import '@/assets/bootstrap/css/bootstrap.min.css';
 import Home from './pages/Home/Home';
 import GNB from './components/GNB/GNB';
-import SelectMainpage from './components/mainpage/SelectMainpage';
-import CategoryPage from './components/mainpage/CategoryPage';
-import RoutinePage from './components/mainpage/RoutinePage';
-import RunningRoutinePage from './components/mainpage/RunningRoutinePage';
-import RoutineResultPage from './components/mainpage/RoutineResultPage';
 import ToastContext from './context/ToastContext';
 import ToastProvider from './context/ToastProvider';
 import Toast from './components/Toast/Toast';
@@ -24,6 +19,8 @@ import FindPwPage from './pages/FindPw/FindPwPage';
 import ChangePwPage from './pages/FindPw/ChangePwPage';
 import ModalAlertProvider from './context/ModalAlertProvider';
 import ModalAlert from './components/Modal/ModalAlert';
+import DataToss from './pages/mainpage/DataToss';
+
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -36,11 +33,12 @@ function App() {
   }, [toast]);
 
   return (
-    <div style={{ padding: '5em 0 0 0' }}>
+    <div style={{ padding: '4.5em 0 0 0' }}>
       <AuthProvider>
           <GNB />
           <Routes>
             <Route path="/" element={<Home />}></Route>
+            <Route path="/data/*" element={<DataToss />}></Route>
             <Route path="/home" element={<SelectMainpage />}></Route>
             <Route path="/select" element={<CategoryPage />}></Route>
             <Route path="/routine" element={<RoutinePage />}></Route>
