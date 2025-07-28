@@ -6,6 +6,8 @@ import Timer from '../../../components/Timer/Timer';
 import axios from 'axios';
 import { AuthContext } from '../../Login/AuthContext';
 import ToastContext from '../../../context/ToastContext';
+import RoutineButton from '../../../components/Button/Routine/RoutineButton/RoutineButton';
+import PageBackButton from '../../../components/Button/Routine/PageBackButton/PageBackButton';
 export default function RoutineDetail() {
   const [param] = useSearchParams();
   const navigate = useNavigate();
@@ -112,8 +114,28 @@ export default function RoutineDetail() {
     dispatch({ type: 'SAVE', routine: newRoutine, originRoutine: originRoutine });
   };
 
+  //이전 버튼
+  const onPrev = e => {
+    const currSrIndex = routine.saveRoutineDto.findIndex(item => item.srId === parseInt(detailId));
+    const prevSrId = routine.saveRoutineDto[currSrIndex - 1].srId;
+    e.stopPropagation();
+    navigate(`/routine/detail?routineId=${routineId}&detailId=${prevSrId}`);
+  };
+
+  //다음 버튼
+  const onNext = e => {
+    const currSrIndex = routine.saveRoutineDto.findIndex(item => item.srId === parseInt(detailId));
+    const nextSrId = routine.saveRoutineDto[currSrIndex + 1].srId;
+    e.stopPropagation();
+    navigate(`/routine/detail?routineId=${routineId}&detailId=${nextSrId}`);
+  };
+
   return (
     <div className={styles['routine-detail']}>
+      <div className={styles['routine-detail-back']}>
+        <PageBackButton />
+      </div>
+      <h2 className={styles['routine-detail-title']}>루틴 상세</h2>
       <div className={styles['routine-detail-wrapper']}>
         {routine.saveRoutineDto
           .filter(sr => sr.srId === parseInt(detailId))
@@ -203,42 +225,13 @@ export default function RoutineDetail() {
             }
           })}
       </div>
-      {/* 버튼 리스트 */}
-      <div className={styles['detail-button-container']}>
-        <button
-          className={styles['detail-button']}
-          disabled={
-            routine.saveRoutineDto.findIndex(item => item.srId === parseInt(detailId)) === 0
-          }
-          onClick={e => {
-            const currSrIndex = routine.saveRoutineDto.findIndex(
-              item => item.srId === parseInt(detailId),
-            );
-            const prevSrId = routine.saveRoutineDto[currSrIndex - 1].srId;
-            e.stopPropagation();
-            navigate(`/routine/detail?routineId=${routineId}&detailId=${prevSrId}`);
-          }}
-        >
-          이전
-        </button>
-        <button
-          className={styles['detail-button']}
-          disabled={
-            routine.saveRoutineDto.findIndex(item => item.srId === parseInt(detailId)) ===
-            routine.saveRoutineDto.length - 1
-          }
-          onClick={e => {
-            const currSrIndex = routine.saveRoutineDto.findIndex(
-              item => item.srId === parseInt(detailId),
-            );
-            const nextSrId = routine.saveRoutineDto[currSrIndex + 1].srId;
-            e.stopPropagation();
-            navigate(`/routine/detail?routineId=${routineId}&detailId=${nextSrId}`);
-          }}
-        >
-          다음
-        </button>
-      </div>
+      <RoutineButton
+        type={'DETAIL'}
+        routineId={routineId}
+        detailId={detailId}
+        onPrev={onPrev}
+        onNext={onNext}
+      />
     </div>
   );
 }

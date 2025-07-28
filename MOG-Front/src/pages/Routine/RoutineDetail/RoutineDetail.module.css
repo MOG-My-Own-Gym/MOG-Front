@@ -1,14 +1,26 @@
 .routine-detail {
-  max-width: 1540px !important;
-  padding: 5em;
+  max-width: 100%;
+  padding: 2em;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  position: relative;
-  gap: 1em;
   height: 100%;
+  gap: 1em;
+}
+.routine-detail-back {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.routine-detail-title {
+  max-width: 1540px !important;
+  width: 100%;
 }
 .routine-detail-wrapper {
+  max-width: 1540px !important;
+
   width: 100%;
 }
 .routine-detail-container {

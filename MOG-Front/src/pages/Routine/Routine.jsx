@@ -3,6 +3,7 @@ import styles from './Routine.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Login/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import PageBackButton from '../../components/Button/Routine/PageBackButton/PageBackButton';
 export default function Routine() {
   const [routines, setRoutines] = useState([]);
   const navigate = useNavigate();
@@ -29,7 +30,10 @@ export default function Routine() {
   }, []);
   return (
     <div className={styles['routine']}>
-      <h2>루틴</h2>
+      <div className={styles['routine-back']}>
+        <PageBackButton />
+      </div>
+      <h2 className={styles['routine-title']}>루틴</h2>
       <div className={styles['routine-container']}>
         <div className={styles['routine-list']}>
           {routines.map(routine => {

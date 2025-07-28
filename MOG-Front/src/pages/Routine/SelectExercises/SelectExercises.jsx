@@ -6,6 +6,9 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AuthContext } from '../../Login/AuthContext';
 import { RoutineContext } from '../RoutineContext';
 import ToastContext from '../../../context/ToastContext';
+import ExerciseImage from '../../../components/Image/Routine/ExerciseImage';
+import RoutineButton from '../../../components/Button/Routine/RoutineButton/RoutineButton';
+import PageBackButton from '../../../components/Button/Routine/PageBackButton/PageBackButton';
 
 export default function SelectExercises() {
   const [originExerciseData, setOriginExerciseData] = useState([]);
@@ -13,7 +16,6 @@ export default function SelectExercises() {
   const [search, setSearch] = useState('');
   const [userExercise, setUserExercise] = useState([]);
   const [visibleCount, setVisibleCount] = useState(5);
-  const [imageLoading, setImageLoading] = useState(true);
 
   const { user } = useContext(AuthContext);
   const { routine, dispatch: dispatchRoutine } = useContext(RoutineContext);
@@ -24,7 +26,7 @@ export default function SelectExercises() {
   const containerRef = useRef(null);
 
   const routineId = param.get('routineId');
-
+  console.log(routineId);
   useEffect(() => {
     fetch('https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises.json')
       .then(res => res.json())
@@ -93,6 +95,7 @@ export default function SelectExercises() {
   };
 
   const createRoutine = async () => {
+    console.log('루틴 생성');
     try {
       routineId
         ? await axios
@@ -178,78 +181,46 @@ export default function SelectExercises() {
 
   return (
     <div className={styles['exercise']}>
-      <h2>운동 선택</h2>
-      <input
-        className={styles['searchbar']}
-        type="text"
-        placeholder="원하는 운동을 검색하세요"
-        onChange={handleSearchBar}
-      />
-      <div
-        className={styles['exercise-list']}
-        ref={containerRef}
-        style={{ height: '500px', overflowY: 'auto' }}
-      >
-        {exerciseData.slice(0, visibleCount).map(exercise => {
-          return (
-            <div
-              className={styles['exercise-container']}
-              onClick={() => setUserExercise(prev => [...prev, exercise])}
-            >
-              <div className={styles['exercise-item']}>
-                {imageLoading && (
-                  <div className={styles['image-loader']}>
-                    <RadialGradientSpinner />
-                  </div>
-                )}
-                <img
-                  className={styles['exercise-img']}
-                  onLoad={() => {
-                    setImageLoading(false);
-                  }}
-                  style={{
-                    display: imageLoading ? 'none' : 'block',
-                    opacity: imageLoading ? 0 : 1,
-                    transition: 'opacity 0.3s ease-in-out',
-                  }}
-                  src={`https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/${exercise.name.replaceAll(' ', '_').replaceAll('/', '_')}/images/0.jpg`}
-                />
-
-                <div>{exercise.name}</div>
-                <div>
-                  {userExercise?.filter(val => val?.name === exercise.name)?.length !== 0
-                    ? userExercise?.filter(val => val.name === exercise.name).length
-                    : ''}
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      <div className={styles['exercise-back']}>
+        <PageBackButton />
       </div>
-      {userExercise.length > 0 && (
-        <div className={styles['exercise-button-container']}>
-          <button
-            className={styles['exercise-button']}
-            onClick={e => {
-              console.log(userExercise);
-              e.stopPropagation();
-              createRoutine();
-            }}
-          >
-            {routineId ? '운동 수정' : '운동 추가'}
-          </button>
-          <button
-            className={styles['exercise-button']}
-            onClick={e => {
-              console.log(userExercise);
-              e.stopPropagation();
-              setUserExercise(prev => prev.slice(0, -1));
-            }}
-          >
-            되돌리기
-          </button>
+      <h2 className={styles['exercise-title']}>운동 선택</h2>
+      <div className={styles['exercise-container']}>
+        <input
+          className={styles['searchbar']}
+          type="text"
+          placeholder="원하는 운동을 검색하세요"
+          onChange={handleSearchBar}
+        />
+        <div
+          className={styles['exercise-list']}
+          ref={containerRef}
+          style={{ height: '800px', overflowY: 'auto' }}
+        >
+          {exerciseData.slice(0, visibleCount).map(exercise => {
+            return (
+              <div
+                className={styles['exercise-list-container']}
+                onClick={() => setUserExercise(prev => [...prev, exercise])}
+              >
+                <ExerciseImage name={exercise.name} userExercise={userExercise} type={'SELECT'} />
+              </div>
+            );
+          })}
         </div>
-      )}
+        {userExercise.length > 0 && (
+          <>
+            {
+              <RoutineButton
+                type={'SELECT'}
+                routineId={routineId}
+                createRoutine={createRoutine}
+                setUserExercise={setUserExercise}
+              />
+            }
+          </>
+        )}
+      </div>
     </div>
   );
 }

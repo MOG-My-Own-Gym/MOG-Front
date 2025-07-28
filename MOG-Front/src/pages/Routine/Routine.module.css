@@ -1,11 +1,26 @@
 .routine {
-  max-width: 1540px !important;
+  max-width: 100%;
+  gap: 1em;
   padding: 2em;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100%;
 }
+.routine-back {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.routine-title {
+  max-width: 1540px !important;
+  width: 100%;
+}
 .routine-container {
+  max-width: 1540px !important;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
