@@ -17,7 +17,10 @@ import SignUp from './pages/SignUp/SignUp';
 import FindIdPage from './pages/FindId/FindIdPage';
 import FindPwPage from './pages/FindPw/FindPwPage';
 import Routine from './pages/Routine/Routine';
-import CategoryPage from './pages/mainpage/CategoryPage';
+import PoseCheck from './pages/PoseCheck/PoseCheck';
+import ChangePwPage from './pages/FindPw/ChangePwPage';
+import ModalAlertProvider from './context/ModalAlertProvider';
+import ModalAlert from './components/Modal/ModalAlert';
 import DataToss from './pages/mainpage/DataToss';
 import SelectExercises from './pages/Routine/SelectExercises/SelectExercises';
 import { RoutineProvider } from './pages/Routine/RoutineContext';
@@ -42,17 +45,18 @@ function App() {
           <GNB />
           <Toast isToast={toast.isToast} content={toast.content} />
           <Routes>
-            <Route path="/data/*" element={<DataToss />}></Route>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/stats" element={<Stats />}></Route>
-            <Route path="/record" element={<RecordPage />} />
-            <Route path="/social" element={<Social />} />
-            <Route path="/post/:id" element={<SocialDetail />} />
-            <Route path="/mypage/*" element={<MyPage />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/find-id" element={<FindIdPage />} />
-            <Route path="/find-pw" element={<FindPwPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/stats" element={<Stats />}></Route>
+          <Route path="/record" element={<RecordPage />} />
+          <Route path="/social" element={<Social />} />
+          <Route path="/post/:id" element={<SocialDetail />} />
+          <Route path="/mypage/*" element={<MyPage />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/find-id" element={<FindIdPage />} />
+          <Route path="/find-pw" element={<FindPwPage />} />
+          <Route path="/find-pw/change" element={<ChangePwPage />} />
+          <Route path="/pose" element={<PoseCheck />} />
             {/* 루틴 실행 */}
             <Route path="/routine" element={<Routine />} />
             <Route path="/routine/select" element={<SelectExercises />} />
@@ -60,6 +64,7 @@ function App() {
             <Route path="/routine/run" element={<RoutineRun />} />
           </Routes>
         </RoutineProvider>
+
       </AuthProvider>
     </div>
   );
