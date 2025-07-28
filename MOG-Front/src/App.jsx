@@ -16,6 +16,7 @@ import { AuthProvider } from './pages/Login/AuthContext';
 import SignUp from './pages/SignUp/SignUp';
 import FindIdPage from './pages/FindId/FindIdPage';
 import FindPwPage from './pages/FindPw/FindPwPage';
+import PoseCheck from './pages/PoseCheck/PoseCheck';
 import ChangePwPage from './pages/FindPw/ChangePwPage';
 import ModalAlertProvider from './context/ModalAlertProvider';
 import ModalAlert from './components/Modal/ModalAlert';
@@ -54,6 +55,7 @@ function App() {
             <Route path="/find-id" element={<FindIdPage />} />
             <Route path="/find-pw" element={<FindPwPage />} />
             <Route path='/find-pw/change' element={<ChangePwPage/>} /> 
+            <Route path="/pose" element={<PoseCheck />} />
           </Routes>
       </AuthProvider>
     </div>
