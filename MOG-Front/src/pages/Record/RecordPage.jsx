@@ -1,5 +1,4 @@
-// 📄 RecordPage.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./record.css"; // CSS 경로
@@ -24,6 +23,20 @@ export default function RecordPage() {
     setSelectedFile(file);
   };
 
+  {/*모달 창 센터*/}
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+    
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isModalOpen]);
+  
   return (
     <div className="record-container">
       <header className="record-header">기록</header>
@@ -109,9 +122,39 @@ export default function RecordPage() {
       {isModalOpen && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>{selectedDate.toLocaleDateString()} 기록</h3>
-            <p>여기에 운동/포토/신체 기록 정보가 표시될 예정입니다.</p>
-            <button onClick={closeModal} className="modal-close">닫기</button>
+            <div className="modal-header">
+              <h3>{selectedDate.toLocaleDateString()} 기록</h3>
+              <button onClick={closeModal} className="modal-close-btn">×</button>
+            </div>
+            
+            {/* 운동 기록 섹션 */}
+            <div className="record-section">
+              <div className="section-title">💪 운동 기록</div>
+              <div className="section-content">
+                <p className="no-data-text">기록된 운동 정보가 없습니다.</p>
+              </div>
+            </div>
+
+            {/* 포토 기록 섹션 */}
+            <div className="record-section">
+              <div className="section-title">📷 포토 기록</div>
+              <div className="section-content">
+                <p className="no-data-text">🖼️ 기록된 사진이 없습니다.</p>
+              </div>
+            </div>
+
+            {/* 신체 기록 섹션 */}
+            <div className="record-section">
+              <div className="section-title">📊 신체 기록</div>
+              <div className="section-content">
+                <p className="no-data-text">기록된 신체 정보가 없습니다.</p>
+              </div>
+            </div>
+
+            <div className="modal-actions">
+              <button className="btn-edit">수정</button>
+              <button className="btn-delete">삭제</button>
+            </div>
           </div>
         </div>
       )}
