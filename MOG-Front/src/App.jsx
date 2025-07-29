@@ -16,6 +16,7 @@ import { AuthProvider } from './pages/Login/AuthContext';
 import SignUp from './pages/SignUp/SignUp';
 import FindIdPage from './pages/FindId/FindIdPage';
 import FindPwPage from './pages/FindPw/FindPwPage';
+import Suggest from './pages/Suggest/Suggest';
 import Routine from './pages/Routine/Routine';
 import PoseCheck from './pages/PoseCheck/PoseCheck';
 import ChangePwPage from './pages/FindPw/ChangePwPage';
