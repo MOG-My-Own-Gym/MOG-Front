@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "./css/mysocial.css";
 import { Link } from "react-router-dom";
 export default function MySocial(){
 
+    //하트버튼 누르는 토글여부에 따라 꽉 찬 하트와 빈 하트를 보여주는 컴포넌트
     const HeartItemSocial =()=>{
             const [isLiked, setIsLiked] = useState(false);
           
@@ -15,9 +15,9 @@ export default function MySocial(){
                 <div>
                     <button className="btn-social" onClick={toggleHeart}>
                         {isLiked ? (
-                            <img className="img-fluid img-routine" src="/img/like.png" alt="Filled Heart" />
+                            <img className="img-fluid img-routine" src="/img/like.png" alt="Filled Heart" style={{ height: '30px' }}/>
                         ) : (
-                            <img className="img-fluid img-routine" src="/img/empty-like.png" alt="Empty Heart" />
+                            <img className="img-fluid img-routine" src="/img/empty-like.png" alt="Empty Heart" style={{ height: '30px' }}/>
                         )}
                     </button>
                 </div>
