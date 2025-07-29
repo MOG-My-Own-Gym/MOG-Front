@@ -10,7 +10,6 @@ body {
 }
 
 .record-container {
-  padding: 16px;
   background-color: #fff;
   min-height: 100vh;
 }
@@ -47,8 +46,8 @@ body {
 }
 
 .record-tab.active {
-  color: #ff5722;
-  border-bottom: 2px solid #ff5722;
+  color: #fdc800;
+  border-bottom: 2px solid #fdc800;
 }
 
 /* 🖥️ PC일 때 고정 너비 */
@@ -92,7 +91,7 @@ body {
 }
 
 .red {
-  background-color: #ff5722;
+  background-color: #fdc800;
 }
 .green {
   background-color: #8bc34a;
@@ -200,6 +199,7 @@ body {
 
 /* 📸 포토 탭 */
 .photo-tab {
+  min-width: 390px;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -289,6 +289,7 @@ body {
 
 /* 📌 placeholder 공통 */
 .record-placeholder {
+  min-width: 390px;
   padding: 48px 0;
   text-align: center;
   font-size: 1rem;
@@ -299,4 +300,51 @@ body {
 .react-calendar {
   border: none !important;
   box-shadow: none !important;
+}
+
+/* 커스텀 캘린더 */
+.react-calendar__tile--now {
+  background: #ffdd61;
+  padding: 5px;
+  border-radius: 8px;
+}
+.react-calendar__tile--active {
+  background: #fdc800;
+  padding: 5px;
+  border-radius: 8px;
+  color: rgb(0, 0, 0);
+}
+.react-calendar__month-view__days {
+  gap: 5px; /* 날짜 타일 간 간격 조절 */
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.react-calendar__tile {
+  margin: 0 !important; /* 기본 margin 제거 */
+  padding: 10px !important;
+  text-align: center;
+  border-radius: 6px;
+}
+
+.react-calendar__tile:hover {
+  background-color: #e0f7fa;
+  color: #e4b302;
+  border-radius: 8px;
+  cursor: pointer;
+}
+/* 오늘 날짜에 hover 시 */
+.react-calendar__tile.react-calendar__tile--now:hover {
+  background-color: #fdc800;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+/* 선택된 날짜에 hover 시 */
+.react-calendar__tile.react-calendar__tile--active:hover {
+  background-color: #ffaf02;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  border-radius: 8px;
 }

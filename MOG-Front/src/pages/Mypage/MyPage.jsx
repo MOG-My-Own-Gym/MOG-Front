@@ -86,6 +86,7 @@ export default function MyPage() {
 
   return (
     <>
+      
       <div className="d-flex" style={{ height: '100%' }}>
         {/*데스크톱/태블릿용 사이드바 시작 */}
         <div
@@ -132,7 +133,7 @@ export default function MyPage() {
                     }
                   >
                     <i className="fa-solid fa-image me-3 ps-sm-0 ps-3"></i>
-                    <span className="d-none d-sm-inline">나의 소셜</span>
+                    <span className="d-none d-sm-inline">나의 기록</span>
                   </Link>
                 </li>
                 <hr className="text-secondary d-none d-sm-block" />
