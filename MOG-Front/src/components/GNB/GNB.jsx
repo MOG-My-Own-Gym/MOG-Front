@@ -65,19 +65,7 @@ export default function GNB() {
               </Link>
             ) : undefined}
           </li>
-          <li className="nav-item">
-            {user ? (
-              <Link className="nav-link" to="/record">
-                {currentPath === '/record' ? (
-                  <span style={{ color: '#ffc800' }}>
-                    <strong>기록</strong>
-                  </span>
-                ) : (
-                  '기록'
-                )}
-              </Link>
-            ) : undefined}
-          </li>
+
           <li className="nav-item">
             {user ? (
               <Link className="nav-link" to="/stats">
