@@ -1,0 +1,70 @@
+/*NavDropdown 토글의 기본 스타일 오버라이드 (화살표 제거 및 기본 색상)*/
+.custom-nav-link{
+    color: white !important;
+    text-decoration: none !important;
+    padding-right: 15px;
+}
+
+.nav-link-GNB{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding-right: 15px;
+}
+
+.custom-nav-link::after{
+    display: none !important;
+}
+
+.custom-nav-dropdown .active-text{
+    color: #ffc800 !important;
+}
+
+.custom-nav-dropdown .dropdown-menu{
+    background-color: rgba(0, 0, 0, 0.75);
+    border: none;
+    border-radius: 5px;
+    min-width: 150px;
+}
+
+.custom-nav-dropdown .dropdown-item{
+    color: white;
+    background-color: transparent;
+    border-radius: 5px;
+}
+
+.custom-nav-dropdown .dropdown-item.active-item{
+    background-color: rgba(255, 200, 2, 0.7);
+}
+
+.profile-nav-dropdown .dropdown-toggle{
+    padding: 0 !important;
+}
+
+.profile-nav-dropdown .dropdown-menu{
+    background-color: rgba(0, 0, 0, 0.75);
+    border: none;
+    border-radius: 5px;
+    min-width: 250px;
+    margin-top: 15px;
+    right: 0;
+    left: auto;
+}
+
+.profile-nav-dropdown .dropdown-menu .card-profile{
+    background-color: transparent;
+    color: white;
+    width: 100%;
+}
+
+.profile-dropdown-button{
+    background-color: white;
+    color:white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}

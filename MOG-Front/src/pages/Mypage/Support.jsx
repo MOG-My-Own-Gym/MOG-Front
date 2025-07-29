@@ -142,53 +142,51 @@ export default function Support(){
         };
 
         //회원탈퇴버튼 제어하는 함수
-        const handleClick= e=>{
+        const handleClick= async e=>{
             e.preventDefault();
             let res1='';
             //입력한 비밀번호가 네트워크에 저장된 user의 비밀번호와 일치하는지 판단
-            async function fetchWithdrawal() {
-                try {
-                    res1 = await axios.post('http://localhost:8080/api/v1/users/auth/password/check',
+            try {
+                res1 = await axios.post('http://localhost:8080/api/v1/users/auth/password/check',
                         {password:document.querySelector('#currentPassword').value},
                         {   withCredentials: true,
                             headers: { Authorization: `Bearer ${user.accessToken}`},
                         }
-                    );
-                } catch (err1) {
-                    console.log('첫 번째 호출 오류 발생:', err1);
-                    showModal('현재 비밀번호가 일치하지 않습니다');
-                    return;//일치하지 않는경우 바로 return
-                }
+                );
+            } catch (err1) {
+                console.log('첫 번째 호출 오류 발생:', err1);
+                showModal('현재 비밀번호가 일치하지 않습니다');
+                return;//일치하지 않는경우 바로 return
+            };
 
-                //일치한다면 탈퇴여부를 확인하는 알림창 한번 더 띄우기
-                const confirmWithdrawal = await showConfirm('정말 탈퇴하시겠습니까?');
+            //일치한다면 탈퇴여부를 확인하는 알림창 한번 더 띄우기
+            const confirmWithdrawal = await showConfirm('정말 탈퇴하시겠습니까?');
 
-                //사용자가 '확인'을 누른 경우 회원탈퇴 api요청 
-                if(confirmWithdrawal){
-                    try {
-                        const res2 = await axios.delete(`http://localhost:8080/api/v1/users/delete/${res1.data.usersId}`,
+            //사용자가 '확인'을 누른 경우 회원탈퇴 api요청 
+            if(confirmWithdrawal){
+                try {
+                    const res2 = await axios.delete(`http://localhost:8080/api/v1/users/delete/${res1.data.usersId}`,
                             {
                                 withCredentials:true,
                                 headers: {
                                 Authorization: `Bearer ${user.accessToken}`
                             }}
-                        );
-                        //탈퇴되었다는 알러트 띄우기
-                        showModal('탈퇴되었습니다');
-                        //로그아웃 처리
-                        dispatch({type:'LOGOUT'});
-                        //홈으로 이동
-                        navigate('/');
+                    );
+                    //탈퇴되었다는 알러트 띄우기
+                    showModal('탈퇴되었습니다');
+                    //로그아웃 처리
+                    dispatch({type:'LOGOUT'});
+                    //홈으로 이동
+                    navigate('/');
 
-                    } catch (err2) {
-                        console.log('두 번째 호출 오류 발생:', err2);
-                        showModal('회원탈퇴에 실패하였습니다');
-                    }
-                }//'취소'를 누른경우 회원탈퇴 취소
-                else showModal('회원탈퇴가 취소되었습니다');
-            }
-            fetchWithdrawal();
-        }
+                } catch (err2) {
+                    console.log('두 번째 호출 오류 발생:', err2);
+                    showModal('회원탈퇴에 실패하였습니다');
+                }
+            }//'취소'를 누른경우 회원탈퇴 취소
+            else showModal('회원탈퇴가 취소되었습니다');
+        };
+    
 
         //회원탈퇴 UI
         return<>

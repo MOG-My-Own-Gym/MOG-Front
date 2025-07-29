@@ -134,8 +134,16 @@ export default function SignUp(){
         })
         .catch(err=>{
             //조회에 실패한 경우 -> 존재하지 않는 회원 즉, 중복되지 않은 이메일인 경우
-            console.log(err);
-            emailCheckResult.current.textContent='사용 가능한 아이디입니다';
+            if(err.status){
+              if(err.status===400){
+                emailCheckResult.current.textContent='사용 가능한 아이디입니다';
+                return;
+              }
+            }
+            else {
+              console.log(err);
+              showModal('아이디 중복 조회 중 오류가 발생하였습니다');
+            }
         })
     }
 
