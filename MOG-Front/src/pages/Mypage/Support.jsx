@@ -5,7 +5,7 @@ import axios from "axios";
 import { useModalAlert } from "../../context/ModalAlertContext";
 
 export default function Support(){
-    const {showModal}=useModalAlert();
+    const {showModal, showConfirm}=useModalAlert();
 
     const navigate=useNavigate();
     const { user, dispatch } = useContext(AuthContext);
@@ -142,7 +142,7 @@ export default function Support(){
         };
 
         //회원탈퇴버튼 제어하는 함수
-        const handleClick=e=>{
+        const handleClick= e=>{
             e.preventDefault();
             let res1='';
             //입력한 비밀번호가 네트워크에 저장된 user의 비밀번호와 일치하는지 판단
@@ -161,7 +161,7 @@ export default function Support(){
                 }
 
                 //일치한다면 탈퇴여부를 확인하는 알림창 한번 더 띄우기
-                const confirmWithdrawal = confirm('정말 탈퇴하시겠습니까?');
+                const confirmWithdrawal = await showConfirm('정말 탈퇴하시겠습니까?');
 
                 //사용자가 '확인'을 누른 경우 회원탈퇴 api요청 
                 if(confirmWithdrawal){
