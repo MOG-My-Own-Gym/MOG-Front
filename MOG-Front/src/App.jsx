@@ -7,7 +7,7 @@ import ToastContext from './context/ToastContext';
 import ToastProvider from './context/ToastProvider';
 import Toast from './components/Toast/Toast';
 import Stats from './pages/Stats/Stats';
-import RecordPage from './pages/Record/RecordPage';
+import RecordPage from './components/Record/RecordPage';
 import LoginPage from './pages/Login/LoginPage';
 import Social from './pages/Social/Social';
 import SocialDetail from './pages/Social/SocialDetail';
