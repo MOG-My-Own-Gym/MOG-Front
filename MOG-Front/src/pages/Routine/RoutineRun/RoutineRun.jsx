@@ -16,7 +16,7 @@ export default function RoutineRun() {
   const [param] = useSearchParams();
   const routineId = param.get('routineId');
   const { user } = useContext(AuthContext);
-  const { routine, disaptch: dispatchRoutine } = useContext(RoutineContext);
+  const { routine, dispatch: dispatchRoutine } = useContext(RoutineContext);
   const { isRunning, dispatch: dispatchRun } = useContext(RunContext);
 
   console.log(routineId);
@@ -33,7 +33,7 @@ export default function RoutineRun() {
         .then(res => {
           console.log(res.data);
           setRoutineData(res.data);
-          dispatchRoutine({ type: 'SAVE', routine: res.data });
+          dispatchRoutine({ type: 'SAVE', routine: res.data, originRoutine: res.data });
         });
     };
     fetchRoutine();

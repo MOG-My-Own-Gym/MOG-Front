@@ -4,10 +4,12 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Login/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import PageBackButton from '../../components/Button/Routine/PageBackButton/PageBackButton';
+import { RoutineContext } from './RoutineContext';
 export default function Routine() {
   const [routines, setRoutines] = useState([]);
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const { routine, dispatch } = useContext(RoutineContext);
 
   useEffect(() => {
     const fetchRoutines = async () => {
@@ -41,6 +43,8 @@ export default function Routine() {
               <div
                 className={styles['routine-item']}
                 onClick={() => {
+                  console.log(routine);
+                  dispatch({ type: 'SAVE', routine: routine, originRoutine: routine });
                   navigate(`run?routineId=${routine.setId}`);
                 }}
               >

@@ -60,10 +60,10 @@ function App() {
               <Route path="/find-pw/change" element={<ChangePwPage />} />
               <Route path="/pose" element={<PoseCheck />} />
               {/* 루틴 실행 */}
-              <Route path="/routine" element={<Routine />} />
+              {/* <Route path="/routine" element={<Routine />} />
               <Route path="/routine/select" element={<SelectExercises />} />
               <Route path="/routine/detail" element={<RoutineDetail />} />
-              <Route path="/routine/run" element={<RoutineRun />} />
+              <Route path="/routine/run" element={<RoutineRun />} /> */}
             </Routes>
           </RunProvider>
         </RoutineProvider>

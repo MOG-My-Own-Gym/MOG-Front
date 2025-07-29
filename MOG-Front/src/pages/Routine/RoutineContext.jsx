@@ -1,8 +1,14 @@
 import { createContext, useReducer } from 'react';
 
 const initialState = {
-  routine: JSON.parse(localStorage.getItem('routine')) || null,
-  originRoutine: JSON.parse(localStorage.getItem('originRoutine')) || null,
+  routine:
+    localStorage.getItem('routine') == 'undefined'
+      ? null
+      : JSON.parse(localStorage.getItem('routine')) || null,
+  originRoutine:
+    localStorage.getItem('originRoutine') == 'undefined'
+      ? null
+      : JSON.parse(localStorage.getItem('originRoutine')) || null,
 };
 
 function routineReducer(state, action) {
