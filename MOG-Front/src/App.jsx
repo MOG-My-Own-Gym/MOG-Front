@@ -59,6 +59,7 @@ function App() {
               <Route path="/find-pw" element={<FindPwPage />} />
               <Route path="/find-pw/change" element={<ChangePwPage />} />
               <Route path="/pose" element={<PoseCheck />} />
+              <Route path="/data/*" element={<DataToss />}></Route>
               {/* 루틴 실행 */}
               {/* <Route path="/routine" element={<Routine />} />
               <Route path="/routine/select" element={<SelectExercises />} />
