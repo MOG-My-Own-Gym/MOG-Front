@@ -10,40 +10,36 @@ function LikeButton({ postId, initialLikeCount }) {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLike = async () => {
-    console.log("user in LikeButton:", user);
+    console.log('user in LikeButton:', user);
 
     if (!user) {
-      alert("로그인이 필요합니다.");
+      alert('로그인이 필요합니다.');
       return;
     }
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/v1/posts/${postId}/likes`,
+        `http://158.180.78.252:8080/api/v1/posts/${postId}/likes`,
         null,
         {
-          withCredentials: true, 
+          withCredentials: true,
           headers: {
-            'Authorization': `Bearer ${user.accessToken}`
-          }
-        }
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        },
       );
       setLikes(response.data.likeCount);
       setIsLiked(response.data.isLiked);
     } catch (error) {
-      console.error("좋아요 처리 실패:", error);
-      alert("좋아요 처리에 실패했습니다.");
+      console.error('좋아요 처리 실패:', error);
+      alert('좋아요 처리에 실패했습니다.');
     }
   };
 
   return (
     <div className="like-button-container" onClick={handleLike}>
-      <span className="like-button-icon">
-        {isLiked ? '❤️' : '🤍'}
-      </span>
-      <span className="like-button-count">
-        {likes}
-      </span>
+      <span className="like-button-icon">{isLiked ? '❤️' : '🤍'}</span>
+      <span className="like-button-count">{likes}</span>
     </div>
   );
 }

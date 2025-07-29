@@ -27,7 +27,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       await axios
-        .get(`http://localhost:8080/api/v1/users/${user.usersId}`) //로그인시 저장된 userId에 따라 단일 회원 조회 api요청
+        .get(`http://158.180.78.252:8080/api/v1/users/${user.usersId}`) //로그인시 저장된 userId에 따라 단일 회원 조회 api요청
         .then(res => {
           const getUser = res.data;
           const getBio = res.data.biosDto;
