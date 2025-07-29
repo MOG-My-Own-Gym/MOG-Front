@@ -39,7 +39,7 @@ export default function MyPage() {
   //최초렌더링 시 유저정보 조회
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/v1/users/${user.usersId}`)
+      .get(`http://158.180.78.252:8080/api/v1/users/${user.usersId}`)
       .then(res => {
         //조회한 유저정보의 닉네임 저장 -> 사이드바 아래에 뿌려주기위함
         setUserNickName(res.data.nickName);
@@ -86,7 +86,6 @@ export default function MyPage() {
 
   return (
     <>
-      
       <div className="d-flex" style={{ height: '100%' }}>
         {/*데스크톱/태블릿용 사이드바 시작 */}
         <div

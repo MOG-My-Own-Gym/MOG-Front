@@ -162,7 +162,7 @@ export default function Stats() {
     week.setDate(today.getDate() - 7);
     const data = await axios
       .post(
-        'http://localhost:8080/api/v1/routine/result',
+        'http://158.180.78.252:8080/api/v1/routine/result',
         {
           startDate: toLocalDateTime(week),
           endDate: toLocalDateTime(today),
@@ -189,7 +189,7 @@ export default function Stats() {
     month.setDate(today.getDate() - 30);
     const data = await axios
       .post(
-        'http://localhost:8080/api/v1/routine/result',
+        'http://158.180.78.252:8080/api/v1/routine/result',
         {
           startDate: toLocalDateTime(month),
           endDate: toLocalDateTime(today),
@@ -241,7 +241,8 @@ export default function Stats() {
     <div className={styles.stats}>
       <div className={styles['stats-title']}>
         <h1 style={{ fontWeight: 'bold' }}>
-          이번 <span className={styles['stats-span']}>{toggle === 'week' ? '주' : '달'}</span> 운동 통계
+          이번 <span className={styles['stats-span']}>{toggle === 'week' ? '주' : '달'}</span> 운동
+          통계
         </h1>
         <div className={styles['stats-toggle']}>
           <div
@@ -271,7 +272,8 @@ export default function Stats() {
                 <Container className={styles['chart-title']}>
                   <Container className={styles['title-container']}>
                     <h2 className={styles['stats-h2']}>
-                      이번 {toggle === 'week' ? '주' : '달'} <span className={styles['stats-span']}>칼로리</span> 소모량
+                      이번 {toggle === 'week' ? '주' : '달'}{' '}
+                      <span className={styles['stats-span']}>칼로리</span> 소모량
                     </h2>
                     <h5 className={styles['stats-h5']}>
                       저번{toggle === 'week' ? '주' : '달'} 보다 {kcalCalc} kcal 더 소모했어요
@@ -286,8 +288,9 @@ export default function Stats() {
                     <div className={styles['title-dropdown']}>
                       <div className={styles['title']}>
                         <h2 className={styles['stats-h2']}>
-                          이번 {toggle === 'week' ? '주' : '달'} <span className={styles['stats-span']}>{keyMap[selectMenu]}</span>{' '}
-                          성장 추이
+                          이번 {toggle === 'week' ? '주' : '달'}{' '}
+                          <span className={styles['stats-span']}>{keyMap[selectMenu]}</span> 성장
+                          추이
                         </h2>
                         <h5 className={styles['stats-h5']}>
                           저번{toggle === 'week' ? '주' : '달'}보다 {redCalcMap[selectMenu]} 더
@@ -365,16 +368,20 @@ export default function Stats() {
                 <Container className={styles['chart-title']}>
                   <Container className={styles['title-container']}>
                     <h2 className={styles['stats-h2']}>
-                      이번 {toggle === 'week' ? '주' : '달'} 운동 <span className={styles['stats-span']}>트렌드</span>
+                      이번 {toggle === 'week' ? '주' : '달'} 운동{' '}
+                      <span className={styles['stats-span']}>트렌드</span>
                     </h2>
-                    <h5 className={styles['stats-h5']}>{`이번 ${toggle === 'week' ? '주는' : '달은'} ${activityTop}을 가장 많이 했어요`}</h5>
+                    <h5
+                      className={styles['stats-h5']}
+                    >{`이번 ${toggle === 'week' ? '주는' : '달은'} ${activityTop}을 가장 많이 했어요`}</h5>
                   </Container>
                 </Container>
                 <DoughnutChart doughnutData={doughnutData} isPolar={true} />
                 <Container className={styles['chart-title']}>
                   <Container className={styles['title-container']}>
                     <h2 className={styles['stats-h2']}>
-                      이번 {toggle === 'week' ? '주' : '달'} 운동 <span className={styles['stats-span']}>퍼포먼스</span>
+                      이번 {toggle === 'week' ? '주' : '달'} 운동{' '}
+                      <span className={styles['stats-span']}>퍼포먼스</span>
                     </h2>
                     <h5 className={styles['stats-h5']}>
                       저번{toggle === 'week' ? '주' : '달'}보다 {activityCalc}개 더 다양하게
@@ -388,7 +395,8 @@ export default function Stats() {
                 <Container className={styles['chart-title']}>
                   <Container className={styles['title-container']}>
                     <h2 className={styles['stats-h2']}>
-                      이번 {toggle === 'week' ? '주' : '달'} <span className={styles['stats-span']}>운동 퍼포먼스</span> 로그
+                      이번 {toggle === 'week' ? '주' : '달'}{' '}
+                      <span className={styles['stats-span']}>운동 퍼포먼스</span> 로그
                     </h2>
                     <h5 className={styles['stats-h5']}>
                       이번 {toggle === 'week' ? '주' : '달'} 운동의 더 상세한 데이터를 볼 수 있어요
@@ -487,7 +495,8 @@ export default function Stats() {
           <Container className={styles['chart-title']}>
             <Container className={styles['title-container']}>
               <h2 className={styles['stats-h2']}>
-                이번 {toggle === 'week' ? '주' : '달'} <span className={styles['stats-span']}>칼로리</span> 소모량
+                이번 {toggle === 'week' ? '주' : '달'}{' '}
+                <span className={styles['stats-span']}>칼로리</span> 소모량
               </h2>
               <h5 className={styles['stats-h5']}>
                 저번{toggle === 'week' ? '주' : '달'} 보다 {kcalCalc} kcal 더 소모했어요
@@ -499,7 +508,8 @@ export default function Stats() {
           <Container className={styles['chart-title']}>
             <Container className={styles['title-container']}>
               <h2 className={styles['stats-h2']}>
-                이번 {toggle === 'week' ? '주' : '달'} <span className={styles['stats-span']}></span> 성장 추이
+                이번 {toggle === 'week' ? '주' : '달'}{' '}
+                <span className={styles['stats-span']}></span> 성장 추이
               </h2>
               <h5 className={styles['stats-h5']}>
                 저번{toggle === 'week' ? '주' : '달'}보다 {redCalcMap[selectMenu]} 더 성장했어요
@@ -577,14 +587,20 @@ export default function Stats() {
           <LineChart lineData={lineData} lineState={lineState} />
           <Container className={styles['chart-title']}>
             <Container className={styles['title-container']}>
-              <h2 className={styles['stats-h2']}>이번 {toggle === 'week' ? '주' : '달'} 운동 트렌드</h2>
-              <h5 className={styles['stats-h5']}>{`이번 ${toggle === 'week' ? '주는' : '달은'} ${activityTop}을 가장 많이 했어요`}</h5>{' '}
+              <h2 className={styles['stats-h2']}>
+                이번 {toggle === 'week' ? '주' : '달'} 운동 트렌드
+              </h2>
+              <h5
+                className={styles['stats-h5']}
+              >{`이번 ${toggle === 'week' ? '주는' : '달은'} ${activityTop}을 가장 많이 했어요`}</h5>{' '}
             </Container>
           </Container>
           <DoughnutChart doughnutData={doughnutData} isPolar={true} isMobile={mobile} />
           <Container className={styles['chart-title']}>
             <Container className={styles['title-container']}>
-              <h2 className={styles['stats-h2']}>이번 {toggle === 'week' ? '주' : '달'} 운동 퍼포먼스</h2>
+              <h2 className={styles['stats-h2']}>
+                이번 {toggle === 'week' ? '주' : '달'} 운동 퍼포먼스
+              </h2>
               <h5 className={styles['stats-h5']}>
                 저번{toggle === 'week' ? '주' : '달'}보다 {activityCalc}개 더 다양하게 운동했어요
               </h5>
@@ -595,9 +611,12 @@ export default function Stats() {
           <Container className={styles['chart-title']}>
             <Container className={styles['title-container']}>
               <h2 className={styles['stats-h2']}>
-                이번 {toggle === 'week' ? '주' : '달'} <span className={styles['stats-span']}>운동 퍼포먼스</span> 로그
+                이번 {toggle === 'week' ? '주' : '달'}{' '}
+                <span className={styles['stats-span']}>운동 퍼포먼스</span> 로그
               </h2>
-              <h5 className={styles['stats-h5']}>이번 {toggle === 'week' ? '주' : '달'} 운동의 더 상세한 데이터를 볼 수 있어요</h5>
+              <h5 className={styles['stats-h5']}>
+                이번 {toggle === 'week' ? '주' : '달'} 운동의 더 상세한 데이터를 볼 수 있어요
+              </h5>
             </Container>
           </Container>
           <Card>
