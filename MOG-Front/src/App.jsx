@@ -16,8 +16,19 @@ import { AuthProvider } from './pages/Login/AuthContext';
 import SignUp from './pages/SignUp/SignUp';
 import FindIdPage from './pages/FindId/FindIdPage';
 import FindPwPage from './pages/FindPw/FindPwPage';
-import DataToss from './components/mainpage/DataToss';
 import Suggest from './pages/Suggest/Suggest';
+import Routine from './pages/Routine/Routine';
+import PoseCheck from './pages/PoseCheck/PoseCheck';
+import ChangePwPage from './pages/FindPw/ChangePwPage';
+import ModalAlertProvider from './context/ModalAlertProvider';
+import ModalAlert from './components/Modal/ModalAlert';
+import DataToss from './pages/mainpage/DataToss';
+import SelectExercises from './pages/Routine/SelectExercises/SelectExercises';
+import { RoutineProvider } from './pages/Routine/RoutineContext';
+import RoutineDetail from './pages/Routine/RoutineDetail/RoutineDetail';
+import './App.css';
+import RoutineRun from './pages/Routine/RoutineRun/RoutineRun';
+import { RunProvider } from './pages/Routine/RunContext';
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -32,21 +43,32 @@ function App() {
   return (
     <div style={{ padding: '4.5em 0 0 0' }}>
       <AuthProvider>
-        <GNB />
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/data/*" element={<DataToss />}></Route>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/stats" element={<Stats />}></Route>
-          <Route path="/record" element={<RecordPage />} />
-          <Route path="/social" element={<Social />} />
-          <Route path="/post/:id" element={<SocialDetail />} />
-          <Route path="/mypage/*" element={<MyPage />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/find-id" element={<FindIdPage />} />
-          <Route path="/find-pw" element={<FindPwPage />} />
-          <Route path="/suggest" element={<Suggest />} />
-        </Routes>
+        <RoutineProvider>
+          <RunProvider>
+            <GNB />
+            <Toast isToast={toast.isToast} content={toast.content} />
+            <Routes>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/stats" element={<Stats />}></Route>
+              <Route path="/record" element={<RecordPage />} />
+              <Route path="/social" element={<Social />} />
+              <Route path="/post/:id" element={<SocialDetail />} />
+              <Route path="/mypage/*" element={<MyPage />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/find-id" element={<FindIdPage />} />
+              <Route path="/find-pw" element={<FindPwPage />} />
+              <Route path="/find-pw/change" element={<ChangePwPage />} />
+              <Route path="/pose" element={<PoseCheck />} />
+              <Route path="/data/*" element={<DataToss />}></Route>
+              {/* 루틴 실행 */}
+              {/* <Route path="/routine" element={<Routine />} />
+              <Route path="/routine/select" element={<SelectExercises />} />
+              <Route path="/routine/detail" element={<RoutineDetail />} />
+              <Route path="/routine/run" element={<RoutineRun />} /> */}
+            </Routes>
+          </RunProvider>
+        </RoutineProvider>
       </AuthProvider>
     </div>
   );

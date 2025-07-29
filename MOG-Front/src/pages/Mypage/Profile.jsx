@@ -1,53 +1,57 @@
-import { useFetcher, useLocation, useNavigate, useParams } from 'react-router-dom';
-import './css/profile.css';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Login/AuthContext';
+import { useModalAlert } from '../../context/ModalAlertContext';
+
 export default function Profile() {
   const navigate = useNavigate();
-  const { state } = useLocation();
   const { user } = useContext(AuthContext);
+  const {showModal}=useModalAlert();
 
   // 초기 프로필 데이터 설정
   const [profile, setProfile] = useState({
-    accessToken: `${user.accessToken}`,
-    usersId: `${user.usersId}`,
     name: '',
     nickName: '',
     email: `${user.email}`,
-    profileImg: '',
-    call: '',
+    profileImg: '/img/userAvatar.png',//초기데이터 기본 프로필이미지로 설정
+    phoneNum:'',
     age: '',
     gender: '',
     height: '',
     weight: '',
-    regDate: '',
-    password: '',
+    regDate: ''
   });
 
+  //최초렌더링 및 userId가 변하는 경우에 따라 user정보 네트워크로부터 읽어오기
   useEffect(() => {
     const fetchProfile = async () => {
       await axios
-        .get(`http://localhost:8080/api/v1/users/${user.usersId}`)
+        .get(`http://localhost:8080/api/v1/users/${user.usersId}`)//로그인시 저장된 userId에 따라 단일 회원 조회 api요청
         .then(res => {
           const getUser = res.data;
           const getBio = res.data.biosDto;
+          //읽어온 정보로 프로필 state설정
           setProfile(prev => ({
-            ...profile,
+            ...prev,
             name: getUser.usersName,
             nickName: getUser.nickName,
             profileImg: getUser.profileImg,
-            age: getBio ? getBio.age : null,
-            gender: getBio ? getBio.gender : null,
-            height: getBio ? getBio.height : null,
-            weight: getBio ? getBio.weight : null,
+            phoneNum: getUser.phoneNum,
+            age: getBio.age,
+            gender: getBio.gender,
+            height: getBio.height,
+            weight: getBio.weight,
             regDate: getUser.regDate.substring(0, 10),
           }));
         })
-        .catch(e => console.log(e.response.data, e));
+        .catch(e => {
+          console.log(e.response.data, e);
+          showModal('프로필을 읽어오는 중 오류가 발생하였습니다');
+        });
     };
     fetchProfile();
-  }, []);
+  }, [user.usersId]);
 
   return (
     <>
@@ -56,10 +60,7 @@ export default function Profile() {
           <div className="row d-flex justify-content-around">
             <div className="col-md-3 border-right">
               <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img
-                  className="rounded-circle mt-5"
-                  width="150px"
-                  src={profile.profileImg}
+                <img className="rounded-circle mt-5" width="150px" src={profile.profileImg} 
                   alt={
                     profile.profileImg.trim() === '/img/userAvatar.png'
                       ? 'meaicon - Flaticon 기본이미지'
@@ -82,29 +83,27 @@ export default function Profile() {
                     <hr className="text-secondary" />
                     <div className="profile-nickname pt-2">
                       <p>닉네임</p>
-                      <h6 className="text-muted">{profile.nickName}</h6>
+                      <h6 className="text-muted fw-bold">{profile.nickName}</h6>
                     </div>
                     <hr className="text-secondary" />
                     <div className="profile-email pt-2">
                       <p>아이디</p>
-                      <h6 className="text-muted">{profile.email}</h6>
+                      <h6 className="text-muted fw-bold">{profile.email}</h6>
                     </div>
                     <hr className="text-secondary" />
-                    <div className="profile-call pt-2">
+                    <div className="profile-phoneNum pt-2">
                       <p>전화번호</p>
-                      {profile.call !== '' ? (
-                        <h6 className="text-muted">
-                          {profile.call.split('-')[0]}-{profile.call.split('-')[1]}-
-                          {profile.call.split('-')[2]}
-                        </h6>
-                      ) : (
-                        <h6 className="text-muted">전화번호 정보가 없습니다.</h6>
-                      )}
+                      {//전화번호가 11자리(핸드폰번호)인 경우 각 번호 사이에 - 표시하기
+                      profile.phoneNum.trim().length===11?
+                      <h6 className="text-muted fw-bold">{profile.phoneNum.substring(0,3)}-{profile.phoneNum.substring(3,7)}-{profile.phoneNum.substring(7,profile.phoneNum.length)}</h6>
+                      :
+                      <h6 className="text-muted fw-bold">{profile.phoneNum}</h6>
+                      }
                     </div>
                     <hr className="text-secondary" />
                     <div className="profile-regDate pt-2">
                       <p>가입일</p>
-                      <h6 className="text-muted">{profile.regDate}</h6>
+                      <h6 className="text-muted fw-bold">{profile.regDate}</h6>
                     </div>
                   </fieldset>
                 </div>
@@ -116,10 +115,12 @@ export default function Profile() {
                   <legend className="float-none w-auto px-3">신체 정보</legend>
                   <div className="physical-info-height">
                     <p>나이</p>
-                    <span className="text-muted fw-bold">{profile.age}</span>
-                    <span className="text-muted fw-bold" id="unit">
-                      세
-                    </span>
+                    { //선택정보가 없는 경우 정보가 없다고 표시
+                    profile.age!==0 ?
+                    (<span className="text-muted fw-bold">{profile.age}세</span>)
+                    :
+                    (<span className="text-muted">나이 정보가 없습니다.</span>)
+                    }
                   </div>
                   <hr className="text-secondary" />
                   <div className="physical-info-height">
@@ -131,18 +132,22 @@ export default function Profile() {
                   <hr className="text-secondary" />
                   <div className="physical-info-height">
                     <p>키</p>
-                    <span className="text-muted fw-bold">{profile.height}</span>
-                    <span className="text-muted fw-bold" id="unit">
-                      cm
-                    </span>
+                    { 
+                    profile.height!==0 ?
+                    (<span className="text-muted fw-bold">{profile.height}cm</span>)
+                    :
+                    (<span className="text-muted">나이 정보가 없습니다.</span>)
+                    }
                   </div>
                   <hr className="text-secondary" />
                   <div className="physical-info-height">
                     <p>몸무게</p>
-                    <span className="text-muted fw-bold">{profile.weight}</span>
-                    <span className="text-muted fw-bold" id="unit">
-                      kg
-                    </span>
+                    { 
+                    profile.weight!==0 ?
+                    (<span className="text-muted fw-bold">{profile.weight}kg</span>)
+                    :
+                    (<span className="text-muted">나이 정보가 없습니다.</span>)
+                    }
                   </div>
                 </fieldset>
               </div>
