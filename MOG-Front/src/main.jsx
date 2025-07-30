@@ -10,7 +10,7 @@ createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <ToastProvider>
       <ModalAlertProvider>
-        <App />
+        <App/>
         <ModalAlert/>
       </ModalAlertProvider>
     </ToastProvider>

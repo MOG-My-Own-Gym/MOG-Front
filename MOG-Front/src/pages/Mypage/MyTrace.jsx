@@ -13,7 +13,7 @@ export default function MySocial() {
   
   const fetchPosts = async () => {
     const data = await axios
-      .get('http://158.180.78.252:8080/api/v1/posts', {
+      .get('https://mogapi.kro.kr/api/v1/posts', {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -23,7 +23,7 @@ export default function MySocial() {
       });
   };
   const fetchComments = async () => {
-    const commentRes = await axios.get('http://158.180.78.252:8080/api/v1/comments/list', {
+    const commentRes = await axios.get('https://mogapi.kro.kr/api/v1/comments/list', {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },
@@ -31,12 +31,9 @@ export default function MySocial() {
     const comments = commentRes.data;
     const commentWithPostTitle = await Promise.all(
       comments.map(async comment => {
-        const postRes = await axios.get(
-          `http://158.180.78.252:8080/api/v1/posts/${comment.postId}`,
-          {
-            headers: { Authorization: `Bearer ${user.accessToken}` },
-          },
-        );
+        const postRes = await axios.get(`https://mogapi.kro.kr/api/v1/posts/${comment.postId}`, {
+          headers: { Authorization: `Bearer ${user.accessToken}` },
+        });
         return { ...comment, postTitle: postRes.data.postTitle };
       }),
     );

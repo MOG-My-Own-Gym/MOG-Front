@@ -162,7 +162,7 @@ export default function Stats() {
     week.setDate(today.getDate() - 7);
     const data = await axios
       .post(
-        'http://158.180.78.252:8080/api/v1/routine/result',
+        'https://mogapi.kro.kr/api/v1/routine/result',
         {
           startDate: toLocalDateTime(week),
           endDate: toLocalDateTime(today),
@@ -189,7 +189,7 @@ export default function Stats() {
     month.setDate(today.getDate() - 30);
     const data = await axios
       .post(
-        'http://158.180.78.252:8080/api/v1/routine/result',
+        'https://mogapi.kro.kr/api/v1/routine/result',
         {
           startDate: toLocalDateTime(month),
           endDate: toLocalDateTime(today),
