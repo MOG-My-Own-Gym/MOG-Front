@@ -55,9 +55,6 @@ export default function Profile() {
 
   return (
     <>
-      <h1 id="padding" style={{ marginTop: '55px', fontWeight: 'bold' }}>
-        프로필
-      </h1>
       <div className="container rounded bg-white mb-5">
         <div className="pt-2">
           <div className="row d-flex justify-content-around">
