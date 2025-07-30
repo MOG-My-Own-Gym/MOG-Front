@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "../../assets/bootstrap/css/mainpage.module.css";
-import "../../assets/bootstrap/css/bootstrap.css";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { URL } from "../../config/constants";
 import SetTime from "./SetTime";
+import { Button } from "react-bootstrap";
 
 export default function RunningRoutinePage({
         setDetailTime,
@@ -206,8 +206,18 @@ export default function RunningRoutinePage({
     },[showDetail])
 
     return<>
-        <div className={"container mt-5 p-3"}></div>
-            <SetTime 
+        <div className={styles.mainContainer}>
+            <Button className={`btn btn-lg btn-danger m-2`} type="button" onClick={()=>navigate(-1)}>뒤로가기</Button>
+            <span>{startRrcodResultData?formatTime():""}</span>
+            <div className={`${styles.mainpage} container mt-0 p-0`}>
+                {showDetail.map((item,index)=>(
+                    <div key={index} className={` container d-grid gap-2`} >
+                        <img className="mt-4 mb-4" style={{margin:'auto',width:"80%"}} src={item.img}/>
+                        <h1>{item.names}</h1>
+                    </div>
+                ))}
+                
+                <SetTime 
                 initDetailTime={initDetailTime} 
                 routineId={routineId} 
                 currentDetailId={currentDetailId}
@@ -219,18 +229,9 @@ export default function RunningRoutinePage({
                 setIsCurrentRunning={setIsCurrentRunning}
                 startRrcodResultData={startRrcodResultData}
                 currentRrcodingRoutineId={currentRrcodingRoutineId}
-            />
-            <button className={`btn btn-lg btn-danger`} type="button" onClick={()=>navigate(-1)}>뒤로가기</button>
-            <span>{startRrcodResultData?formatTime():""}</span>
-            <div className={`${styles.mainpage} container mt-0 p-0`}>
-                {showDetail.map((item,index)=>(
-                    <div key={index} className={` container d-grid gap-2`} >
-                        <h1>{item.names}</h1>
-                        <img style={{width:'200px'}} src={item.img}/>
-                    </div>
-                ))}
+                />
+
                 {
-                
                 addSetState.map((item,index)=>(
                 currentRrcodingRoutineId===routineId||startRrcodResultData===false?
                 <div key={index} className={"container mt-0 p-0 d-grid gap-2"}>
@@ -282,23 +283,23 @@ export default function RunningRoutinePage({
                 {
                 currentRrcodingRoutineId===routineId||startRrcodResultData===false?
                 <div className={`container ${styles.runningFlexButton}`}>
-                    <button className={`${styles.buttonSize} btn btn-lg btn-primary`} style={{marginRight: "30%"}} type="button" id='add' onClick={e=>addAndRemoveExSet(e)}>+ 추가</button>
-                    <button className={`${styles.buttonSize} btn btn-lg btn-primary`} type="button" id='remove' onClick={e=>addAndRemoveExSet(e)}>- 삭제</button>
+                    <p className={styles.runningFontButton} style={{marginRight: "20%",color:"blue"}} type="button" id='add' onClick={e=>addAndRemoveExSet(e)}>+ 추가</p>
+                    <p className={styles.runningFontButton} style={{color:"red"}} type="button" id='remove' onClick={e=>addAndRemoveExSet(e)}>- 삭제</p>
                 </div>
                 :
                 <div></div>
                 }
+        </div>
             <div className={`${styles.dummyContainers} p-5 mt-4`}></div>
             {currentRrcodingRoutineId===routineId||startRrcodResultData===false?
-            <footer className={`${styles.flexButton}`}>        
+            <footer className={styles.flexButton}>        
                 <div></div>
-                <button className={`${styles.buttonSize} btn btn-lg btn-dark`} disabled={isDisabledLeft} type="button" id="prev" onClick={e=>nextAndPrevExButton(e)}>이전</button>
-                <button className={`${styles.buttonSize} btn btn-lg btn-dark`} disabled={isDisabledRight} type="button" id="next" onClick={e=>nextAndPrevExButton(e)}>다음</button>
+                <Button className={styles.prettyButton} disabled={isDisabledLeft} type="button" id="prev" onClick={e=>nextAndPrevExButton(e)}>이전</Button>
+                <Button className={styles.prettyButton} disabled={isDisabledRight} type="button" id="next" onClick={e=>nextAndPrevExButton(e)}>다음</Button>
             </footer>
             :
             <footer></footer>
             }
-        </div>
-
+            </div>
     </>
 }

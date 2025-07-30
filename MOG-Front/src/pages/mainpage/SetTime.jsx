@@ -142,7 +142,7 @@ function SetTime({
   }, []);
 
     return <>
-        <div className={` ${styles.header} container`} style={{position:'fixed',top:'85px',zIndex:'100'}}>
+        <div className={styles.header} >
             <a href='#' style={{textDecoration: "none"}} onClick={()=>setShow(true)}><h2>{subDetailTime}</h2></a>
             <Button className={` btn btn-primary`} type="button" onClick={e=>plus()}>+</Button>
             <Button className={` btn btn-primary`} type="button" onClick={e=>minus()}>-</Button>
