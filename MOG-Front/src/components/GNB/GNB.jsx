@@ -19,7 +19,6 @@ export default function GNB() {
   const handleShow = () => setShow(true);
   const location = useLocation();
   const currentPath = location.pathname;
-  console.log(currentPath);
   const { user, dispatch } = useContext(AuthContext);
 
   const isPathActive = paths => paths.includes(currentPath);
@@ -170,17 +169,19 @@ export default function GNB() {
                 >
                   <div className="card card-profile px-4 pt-5 pb-4" style={{border:"none", boxShadow:"none"}}>
                     <div className="name">
+                    {user &&
                       <div className="profile-head d-flex flex-column align-items-center text-white">
                         <h3 style={{color:"#ffc800"}}>{userData.usersName}</h3>
                         <h4>{userData.nickName} </h4>
                         <h5>{userData.email}</h5>
                       </div>
+                    }
                       <div className="d-flex flex-row justify-content-around mt-4">
                         <div>
-                          <NavDropdown.Item as={Link} to="/mypage" style={currentPath.startsWith('/mypage')?{color:'white' ,backgroundColor:"#df8c1fff"}:{color:'black'}} className='profile-dropdown-button'>마이페이지</NavDropdown.Item>
+                          <NavDropdown.Item as={Link} to="/mypage" id='profile-dropdown-button1' style={currentPath.startsWith('/mypage')?{color:'white' ,backgroundColor:"#df8c1fff"}:{color:'black'}}>마이페이지</NavDropdown.Item>
                         </div>
                         <div>
-                          <NavDropdown.Item as={Link} to="/" style={{color:'black'}} onClick={() => dispatch({ type: 'LOGOUT' })} className='profile-dropdown-button'>로그아웃</NavDropdown.Item>
+                          <NavDropdown.Item as={Link} to="/" id='profile-dropdown-button2' style={{color:'black'}} onClick={() => dispatch({ type: 'LOGOUT' })}>로그아웃</NavDropdown.Item>
                         </div>
                       </div>
                     </div>

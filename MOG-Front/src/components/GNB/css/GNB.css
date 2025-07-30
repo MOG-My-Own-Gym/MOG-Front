@@ -12,6 +12,13 @@
     padding-right: 15px;
 }
 
+.nav-link-GNB:active{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding-right: 15px;
+}
+
 .custom-nav-link::after{
     display: none !important;
 }
@@ -57,7 +64,19 @@
     width: 100%;
 }
 
-.profile-dropdown-button{
+#profile-dropdown-button1{
+    background-color: white;
+    color:white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+
+#profile-dropdown-button2{
     background-color: white;
     color:white;
     border: none;
