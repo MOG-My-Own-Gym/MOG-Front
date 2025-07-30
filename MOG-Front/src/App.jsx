@@ -17,6 +17,8 @@ import SignUp from './pages/SignUp/SignUp';
 import FindIdPage from './pages/FindId/FindIdPage';
 import FindPwPage from './pages/FindPw/FindPwPage';
 import DataToss from './pages/mainpage/DataToss';
+import SocialCreate from './pages/Social/SocialCreate';
+import SocialEdit from './pages/Social/SocialEdit';
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -40,6 +42,8 @@ function App() {
           <Route path="/record" element={<RecordPage />} />
           <Route path="/social" element={<Social />} />
           <Route path="/post/:id" element={<SocialDetail />} />
+          <Route path="/social/create" element={<SocialCreate />} />
+          <Route path="/social/edit/:id" element={<SocialEdit />} />    
           <Route path="/mypage/*" element={<MyPage />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/find-id" element={<FindIdPage />} />

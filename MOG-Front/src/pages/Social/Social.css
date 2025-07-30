@@ -105,4 +105,40 @@
 .black-navbar #mainNav .nav-link:hover {
   color: rgb(255, 217, 0) !important;
 }
+/*  버튼 */
+.detail-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 16px;
+}
 
+.action-btn {
+  padding: 8px 16px;
+  background-color: #ffcc00; /* 나중에 바꿀 거니까 그대로 둠 */
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+/* 글쓰기 버튼  */
+.write-button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end; /* 오른쪽으로 */
+  padding: 0 8%; /* 좌우 여백 조절해서 가운데 맞추기 */
+  margin-bottom: 20px;
+}
+
+/* 버튼 자체는 꾸미기용 */
+.write-btn {
+  padding: 8px 16px;
+  background-color: #ffcc00;
+  border: none;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
