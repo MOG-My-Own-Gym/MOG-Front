@@ -6,6 +6,8 @@ import { Card, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
 import { AuthContext } from '../Login/AuthContext';
 import { useModalAlert } from '../../context/ModalAlertContext';
+import './css/mysocial.css';
+
 export default function MySocial() {
   const [postData, setPostData] = useState([]);
   const [commentData, setCommentData] = useState([]);

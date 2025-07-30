@@ -1,5 +1,5 @@
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
-import './css/mypage.css';
+import styles from './css/MyPage.module.css';
 import Profile from './Profile';
 import MyRoutine from './MyRoutine';
 import MySocial from './MyTrace';
@@ -50,6 +50,10 @@ export default function MyPage() {
       });
   }, []);
 
+  useEffect(()=>{
+    document.body.style.overflow='hidden';
+  },[]);
+
   //플로팅버튼을 누름에 따라 모바일메뉴 오픈 여부 토글하는 함수
   const toggleMobileMenu = e => {
     e.preventDefault();
@@ -86,21 +90,18 @@ export default function MyPage() {
 
   return (
     <>
-      <div className="d-flex" style={{ height: '100%' }}>
+      <div className={`d-flex ${styles.mypageWrapper}`}>
         {/*데스크톱/태블릿용 사이드바 시작 */}
-        <div
-          className="sidebar-main d-none d-md-block col-md-3 col-lg-2 bg-black text-white px-3"
-          style={{ height: 'auto !important', minHeight: '100vh' }}
-        >
+        <div className={`${styles.sidebarMain} d-none d-md-block col-md-3 col-lg-2 bg-black text-white px-3`}>
           <div className="d-flex flex-column justify-content-between h-100">
             <div>
-              <ul className="nav nav-pills-mypage flex-column px-0">
+              <ul className={`nav ${styles.navPillsMypage} flex-column px-0`}>
                 <li className="nav-item fs-4 my-1 py-2 py-sm-0 mt-4">
                   <Link
                     to="/mypage"
                     className={
                       isPathMatch(menuItem[0].path)
-                        ? 'nav-link text-white px-2 fs-5 active-link'
+                        ? `nav-link text-white px-2 fs-5 ${styles.activeLink}`
                         : 'nav-link text-white px-2 fs-5'
                     }
                   >
@@ -114,7 +115,7 @@ export default function MyPage() {
                     to="/mypage/myroutine"
                     className={
                       isPathMatch(menuItem[1].path)
-                        ? 'nav-link text-white px-2 fs-5 active-link'
+                        ? `nav-link text-white px-2 fs-5 ${styles.activeLink}`
                         : 'nav-link text-white px-2 fs-5'
                     }
                   >
@@ -127,7 +128,7 @@ export default function MyPage() {
                     to="/mypage/mysocial"
                     className={
                       isPathMatch(menuItem[2].path)
-                        ? 'nav-link text-white px-2 fs-5 active-link'
+                        ? `nav-link text-white px-2 fs-5 ${styles.activeLink}`
                         : 'nav-link text-white px-2 fs-5'
                     }
                   >
@@ -141,7 +142,7 @@ export default function MyPage() {
                     to="/mypage/settings"
                     className={
                       isPathMatch(menuItem[3].path)
-                        ? 'nav-link text-white px-2 fs-5 active-link'
+                        ? `nav-link text-white px-2 fs-5 ${styles.activeLink}`
                         : 'nav-link text-white px-2 fs-5'
                     }
                   >
@@ -154,7 +155,7 @@ export default function MyPage() {
                     to="/mypage/support"
                     className={
                       isPathMatch(menuItem[4].path)
-                        ? 'nav-link text-white px-2 fs-5 active-link'
+                        ? `nav-link text-white px-2 fs-5 ${styles.activeLink}`
                         : 'nav-link text-white px-2 fs-5'
                     }
                   >
@@ -177,9 +178,9 @@ export default function MyPage() {
         {/*데스크톱/태블릿용 사이드바 끝 */}
 
         {/*모바일용 플로팅 버튼(md이하에서만 보임) */}
-        <div className="d-md-none floating-button-container">
+        <div className={`d-md-none ${styles.floatingButtonContainer}`}>
           <button
-            className={`btn btn-warning rounded-circle floating-button ${isMobileMenuOpen ? 'active' : ''}`}
+            className={`btn btn-warning rounded-circle ${styles.floatingButton} ${isMobileMenuOpen ? 'active' : ''}`}
             onClick={toggleMobileMenu}
           >
             {isMobileMenuOpen ? (
@@ -193,14 +194,14 @@ export default function MyPage() {
         {/*버튼 클릭시 나타나는 모바일 메뉴 오버레이 */}
         {isMobileMenuOpen && (
           <>
-            <div className="mobile-menu-overlay" onClick={toggleMobileMenu}></div>
-            <div className="mobile-menu-content">
+            <div className={styles.mobileMenuOverlay} onClick={toggleMobileMenu}></div>
+            <div className={styles.mobileMenuContent}>
               <ul className="list-group">
                 {menuItem.map(item => (
                   <li className="list-group-item" key={item.path}>
                     <Link
                       to={item.path}
-                      className={`nav-link text-decoration-none w-100 text-start ${isPathMatch(item.path) ? 'active-link' : ''}`}
+                      className={`nav-link text-decoration-none w-100 text-start ${isPathMatch(item.path) ? `${styles.activeLink}` : ''}`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <i className={`${item.icon} me-3`}></i>
@@ -213,14 +214,7 @@ export default function MyPage() {
           </>
         )}
 
-        <Container
-          style={{
-            height: 'fit-content !important',
-            display: 'flex !important',
-            justifyContent: 'center !important',
-            maxWidth: '1540px !important',
-          }}
-        >
+        <Container className={styles.mainContentArea}>
           <Routes>
             <Route path="" element={<Profile />}></Route>
             <Route path="/edit" element={<ProfileEdit />}></Route>

@@ -245,7 +245,7 @@ export default function GNB() {
                 {user ? (
                   <>
                     <li className='nav-item mb-2'>
-                      <Link className='nav-link' to="/mypage" style={{color: isPathActive(['/mypage'])?'#FFC800':'white'}} oonClick={()=>{handleClose();handleClick();}}>마이페이지</Link>
+                      <Link className='nav-link' to="/mypage" style={{color: isPathActive(['/mypage'])?'#FFC800':'white'}} onClick={()=>{handleClose();handleClick();}}>마이페이지</Link>
                     </li>
                     <li className='nav-item mb-2'>
                       <Link className='nav-link' to="/logout" style={{color:'white'}} onClick={handleClose}>로그아웃</Link>
