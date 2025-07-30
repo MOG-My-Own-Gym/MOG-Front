@@ -14,7 +14,7 @@ export default function Routine() {
   useEffect(() => {
     const fetchRoutines = async () => {
       const data = await axios
-        .get(`http://158.180.78.252:8080/api/v1/routine/list`, {
+        .get(`https://mogapi.kro.kr/api/v1/routine/list`, {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
