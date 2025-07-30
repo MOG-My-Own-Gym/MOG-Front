@@ -7,7 +7,11 @@ export default function FindPwPage() {
   const { showModal } = useModalAlert();
 
   //form으로 받은 이메일 데이터를 저장할 state
-  const [email, setEmail] = useState('');
+  const [formData, setFormData]=useState({
+    email:"",
+    usersName:""
+  });
+
 
   //비밀번호 변경 페이지로 이동하기 위한 navigate
   const navigate = useNavigate();
@@ -18,10 +22,12 @@ export default function FindPwPage() {
   const spanErrorRef = useRef();
 
   //input입력값 제어하는 함수
-  const handleChange = e => {
-    //제출 전에는 유효성 체크x, email입력값만 email에 저장하기
-    if (e.target.name === 'email') setEmail(e.target.value);
-  };
+  const handleChange =e=>{
+    const {name, value}=e.target;
+    //제출 전에는 유효성 체크x
+    setFormData(prev=>({...prev,[name]:value}));
+  }
+
 
   //비밀번호찾기 버튼 눌렀을때 적용되는 함수
   const handleSubmit = e => {
@@ -43,24 +49,34 @@ export default function FindPwPage() {
     }
 
     //유효성 체크에 통과하면 단일회원조회(이메일) api요청
-    axios
-      .get(`http://158.180.78.252:8080/api/v1/users/email/${email}`)
-      .then(res => {
-        //이메일로 조회한 유저정보의 이름이 사용자가 입력한 이름과 같으면 비밀번호변경 페이지로 이동
-        if (res.data.usersName === usernameRef.current.value) {
-          navigate('/find-pw/change');
-        } else {
-          //이름이 일치하지 않을때 모달알러트 띄우기
-          showModal('가입된 이름이 일치하지 않습니다');
-          usernameRef.current.focus();
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        //이메일 조회 실패 모달알러트 띄우기
-        showModal('해당 회원이 존재하지 않습니다');
-        emailRef.current.focus();
-      });
+    axios.get(`http://localhost:8080/api/v1/users/email/${formData.email}`)
+        .then(res => {
+          //이메일로 조회한 유저정보의 이름이 사용자가 입력한 이름과 같으면 비밀번호변경 페이지로 이동
+          const userData = res.data;
+          console.log(userData);
+          if(userData.usersName===formData.usersName){
+            axios.post('http://localhost:8080/api/v1/users/send/password',formData)
+            .then(res=>{
+              console.log(res);
+              showModal('비밀번호 찾기 이메일 전송을 성공하였습니다');
+            })
+            .catch(error=>{
+              console.log(error);
+              showModal('비밀번호 찾기 이메일 전송을 실패하였습니다');
+            });
+          }
+          else{
+            //이름이 일치하지 않을때 모달알러트 띄우기
+            showModal('가입된 이름이 일치하지 않습니다');
+            usernameRef.current.focus();
+          }
+        })
+        .catch(err=>{
+          console.log(err);
+          //이메일 조회 실패 모달알러트 띄우기
+          showModal('해당 회원이 존재하지 않습니다');
+          emailRef.current.focus();
+        });
   };
 
   return (
@@ -70,7 +86,7 @@ export default function FindPwPage() {
         <form className="login-form" onSubmit={handleSubmit}>
           <input
             type="text"
-            name="username"
+            name='usersName'
             placeholder="이름 입력"
             className="login-input"
             ref={usernameRef}
@@ -85,7 +101,7 @@ export default function FindPwPage() {
             onChange={handleChange}
           />
           <button type="submit" className="login-button">
-            비밀번호 찾기
+            비밀번호 찾기 이메일 발송
           </button>
         </form>
         <span ref={spanErrorRef} style={{ color: '#FF0000' }}></span>
