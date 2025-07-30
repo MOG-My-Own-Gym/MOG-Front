@@ -76,7 +76,7 @@ function Model({
                     "exVolum": String(allWeight) //총 무게 값
                 }
             }
-            axios.post(URL.ROUTINERESULT,{
+            axios.post(`${URL.REALDATA}/${resultData.retId}/result`,{
                 ...inputResult
             })
             .then(localStorage.removeItem("detailSetData"))
