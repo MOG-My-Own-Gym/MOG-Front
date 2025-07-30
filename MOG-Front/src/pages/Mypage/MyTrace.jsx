@@ -5,12 +5,18 @@ import RecordPage from '../../components/Record/RecordPage';
 import { Card, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
 import { AuthContext } from '../Login/AuthContext';
+import { useModalAlert } from '../../context/ModalAlertContext';
 export default function MySocial() {
-  //하트버튼 누르는 토글여부에 따라 꽉 찬 하트와 빈 하트를 보여주는 컴포넌트
   const [postData, setPostData] = useState([]);
   const [commentData, setCommentData] = useState([]);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const {showModal}=useModalAlert();
+  const [userData, setUserData]=useState({
+    nickName:'',
+    email:'',
+    profileImg:'/img/userAvatar.png'
+  });
   
   const fetchPosts = async () => {
     const data = await axios
@@ -49,6 +55,22 @@ export default function MySocial() {
     fetchComments();
   }, []);
 
+  useEffect(()=>{
+    axios.get(`http://158.180.78.252:8080/api/v1/users/${user.usersId}`)
+      .then(res=>{
+        setUserData(prev=>({
+          ...prev,
+          nickName:res.data.nickName,
+          email:res.data.email,
+          profileImg:res.data.profileImg
+        }))
+      })
+      .catch(e=>{
+        console.log(e);
+        showModal('사용자의 정보를 가져오는 중 오류가 발생하였습니다.');
+      });
+  },[user.usersId]);
+
   return (
     <>
       <div className={styles['trace-container']}>
@@ -60,9 +82,9 @@ export default function MySocial() {
             <div style={{ display: 'flex', height: '500px', gap: '2em' }}>
               <Card className={styles['profile-card']}>
                 <div className="profile-head d-flex flex-column align-items-center">
-                  <img className="rounded-circle mt-5" width="150px" src={'/img/userAvatar.png'} />
-                  <h4>길동05 </h4>
-                  <h5>gildongGa1234</h5>
+                  <img className="rounded-circle mt-5" width="150px" src={userData.profileImg} />
+                  <h4>{userData.nickName} </h4>
+                  <h5>{userData.email}</h5>
                 </div>
                 <div className="d-flex flex-row justify-content-around mt-4 pr-4">
                   <div className="d-flex flex-column align-items-center">
@@ -88,21 +110,6 @@ export default function MySocial() {
                   <hr className="text-secondary" />
                 </div>
                 <div className={styles['post-container']}>
-                  {/* <div className="col-auto">
-                  <div className="card card-social card-post d-flex flex-column justify-content-around w-100">
-                    <div className="img-container-social">
-                      <Link to="#">
-                        <img src="/img/Running.jpeg" className="img-fluid" />
-                      </Link>
-                    </div>
-                    <div className="title-container">
-                      <div className="d-flex justify-content-between align-items-center my-3">
-                        <h6 className="mb-0">글 제목1</h6>
-                      </div>
-                      <HeartItemSocial />
-                    </div>
-                  </div>
-                </div> */}
 
                   <ListGroup as="ul">
                     <ListGroup.Item
