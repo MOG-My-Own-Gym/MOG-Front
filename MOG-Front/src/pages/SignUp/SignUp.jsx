@@ -1,31 +1,51 @@
 import { useRef, useState } from 'react';
 import './SignUp.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useModalAlert } from '../../context/ModalAlertContext';
 
 export default function SignUp() {
+  const { showModal } = useModalAlert();
+  const navigator = useNavigate();
+
+  //input입력값 저장하기위한 state
   const [formData, setFormData] = useState({
     name: '',
     nickname: '',
     email: '',
     password: '',
     confirmPassword: '',
+    phoneNum: '',
     age: '',
     gender: '',
     height: '',
     weight: '',
   });
-  const { name, nickname, email, password, confirmPassword, age, gender, height, weight } =
-    formData;
+  const {
+    name,
+    nickname,
+    email,
+    password,
+    confirmPassword,
+    phoneNum,
+    age,
+    gender,
+    height,
+    weight,
+  } = formData;
 
+  //input및 유효성 체크용 Ref
   const checkEmailRef = useRef();
   const checkNameRef = useRef();
   const checkNicknameRef = useRef();
   const checkPasswordRef = useRef();
   const passwordCheckResult = useRef();
   const emailCheckResult = useRef();
-  const buttonRef = useRef();
+  const emailRef = useRef();
   const passwordRef = useRef();
+  const checkCallRef = useRef();
 
+  //input입력값 제어하는 함수
   const handleChange = e => {
     const { name, value } = e.target;
     //유효성 체크
@@ -37,51 +57,76 @@ export default function SignUp() {
       checkNicknameRef.current.textContent = value.trim() === '' ? '닉네임을 입력하세요' : '';
     else if (name === 'password')
       checkPasswordRef.current.textContent = value.trim() === '' ? '비밀번호를 입력하세요' : '';
+    else if (name === 'phoneNum')
+      checkCallRef.current.textContent = value.trim() === '' ? '전화번호를 입력하세요' : '';
 
     //비밀번호 확인
     if (name === 'confirmPassword') {
       if (value === passwordRef.current.value) {
         passwordCheckResult.current.textContent = value.trim() === '' ? '' : '비밀번호 일치';
+        //비밀번호가 일치하는 경우만 confirmPassword 키 저장
         setFormData(prev => ({ ...prev, confirmPassword: value }));
       } else if (value !== passwordRef.current.value) {
         passwordCheckResult.current.textContent =
           value.trim() === '' ? '' : '비밀번호가 일치하지 않습니다';
       }
-    } else if (name === 'gender') {
+    }
+    //gender값 저장용
+    else if (name === 'gender') {
       if (value === 'true') setFormData(prev => ({ ...prev, gender: true }));
       else setFormData(prev => ({ ...prev, gender: false }));
     } else setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  //회원가입버튼 제어용 함수
   const handleSubmit = e => {
     e.preventDefault();
-    //유효성 체크
-    if (
-      email.trim().length === 0 ||
-      nickname.trim().length === 0 ||
-      name.trim().length === 0 ||
-      password.trim().length === 0
-    ) {
-      window.alert('필수 항목(*)은 반드시 입력해 주세요');
-      return;
+
+
+    //이메일 중복여부 체크하는 함수
+    const handleCheckEmail=(e)=>{
+        e.preventDefault();
+        //단일회원조회(이메일)api요청
+        axios.get(`http://localhost:8080/api/v1/users/email/${emailRef.current.value}`)
+        .then(res=>{
+            //회원조회에 성공한 경우 -> 중복되는 이메일인 경우
+            emailCheckResult.current.textContent='이미 존재하는 아이디 입니다';
+            emailRef.current.value='';//email을 지워주므로 회원가입하려면 다시 입력해야함
+            emailRef.current.focus();
+        })
+        .catch(err=>{
+            //조회에 실패한 경우 -> 존재하지 않는 회원 즉, 중복되지 않은 이메일인 경우
+            if(err.status){
+              if(err.status===400){
+                emailCheckResult.current.textContent='사용 가능한 아이디입니다';
+                return;
+              }
+            }
+            else {
+              console.log(err);
+              showModal('아이디 중복 조회 중 오류가 발생하였습니다');
+            }
+        })
     }
     if (emailCheckResult.current.textContent.trim() === '') {
-      window.alert('아이디의 중복여부를 확인해 주세요');
-      buttonRef.current.focus();
+      showModal('아이디의 중복여부를 확인해 주세요');
+      emailRef.current.focus();
       return;
     }
     if (confirmPassword.trim().length === 0) {
-      window.alert('비밀번호가 일치하지 않습니다.');
+      showModal('비밀번호가 일치하지 않습니다.');
       document.querySelector('input[name="confirmPassword"]').focus();
       return;
     }
 
+    //유효성 체크를 통과한경우에만 회원가입 api 요청
     axios
-      .post('http://localhost:8080/api/v1/users/signup', {
+      .post('http://158.180.78.252:8080/api/v1/users/signup', {
         usersName: name,
         email: email,
-        profileImg: '/img/userAvatar.png',
+        profileImg: '/img/userAvatar.png', //프로필이미지는 기본이미지로 전달
         nickName: nickname,
+        phoneNum: phoneNum,
         biosDto: {
           gender: gender,
           age: age,
@@ -93,26 +138,31 @@ export default function SignUp() {
         },
       })
       .then(resp => {
-        console.log(resp.data);
-        window.alert('회원가입 완료');
+        showModal('회원가입 완료');
         navigator('/login');
-      })
-      .catch(err => console.log(err));
-  };
-
-  const handleCheckEmail = e => {
-    e.preventDefault();
-    axios
-      .get(`http://localhost:8080/api/v1/users/email/${email}`)
-      .then(res => {
-        console.log(res);
-        emailCheckResult.current.textContent = '이미 존재하는 아이디 입니다';
-        buttonRef.current.value = '';
-        buttonRef.current.focus();
       })
       .catch(err => {
         console.log(err);
-        if (err.status === 404) emailCheckResult.current.textContent = '사용 가능한 아이디입니다';
+        showModal('회원가입 실패');
+      });
+  };
+
+  //이메일 중복여부 체크하는 함수
+  const handleCheckEmail = e => {
+    e.preventDefault();
+    //단일회원조회(이메일)api요청
+    axios
+      .get(`http://158.180.78.252:8080/api/v1/users/email/${emailRef.current.value}`)
+      .then(res => {
+        //회원조회에 성공한 경우 -> 중복되는 이메일인 경우
+        emailCheckResult.current.textContent = '이미 존재하는 아이디 입니다';
+        emailRef.current.value = ''; //email을 지워주므로 회원가입하려면 다시 입력해야함
+        emailRef.current.focus();
+      })
+      .catch(err => {
+        //조회에 실패한 경우 -> 존재하지 않는 회원 즉, 중복되지 않은 이메일인 경우
+        console.log(err);
+        emailCheckResult.current.textContent = '사용 가능한 아이디입니다';
       });
   };
 
@@ -130,7 +180,9 @@ export default function SignUp() {
                 <span ref={emailCheckResult} style={{ color: '#0000FF' }}></span>
                 <div className="check-row">
                   <input
-                    ref={buttonRef}
+                    ref={emailRef}
+                    className="form-control"
+                    type="email"
                     name="email"
                     placeholder="이메일"
                     onChange={handleChange}
@@ -142,17 +194,6 @@ export default function SignUp() {
                 <span ref={checkEmailRef} style={{ color: '#FF0000' }}></span>
               </div>
               <div>
-                <label>닉네임</label>
-                <span className="text-danger fs-5 mx-2">*</span>
-                <input
-                  className="form-control"
-                  name="nickname"
-                  placeholder="닉네임"
-                  onChange={handleChange}
-                />
-                <span ref={checkNicknameRef} style={{ color: '#FF0000' }}></span>
-              </div>
-              <div>
                 <label>이름</label>
                 <span className="text-danger fs-5 mx-2">*</span>
                 <input
@@ -162,6 +203,17 @@ export default function SignUp() {
                   onChange={handleChange}
                 />
                 <span ref={checkNameRef} style={{ color: '#FF0000' }}></span>
+              </div>
+              <div>
+                <label>닉네임</label>
+                <span className="text-danger fs-5 mx-2">*</span>
+                <input
+                  className="form-control"
+                  name="nickname"
+                  placeholder="닉네임"
+                  onChange={handleChange}
+                />
+                <span ref={checkNicknameRef} style={{ color: '#FF0000' }}></span>
               </div>
               <div>
                 <label>비밀번호</label>
@@ -187,6 +239,18 @@ export default function SignUp() {
                   onChange={handleChange}
                 />
                 <span ref={passwordCheckResult} style={{ color: '#0000FF' }}></span>
+              </div>
+              <div>
+                <label>전화번호</label>
+                <span className="text-danger fs-5 mx-2">*</span>
+                <input
+                  className="form-control"
+                  name="phoneNum"
+                  type="number"
+                  placeholder="전화번호 (-을 제외한 숫자만 입력해 주세요)"
+                  onChange={handleChange}
+                />
+                <span ref={checkCallRef} style={{ color: '#FF0000' }}></span>
               </div>
             </div>
 

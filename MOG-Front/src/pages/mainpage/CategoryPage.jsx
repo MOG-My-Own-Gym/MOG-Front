@@ -1,9 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "../../assets/bootstrap/css/mainpage.module.css";
-import "../../assets/bootstrap/css/bootstrap.css";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { URL } from "../../config/constants";
+import { Button } from "react-bootstrap";
 
 export default function CategoryPage({
         useDataRoutine,
@@ -118,7 +118,7 @@ export default function CategoryPage({
         item.names.includes(e.currentTarget.id));
         setSaveExercise(prev=>[...prev,...saveR]); 
         countSaveRoutineInt = initSaveExercise.filter(item=>item.names===e.currentTarget.id).length+1;
-        e.target.children[1].textContent=countSaveRoutineInt;
+        e.target.children[3].textContent=countSaveRoutineInt;
         setSaveExerciseSpan(prev=>{
             const inputExSpan = [...prev,e.target.children[1].id]
             setIsHidden(inputExSpan.length===0?true:false);
@@ -224,93 +224,98 @@ export default function CategoryPage({
     },[])
 
     return<>
-        <div className={"container mt-5 p-3"}></div>
-            <button className={`btn btn-lg btn-danger`} type="button" onClick={()=>navigate('/data/')}>뒤로가기</button>
-            <form className={"d-flex"}>
-                <input className={"form-control me-sm-2"} type="search" placeholder="운동 이름을 입력하세요." onChange={e => setSearch(e.target.value)}/>
-            </form>
-            <div  className={`${styles.mainpage} container mt-0 p-0`}>
-            <div style={{overflowX: 'scroll', whiteSpace: 'nowrap'}} className={"container"}>
-                    <div  className="container">
-                    운동 종류
-                     {initcategory.map((item,index) => (
-                        <span key={index}>
-                            <a  href="#" onClick={(e) => {makedetil(e,'category')}}>{item}</a>
-                        </span>
-                    ))
-                    }
-                    </div>
-                    <div  className="container">
-                    사용 기구
-                     {initequipment.map((item,index)=>(
-                        <span key={index}>
-                            <a  href="#" onClick={(e) => {makedetil(e,'equipment')}}>{item}</a>
-                        </span>
-                    ))}
-                    </div>
-                    <div  className="container">
-                    풀-푸쉬-스태틱
-                     {initforce.map((item,index)=>(
-                        <span key={index}>
-                            <a  href="#" onClick={(e) => {makedetil(e,'force')}}>{item}</a>
-                        </span>
-                    ))}
-                    </div>
-                    <div  className="container">
-                    난이도
-                     {initlevel.map((item,index)=>(
-                        <span key={index}>
-                            <a  href="#" onClick={(e) => {makedetil(e,'level')}}>{item}</a>
-                        </span>
-                    ))}
-                    </div>
-                    <div  className="container">
-                    고립, 복합
-                     {initmechanic.map((item,index)=>(
-                        <span key={index}>
-                            <a  href="#" onClick={(e) => {makedetil(e,'mechanic')}}>{item}</a>
-                        </span>
-                    ))}
-                    </div>
-                    <div  className="container">
-                    주 근육
-                     {initprimaryMuscles.map((item,index)=>(
-                        <span key={index}>
-                            <a  href="#" onClick={(e) => {makedetil(e,'primaryMuscles')}}>{item}</a>
-                        </span>
-                    ))}
-                    </div>
-                    <div  className="container">
-                    보조 근육
-                     {initsecondaryMuscles.map((item,index)=>(
-                        <span key={index}>
-                            <a  href="#" onClick={(e) => {makedetil(e.currentTarget.textContent,'secondaryMuscles')}}>{item}</a>
-                        </span>
-                    ))}
-                    </div>
-                
+        <div className={styles.mainContainer}>
+            <div >
+                <Button className={`m-2 btn btn-lg btn-danger`} type="button" onClick={()=>navigate('/data/')}>뒤로가기</Button>
+                <form className={"d-flex"}>
+                    <input className={styles.inputForm} type="search" placeholder="운동 이름을 입력하세요." onChange={e => setSearch(e.target.value)}/>
+                </form>
+                <div  className={`container mt-0 p-0`}>
+                <div style={{overflowX: 'scroll', whiteSpace: 'nowrap'}} className={"container"}>
+                        <div  className="container m-2">
+                        운동 종류
+                        {initcategory.map((item,index) => (
+                            <span key={index}>
+                                <a  
+                                    style={{textDecoration: 'none',marginLeft:'20px',color:'blue'}}
+                                    href="#" 
+                                    onClick={(e) => {makedetil(e,'category')}}>
+                                    {item}
+                                </a>
+                            </span>
+                        ))
+                        }
+                        </div>
+                        <div  className="container m-2">
+                        사용 기구
+                        {initequipment.map((item,index)=>(
+                            <span key={index}>
+                                <a  
+                                    style={{textDecoration: 'none',marginLeft:'20px',color:'green'}}
+                                    href="#" 
+                                    onClick={(e) => {makedetil(e,'equipment')}}>
+                                    {item}
+                                </a>
+                            </span>
+                        ))}
+                        </div>
+                        <div  className="container m-2">
+                        난이도
+                        {initlevel.map((item,index)=>(
+                            <span key={index}>
+                                <a  
+                                    style={{textDecoration: 'none',marginLeft:'20px'}}
+                                    href="#" 
+                                    onClick={(e) => {makedetil(e,'level')}}>
+                                    {item}
+                                </a>
+                            </span>
+                        ))}
+                        </div>
+                        <div  className="container m-2">
+                        고립, 복합
+                        {initmechanic.map((item,index)=>(
+                            <span key={index}>
+                                <a
+                                    style={{textDecoration: 'none',marginLeft:'20px',color:'red'}}  
+                                    href="#" 
+                                    onClick={(e) => {makedetil(e,'mechanic')}}>
+                                    {item}
+                                </a>
+                            </span>
+                        ))}
+                        </div>
+                    
+                </div>
             </div>
-            <div ref={makeRoutineContainer} className={"container mt-0 p-0 d-grid gap-2"}>
-                {initDeduplicationDetail.length===0
-                ?
-                <h1>불러오는 중</h1>
-                :
-                initDeduplicationDetail.slice(0,showMaxCategory).map(item=>(
-                    <div className="container" key={item.id}>
-                        <button  className="btn btn-lg btn-dark"  id={item.names}
-                            style={{width:'100%', fontSize:'25px', textAlign:'left',display:'flex'}}  
-                            type="button" onClick={e=>saveRoutineButton(e)}>
-                            <img alt={item.imgfile} style={{width:'100px'}} src={item.imgfile}/>
+            <ul ref={makeRoutineContainer} className={styles.secondContainer}>
+                {
+                    initDeduplicationDetail.length===0
+                    ?
+                    <h1>값이 없습니다.</h1>
+                    :
+                    initDeduplicationDetail.slice(0,showMaxCategory).map(item=>(
+                        <li  
+                            className={styles.prettyli}
+                            id={item.names}
+                            key={item.id}
+                            type="button"
+                            style={{display:'flex'}}  
+                             onClick={e=>saveRoutineButton(e)}>
+                            <img alt={item.imgfile} className="me-5" style={{width:'100px'}} src={item.imgfile}/>
                             {item.names}
-                            <span id={item.names+'Span'} style={{marginLeft:'auto'}}></span>
-                       </button>
-                    </div>
-                ))}
-            </div>
+                            <p className="me-3 ms-3" style={{color:'blue',fontSize:'15px',marginTop:'auto'}}>{item.primaryMuscles}</p>
+                            <p style={{color:'red',fontSize:'15px',marginTop:'auto'}}>{item.secondaryMuscles}</p>
+                            <span id={item.names+'Span'} style={{marginLeft:'auto',color:'#FFD600'}}></span>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
             <div className={`${styles.dummyContainers} p-5 mt-4`}></div>
-            <footer className={`${styles.flexSelectButton}`}>
-                <button className={`${styles.buttonSize} btn btn-lg btn-primary`} type="button" onClick={makeRoutineButton} hidden={isHidden}>운동 추가</button>
-                <button className={`${styles.buttonSize} btn btn-lg btn-primary`} type="button" onClick={e=>deleteRoutineButten(e)} hidden={isHidden}>되돌리기</button>
+            <footer className={styles.flexButton}>
+                <Button className={`${styles.prettyButton} me-5`} type="button" onClick={makeRoutineButton} hidden={isHidden}>운동 추가</Button>
+                <Button className={styles.prettyButton} type="button" onClick={e=>deleteRoutineButten(e)} hidden={isHidden}>되돌리기</Button>
             </footer>
         </div>
 

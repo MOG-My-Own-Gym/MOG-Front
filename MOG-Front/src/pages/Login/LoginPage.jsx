@@ -5,8 +5,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { CLIENT_ID, KAKAO_AUTH_URL, REDIRECT_URI } from '../../utils/auth/oAuth';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
+import { useModalAlert } from '../../context/ModalAlertContext';
 
 export default function LoginPage() {
+  const { showModal } = useModalAlert();
   const navigate = useNavigate();
   const location = useLocation();
   const { dispatch } = useContext(AuthContext);
@@ -42,15 +44,29 @@ export default function LoginPage() {
       return;
     }
 
+    //유효성 체크에 통과한 경우 로그인 api요청
     axios
-      .post('http://localhost:8080/api/v1/users/login', { email, password })
+      .post('http://158.180.78.252:8080/api/v1/users/login', { email, password })
       .then(res => {
-        console.log(res.data);
+        //dispatch로 AuthContext에 LOGIN상태 전달 -> 로컬스토리지에 user정보 저장
         dispatch({ type: 'LOGIN', user: res.data });
+        //홈으로 이동
         navigate('/', { replace: true });
       })
       .catch(e => {
-        setLoginErrMsg(e.response.data.split(':')[1]); //로그인 실패시 오류메세지 화면에 띄워주기
+        console.log(e);
+        //네트워크에러가 일어나지 않은경우(네트워크 에러인 경우 e.status가 없어서 코드진행이 막힘)
+        if (e.code !== 'ERR_NETWORK') {
+          //유저정보가 없어서 로그인에 실패한 경우
+          if (e.status === 400)
+            //오류메세지(백엔드에서 지정한 메세지) 화면에 띄워주기
+            setLoginErrMsg(e.response.data.split(':')[1]);
+          else showModal('로그인에 실패하였습니다'); //그외 오류인 경우 로그인실패 알러트 띄우기
+        } else {
+          //저장되어있는 오류메세지 초기화 후 알러트 띄우기
+          setLoginErrMsg('');
+          showModal('로그인에 실패하였습니다');
+        }
       });
   };
 
@@ -73,7 +89,7 @@ export default function LoginPage() {
           const { access_token } = res.data;
           console.log(access_token);
           axios
-            .post(`http://localhost:8080/api/v1/users/login/kakao`, {
+            .post(`http://158.180.78.252:8080/api/v1/users/login/kakao`, {
               socialType: 'kakao',
               accessToken: access_token,
             })
