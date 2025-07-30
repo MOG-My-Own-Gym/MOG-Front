@@ -5,9 +5,9 @@ import { useModalAlert } from '../../context/ModalAlertContext';
 import { AuthContext } from '../Login/AuthContext';
 
 export default function ProfileEdit() {
-  const{showModal}=useModalAlert();
+  const { showModal } = useModalAlert();
   const navigete = useNavigate();
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const { state } = useLocation();
 
@@ -37,7 +37,8 @@ export default function ProfileEdit() {
     } else if (name === 'nickName') {
       spanNicknameRef.current.textContent = value.trim() === '' ? '닉네임을 입력하세요' : '';
     } else if (name === 'phoneNum') {
-      spanPhoneNumRef.current.textContent = value.trim() === '' ? '전화번호를 숫자만 입력해주세요' : '';
+      spanPhoneNumRef.current.textContent =
+        value.trim() === '' ? '전화번호를 숫자만 입력해주세요' : '';
     }
 
     //gender라디오 버튼인 경우 true혹은 false로 저장(저장된 state는 문자열로 읽어오기 때문에 문자열-> 불린값으로 바꿔주기 위함)
@@ -65,7 +66,7 @@ export default function ProfileEdit() {
     //유효성 체크 통과한 경우 회원정보수정 api 요청
     axios
       .put(
-        `http://localhost:8080/api/v1/users/update/${user.usersId}`,
+        `http://158.180.78.252:8080/api/v1/users/update/${user.usersId}`,
         {
           usersName: name,
           nickName: nickName,
@@ -77,14 +78,14 @@ export default function ProfileEdit() {
             age: age,
             height: height,
             weight: weight,
-          }
+          },
         },
         {
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
-        }
+        },
       )
       .then(res => {
         //회원정보수정에 성공한 경우 profile페이지로 바로 이동

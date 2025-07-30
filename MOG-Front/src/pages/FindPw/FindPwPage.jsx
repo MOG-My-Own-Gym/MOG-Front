@@ -1,16 +1,17 @@
-import axios from "axios";
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useModalAlert } from "../../context/ModalAlertContext";
+import axios from 'axios';
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useModalAlert } from '../../context/ModalAlertContext';
 
 export default function FindPwPage() {
-  const {showModal}=useModalAlert();
+  const { showModal } = useModalAlert();
 
   //form으로 받은 이메일 데이터를 저장할 state
   const [formData, setFormData]=useState({
     email:"",
     usersName:""
   });
+
 
   //비밀번호 변경 페이지로 이동하기 위한 navigate
   const navigate = useNavigate();
@@ -27,24 +28,23 @@ export default function FindPwPage() {
     setFormData(prev=>({...prev,[name]:value}));
   }
 
+
   //비밀번호찾기 버튼 눌렀을때 적용되는 함수
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     //제출기능막기
     e.preventDefault();
     //에러메세지 초기화
-    spanErrorRef.current.textContent='';
+    spanErrorRef.current.textContent = '';
 
     //유효성 체크
-    if(emailRef.current.value === '' && usernameRef.current.value ===''){
-      spanErrorRef.current.textContent="이름 및 이메일을 모두 입력해주세요";
+    if (emailRef.current.value === '' && usernameRef.current.value === '') {
+      spanErrorRef.current.textContent = '이름 및 이메일을 모두 입력해주세요';
       return;
-    }
-    else if(emailRef.current.value === ''){
-      spanErrorRef.current.textContent="이메일을 입력해주세요";
+    } else if (emailRef.current.value === '') {
+      spanErrorRef.current.textContent = '이메일을 입력해주세요';
       return;
-    }
-    else if(usernameRef.current.value === ''){
-      spanErrorRef.current.textContent="이름을 입력해주세요";
+    } else if (usernameRef.current.value === '') {
+      spanErrorRef.current.textContent = '이름을 입력해주세요';
       return;
     }
 
@@ -77,15 +77,14 @@ export default function FindPwPage() {
           showModal('해당 회원이 존재하지 않습니다');
           emailRef.current.focus();
         });
-
   };
 
-
-  return <>
-    <div className="login-container">
-      <h1 className="login-title">비밀번호 찾기</h1>
+  return (
+    <>
+      <div className="login-container">
+        <h1 className="login-title">비밀번호 찾기</h1>
         <form className="login-form" onSubmit={handleSubmit}>
-          <input 
+          <input
             type="text"
             name='usersName'
             placeholder="이름 입력"
@@ -95,7 +94,7 @@ export default function FindPwPage() {
           />
           <input
             type="email"
-            name='email'
+            name="email"
             placeholder="가입한 이메일"
             className="login-input"
             ref={emailRef}
@@ -105,7 +104,8 @@ export default function FindPwPage() {
             비밀번호 찾기 이메일 발송
           </button>
         </form>
-        <span ref={spanErrorRef} style={{ color: '#FF0000' }}></span> 
+        <span ref={spanErrorRef} style={{ color: '#FF0000' }}></span>
       </div>
-  </>
-};
+    </>
+  );
+}
