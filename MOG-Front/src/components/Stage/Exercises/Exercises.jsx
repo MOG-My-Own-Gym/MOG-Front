@@ -54,7 +54,7 @@ export default function Exercises({ categories, getExerciseCategories }) {
           const name2 = name1.replaceAll('/', '_');
 
           category.push(arr[i].category);
-          equipment.push(arr[i].equipment);
+          equipment.push(arr[i].equipment ? arr[i].equipment : 'null');
           force.push(arr[i].force);
           level.push(arr[i].level);
           primaryMuscles.push(arr[i].primaryMuscles[0]);
@@ -98,11 +98,18 @@ export default function Exercises({ categories, getExerciseCategories }) {
         console.log(categories, initprimaryMuscles);
         break;
       case 'Equipment':
-        getExerciseCategories(initequipment);
-        console.log(categories, initequipment);
+        let sortEquipment = initequipment;
+        getExerciseCategories(sortEquipment);
+
+        break;
       default:
-        return null;
+        break;
     }
   }, [categories, initcategory, initequipment, initforce, initlevel, primaryMuscles]);
+  const swap = (a, b, arr) => {
+    const temp = arr[a];
+    arr[a] = arr[b];
+    arr[b] = temp;
+  };
   return <></>;
 }

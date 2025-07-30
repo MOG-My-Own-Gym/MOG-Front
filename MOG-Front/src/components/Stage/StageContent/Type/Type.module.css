@@ -39,3 +39,6 @@
 .check-list.checked {
   background-color: #f8f1c6;
 }
+.label {
+  cursor: pointer;
+}

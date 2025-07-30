@@ -29,6 +29,7 @@ import RoutineDetail from './pages/Routine/RoutineDetail/RoutineDetail';
 import './App.css';
 import RoutineRun from './pages/Routine/RoutineRun/RoutineRun';
 import { RunProvider } from './pages/Routine/RunContext';
+import SuggestProvider from './context/SuggestProvider';
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -44,7 +45,7 @@ function App() {
     <div style={{ padding: '4.5em 0 0 0' }}>
       <AuthProvider>
         <RoutineProvider>
-          <RunProvider>
+          <SuggestProvider>
             <GNB />
             <Toast isToast={toast.isToast} content={toast.content} />
             <Routes>
@@ -61,13 +62,14 @@ function App() {
               <Route path="/find-pw/change" element={<ChangePwPage />} />
               <Route path="/pose" element={<PoseCheck />} />
               <Route path="/data/*" element={<DataToss />}></Route>
+              <Route path="/suggest" element={<Suggest />}></Route>
               {/* 루틴 실행 */}
               {/* <Route path="/routine" element={<Routine />} />
               <Route path="/routine/select" element={<SelectExercises />} />
               <Route path="/routine/detail" element={<RoutineDetail />} />
               <Route path="/routine/run" element={<RoutineRun />} /> */}
             </Routes>
-          </RunProvider>
+          </SuggestProvider>
         </RoutineProvider>
       </AuthProvider>
     </div>
