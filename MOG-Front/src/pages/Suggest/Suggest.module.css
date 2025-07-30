@@ -2,7 +2,6 @@
   margin-top: 40px;
   width: 100%;
   display: flex;
-  padding: 0 10em;
   flex-direction: column;
 }
 .suggest-wrapper {

@@ -63,11 +63,7 @@ export default function Stage() {
                 '--bs-progress-bar-bg': '#fdc800',
               }}
               animated
-              now={
-                ((stageLevel + (suggestState.suggest[Stage[stageLevel]].length > 0 ? 1 : 0)) /
-                  Stage.length) *
-                100
-              }
+              now={(stageLevel / Stage.length) * 100}
             />
           </div>
         </>
@@ -100,9 +96,9 @@ export default function Stage() {
             />
             <div className={styles['stage-button-container']}>
               <div
-                className={styles['stage-button-prev']}
+                className={`${styles['stage-button-prev']} ${stageLevel === 0 && styles['disabled']}`}
                 onClick={() => {
-                  setStageLevel(prev => prev - 1);
+                  stageLevel === 0 ? null : setStageLevel(prev => prev - 1);
                 }}
               >
                 이전
@@ -110,13 +106,12 @@ export default function Stage() {
               <div
                 className={`${styles['stage-button-next']} ${suggestState.suggest[Stage[stageLevel]].length === 0 && styles['disabled']}`}
                 onClick={() => {
-                  stageLevel + (suggestState.suggest[Stage[stageLevel]].length > 0 ? 1 : 0) !==
-                  Stage.length
-                    ? setStageLevel(prev => prev + 1)
-                    : null;
+                  suggestState.suggest[Stage[stageLevel]].length === 0
+                    ? null
+                    : setStageLevel(prev => prev + 1);
                 }}
               >
-                다음
+                {Stage[stageLevel] === 'Equipment' ? '완료' : '다음'}
               </div>
             </div>
           </div>
