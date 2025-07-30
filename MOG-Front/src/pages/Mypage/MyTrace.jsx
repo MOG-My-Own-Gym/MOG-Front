@@ -6,6 +6,11 @@ import { Card, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
 import { AuthContext } from '../Login/AuthContext';
 export default function MySocial() {
+  //하트버튼 누르는 토글여부에 따라 꽉 찬 하트와 빈 하트를 보여주는 컴포넌트
+  const [postData, setPostData] = useState([]);
+  const [commentData, setCommentData] = useState([]);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   
   const fetchPosts = async () => {
     const data = await axios
