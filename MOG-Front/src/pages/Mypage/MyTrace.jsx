@@ -6,43 +6,11 @@ import { Card, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
 import { AuthContext } from '../Login/AuthContext';
 export default function MySocial() {
-  //하트버튼 누르는 토글여부에 따라 꽉 찬 하트와 빈 하트를 보여주는 컴포넌트
   const [postData, setPostData] = useState([]);
   const [commentData, setCommentData] = useState([]);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const HeartItemSocial = () => {
-    const [isLiked, setIsLiked] = useState(false);
-
-    const toggleHeart = e => {
-      e.preventDefault();
-      setIsLiked(!isLiked);
-    };
-
-    return (
-      <>
-        <div>
-          <button className="btn-social" onClick={toggleHeart}>
-            {isLiked ? (
-              <img
-                className="img-fluid img-routine"
-                src="/img/like.png"
-                alt="Filled Heart"
-                style={{ height: '30px' }}
-              />
-            ) : (
-              <img
-                className="img-fluid img-routine"
-                src="/img/empty-like.png"
-                alt="Empty Heart"
-                style={{ height: '30px' }}
-              />
-            )}
-          </button>
-        </div>
-      </>
-    );
-  };
+  
   const fetchPosts = async () => {
     const data = await axios
       .get('http://158.180.78.252:8080/api/v1/posts', {
@@ -82,9 +50,6 @@ export default function MySocial() {
 
   return (
     <>
-      <h1 id="padding" style={{ marginTop: '55px', fontWeight: 'bold' }}>
-        나의 기록
-      </h1>
       <div className={styles['trace-container']}>
         <div className={styles['social-container']}>
           {/*나의 소셜 메인 위젯*/}
@@ -122,21 +87,7 @@ export default function MySocial() {
                   <hr className="text-secondary" />
                 </div>
                 <div className={styles['post-container']}>
-                  {/* <div className="col-auto">
-                  <div className="card card-social card-post d-flex flex-column justify-content-around w-100">
-                    <div className="img-container-social">
-                      <Link to="#">
-                        <img src="/img/Running.jpeg" className="img-fluid" />
-                      </Link>
-                    </div>
-                    <div className="title-container">
-                      <div className="d-flex justify-content-between align-items-center my-3">
-                        <h6 className="mb-0">글 제목1</h6>
-                      </div>
-                      <HeartItemSocial />
-                    </div>
-                  </div>
-                </div> */}
+
 
                   <ListGroup as="ul">
                     <ListGroup.Item

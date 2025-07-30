@@ -289,9 +289,6 @@ export default function Support() {
   //고객센터페이지 UI
   return (
     <>
-      <h1 id="padding" style={{ marginTop: '55px', fontWeight: 'bold' }}>
-        고객 센터
-      </h1>
       <div className="container pt-5">
         <div className="container-fluid d-flex">
           <div className="card w-100 h-100">

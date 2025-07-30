@@ -36,9 +36,6 @@ export default function MyRoutine() {
 
   return (
     <>
-      <h1 id="padding" style={{ marginTop: '55px', fontWeight: 'bold' }}>
-        나의 루틴
-      </h1>
       <div className="container">
         <div className="row d-flex justify-content-center mt-5 ">
           <div className="col-md-12 fs-4">
