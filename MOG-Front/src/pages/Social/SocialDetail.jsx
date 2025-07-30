@@ -27,7 +27,7 @@ export default function SocialDetail() {
       // 팀원이 만든 Post 상세 정보 조회 API입니다.
       const token = localStorage.getItem('jwtToken');
       const response = await axios
-        .get(`https://mogapi.kro.kr/api/v1/posts/${postId}`, {
+        .get(`http://localhost:8080/api/v1/posts/${postId}`, {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
