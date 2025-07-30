@@ -51,7 +51,12 @@ export default function MyPage() {
   }, []);
 
   useEffect(()=>{
-    document.body.style.overflow='hidden';
+    if(location.pathname.includes('mypage'))
+      document.body.style.overflow='hidden';
+
+    return()=>{
+      document.body.style.overflow='';
+    }
   },[]);
 
   //플로팅버튼을 누름에 따라 모바일메뉴 오픈 여부 토글하는 함수
