@@ -1,100 +1,92 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import './SocialCreate.css';
 
 export default function SocialEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    postTitle: "",
-    postContent: "",
-    postImage: ""
-  });
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [img, setImg] = useState('');
 
-  // 기존 글 불러오기
+  // ✅ 기존 게시글 불러오기
   useEffect(() => {
-    // 🟡 서버에서 불러올 경우
-    axios.get(`/api/v1/posts/${id}`)
-      .then(res => {
-        setForm({
-          postTitle: res.data.postTitle,
-          postContent: res.data.postContent,
-          postImage: res.data.postImage
-        });
-      })
-      .catch(() => {
-        // 🔧 서버 없을 경우 → localStorage에서 불러오기
-        console.warn("[개발모드] 서버 없음 - 로컬에서 불러옴");
+    const posts = JSON.parse(localStorage.getItem('posts')) || [];
+    const strippedId = id.replace(/^l-/, '');
 
-        const stored = localStorage.getItem("posts");
-        const posts = stored ? JSON.parse(stored) : [];
-        const target = posts.find(p => String(p.postId) === String(id));
-        if (target) {
-          setForm({
-            postTitle: target.postTitle,
-            postContent: target.postContent,
-            postImage: target.postImage
-          });
-        }
-      });
+    const post = posts.find(p => p.postId?.toString() === strippedId);
+
+    if (post) {
+      setTitle(post.postTitle || '');
+      setContent(post.postContent || '');
+      setImg(post.postImage || '');
+    } else {
+      console.warn("해당 ID의 게시글을 찾을 수 없습니다.");
+    }
   }, [id]);
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+  // ✅ 수정 완료 핸들러
+  const handleEdit = (e) => {
+    e.preventDefault(); // 폼 제출 기본 동작 막기
+    const storedPosts = JSON.parse(localStorage.getItem('posts')) || [];
+    const strippedId = id.replace(/^l-/, '');
+
+    const updatedPosts = storedPosts.map((p) => {
+      if (p.postId?.toString() === strippedId) {
+        return {
+          ...p,
+          postTitle: title,
+          postContent: content,
+          postImage: img,
+        };
+      }
+      return p;
+    });
+
+    localStorage.setItem('posts', JSON.stringify(updatedPosts));
+    navigate('/social'); // 수정 후 목록으로 이동
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    // 백엔드 요청 시도
-    axios.put(`/api/v1/posts/${id}`, form)
-      .then(() => {
-        alert("수정 완료!");
-        navigate(`/social/${id}`);
-      })
-      .catch(() => {
-        // 로컬 업데이트
-        console.warn("[개발모드] 서버 없음 - 로컬에서 수정");
-
-        const stored = localStorage.getItem("posts");
-        const posts = stored ? JSON.parse(stored) : [];
-
-        const updated = posts.map(p =>
-          String(p.postId) === String(id)
-            ? { ...p, ...form }
-            : p
-        );
-
-        localStorage.setItem("posts", JSON.stringify(updated));
-        alert("수정 완료! (로컬 처리)");
-        navigate(`/social/${id}`);
-      });
+  // ✅ 이미지 파일을 base64 문자열로 변환하는 함수
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImg(reader.result); // base64 문자열 저장
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
-    <div style={{ padding: "30px" }}>
+    <div className="create-wrapper">
       <h2>게시글 수정</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleEdit} className="create-form">
         <input
-          name="postTitle"
+          type="text"
           placeholder="제목"
-          value={form.postTitle}
-          onChange={handleChange}
-        /><br /><br />
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+        />
         <textarea
-          name="postContent"
           placeholder="내용"
-          value={form.postContent}
-          onChange={handleChange}
-        /><br /><br />
+          value={content}
+          onChange={e => setContent(e.target.value)}
+        />
         <input
-          name="postImage"
-          placeholder="이미지 URL"
-          value={form.postImage}
-          onChange={handleChange}
-        /><br /><br />
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
+        {img && (
+          <img
+            src={img}
+            alt="미리보기"
+            style={{ maxWidth: '100%', marginTop: '1em', borderRadius: '8px' }}
+          />
+        )}
         <button type="submit">수정 완료</button>
       </form>
     </div>
