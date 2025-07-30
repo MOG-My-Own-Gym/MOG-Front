@@ -42,8 +42,8 @@ function Model({
         localStorage.setItem("detailSetData",JSON.stringify({
             "id": String(getRoutineLength+1),
             "retId": routineId,
-            "tStart": new Date(),
-            "tEnd": new Date(),
+            "tStart": new Date().toISOString(),
+            "tEnd": new Date().toISOString(),
             "routineEndDetails": []
         }));
         setMakeDetailSetData(JSON.parse(localStorage.getItem("detailSetData")))
@@ -65,7 +65,7 @@ function Model({
             const allSetNum = resultData.routineEndDetails.reduce((index,item)=>index+parseInt(item.setNumber),0);
             const allReps = resultData.routineEndDetails.reduce((index,item)=>index+parseInt(item.reps),0);
             const allWeight = resultData.routineEndDetails.reduce((index,item)=>index+parseInt(item.weight),0);
-            const inputResult = {...resultData,tEnd: formatted,
+            const inputResult = {...resultData,tEnd: new Date().toISOString(),
                 "routineResult": { 
                     "muscle": "28", 
                     "kcal": String(Math.trunc(6*70*(elapsed/3600))), //사용 칼로리
