@@ -82,32 +82,31 @@ export default function SignUp() {
   const handleSubmit = e => {
     e.preventDefault();
 
-
     //이메일 중복여부 체크하는 함수
-    const handleCheckEmail=(e)=>{
-        e.preventDefault();
-        //단일회원조회(이메일)api요청
-        axios.get(`http://localhost:8080/api/v1/users/email/${emailRef.current.value}`)
-        .then(res=>{
-            //회원조회에 성공한 경우 -> 중복되는 이메일인 경우
-            emailCheckResult.current.textContent='이미 존재하는 아이디 입니다';
-            emailRef.current.value='';//email을 지워주므로 회원가입하려면 다시 입력해야함
-            emailRef.current.focus();
+    const handleCheckEmail = e => {
+      e.preventDefault();
+      //단일회원조회(이메일)api요청
+      axios
+        .get(`https://mogapi.kro.kr/api/v1/users/email/${emailRef.current.value}`)
+        .then(res => {
+          //회원조회에 성공한 경우 -> 중복되는 이메일인 경우
+          emailCheckResult.current.textContent = '이미 존재하는 아이디 입니다';
+          emailRef.current.value = ''; //email을 지워주므로 회원가입하려면 다시 입력해야함
+          emailRef.current.focus();
         })
-        .catch(err=>{
-            //조회에 실패한 경우 -> 존재하지 않는 회원 즉, 중복되지 않은 이메일인 경우
-            if(err.status){
-              if(err.status===400){
-                emailCheckResult.current.textContent='사용 가능한 아이디입니다';
-                return;
-              }
+        .catch(err => {
+          //조회에 실패한 경우 -> 존재하지 않는 회원 즉, 중복되지 않은 이메일인 경우
+          if (err.status) {
+            if (err.status === 400) {
+              emailCheckResult.current.textContent = '사용 가능한 아이디입니다';
+              return;
             }
-            else {
-              console.log(err);
-              showModal('아이디 중복 조회 중 오류가 발생하였습니다');
-            }
-        })
-    }
+          } else {
+            console.log(err);
+            showModal('아이디 중복 조회 중 오류가 발생하였습니다');
+          }
+        });
+    };
     if (emailCheckResult.current.textContent.trim() === '') {
       showModal('아이디의 중복여부를 확인해 주세요');
       emailRef.current.focus();
@@ -121,7 +120,7 @@ export default function SignUp() {
 
     //유효성 체크를 통과한경우에만 회원가입 api 요청
     axios
-      .post('http://158.180.78.252:8080/api/v1/users/signup', {
+      .post('https://mogapi.kro.kr/api/v1/users/signup', {
         usersName: name,
         email: email,
         profileImg: '/img/userAvatar.png', //프로필이미지는 기본이미지로 전달
@@ -152,7 +151,7 @@ export default function SignUp() {
     e.preventDefault();
     //단일회원조회(이메일)api요청
     axios
-      .get(`http://158.180.78.252:8080/api/v1/users/email/${emailRef.current.value}`)
+      .get(`https://mogapi.kro.kr/api/v1/users/email/${emailRef.current.value}`)
       .then(res => {
         //회원조회에 성공한 경우 -> 중복되는 이메일인 경우
         emailCheckResult.current.textContent = '이미 존재하는 아이디 입니다';

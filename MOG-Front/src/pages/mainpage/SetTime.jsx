@@ -15,6 +15,9 @@ function SetTime({
         setDetailTime,
         setIsCurrentRunning,
         startRrcodResultData,
+        startLocalTimer,
+        resetLocalTimer,
+        stopLocalTimer
     }) {
 
     const [initDetail,setDetail] = useState();
@@ -45,55 +48,29 @@ function SetTime({
 
     
     const plus=()=>{
-        //setTime(res=>res+10);
-        /*
-        if(subDetailTime <=290){
-            setSubDetailTime(res=>{
-                const subDetailTime=String(parseInt(res)+10)
-                fixKgAndManyNum(subDetailTime);
-                return subDetailTime;
-            })
-        };
-        */
        if(subDetailTime <=300) setSubDetailTime(String(parseInt(subDetailTime)+10));
     }
     const minus=()=>{
-        //setTime(res=>res-10);
-        /*
-        if(subDetailTime >=10) {
-            setSubDetailTime(res=>{
-                const subDetailTime=res-10
-                fixKgAndManyNum(subDetailTime);
-                return subDetailTime;
-            })
-        };
-        */
        if(subDetailTime >=20) setSubDetailTime(subDetailTime=subDetailTime-10);
+    }
+    const start=()=>{
+        startLocalTimer();
+        setIsCurrentRunning(true)
+    }
+    const stop=()=>{
+        stopLocalTimer();
+        setIsCurrentRunning(false)
     }
 
     useEffect(()=>{
         //detailData();
         loadRoutineDetail();
-        setSubDetailTime(initDetailTime);
-    },[initDetailTime])
+    },[])
 
     useEffect(()=>{
         if(startRrcodResultData)setStopAndStartTime(false);
         else setStopAndStartTime(true);
     },[startRrcodResultData])
-
-    useEffect(() => {
-        let timer;
-
-        if (isCurrentTimeRunning && subDetailTime > 0) {
-            timer = setTimeout(() => {
-            setSubDetailTime(prev => prev - 1);
-            }, 1000); // 1초마다 감소
-        }
-        if (subDetailTime<=0) reset();
-
-        return () => clearTimeout(timer); // 컴포넌트 언마운트 또는 타임 변경 시 타이머 정리
-    }, [isCurrentTimeRunning, subDetailTime]);
     
     const ITEM_HEIGHT = 50;
     const VISIBLE_COUNT = 3;
@@ -142,17 +119,26 @@ function SetTime({
   }, []);
 
     return <>
-        <div className={styles.header} >
-            <a href='#' style={{textDecoration: "none"}} onClick={()=>setShow(true)}><h2>{subDetailTime}</h2></a>
-            <Button className={` btn btn-primary`} type="button" onClick={e=>plus()}>+</Button>
-            <Button className={` btn btn-primary`} type="button" onClick={e=>minus()}>-</Button>
+        <div className={styles.header}>
+            <a href='#' style={{textDecoration: "none"}} onClick={()=>setShow(true)}>
+                <h1 style={{fontSize:'50px'}}>{subDetailTime}<span style={{fontSize:'20px',color:'black'}}>초</span></h1>
+            </a>
+            <p className={styles.timePlusMinus} style={{marginLeft: 'auto'}} type="button" onClick={e=>plus()}>+</p>
+            <p className={styles.timePlusMinus} type="button" onClick={e=>minus()}>-</p>
             <div hidden={stopAndStartTime}>
-            <Button variant={isCurrentTimeRunning ? 'danger' : 'primary'} onClick={() => isCurrentTimeRunning?setIsCurrentRunning(false):setIsCurrentRunning(true)}>
-            {isCurrentTimeRunning ? '일시정지' : '시작'}
-            </Button>
-            <Button variant="secondary" onClick={() => reset()}>
-                초기화
-            </Button>
+                <p 
+                    className={styles.timeStartEnd}
+                    type="button"
+                    onClick={() => isCurrentTimeRunning?stop(false):start(true)}>
+                    {isCurrentTimeRunning ? '⏸️' : '▶️'}
+                </p>
+                <p
+                    className={styles.timeStartEnd}
+                    variant="secondary"
+                    type="button"
+                    onClick={() => resetLocalTimer()}>
+                    ⏹️
+                </p>
             </div>
             
         </div>

@@ -89,14 +89,13 @@ export default function RoutinePage({
                             style={{display:'flex'}}  
                             type="button" 
                             onClick={e=>routineDetailButton(e)}>
-                            <img alt={item.imgfile} className="me-5" style={{width:'100px'}} src={item.imgfile}/>
+                            <img alt={item.imgfile} style={{width:'100px'}} src={item.imgfile}/>
                             {item.names}
                             <a style={{marginLeft:'auto'}} href="#" id={item.set_id} onClick={e=>routineSetting(e)}>...</a>
                         </li>
                     )
                 }             
         </ul>
-        <div className={`${styles.dummyContainers} p-5 mt-4`}></div>
         {startRrcodResultData===false||currentRrcodingRoutineId===params?
         <footer className={styles.flexButton}>
             <Button className={`${styles.prettyButton} me-5`} style={{color: 'black',backgroundColor:`${startRrcodResultData?'#1eff00ff':'#FFD600'}`}} type="button" id="1" onClick={e=>startRrcodResultData?setIsOpen(true):startRoutine()}>{startRrcodResultData?"운동 완료":"운동 시작"}</Button>

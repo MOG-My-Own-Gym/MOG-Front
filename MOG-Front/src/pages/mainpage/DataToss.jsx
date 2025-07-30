@@ -25,11 +25,11 @@ const DataToss=()=>{
     const [currentRrcodingRoutineId,setCurrentRrcodingRoutineId] = useState(0);
     const [resetTimeCheckBoolean,setResetTimeCheckBoolean]= useState(false);
     const [checkRoutineUser,setCheckRoutineUser] = useState([]);//유저 구분 후 루틴 값
-
     const [elapsed, setElapsed] = useState(0); // 총 경과 시간 (초)
     const [isRunning, setIsRunning] = useState(false);
     const startTimeRef = useRef(null);
     const intervalRef = useRef(null);
+    const localIntervalRef = useRef(null);
 
     const fetchData = async () => {
         await axios.get(URL.ROUNTINE)
@@ -77,12 +77,33 @@ const DataToss=()=>{
         startTimeRef.current = null;
     };
 
-    // 언마운트 시 타이머 정리
-    useEffect(() => {
-       
-        return () => clearInterval(intervalRef.current);
-    }, []);
+    // 로컬 타이머 시작
+    const startLocalTimer = () => {
+        setIsCurrentRunning(true);
+        localIntervalRef.current = setInterval(() => {
+        setSubDetailTime(prev =>{
+            if(prev <= 0) resetLocalTimer()
+            return prev === 0?initDetailTime:prev - 1
+            });
+        }, 1000);
+    }
 
+    //로컬 타이머 정지
+    const stopLocalTimer = () => {
+        if(isCurrentTimeRunning){
+            clearInterval(localIntervalRef.current);
+            setIsCurrentRunning(false);
+        }
+    }
+    //로컬 타이머 초기화
+    const resetLocalTimer = () => {
+        console.log('테스트 입니다.')
+        clearInterval(localIntervalRef.current);
+        setSubDetailTime(initDetailTime);
+        setIsCurrentRunning(false);
+        localIntervalRef.current = null;
+    }
+   
     // 시간 포맷
     const formatTime = () => {
         const h = String(Math.floor(elapsed / 3600)).padStart(2, '0');
@@ -92,6 +113,18 @@ const DataToss=()=>{
         if (elapsed < 3600) return `${m}:${s}`;
         return `${h}:${m}:${s}`;
     };
+
+    // 언마운트 시 타이머 정리
+    useEffect(() => {
+       return () =>{ 
+            clearInterval(localIntervalRef.current);
+            clearInterval(intervalRef.current);
+        }
+    }, []);
+
+    useEffect(()=>{
+        if(!isCurrentTimeRunning) setSubDetailTime(initDetailTime);
+    },[initDetailTime])
 
     return <>
         {isOpen&&<Model 
@@ -165,6 +198,9 @@ const DataToss=()=>{
                 isCurrentTimeRunning={isCurrentTimeRunning}
                 setSubDetailTime={setSubDetailTime}
                 subDetailTime={subDetailTime}
+                startLocalTimer={startLocalTimer}
+                resetLocalTimer={resetLocalTimer}
+                stopLocalTimer={stopLocalTimer}
                 />}>  
             </Route>
             <Route path="/routineresult" element={<RoutineResultPage />}></Route>

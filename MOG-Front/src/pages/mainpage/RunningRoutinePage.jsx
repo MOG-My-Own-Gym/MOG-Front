@@ -21,7 +21,10 @@ export default function RunningRoutinePage({
         currentDetailId,
         isCurrentTimeRunning,
         setSubDetailTime,
-        subDetailTime
+        subDetailTime,
+        startLocalTimer,
+        resetLocalTimer,
+        stopLocalTimer
     }){
 
     const navigate = useNavigate();
@@ -53,8 +56,10 @@ export default function RunningRoutinePage({
    
     const exSendResultData=(e)=>{
         if(e.target.dataset.id==="complete"){
-            reset();
+            //reset();
             setIsCurrentRunning(true);
+            resetLocalTimer();
+            startLocalTimer();
             e.target.dataset.id="cancel";
             e.target.classList.add('btn-primary');
             setMakeDetailSetData(res=>{
@@ -70,7 +75,7 @@ export default function RunningRoutinePage({
         }else{
             e.target.dataset.id="complete";
             e.target.classList.remove("btn-primary");
-             setMakeDetailSetData(res=>{
+            setMakeDetailSetData(res=>{
                 res.routineEndDetails = 
                     res.routineEndDetails.filter(item=>
                         !(item.setNumber===e.target.id && item.srName===showDetail[0].names)
@@ -208,7 +213,7 @@ export default function RunningRoutinePage({
     return<>
         <div className={styles.mainContainer}>
             <Button className={`btn btn-lg btn-danger m-2`} type="button" onClick={()=>navigate(-1)}>뒤로가기</Button>
-            <span>{startRrcodResultData?formatTime():""}</span>
+            <span style={{fontSize:'25px'}}>{startRrcodResultData?formatTime():""}</span>
             <div className={`${styles.mainpage} container mt-0 p-0`}>
                 {showDetail.map((item,index)=>(
                     <div key={index} className={` container d-grid gap-2`} >
@@ -229,14 +234,16 @@ export default function RunningRoutinePage({
                 setIsCurrentRunning={setIsCurrentRunning}
                 startRrcodResultData={startRrcodResultData}
                 currentRrcodingRoutineId={currentRrcodingRoutineId}
+                startLocalTimer={startLocalTimer}
+                resetLocalTimer={resetLocalTimer}
+                stopLocalTimer={stopLocalTimer}
                 />
-
                 {
                 addSetState.map((item,index)=>(
                 currentRrcodingRoutineId===routineId||startRrcodResultData===false?
                 <div key={index} className={"container mt-0 p-0 d-grid gap-2"}>
                     <form className={"d-flex"}>
-                        <label className="btn btn-primary disabled">{item.id}</label>
+                        <label className={`btn`} style={{backgroundColor:'#FFD600'}}>{item.id}</label>
                         <input 
                             id={item.id}
                             data-id={"weight"}
@@ -294,7 +301,7 @@ export default function RunningRoutinePage({
             {currentRrcodingRoutineId===routineId||startRrcodResultData===false?
             <footer className={styles.flexButton}>        
                 <div></div>
-                <Button className={styles.prettyButton} disabled={isDisabledLeft} type="button" id="prev" onClick={e=>nextAndPrevExButton(e)}>이전</Button>
+                <Button className={`${styles.prettyButton}  me-5`} disabled={isDisabledLeft} type="button" id="prev" onClick={e=>nextAndPrevExButton(e)}>이전</Button>
                 <Button className={styles.prettyButton} disabled={isDisabledRight} type="button" id="next" onClick={e=>nextAndPrevExButton(e)}>다음</Button>
             </footer>
             :

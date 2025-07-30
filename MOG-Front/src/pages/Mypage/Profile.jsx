@@ -27,7 +27,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       await axios
-        .get(`http://158.180.78.252:8080/api/v1/users/${user.usersId}`) //로그인시 저장된 userId에 따라 단일 회원 조회 api요청
+        .get(`https://mogapi.kro.kr/api/v1/users/${user.usersId}`) //로그인시 저장된 userId에 따라 단일 회원 조회 api요청
         .then(res => {
           const getUser = res.data;
           const getBio = res.data.biosDto;
@@ -55,9 +55,6 @@ export default function Profile() {
 
   return (
     <>
-      <h1 id="padding" style={{ marginTop: '55px', fontWeight: 'bold' }}>
-        프로필
-      </h1>
       <div className="container rounded bg-white mb-5">
         <div className="pt-2">
           <div className="row d-flex justify-content-around">

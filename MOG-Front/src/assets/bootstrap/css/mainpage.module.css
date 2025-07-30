@@ -76,7 +76,7 @@ input[type=number] {
     transition: all 0.3s ease;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     border: solid rgb(112, 110, 110) !important;
-    font-size: 30px !important;
+    font-size: 30px;
     font-family: Arial, fantasy !important;
     margin-bottom: 10px;
 }
@@ -169,4 +169,76 @@ input[type=number] {
 .inputForm:focus {
   border-color: #FFD600;         /* 포커스 시 진한 초록색 */
   box-shadow: 0 0 4px #ffdf40;   /* 부드러운 그림자 효과 */
+}
+
+.prettyText {
+    font-size: 22px;
+    color: #333;
+    text-align: center;
+    background: #FFD600;
+    padding: 20px 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+.prettyP{
+    font-size:'15px' !important;
+    margin-top:'auto' !important;
+    display:'block' !important;
+}
+.timePlusMinus {
+    font-size: 38px;
+    display: flex;
+    justify-content: center; /* 수평 정렬 */
+    align-items: center;     /* 수직 정렬 */
+    background: #FFD600;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0px;
+    margin-right: 5px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+}
+.timeStartEnd{
+    float: left;
+    font-size: 30px;
+}
+@media (max-width: 600px) {
+    .secondContainer{
+        padding: 0;
+    }
+    .prettyli{
+        border: none;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-bottom: 1px solid #00000021;
+        font-size: 25px;
+    }
+    .prettyP{
+        font-size:'15px' !important;
+        margin-top:'auto' !important;
+        display:'block' !important;
+    }
+    .prettyButton {
+        width: 170px;
+        height: 80px;
+        background: #FFD600;
+        border: none !important;
+        color: black;
+        padding: 14px 28px !important;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        border: solid rgb(112, 110, 110) !important;
+        font-size: 22px;
+        font-family: Arial, fantasy !important;
+        margin-bottom: 10px;
+    }
+    .runningFontButton{
+        font-size: 30px;
+        font-weight: bold;
+        margin: 0 auto;
+    }
 }

@@ -69,7 +69,6 @@ export default function SelectMainpage({
     
     return<>
     <div className={styles.mainContainer}>
-        <h1>루틴 목록</h1>
         <div className={`${styles.secondContainer} pt-4`}>
             {
             checkRoutineUser!==undefined
@@ -78,7 +77,7 @@ export default function SelectMainpage({
             ?
             checkRoutineUser.map((item,index)=>(
                 <Button key={index} className={`${styles.prettyButton} mb-3`}
-                    style={{height:'150px',display:'flex',backgroundColor:`${currentRrcodingRoutineId===item.id?'#1eff00ff':'#FFD600'}`}}
+                    style={{height:'150px',width:'100%',display:'flex',fontSize:'30px',backgroundColor:`${currentRrcodingRoutineId===item.id?'#1eff00ff':'#FFD600'}`}}
                     type="button" 
                     onClick={()=>navigate(`/data/routine?routineId=${useDataRoutine[index].id}`)}>
                     🏃🏽‍♂️ {item.name}
@@ -87,8 +86,8 @@ export default function SelectMainpage({
             ))
             :
             <div>
-                <h1>루틴이 없습니다.</h1>
-                <h1>자신만의 루틴을 만들어 보세요!</h1>  
+                <h1 className={styles.prettyText}>루틴이 없습니다.
+                    <br/>자신만의 루틴을 만들어 보세요!</h1>
             </div>
             :
             <h1>로딩 중</h1>    
