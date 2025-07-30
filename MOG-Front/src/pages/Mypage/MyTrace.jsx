@@ -20,7 +20,7 @@ export default function MySocial() {
   
   const fetchPosts = async () => {
     const data = await axios
-      .get('http://158.180.78.252:8080/api/v1/posts', {
+      .get('http://localhost:8080/api/v1/posts', {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -30,7 +30,7 @@ export default function MySocial() {
       });
   };
   const fetchComments = async () => {
-    const commentRes = await axios.get('http://158.180.78.252:8080/api/v1/comments/list', {
+    const commentRes = await axios.get('http://localhost:8080/api/v1/comments/list', {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },
@@ -39,7 +39,7 @@ export default function MySocial() {
     const commentWithPostTitle = await Promise.all(
       comments.map(async comment => {
         const postRes = await axios.get(
-          `http://158.180.78.252:8080/api/v1/posts/${comment.postId}`,
+          `http://localhost:8080/api/v1/posts/${comment.postId}`,
           {
             headers: { Authorization: `Bearer ${user.accessToken}` },
           },
@@ -56,7 +56,7 @@ export default function MySocial() {
   }, []);
 
   useEffect(()=>{
-    axios.get(`http://158.180.78.252:8080/api/v1/users/${user.usersId}`)
+    axios.get(`http://localhost:8080/api/v1/users/${user.usersId}`)
       .then(res=>{
         setUserData(prev=>({
           ...prev,
@@ -73,13 +73,14 @@ export default function MySocial() {
 
   return (
     <>
+      {/*전체 페이지 컨테이너 */}
       <div className={styles['trace-container']}>
-        <div className={styles['social-container']}>
-          {/*나의 소셜 메인 위젯*/}
-          <div
-            style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', padding: '4em' }}
-          >
-            <div style={{ display: 'flex', height: '500px', gap: '2em' }}>
+
+          {/*메인 위젯 (가로 배열)*/}
+          <div className={styles['main-widgets-wrapper']}>
+            <div className={styles['main-widgets-content']}>
+
+              {/*프로필 위젯 */}
               <Card className={styles['profile-card']}>
                 <div className="profile-head d-flex flex-column align-items-center">
                   <img className="rounded-circle mt-5" width="150px" src={userData.profileImg} />
@@ -97,20 +98,27 @@ export default function MySocial() {
                   </div>
                 </div>
               </Card>
+
+              {/*기록 위젯 */}
               <div className={styles['record-container']}>
                 <RecordPage />
               </div>
+
             </div>
           </div>
-          <div className={styles['bbs-container']}>
+
+          {/*소셜 위젯 (세로 배열) */}
+          <div className={styles['social-container']}>
+
+            {/*게시판 위젯 */}
             <div className={styles['post']}>
               <div className="container-fluid mt-3 mb-3">
                 <div>
                   <span className="fs-5 fw-semibold">내가 작성한 게시글</span>
                   <hr className="text-secondary" />
                 </div>
-                <div className={styles['post-container']}>
 
+                <div className={styles['post-container']}>
                   <ListGroup as="ul">
                     <ListGroup.Item
                       action
@@ -152,14 +160,18 @@ export default function MySocial() {
                     )}
                   </ListGroup>
                 </div>
+
               </div>
             </div>
+
+            {/*댓글 위젯 */}
             <div className={styles['comment']}>
               <div className="container-fluid mt-3 mb-3">
                 <div>
                   <span className="fs-5 fw-semibold">내가 작성한 댓글</span>
                   <hr className="text-secondary" />
                 </div>
+
                 <div className={styles['comment-container']}>
                   <div className="list-group list-group-flush border-bottom scrollarea">
                     {commentData.length > 0 ? (
@@ -181,10 +193,12 @@ export default function MySocial() {
                     )}
                   </div>
                 </div>
+
               </div>
             </div>
+
           </div>
-        </div>
+
       </div>
     </>
   );

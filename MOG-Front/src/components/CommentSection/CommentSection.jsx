@@ -16,7 +16,7 @@ function CommentSection({ postId, currentUser }) {
     const fetchComments = async () => {
       try {
         const response = await axios
-          .get(`http://158.180.78.252:8080/api/v1/posts/${postId}/comments`)
+          .get(`http://localhost:8080/api/v1/posts/${postId}/comments`)
           .then(res => {
             return res.data;
           });
@@ -39,7 +39,7 @@ function CommentSection({ postId, currentUser }) {
     if (!newComment.trim()) return;
     try {
       const response = await axios.post(
-        `http://158.180.78.252:8080/api/v1/posts/${postId}/comments`,
+        `http://localhost:8080/api/v1/posts/${postId}/comments`,
         { content: newComment },
         {
           withCredentials: true,
@@ -61,7 +61,7 @@ function CommentSection({ postId, currentUser }) {
 
     try {
       await axios.delete(
-        `http://158.180.78.252:8080/api/v1/posts/${postId}/comments/${commentId}`,
+        `http://localhost:8080/api/v1/posts/${postId}/comments/${commentId}`,
         {
           withCredentials: true,
           headers: {
@@ -84,7 +84,7 @@ function CommentSection({ postId, currentUser }) {
   const handleUpdateSubmit = async commentId => {
     try {
       const res = await axios.put(
-        `http://158.180.78.252:8080/api/v1/posts/${postId}/comments/${commentId}`,
+        `http://localhost:8080/api/v1/posts/${postId}/comments/${commentId}`,
         { content: editText },
         {
           withCredentials: true,

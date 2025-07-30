@@ -121,7 +121,7 @@ export default function SignUp() {
 
     //유효성 체크를 통과한경우에만 회원가입 api 요청
     axios
-      .post('http://158.180.78.252:8080/api/v1/users/signup', {
+      .post('http://localhost:8080/api/v1/users/signup', {
         usersName: name,
         email: email,
         profileImg: '/img/userAvatar.png', //프로필이미지는 기본이미지로 전달
@@ -152,7 +152,7 @@ export default function SignUp() {
     e.preventDefault();
     //단일회원조회(이메일)api요청
     axios
-      .get(`http://158.180.78.252:8080/api/v1/users/email/${emailRef.current.value}`)
+      .get(`http://localhost:8080/api/v1/users/email/${emailRef.current.value}`)
       .then(res => {
         //회원조회에 성공한 경우 -> 중복되는 이메일인 경우
         emailCheckResult.current.textContent = '이미 존재하는 아이디 입니다';

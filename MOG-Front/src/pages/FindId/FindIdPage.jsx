@@ -54,7 +54,7 @@ export default function FindIdPage() {
 
     //유효성체크에 걸리지 않고 내려왔다면 axios로 아이디찾기 api 요청
     axios
-      .post('http://158.180.78.252:8080/api/v1/users/auth/email/find', formData)
+      .post('http://localhost:8080/api/v1/users/auth/email/find', formData)
       .then(res => {
         //아이디찾기 성공한 경우
         //유저정보 저장
