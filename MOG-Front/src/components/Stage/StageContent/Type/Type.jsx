@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import styles from './Type.module.css';
+import { useSuggest } from '../../../../context/SuggestContext';
 
 export default function Type({ categories }) {
+  const { suggestState, saveSuggest } = useSuggest();
   const [typeCheck, setTypeCheck] = useState([]);
   const korMap = {
     strength: '근력 운동',
@@ -13,8 +15,18 @@ export default function Type({ categories }) {
     'olympic weightlifting': '올림픽 역도',
   };
   useEffect(() => {
-    console.log(typeCheck);
+    saveSuggest({
+      Level: [...suggestState.suggest.Level],
+      Type: [...typeCheck],
+      BodyPart: [...suggestState.suggest.BodyPart],
+      Equipment: [...suggestState.suggest.Equipment],
+    });
   }, [typeCheck]);
+  useEffect(() => {
+    if (suggestState.suggest.Type.length > 0) {
+      setTypeCheck(suggestState.suggest.Type);
+    }
+  }, []);
   return (
     <div>
       <form className={styles['check-form']}>
@@ -47,11 +59,11 @@ export default function Type({ categories }) {
                 {typeCheck.includes(item) && (
                   <i
                     className="fa-solid fa-check"
-                    style={{ border: 'none', color: '#ffffffff' }}
+                    style={{ border: 'none', color: '#ffffffff', width: '1px' }}
                   ></i>
                 )}
               </span>
-              <label>{korMap[item]}</label>
+              <label className={styles['label']}>{korMap[item]}</label>
             </div>
           );
         })}

@@ -20,6 +20,7 @@ export default function MySocial() {
     profileImg: '/img/userAvatar.png',
   });
 
+
   const fetchPosts = async () => {
     const data = await axios
       .get('https://mogapi.kro.kr/api/v1/posts', {
@@ -74,6 +75,7 @@ export default function MySocial() {
   return (
     <>
       {/*전체 페이지 컨테이너 */}
+
       <div className={styles['trace-container']}>
         {/*메인 위젯 (가로 배열)*/}
         <div className={styles['main-widgets-wrapper']}>

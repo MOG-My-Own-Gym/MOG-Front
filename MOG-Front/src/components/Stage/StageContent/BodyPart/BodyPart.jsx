@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import styles from './BodyPart.module.css';
+import { useSuggest } from '../../../../context/SuggestContext';
 
 export default function BodyPart({ categories }) {
+  const { suggestState, saveSuggest } = useSuggest();
   const [typeCheck, setTypeCheck] = useState([]);
   const korMap = {
     abdominals: '복근',
@@ -23,8 +25,18 @@ export default function BodyPart({ categories }) {
     abductors: '외전근 (허벅지 바깥쪽 근육)',
   };
   useEffect(() => {
-    console.log(typeCheck);
+    saveSuggest({
+      Level: [...suggestState.suggest.Level],
+      Type: [...suggestState.suggest.Type],
+      BodyPart: [...typeCheck],
+      Equipment: [...suggestState.suggest.Equipment],
+    });
   }, [typeCheck]);
+  useEffect(() => {
+    if (suggestState.suggest.BodyPart.length > 0) {
+      setTypeCheck(suggestState.suggest.BodyPart);
+    }
+  }, []);
   return (
     <div>
       <form className={styles['check-form']}>
@@ -61,7 +73,7 @@ export default function BodyPart({ categories }) {
                   ></i>
                 )}
               </span>
-              <label>{korMap[item]}</label>
+              <label className={styles['label']}>{korMap[item]}</label>
             </div>
           );
         })}

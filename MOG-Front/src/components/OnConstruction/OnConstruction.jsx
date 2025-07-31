@@ -27,6 +27,10 @@ export default function OnConstruction() {
             현재 <span className={styles['construction-span']}>개발중</span>인 페이지입니다
           </h3>
         </div>
+        <h3 style={{paddingTop:'300px'}}>
+          현재 <span className={styles['construction-span']}>개발중</span>인 페이지입니다
+        </h3>
+
       </div>
     </div>
   );

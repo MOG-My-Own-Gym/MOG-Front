@@ -1,0 +1,143 @@
+/* 📅 캘린더 박스 */
+.calendar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* 요일 밑줄 제거 */
+.react-calendar__month-view__weekdays abbr {
+  text-decoration: none;
+  font-weight: 800;
+}
+
+/* 달력 내비게이션 정렬 */
+.react-calendar__navigation {
+  justify-content: left;
+}
+.react-calendar__navigation__label {
+  flex-grow: 0 !important;
+}
+
+/* 요일 색상: 토요일 파란색 */
+.react-calendar__month-view__weekdays__weekday:nth-child(7) abbr {
+  color: #03a9f4;
+}
+/* 일요일 숫자 빨간색 */
+.react-calendar__tile.tile-sunday abbr {
+  color: #e63946;
+}
+/* 토요일 숫자 파란색 */
+.react-calendar__tile.tile-saturday abbr {
+  color: #03a9f4;
+}
+
+/* 설명 라벨 */
+.record-labels {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  margin-top: 12px;
+  color: #666;
+}
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  position: relative;
+  top: 2px;
+}
+.red { background-color: #ff5722; }
+.green { background-color: #8bc34a; }
+.blue { background-color: #03a9f4; }
+.orange {background-color: orange;}
+.lightgreen{background-color: lightgreen;}
+.purple{background-color: purple;}
+
+/* 달력 기본 테두리 제거 */
+.react-calendar {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 캘린더와 버튼을 같은 줄에 올려 정렬 */
+.calendar-toolbar {
+  position: relative;
+}
+
+.custom-arrow-group {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 6px;
+}
+
+.custom-arrow-group button {
+    all: unset; /* 기본 버튼 스타일 제거 */
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  color: #333;
+  user-select: none;
+
+}
+
+/* 🧱 캘린더 + 커스텀 버튼 같이 포함 */
+.calendar-container {
+  position: relative;
+}
+
+.custom-arrow-group button:hover {
+  background-color: rgba(0,0,0,0.05); /* 캘린더 내비게이션 hover와 유사하게 */
+  border-radius: 4px;
+}
+
+.calendar-muscle-btn:hover {
+  background-color: rgba(0,0,0,0.05);
+  border-radius: 6px;
+}
+
+.calendar-toggle-group {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.calendar-toggle-group button {
+  all: unset;
+  font-size: 1rem;
+  padding: 4px 6px;
+  cursor: pointer;
+  color: #333;
+  user-select: none;
+  border-radius: 4px;
+}
+
+.calendar-toggle-group button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.calendar-toggle-label {
+  font-size: 1rem;
+  color: #333;
+  padding: 4px 6px;
+  user-select: none;
+}
