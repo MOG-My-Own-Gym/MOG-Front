@@ -24,7 +24,7 @@ import CategoryPage from './pages/mainpage/CategoryPage';
 import RoutinePage from './pages/mainpage/RoutinePage';
 import RunningRoutinePage from './pages/mainpage/RunningRoutinePage';
 import RoutineResultPage from './pages/mainpage/RoutineResultPage';
-
+import { RoutineProvider } from './context/RoutineContext';
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -39,6 +39,7 @@ function App() {
   return (
     <div style={{ padding: '4.5em 0 0 0' }}>
       <AuthProvider>
+        <RoutineProvider>
           <GNB />
           <Routes>
             <Route path="/" element={<Home />}></Route>
@@ -52,6 +53,7 @@ function App() {
             <Route path="/find-id" element={<FindIdPage />} />
             <Route path="/find-pw" element={<FindPwPage />} />
           </Routes>
+        </RoutineProvider>
       </AuthProvider>
     </div>
   );
