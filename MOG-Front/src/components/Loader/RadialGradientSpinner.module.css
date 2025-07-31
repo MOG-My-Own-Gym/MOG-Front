@@ -1,5 +1,6 @@
 .spinner-container {
   display: flex;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -13,7 +14,9 @@
   justify-content: center;
   align-items: center;
 }
-
+.spinner-span {
+  color: #ffc800;
+}
 .spinner {
   width: 100%;
   height: 100%;

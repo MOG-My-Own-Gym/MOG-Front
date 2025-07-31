@@ -11,6 +11,7 @@ export default function Home() {
   const [exerciseData, setExerciseData] = useState(null);
   const navigate = useNavigate();
 
+  const navigate = useNavigate();
   // 슬라이드 설정
   const sliderSettings = {
     dots: true,
@@ -195,6 +196,14 @@ export default function Home() {
         <div className="hero-overlay">
           <h1 className="hero-title">MOG와 더 스마트한 운동 루틴</h1>
           <p className="hero-subtitle"> 힘차게 시작해봐요</p>
+          <div
+            className="hero-button"
+            onClick={() => {
+              user ? navigate('/data') : navigate('/login');
+            }}
+          >
+            루틴 생성하러 가기
+          </div>
         </div>
       </section>
 
@@ -202,7 +211,13 @@ export default function Home() {
       <section className="intro-section">
         <h2>서비스 소개</h2>
         <div className="intro-features">
-          <div>맞춤형 루틴</div>
+          <div
+            className="intro-features-button"
+            style={{ cursor: 'pointer' }}
+            onClick={() => (user ? navigate('/suggest') : navigate('/login'))}
+          >
+            맞춤형 루틴
+          </div>
           <div
             onClick={() => {
               navigate('/pose');
@@ -211,6 +226,7 @@ export default function Home() {
             자세 피드백
           </div>
           <div>운동 분석</div>
+
         </div>
       </section>
 
@@ -220,13 +236,22 @@ export default function Home() {
         <div className="routine-slider-wrapper">
           <Slider {...sliderSettings}>
             <div>
-              <div className="routine-card">상체 루틴</div>
+              <div className="routine-card">
+                <img src={'/icons/Benchpress.svg'} style={{ width: '80px' }} />
+                상체 루틴
+              </div>
             </div>
             <div>
-              <div className="routine-card">하체 강화 루틴</div>
+              <div className="routine-card">
+                <img src={'/icons/Squat.svg'} style={{ width: '80px' }} />
+                하체 강화 루틴
+              </div>
             </div>
             <div>
-              <div className="routine-card">전신 유산소 루틴</div>
+              <div className="routine-card">
+                <img src={'/icons/Running.svg'} style={{ width: '80px' }} />
+                전신 유산소 루틴
+              </div>
             </div>
           </Slider>
         </div>
@@ -253,21 +278,24 @@ export default function Home() {
               </div>
             </>
           ) : user && exerciseData === null ? (
-            <p>아직 운동 기록이 없습니다. 첫 운동을 기록해보세요!</p>
+            <div className="analytics-card">
+              <p>아직 운동 기록이 없습니다. 첫 운동을 기록해보세요!</p>
+            </div>
           ) : (
             <>
               <div className="analytics-card">
                 <h3>소모 칼로리</h3>
-                <p>320 kcal</p>
+                <p>오늘 회원님이 소모한 칼로리를 알려줘요</p>
               </div>
+
               <div className="analytics-card">
                 <h3>운동 시간</h3>
-                <p>45분</p>
+                <p> 오늘 회원님이 운동한 전체 시간을 알려줘요</p>
               </div>
               <div className="analytics-card">
                 <h3>자세 피드백</h3>
                 <p>
-                  회원님의 운동 자세에
+                  오늘 회원님의 운동 자세에
                   <br />
                   대해 말해줘요
                 </p>

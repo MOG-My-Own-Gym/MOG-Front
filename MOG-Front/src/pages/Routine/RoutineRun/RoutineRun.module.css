@@ -1,0 +1,38 @@
+.routine-run {
+  max-width: 100%;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 1em;
+}
+.routine-run-back {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.routine-run-title {
+  max-width: 1540px !important;
+  width: 100%;
+}
+.routine-run-container {
+  max-width: 1540px !important;
+  width: 100%;
+}
+.routine-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.routine-detail-item {
+  padding: 1em;
+  border-radius: 20px;
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  cursor: pointer;
+}

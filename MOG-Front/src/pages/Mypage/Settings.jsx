@@ -1,8 +1,11 @@
-export default function Settings(){
-
-
-    return<>
-        <h1 id="padding">환경설정 페이지</h1>
-    
+import OnConstruction from '../../components/OnConstruction/OnConstruction';
+import styles from './Settings.module.css';
+export default function Settings() {
+  return (
+    <>
+      <div className={styles['settings']}>
+        <OnConstruction />
+      </div>
     </>
+  );
 }

@@ -1,0 +1,126 @@
+@media all and (max-width: 400px) {
+  .stage {
+    height: 800px !important;
+  }
+  .stage-content {
+    width: 100% !important;
+    height: fit-content !important;
+    overflow: scroll;
+    max-width: 100% !important;
+  }
+}
+
+.stage {
+  margin-top: 20px;
+  max-width: 1350px !important;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+.stage-title {
+  font-size: 2em;
+  font-weight: bold;
+}
+.stage-content {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 80%;
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+  border-radius: 20px;
+  box-shadow: 0 0 8px 0;
+  padding: 2em;
+  max-width: 90%;
+  background-color: #f7f7f7;
+  overflow: hidden;
+}
+.stage-content-question {
+  font-size: 20px;
+  font-weight: bold;
+}
+.stage-content-form {
+}
+.stage-button-container {
+  display: flex;
+  gap: 0.5em;
+}
+.stage-button-prev {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 1px 1px 0 0 rgb(221, 221, 221);
+  background-color: rgb(255, 255, 255);
+  color: #ffc800;
+  cursor: pointer;
+}
+.stage-button-prev:hover {
+  background-color: rgb(245, 245, 245);
+}
+.stage-button-prev.disabled {
+  background-color: #b4b4b4;
+  color: black;
+  cursor: not-allowed;
+}
+.stage-button-prev.disabled:hover {
+  background-color: #b4b4b4;
+}
+.stage-button-next {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #ffc800;
+  box-shadow: 1px 1px 0 0 rgb(221, 221, 221);
+  cursor: pointer;
+}
+.stage-button-next.disabled {
+  background-color: #b4b4b4;
+  cursor: not-allowed;
+}
+.stage-button-next.disabled:hover {
+  background-color: #b4b4b4;
+}
+
+.stage-button-next:hover {
+  background-color: #f5c208;
+}
+
+.complete-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4em;
+  height: 500px;
+  width: 100%;
+  animation: 3s slide-down cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.animate-loader {
+  animation: 10s fade-in cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes slide-down {
+  0% {
+    transform: translateY(-60%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
