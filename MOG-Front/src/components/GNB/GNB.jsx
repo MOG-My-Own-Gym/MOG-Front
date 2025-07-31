@@ -129,7 +129,7 @@ export default function GNB() {
                   bsPrefix='custom-nav-link'
                 >
                   <NavDropdown.Item as={Link} to="/stats" className={currentPath==='/stats'?'active-item':''}>통계</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="" className={currentPath===''?'active-item':''}>자세 피드백</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/pose" className={currentPath==='/pose'?'active-item':''}>자세 피드백</NavDropdown.Item>
 
                 </NavDropdown>
               </li>

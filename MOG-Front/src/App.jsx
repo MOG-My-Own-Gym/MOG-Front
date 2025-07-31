@@ -51,6 +51,7 @@ function App() {
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/find-id" element={<FindIdPage />} />
             <Route path="/find-pw" element={<FindPwPage />} />
+            <Route path="/pose" element={<PoseCheck/>} />
           </Routes>
       </AuthProvider>
     </div>
