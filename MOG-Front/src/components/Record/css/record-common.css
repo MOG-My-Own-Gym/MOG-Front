@@ -1,0 +1,66 @@
+/* 🌐 기본 설정 */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  color: #111;
+  font-family: sans-serif;
+}
+
+.record-container {
+  padding: 16px;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+/* 🏷️ 제목 */
+.record-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+/* 🔘 탭 버튼 영역 */
+.record-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+.record-tab {
+  display: block;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 1rem;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  line-height: 2.5rem;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+.record-tab.active {
+  color: #ff5722;
+  border-bottom: 2px solid #ff5722;
+}
+
+/* 📌 placeholder 공통 */
+.record-placeholder {
+  padding: 48px 0;
+  text-align: center;
+  font-size: 1rem;
+  color: #999;
+}
+
+/* 🖥️ PC일 때 고정 너비 */
+@media screen and (min-width: 768px) {
+  .record-tab {
+    min-width: 80px;
+    text-align: center;
+  }
+}
