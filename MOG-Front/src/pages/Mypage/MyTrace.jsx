@@ -29,10 +29,15 @@ export default function MySocial() {
       })
       .then(res => {
         setPostData(res.data);
-      });
+      })
+      .catch(error=>{
+        console.log(error);
+        showModal('내가 작성한 게시글 조회에 실패하였습니다');
+      })
   };
   const fetchComments = async () => {
-    const commentRes = await axios.get('http://localhost:8080/api/v1/comments/list', {
+    const commentRes = await axios
+    .get('http://localhost:8080/api/v1/comments/list', {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },
@@ -136,7 +141,6 @@ export default function MySocial() {
 
                     {postData.length > 0 ? (
                       postData.map((post, i) => {
-                        console.log(post);
                         return (
                           <ListGroup.Item
                             key={i}
