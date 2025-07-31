@@ -19,7 +19,7 @@ function LikeButton({ postId, initialLikeCount }) {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/v1/posts/${postId}/likes`,
+        `https://mogapi.kro.kr/api/v1/posts/${postId}/likes`,
         null,
         {
           withCredentials: true,
