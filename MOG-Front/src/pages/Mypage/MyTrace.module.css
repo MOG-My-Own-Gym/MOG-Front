@@ -4,10 +4,9 @@
   max-width: 1200px;
   width: 90%;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 2em;
-  justify-content: space-around;
+  justify-content: start;
 }
 .main-widgets-wrapper{
   flex: 2 1 480px;
@@ -20,35 +19,37 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+  align-items: center;
   gap: 2em;
   width:100%;
-  padding: 0;
+  padding: 0 2em;
 }
 .profile-card {
-  max-width: 400px;
+  max-width: 300px;
   min-width: 280px;
-  flex:1 1 auto;
+  flex:0 0 auto;
   padding: 1em;
-  display: flex;
   display: flex;
   flex-direction: column;
   max-height: 400px;
   height: 100%;
+  margin-bottom: 100px;
 }
 .record-container{
-  flex: 1 1 auto;
+  flex: 1 1 0%;
   min-width: 280px;
+  max-width: 650px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-height: 600px;
+  height: auto;
 }
 .social-container{
   flex: 1 0 350px;
   width: auto;
   display: flex;
   flex-direction: column;
-  padding: 2em;
+  padding: 0 2em;
   gap: 1em;
 }
 .bbs-container {
