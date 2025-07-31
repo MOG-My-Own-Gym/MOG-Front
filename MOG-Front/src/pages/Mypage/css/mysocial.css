@@ -1,0 +1,30 @@
+/*mysocial.css*/
+.card-social{
+	border: none;
+    box-shadow: none;
+}
+
+.card-post{
+    width: 110px;
+}
+
+.img-container-social{
+    position: relative
+}
+
+.btn-social{
+    border: none #FFFFFF;
+    background-color: #eee;
+    height: 30px;
+}
+
+.img-container-social img{
+    border-radius: 5px;
+    height: 100px;
+    width: 100px;
+}
+
+.wrapper-social{
+    margin-top:50px;
+    margin-bottom:50px;
+}

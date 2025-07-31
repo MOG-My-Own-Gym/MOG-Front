@@ -279,8 +279,9 @@ export default function Support() {
   return (
     <>
       <div className="container pt-5">
-        <div className="container-fluid d-flex">
-          <div className="card w-100 h-100">
+        <div className="container-fluid d-flex justify-content-center">
+          <div className="card w-100 h-100" style={{ maxWidth: '800px' }}>
+
             <div className="card-header text-center">
               <ul className="nav nav-tabs card-header-tabs">
                 <CardActive />
