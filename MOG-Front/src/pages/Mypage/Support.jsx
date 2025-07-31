@@ -69,7 +69,7 @@ export default function Support() {
       async function fetchPassword() {
         try {
           const res1 = await axios.post(
-            'http://localhost:8080/api/v1/users/auth/password/check',
+            'https://mogapi.kro.kr/api/v1/users/auth/password/check',
             { password: exPassword },
             { withCredentials: true, headers: { Authorization: `Bearer ${user.accessToken}` } },
           );
@@ -81,7 +81,7 @@ export default function Support() {
         //입력한 현재 비밀번호가 일치한다면 비밀번호변경api 요청
         try {
           const res2 = await axios.put(
-            'http://localhost:8080/api/v1/users/auth/password/update',
+            'https://mogapi.kro.kr/api/v1/users/auth/password/update',
             {
               originPassword: exPassword,
               newPassword: newPasswordCheck,
@@ -171,7 +171,7 @@ export default function Support() {
       //입력한 비밀번호가 네트워크에 저장된 user의 비밀번호와 일치하는지 판단
       try {
         res1 = await axios.post(
-          'http://localhost:8080/api/v1/users/auth/password/check',
+          'https://mogapi.kro.kr/api/v1/users/auth/password/check',
           { password: document.querySelector('#currentPassword').value },
           { withCredentials: true, headers: { Authorization: `Bearer ${user.accessToken}` } },
         );
@@ -188,7 +188,7 @@ export default function Support() {
       if (confirmWithdrawal) {
         try {
           const res2 = await axios.delete(
-            `http://localhost:8080/api/v1/users/delete/${res1.data.usersId}`,
+            `https://mogapi.kro.kr/api/v1/users/delete/${res1.data.usersId}`,
             {
               withCredentials: true,
               headers: {

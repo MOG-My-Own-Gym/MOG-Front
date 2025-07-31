@@ -27,7 +27,7 @@ export default function GNB() {
     if (user) {
       const fetchProfile = async () => {
         await axios
-          .get(`http://localhost:8080/api/v1/users/${user.usersId}`)
+          .get(`https://mogapi.kro.kr/api/v1/users/${user.usersId}`)
           .then(res => {
             setUserData(prev => ({
               ...prev,

@@ -16,7 +16,7 @@ function CommentSection({ postId, currentUser }) {
     const fetchComments = async () => {
       try {
         const response = await axios
-          .get(`http://localhost:8080/api/v1/posts/${postId}/comments`)
+          .get(`https://mogapi.kro.kr/api/v1/posts/${postId}/comments`)
           .then(res => {
             return res.data;
           });
@@ -39,7 +39,7 @@ function CommentSection({ postId, currentUser }) {
     if (!newComment.trim()) return;
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/v1/posts/${postId}/comments`,
+        `https://mogapi.kro.kr/api/v1/posts/${postId}/comments`,
         { content: newComment },
         {
           withCredentials: true,
@@ -60,7 +60,7 @@ function CommentSection({ postId, currentUser }) {
     if (!confirmed) return; //
 
     try {
-      await axios.delete(`http://localhost:8080/api/v1/posts/${postId}/comments/${commentId}`, {
+      await axios.delete(`https://mogapi.kro.kr/api/v1/posts/${postId}/comments/${commentId}`, {
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
@@ -81,7 +81,7 @@ function CommentSection({ postId, currentUser }) {
   const handleUpdateSubmit = async commentId => {
     try {
       const res = await axios.put(
-        `http://localhost:8080/api/v1/posts/${postId}/comments/${commentId}`,
+        `https://mogapi.kro.kr/api/v1/posts/${postId}/comments/${commentId}`,
         { content: editText },
         {
           withCredentials: true,

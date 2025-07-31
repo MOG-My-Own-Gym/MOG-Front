@@ -17,6 +17,7 @@ import FindIdPage from './pages/FindId/FindIdPage';
 import FindPwPage from './pages/FindPw/FindPwPage';
 import Suggest from './pages/Suggest/Suggest';
 import Routine from './pages/Routine/Routine';
+import Toast from './components/Toast/Toast';
 import PoseCheck from './pages/PoseCheck/PoseCheck';
 import ChangePwPage from './pages/FindPw/ChangePwPage';
 import DataToss from './pages/mainpage/DataToss';

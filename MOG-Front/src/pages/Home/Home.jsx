@@ -10,7 +10,6 @@ export default function Home() {
   const [user, setUser] = useState(null);
   const [exerciseData, setExerciseData] = useState(null);
   const navigate = useNavigate();
-
   // 슬라이드 설정
   const sliderSettings = {
     dots: true,
@@ -35,7 +34,7 @@ export default function Home() {
 
     if (!token) return;
     //운동기록 api요청 (토큰 인증 포함)
-    fetch('http://localhost:8080/api/exercise/latest', {
+    fetch('https://mogapi.kro.kr/api/exercise/latest', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -225,7 +224,6 @@ export default function Home() {
             자세 피드백
           </div>
           <div>운동 분석</div>
-
         </div>
       </section>
 
