@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import styles from './Level.module.css';
+import { useSuggest } from '../../../../context/SuggestContext';
 
 export default function Level({ categories }) {
+  const { suggestState, saveSuggest } = useSuggest();
+
   const [typeCheck, setTypeCheck] = useState([]);
   const korMap = {
     beginner: '운동을 처음 해봐요',
@@ -9,8 +12,18 @@ export default function Level({ categories }) {
     expert: '운동을 좋아하고 평소에도 자주해요',
   };
   useEffect(() => {
-    console.log(typeCheck);
+    saveSuggest({
+      Level: [...typeCheck],
+      Type: [...suggestState.suggest.Type],
+      BodyPart: [...suggestState.suggest.BodyPart],
+      Equipment: [...suggestState.suggest.Equipment],
+    });
   }, [typeCheck]);
+  useEffect(() => {
+    if (suggestState.suggest.Level.length > 0) {
+      setTypeCheck(suggestState.suggest.Level);
+    }
+  }, []);
   return (
     <div>
       <form className={styles['radio-form']}>
@@ -19,13 +32,13 @@ export default function Level({ categories }) {
             <div
               className={`${styles['radio-list']} ${styles[typeCheck.includes(item) ? 'radioed' : '']}`}
               onClick={() => {
-                setTypeCheck(item);
+                setTypeCheck([item]);
               }}
             >
               <span
                 className={`${styles['radio-input']} ${styles[typeCheck.includes(item) ? 'radioed' : '']}`}
                 onClick={() => {
-                  setTypeCheck(item);
+                  setTypeCheck([item]);
                 }}
               >
                 {typeCheck.includes(item) && (
@@ -35,7 +48,7 @@ export default function Level({ categories }) {
                   ></div>
                 )}
               </span>
-              <label>{korMap[item]}</label>
+              <label className={styles['label']}>{korMap[item]}</label>
             </div>
           );
         })}

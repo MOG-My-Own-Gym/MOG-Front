@@ -23,6 +23,9 @@ export default function PageBackButton() {
         if (routineId) navigate(`/routine/run?routineId=${routineId}`);
         else navigate('/routine');
         break;
+      case '/suggest':
+        navigate('/');
+        break;
     }
   };
   return (
