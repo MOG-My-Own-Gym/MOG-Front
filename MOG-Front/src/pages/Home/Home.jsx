@@ -35,7 +35,7 @@ export default function Home() {
 
     if (!token) return;
     //운동기록 api요청 (토큰 인증 포함)
-    fetch('http://localhost:8080/api/exercise/latest', {
+    fetch('https://mogapi.kro.kr/api/exercise/latest', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
