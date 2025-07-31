@@ -92,11 +92,11 @@ export default function MySocial() {
                 <div className="d-flex flex-row justify-content-around mt-4 pr-4">
                   <div className="d-flex flex-column align-items-center">
                     <small className="text-muted">나의 글</small>
-                    <h6>4</h6>
+                    <h6>{postData.length}</h6>
                   </div>
                   <div className="d-flex flex-column align-items-center">
                     <small className="text-muted">나의 댓글</small>
-                    <h6>4</h6>
+                    <h6>{commentData.length}</h6>
                   </div>
                 </div>
               </Card>
