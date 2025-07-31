@@ -3,27 +3,32 @@ import "./PoseCheck.css";
 import { Pose } from "@mediapipe/pose";
 import { Camera as MpcCamera } from "@mediapipe/camera_utils";
 
+// Teachable Machine에서 훈련된 모델 주소
 const MODEL_URL = "https://teachablemachine.withgoogle.com/models/itfRMB9Zw/";
 
 export default function PoseCheck() {
-  const webcamRef = useRef(null);
-  const animationRef = useRef(null);
-  const runningRef = useRef(false);
-  const webcamInstance = useRef(null);
-  const mpLandmarksRef = useRef(null);
 
-  const [isRunning, setIsRunning] = useState(false);
-  const [predictions, setPredictions] = useState([]);
-  const [feedbackMessage, setFeedbackMessage] = useState("");
-  const [accuracyScore, setAccuracyScore] = useState(null);
-  const [history, setHistory] = useState([]);
-  const [stableClass, setStableClass] = useState(null);
-  const predictionQueue = useRef([]);
+  const webcamRef = useRef(null); // 화면에 웹캠을 표시할 div
+  const animationRef = useRef(null); // requestAnimationFrame 참조
+  const runningRef = useRef(false); // 분석 루프 실행 여부
+  const webcamInstance = useRef(null); // 웹캠과 Mediapipe Pose 객체 저장
+  const mpLandmarksRef = useRef(null); // Mediapipe의 포즈 결과 저장
 
+  
+  const [isRunning, setIsRunning] = useState(false); // 분석 중 여부
+  const [predictions, setPredictions] = useState([]); // Teachable Machine 예측 결과
+  const [feedbackMessage, setFeedbackMessage] = useState(""); // 피드백 메시지
+  const [accuracyScore, setAccuracyScore] = useState(null); // 정확도 점수
+  const [history, setHistory] = useState([]); // 이전 기록
+  const [stableClass, setStableClass] = useState(null); // 안정된 자세 클래스
+  const predictionQueue = useRef([]); // 최근 예측들을 저장해서 안정된 class 추출
+
+  // Mediapipe Pose 설정
   useEffect(() => {
     const mpPose = new Pose({
       locateFile: (f) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${f}`,
     });
+
     mpPose.setOptions({
       modelComplexity: 1,
       smoothLandmarks: true,
@@ -31,12 +36,17 @@ export default function PoseCheck() {
       minDetectionConfidence: 0.5,
       minTrackingConfidence: 0.5,
     });
+
+    // Mediapipe에서 결과를 받으면 landmarks 저장
     mpPose.onResults((results) => {
       mpLandmarksRef.current = results.poseLandmarks;
     });
+
+    // mpPose 객체 저장
     webcamInstance.current = { mpPose };
   }, []);
 
+  // 컴포넌트가 사라질 때 정리 작업
   useEffect(() => {
     return () => {
       runningRef.current = false;
@@ -48,13 +58,17 @@ export default function PoseCheck() {
     };
   }, []);
 
+  // 날짜 포맷: "7월 31일 (수)" 형식으로 출력
   const formatDateToKorean = () => {
     const days = ["일", "월", "화", "수", "목", "금", "토"];
     const d = new Date();
     return `${d.getMonth() + 1}월 ${d.getDate()}일 (${days[d.getDay()]})`;
   };
 
+  // 포인트 유효성 검사
   const isValid = (pt) => pt && typeof pt.x === "number" && typeof pt.y === "number";
+
+  // 세 점(A, B, C)으로 각도 계산
   const calculateAngle = (A, B, C) => {
     if (!isValid(A) || !isValid(B) || !isValid(C)) return null;
     const rad = Math.atan2(C.y - B.y, C.x - B.x) - Math.atan2(A.y - B.y, A.x - B.x);
@@ -62,17 +76,20 @@ export default function PoseCheck() {
     return deg > 180 ? 360 - deg : deg;
   };
 
+  // 자세에 따라 정확도 평가
   const analyzeAccuracy = (landmarks, className) => {
     const avg = (a, b) => (a + b) / 2;
     const norm = className.trim().toLowerCase();
     let msg = "", score = null;
 
+    // 기본자세는 분석하지 않음
     if (norm === "upright posture") {
       setFeedbackMessage("자세 분석 대기 중...");
       setAccuracyScore(null);
       return;
     }
 
+    // 사용할 포인트의 인덱스 정의
     const idx = {
       leftShoulder: 11, leftElbow: 13, leftWrist: 15,
       rightShoulder: 12, rightElbow: 14, rightWrist: 16,
@@ -81,6 +98,7 @@ export default function PoseCheck() {
     };
     const get = (name) => landmarks?.[idx[name]] ?? null;
 
+    // 각도 계산
     let a1 = null, a2 = null;
     if (norm === "barbell biceps curl") {
       a1 = calculateAngle(get("leftShoulder"), get("leftElbow"), get("leftWrist"));
@@ -95,6 +113,7 @@ export default function PoseCheck() {
       a2 = calculateAngle(get("rightHip"), get("rightKnee"), get("rightAnkle"));
     }
 
+    // 정확도 판단 기준
     if (["barbell biceps curl", "lateral raise", "squat"].includes(norm)) {
       if (a1 == null || a2 == null) {
         setFeedbackMessage("자세 포인트를 인식하지 못했습니다.");
@@ -126,10 +145,12 @@ export default function PoseCheck() {
         : ["등이 너무 굽었어요. 조심하세요!", 60];
     }
 
+    // 결과 저장
     setFeedbackMessage(msg);
     setAccuracyScore(score);
   };
 
+  // 분석 루프: Teachable Machine 예측 + Mediapipe 각도 계산
   const loop = async (tmModel, cam) => {
     if (!runningRef.current) return;
     cam.update();
@@ -139,6 +160,8 @@ export default function PoseCheck() {
     const best = preds.reduce((a, b) => a.probability > b.probability ? a : b);
 
     setPredictions(preds);
+
+    // 안정적인 class 판단
     predictionQueue.current.push(best.className);
     if (predictionQueue.current.length > 20) predictionQueue.current.shift();
 
@@ -147,18 +170,22 @@ export default function PoseCheck() {
     const [top, freq] = Object.entries(counts).sort((a, b) => b[1] - a[1])[0] || [];
     if (freq >= 12 && top !== "upright posture") setStableClass(top);
 
+    // 정확도 분석
     const mpLandmarks = mpLandmarksRef.current;
     if (mpLandmarks) analyzeAccuracy(mpLandmarks, best.className);
 
+    // 다음 루프 요청
     animationRef.current = requestAnimationFrame(() => loop(tmModel, cam));
   };
 
+  // 분석 시작
   const startAnalysis = async () => {
     const video = document.createElement("video");
     video.setAttribute("playsinline", "");
     video.width = 300;
     video.height = 300;
 
+    // 카메라 권한 요청
     const stream = await navigator.mediaDevices.getUserMedia({
       video: { width: 300, height: 300 },
       audio: false
@@ -188,6 +215,8 @@ export default function PoseCheck() {
     };
 
     const mpPose = webcamInstance.current.mpPose;
+
+    // Mediapipe 실행 시작
     new MpcCamera(video, {
       onFrame: async () => {
         cam.update();
@@ -198,11 +227,13 @@ export default function PoseCheck() {
     }).start();
 
     webcamInstance.current.cam = cam;
+
     runningRef.current = true;
     setIsRunning(true);
     loop(tmModel, cam);
   };
 
+  // 분석 종료
   const stopAnalysis = () => {
     runningRef.current = false;
     setIsRunning(false);
@@ -215,6 +246,7 @@ export default function PoseCheck() {
 
     webcamRef.current.innerHTML = "";
 
+    // 기록 저장
     let record = stableClass;
     if (!record && predictions.length) {
       record = predictions.reduce((a, b) => a.probability > b.probability ? a : b).className;
