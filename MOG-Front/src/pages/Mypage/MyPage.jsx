@@ -86,7 +86,6 @@ export default function MyPage() {
 
   return (
     <>
-      
       <div className="d-flex" style={{ height: '100%' }}>
         {/*데스크톱/태블릿용 사이드바 시작 */}
         <div

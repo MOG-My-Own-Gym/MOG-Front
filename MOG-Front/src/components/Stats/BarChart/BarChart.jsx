@@ -2,6 +2,7 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
+  BarController,
   BarElement,
   LineElement,
   PointElement,
@@ -16,6 +17,7 @@ import LoadFail from '../../Loader/LoadFail/LoadFail';
 
 export default function BarChart({ barData, isMobile }) {
   ChartJS.register(
+    BarController,
     BarElement,
     CategoryScale,
     LinearScale,

@@ -4,8 +4,6 @@ import '@/assets/bootstrap/css/bootstrap.min.css';
 import Home from './pages/Home/Home';
 import GNB from './components/GNB/GNB';
 import ToastContext from './context/ToastContext';
-import ToastProvider from './context/ToastProvider';
-import Toast from './components/Toast/Toast';
 import Stats from './pages/Stats/Stats';
 import RecordPage from './components/Record/RecordPage';
 import LoginPage from './pages/Login/LoginPage';
@@ -20,16 +18,14 @@ import Suggest from './pages/Suggest/Suggest';
 import Routine from './pages/Routine/Routine';
 import PoseCheck from './pages/PoseCheck/PoseCheck';
 import ChangePwPage from './pages/FindPw/ChangePwPage';
-import ModalAlertProvider from './context/ModalAlertProvider';
-import ModalAlert from './components/Modal/ModalAlert';
 import DataToss from './pages/mainpage/DataToss';
-import SelectExercises from './pages/Routine/SelectExercises/SelectExercises';
-import { RoutineProvider } from './pages/Routine/RoutineContext';
-import RoutineDetail from './pages/Routine/RoutineDetail/RoutineDetail';
-import './App.css';
-import RoutineRun from './pages/Routine/RoutineRun/RoutineRun';
-import { RunProvider } from './pages/Routine/RunContext';
 import SuggestProvider from './context/SuggestProvider';
+import SelectMainpage from './pages/mainpage/SelectMainpage';
+import CategoryPage from './pages/mainpage/CategoryPage';
+import RoutinePage from './pages/mainpage/RoutinePage';
+import RunningRoutinePage from './pages/mainpage/RunningRoutinePage';
+import RoutineResultPage from './pages/mainpage/RoutineResultPage';
+
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -63,12 +59,6 @@ function App() {
               <Route path="/pose" element={<PoseCheck />} />
               <Route path="/data/*" element={<DataToss />}></Route>
               <Route path="/suggest" element={<Suggest />}></Route>
-              {/* 루틴 실행 */}
-              {/* <Route path="/routine" element={<Routine />} />
-              <Route path="/routine/select" element={<SelectExercises />} />
-              <Route path="/routine/detail" element={<RoutineDetail />} />
-              <Route path="/routine/run" element={<RoutineRun />} /> */}
-            </Routes>
           </SuggestProvider>
         </RoutineProvider>
       </AuthProvider>
