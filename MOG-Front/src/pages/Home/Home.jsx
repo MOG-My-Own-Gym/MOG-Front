@@ -11,7 +11,6 @@ export default function Home() {
   const [exerciseData, setExerciseData] = useState(null);
   const navigate = useNavigate();
 
-  const navigate = useNavigate();
   // 슬라이드 설정
   const sliderSettings = {
     dots: true,
