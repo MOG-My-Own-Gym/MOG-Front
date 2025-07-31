@@ -25,7 +25,7 @@ export default function RoutineRun() {
   useEffect(() => {
     const fetchRoutine = async () => {
       const data = await axios
-        .get(`http://localhost:8080/api/v1/routine/${routineId}`, {
+        .get(`https://mogapi.kro.kr/api/v1/routine/${routineId}`, {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
