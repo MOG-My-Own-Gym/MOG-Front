@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 function Model({
-        closeModal,
+        setIsOpen,
         routineId,
         initMakeRoutine,
         setStartRrcodResultData,
@@ -15,7 +15,6 @@ function Model({
         startTimer,
         startRrcodResultData,
         resetTimer,
-        reset,
         setResetTimeCheckBoolean,
         resetTimeCheckBoolean,
         elapsed,
@@ -83,14 +82,12 @@ function Model({
             setStartRrcodResultData(false);
             setCurrentRrcodingRoutineId(0);
             resetTimer();
-            reset();
             navigate(`/data/routineresult`,{state:inputResult});
         }else{
             localStorage.removeItem("detailSetData")
             setStartRrcodResultData(false);
             setCurrentRrcodingRoutineId(0);
             resetTimer();
-            reset();
             setResetTimeCheckBoolean(false);
         }
     }
@@ -99,7 +96,7 @@ function Model({
             .then(res=>setRoutineLength(res.data.length));
     },[])
     return<>
-        <div className="modal-overlay" tabIndex="-1" onClick={closeModal}>
+        <div className="modal-overlay" tabIndex="-1" onClick={()=>setIsOpen(false)}>
             <div className="modal-dialog">
                 <div className="modal-content" style={{backgroundColor:'white'}}>
                     <div className="modal-header">
@@ -113,7 +110,7 @@ function Model({
                         <Button type="button" className="btn btn-secondary" data-bs-dismiss="modal" 
                             onClick={e=>startRrcodResultData?stopRrcodResultData():loadRoutineDetail()}>
                                 {startRrcodResultData?"종료":"시작"}</Button>
-                        <Button type="button" className="btn btn-primary" onClick={closeModal}>취소</Button>
+                        <Button type="button" className="btn btn-primary" onClick={()=>setIsOpen(false)}>취소</Button>
                     </div>
                 </div>
             </div>

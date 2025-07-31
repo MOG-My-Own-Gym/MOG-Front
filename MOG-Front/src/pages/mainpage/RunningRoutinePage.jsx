@@ -15,9 +15,7 @@ export default function RunningRoutinePage({
         setMakeDetailSetData,
         makeDetailSetData,
         currentRrcodingRoutineId,
-        reset,
         formatTime,
-        initDetailTime,
         currentDetailId,
         isCurrentTimeRunning,
         setSubDetailTime,
@@ -56,7 +54,6 @@ export default function RunningRoutinePage({
    
     const exSendResultData=(e)=>{
         if(e.target.dataset.id==="complete"){
-            //reset();
             setIsCurrentRunning(true);
             resetLocalTimer();
             startLocalTimer();
@@ -223,13 +220,11 @@ export default function RunningRoutinePage({
                 ))}
                 
                 <SetTime 
-                initDetailTime={initDetailTime} 
                 routineId={routineId} 
                 currentDetailId={currentDetailId}
                 isCurrentTimeRunning={isCurrentTimeRunning}
                 setSubDetailTime={setSubDetailTime}
                 subDetailTime={subDetailTime}
-                reset={reset}
                 setDetailTime={setDetailTime}
                 setIsCurrentRunning={setIsCurrentRunning}
                 startRrcodResultData={startRrcodResultData}

@@ -5,13 +5,11 @@ import axios from 'axios';
 import { Button, Card, ListGroup, Modal } from 'react-bootstrap';
 
 function SetTime({
-        initDetailTime,
         routineId,
         currentDetailId, 
         isCurrentTimeRunning,
         setSubDetailTime,
         subDetailTime,
-        reset,
         setDetailTime,
         setIsCurrentRunning,
         startRrcodResultData,

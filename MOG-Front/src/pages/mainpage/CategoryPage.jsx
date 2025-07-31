@@ -89,6 +89,7 @@ export default function CategoryPage({
                 })         
             }
             await axios.post(URL.ROUTINEDETAIL,{id:String(useDataRoutine.length<=0?1:parseInt(useDataRoutine[useDataRoutine.length-1].id)+1),state:[...makeDetailNode]})
+            //await axios.post(`${URL.REALDATA}/create`,{routineName:String(useDataRoutine.length<=0?1:parseInt(useDataRoutine[useDataRoutine.length-1].id)+1),saveRoutineDto:[]})
             navigate(`/data/routine?routineId=${useDataRoutine.length+1}`)
         }else{
             const makeRoutineId = useDataRoutine[state-1].state.length===0?0:Math.max(...useDataRoutine[state-1].state.map(item=>parseInt(item.set_id)));

@@ -12,7 +12,7 @@ import Model from "./Model";
 const DataToss=()=>{
     const [useDataRoutine,setDataRoutine] = useState();
     const [useDetailExData,setDetailExData] = useState();
-    const [initDetailTime,setDetailTime] = useState();
+    const [initDetailTime,setDetailTime] = useState();//휴식 타이머 시간 값(저장된 값)
     const [routineId,setRoutineId] = useState();
     const [currentDetailId,setCurrentDetailId] = useState();
     const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +21,7 @@ const DataToss=()=>{
     const [initMakeRoutine, setMakeRoutine] = useState([]);
     const [checkPageWhenRunningPage,setCheckPageWhenRunningPage] = useState(false);
     const [makeDetailSetData,setMakeDetailSetData] =useState();
-    const [subDetailTime,setSubDetailTime]=useState(0);
+    const [subDetailTime,setSubDetailTime]=useState(0); //휴식 타이머 보이는 값
     const [currentRrcodingRoutineId,setCurrentRrcodingRoutineId] = useState(0);
     const [resetTimeCheckBoolean,setResetTimeCheckBoolean]= useState(false);
     const [checkRoutineUser,setCheckRoutineUser] = useState([]);//유저 구분 후 루틴 값
@@ -31,33 +31,28 @@ const DataToss=()=>{
     const intervalRef = useRef(null);
     const localIntervalRef = useRef(null);
 
+    //루틴 값 업데이트 조회
     const fetchData = async () => {
         await axios.get(URL.ROUNTINE)
             .then(res=>setDataRoutine(res.data))
     };
+
+    //루틴 디테일 값 업데이트 조회
     const detailData = async ()=>{
         await axios.get(URL.ROUTINEDETAIL)
             .then(res=>setDetailExData(res.data))
     }
-
-    const closeModal = () => setIsOpen(false);
-
-    const reset = () => {
-        //setTime(timeInit);
-        setIsCurrentRunning(false);
-        setSubDetailTime(initDetailTime);
-    };
     
     // 타이머 시작
     const startTimer = () => {
         if (!isRunning) {
-        startTimeRef.current = Date.now() - elapsed * 1000; // 기존 경과 반영
-        intervalRef.current = setInterval(() => {
-            const now = Date.now();
-            const diff = Math.floor((now - startTimeRef.current) / 1000);
-            setElapsed(diff);
-        }, 1000);
-        setIsRunning(true);
+            startTimeRef.current = Date.now() - elapsed * 1000; // 기존 경과 반영
+            intervalRef.current = setInterval(() => {
+                const now = Date.now();
+                const diff = Math.floor((now - startTimeRef.current) / 1000);
+                setElapsed(diff);
+            }, 1000);
+            setIsRunning(true);
         }
     };
 
@@ -69,7 +64,7 @@ const DataToss=()=>{
         }
     };
 
-    // 초기화
+    // 타이머 초기화
     const resetTimer = () => {
         clearInterval(intervalRef.current);
         setElapsed(0);
@@ -77,7 +72,7 @@ const DataToss=()=>{
         startTimeRef.current = null;
     };
 
-    // 로컬 타이머 시작
+    // 휴식 타이머 시작
     const startLocalTimer = () => {
         setIsCurrentRunning(true);
         localIntervalRef.current = setInterval(() => {
@@ -88,23 +83,23 @@ const DataToss=()=>{
         }, 1000);
     }
 
-    //로컬 타이머 정지
+    //휴식 타이머 정지
     const stopLocalTimer = () => {
         if(isCurrentTimeRunning){
             clearInterval(localIntervalRef.current);
             setIsCurrentRunning(false);
         }
     }
-    //로컬 타이머 초기화
+
+    //휴식 타이머 초기화
     const resetLocalTimer = () => {
-        console.log('테스트 입니다.')
-        clearInterval(localIntervalRef.current);
-        setSubDetailTime(initDetailTime);
-        setIsCurrentRunning(false);
-        localIntervalRef.current = null;
+        clearInterval(localIntervalRef.current); //휴식 타이머 초기화
+        setSubDetailTime(initDetailTime); //휴식 시간 값 업데이트
+        setIsCurrentRunning(false); //
+        localIntervalRef.current = null; //clearInterval 안의 함수 삭제
     }
    
-    // 시간 포맷
+    // 시간 포맷(시,분,초)
     const formatTime = () => {
         const h = String(Math.floor(elapsed / 3600)).padStart(2, '0');
         const m = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
@@ -114,21 +109,22 @@ const DataToss=()=>{
         return `${h}:${m}:${s}`;
     };
 
-    // 언마운트 시 타이머 정리
+    // 언마운트 시 타이머 정리(휴식 시간 포함)
     useEffect(() => {
        return () =>{ 
-            clearInterval(localIntervalRef.current);
-            clearInterval(intervalRef.current);
+            clearInterval(localIntervalRef.current); //타이머
+            clearInterval(intervalRef.current); //휴식 타이머
         }
     }, []);
 
+    //시간 값 변경 시 휴식 타이머 업데이트
     useEffect(()=>{
         if(!isCurrentTimeRunning) setSubDetailTime(initDetailTime);
     },[initDetailTime])
 
     return <>
         {isOpen&&<Model 
-            closeModal={closeModal}
+            setIsOpen={setIsOpen}
             routineId={routineId} 
             initMakeRoutine={initMakeRoutine}
             setStartRrcodResultData={setStartRrcodResultData}
@@ -138,7 +134,6 @@ const DataToss=()=>{
             startTimer={startTimer}
             startRrcodResultData={startRrcodResultData}
             resetTimer={resetTimer}
-            reset={reset}
             setResetTimeCheckBoolean={setResetTimeCheckBoolean}
             resetTimeCheckBoolean={resetTimeCheckBoolean}
             elapsed={elapsed}
@@ -190,7 +185,6 @@ const DataToss=()=>{
                 setMakeDetailSetData={setMakeDetailSetData}
                 makeDetailSetData={makeDetailSetData}
                 currentRrcodingRoutineId={currentRrcodingRoutineId}
-                reset={reset}
                 formatTime={formatTime}
                 initDetailTime={initDetailTime} 
                 routineId={routineId} 
