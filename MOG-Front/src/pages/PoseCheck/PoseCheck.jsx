@@ -1,180 +1,286 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./PoseCheck.css";
+import { Pose } from "@mediapipe/pose";
+import { Camera as MpcCamera } from "@mediapipe/camera_utils";
 
 const MODEL_URL = "https://teachablemachine.withgoogle.com/models/itfRMB9Zw/";
 
-function PoseCheck() {
+export default function PoseCheck() {
   const webcamRef = useRef(null);
-  const isRunningRef = useRef(false); // loop 제어용
-  const [model, setModel] = useState(null);
-  const [webcam, setWebcam] = useState(null);
-  const [isRunning, setIsRunning] = useState(false); // UI용
+  const animationRef = useRef(null);
+  const runningRef = useRef(false);
+  const webcamInstance = useRef(null);
+  const mpLandmarksRef = useRef(null);
 
+  const [isRunning, setIsRunning] = useState(false);
   const [predictions, setPredictions] = useState([]);
-  const [predictionQueue, setPredictionQueue] = useState([]);
-  const [stableClass, setStableClass] = useState(null);
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [accuracyScore, setAccuracyScore] = useState(null);
   const [history, setHistory] = useState([]);
+  const [stableClass, setStableClass] = useState(null);
+  const predictionQueue = useRef([]);
 
-  // 날짜 포맷
+  useEffect(() => {
+    const mpPose = new Pose({
+      locateFile: (f) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${f}`,
+    });
+    mpPose.setOptions({
+      modelComplexity: 1,
+      smoothLandmarks: true,
+      enableSegmentation: false,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5,
+    });
+    mpPose.onResults((results) => {
+      mpLandmarksRef.current = results.poseLandmarks;
+    });
+    webcamInstance.current = { mpPose };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      runningRef.current = false;
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      const video = webcamInstance.current?.cam?.video;
+      if (video?.srcObject) {
+        video.srcObject.getTracks().forEach((track) => track.stop());
+      }
+    };
+  }, []);
+
   const formatDateToKorean = () => {
     const days = ["일", "월", "화", "수", "목", "금", "토"];
-    const date = new Date();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const weekday = days[date.getDay()];
-    return `${month}월 ${day}일 (${weekday})`;
+    const d = new Date();
+    return `${d.getMonth() + 1}월 ${d.getDate()}일 (${days[d.getDay()]})`;
   };
 
-  // 분석 시작
+  const isValid = (pt) => pt && typeof pt.x === "number" && typeof pt.y === "number";
+  const calculateAngle = (A, B, C) => {
+    if (!isValid(A) || !isValid(B) || !isValid(C)) return null;
+    const rad = Math.atan2(C.y - B.y, C.x - B.x) - Math.atan2(A.y - B.y, A.x - B.x);
+    let deg = Math.abs((rad * 180) / Math.PI);
+    return deg > 180 ? 360 - deg : deg;
+  };
+
+  const analyzeAccuracy = (landmarks, className) => {
+    const avg = (a, b) => (a + b) / 2;
+    const norm = className.trim().toLowerCase();
+    let msg = "", score = null;
+
+    if (norm === "upright posture") {
+      setFeedbackMessage("자세 분석 대기 중...");
+      setAccuracyScore(null);
+      return;
+    }
+
+    const idx = {
+      leftShoulder: 11, leftElbow: 13, leftWrist: 15,
+      rightShoulder: 12, rightElbow: 14, rightWrist: 16,
+      leftHip: 23, leftKnee: 25, leftAnkle: 27,
+      rightHip: 24, rightKnee: 26, rightAnkle: 28
+    };
+    const get = (name) => landmarks?.[idx[name]] ?? null;
+
+    let a1 = null, a2 = null;
+    if (norm === "barbell biceps curl") {
+      a1 = calculateAngle(get("leftShoulder"), get("leftElbow"), get("leftWrist"));
+      a2 = calculateAngle(get("rightShoulder"), get("rightElbow"), get("rightWrist"));
+    } else if (norm === "lateral raise") {
+      a1 = calculateAngle(get("leftHip"), get("leftShoulder"), get("leftElbow"));
+      a2 = calculateAngle(get("rightHip"), get("rightShoulder"), get("rightElbow"));
+    } else if (norm === "romanian deadlift") {
+      a1 = calculateAngle(get("leftShoulder"), get("leftHip"), get("leftKnee"));
+    } else if (norm === "squat") {
+      a1 = calculateAngle(get("leftHip"), get("leftKnee"), get("leftAnkle"));
+      a2 = calculateAngle(get("rightHip"), get("rightKnee"), get("rightAnkle"));
+    }
+
+    if (["barbell biceps curl", "lateral raise", "squat"].includes(norm)) {
+      if (a1 == null || a2 == null) {
+        setFeedbackMessage("자세 포인트를 인식하지 못했습니다.");
+        setAccuracyScore(null);
+        return;
+      }
+      const v = avg(a1, a2);
+      if (norm === "barbell biceps curl") {
+        [msg, score] = v < 50 ? ["최고예요! 팔이 충분히 접혔어요.", 95]
+          : v < 90 ? ["좋아요! 좀 더 조여도 돼요.", 80]
+          : ["팔을 더 접어보세요.", 60];
+      } else if (norm === "lateral raise") {
+        [msg, score] = (v > 80 && v < 100) ? ["어깨 높이가 딱 좋아요!", 95]
+          : (v > 60 && v < 120) ? ["조금 더 수평에 가깝게 해보세요.", 80]
+          : ["팔을 더 수평으로 들어올려 보세요.", 60];
+      } else {
+        [msg, score] = v > 140 ? ["좋은 스쿼트! 무릎을 충분히 굽혔어요.", 95]
+          : v > 120 ? ["거의 좋아요. 좀 더 내려보세요.", 80]
+          : ["스쿼트가 충분히 깊지 않아요.", 60];
+      }
+    } else if (norm === "romanian deadlift") {
+      if (a1 == null) {
+        setFeedbackMessage("자세 포인트를 인식하지 못했습니다.");
+        setAccuracyScore(null);
+        return;
+      }
+      [msg, score] = a1 > 160 ? ["좋은 자세예요! 등을 곧게 유지했어요.", 95]
+        : a1 > 140 ? ["거의 좋아요. 등을 좀 더 곧게 해보세요.", 80]
+        : ["등이 너무 굽었어요. 조심하세요!", 60];
+    }
+
+    setFeedbackMessage(msg);
+    setAccuracyScore(score);
+  };
+
+  const loop = async (tmModel, cam) => {
+    if (!runningRef.current) return;
+    cam.update();
+
+    const { pose, posenetOutput } = await tmModel.estimatePose(cam.canvas);
+    const preds = await tmModel.predict(posenetOutput);
+    const best = preds.reduce((a, b) => a.probability > b.probability ? a : b);
+
+    setPredictions(preds);
+    predictionQueue.current.push(best.className);
+    if (predictionQueue.current.length > 20) predictionQueue.current.shift();
+
+    const counts = {};
+    predictionQueue.current.forEach(c => counts[c] = (counts[c] || 0) + 1);
+    const [top, freq] = Object.entries(counts).sort((a, b) => b[1] - a[1])[0] || [];
+    if (freq >= 12 && top !== "upright posture") setStableClass(top);
+
+    const mpLandmarks = mpLandmarksRef.current;
+    if (mpLandmarks) analyzeAccuracy(mpLandmarks, best.className);
+
+    animationRef.current = requestAnimationFrame(() => loop(tmModel, cam));
+  };
+
   const startAnalysis = async () => {
-    const loadedModel = await tmPose.load(
+    const video = document.createElement("video");
+    video.setAttribute("playsinline", "");
+    video.width = 300;
+    video.height = 300;
+
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { width: 300, height: 300 },
+      audio: false
+    });
+    video.srcObject = stream;
+    await video.play();
+
+    webcamRef.current.innerHTML = "";
+    webcamRef.current.appendChild(video);
+
+    const tmModel = await window.tmPose.load(
       MODEL_URL + "model.json",
       MODEL_URL + "metadata.json"
     );
-    const cam = new tmPose.Webcam(300, 300, true);
-    await cam.setup();
-    await cam.play();
 
-    // 이전 캔버스 제거 (중복 제거)
-    const existingCanvas = webcamRef.current.querySelector("canvas");
-    if (existingCanvas && webcamRef.current.contains(existingCanvas)) {
-      webcamRef.current.removeChild(existingCanvas);
-    }
+    const canvas = document.createElement("canvas");
+    canvas.width = 300;
+    canvas.height = 300;
 
-    webcamRef.current.appendChild(cam.canvas);
-
-    setModel(loadedModel);
-    setWebcam(cam);
-    setIsRunning(true);
-    isRunningRef.current = true;
-
-    // 분석 루프
-    const loop = async () => {
-      if (!cam || !loadedModel || !isRunningRef.current) return;
-
-      cam.update();
-      const { pose, posenetOutput } = await loadedModel.estimatePose(cam.canvas);
-      const prediction = await loadedModel.predict(posenetOutput);
-
-      if (prediction.length > 0) {
-        setPredictions(prediction);
-
-        const best = prediction.reduce((a, b) =>
-          a.probability > b.probability ? a : b
-        );
-
-        setPredictionQueue((prev) => {
-          const updated = [...prev, best.className];
-          if (updated.length > 20) updated.shift();
-          return updated;
-        });
+    const cam = {
+      video,
+      canvas,
+      update: () => {
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       }
-
-      requestAnimationFrame(loop);
     };
 
-    requestAnimationFrame(loop);
+    const mpPose = webcamInstance.current.mpPose;
+    new MpcCamera(video, {
+      onFrame: async () => {
+        cam.update();
+        await mpPose.send({ image: canvas });
+      },
+      width: 300,
+      height: 300,
+    }).start();
+
+    webcamInstance.current.cam = cam;
+    runningRef.current = true;
+    setIsRunning(true);
+    loop(tmModel, cam);
   };
 
-  // 분석 종료
   const stopAnalysis = () => {
-    if (webcam) webcam.stop();
+    runningRef.current = false;
     setIsRunning(false);
-    isRunningRef.current = false;
-    setPredictions([]);
-    setPredictionQueue([]);
+    if (animationRef.current) cancelAnimationFrame(animationRef.current);
 
-    // 기록 저장
-    if (stableClass) {
-      const best = predictions.find((p) => p.className === stableClass);
-      if (best) {
-        setHistory((prev) => [
-          {
-            date: formatDateToKorean(),
-            className: best.className,
-            probability: (best.probability * 100).toFixed(1),
-          },
-          ...prev.slice(0, 9),
-        ]);
-      }
+    const video = webcamInstance.current?.cam?.video;
+    if (video?.srcObject) {
+      video.srcObject.getTracks().forEach((track) => track.stop());
     }
 
-    setStableClass(null);
+    webcamRef.current.innerHTML = "";
+
+    let record = stableClass;
+    if (!record && predictions.length) {
+      record = predictions.reduce((a, b) => a.probability > b.probability ? a : b).className;
+    }
+    if (record) {
+      const prob = predictions.find(p => p.className === record)?.probability || 0;
+      setHistory(prev => [
+        { date: formatDateToKorean(), className: record, probability: (prob * 100).toFixed(1) },
+        ...prev.slice(0, 9)
+      ]);
+    }
   };
-
-  // className 안정화 (20개 중 16개 이상)
-  useEffect(() => {
-    if (predictionQueue.length < 5) return;
-
-    const counts = {};
-    predictionQueue.forEach((cls) => {
-      counts[cls] = (counts[cls] || 0) + 1;
-    });
-
-    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-    const [topClass, freq] = sorted[0];
-
-    if (freq >= 16) {
-      setStableClass(topClass);
-    }
-  }, [predictionQueue]);
 
   return (
     <>
       <h2 className="pose-page-title">자세 분석 결과</h2>
-
       <div className="pose-wrapper">
-        <div className="pose-left">
-          <div className="pose-webcam" ref={webcamRef}>
-            {!isRunning && !webcam && (
-              <div className="pose-overlay">분석 시작을 눌러주세요</div>
-            )}
-            {!isRunning && webcam && (
-              <div className="pose-overlay">분석이 종료되었습니다<br />기록을 확인해주세요</div>
-            )}
-          </div>
+        <div className="pose-webcam-wrapper">
+          <div className="pose-webcam" ref={webcamRef} />
+          {!isRunning && (
+            <div className="pose-overlay">분석 시작을 눌러 시작해보세요</div>
+          )}
+        </div>
 
-          <div className="pose-buttons">
-            {!isRunning ? (
-              <button className="pose-button" onClick={startAnalysis}>
-                분석 시작
-              </button>
-            ) : (
-              <button className="pose-button" onClick={stopAnalysis}>
-                분석 종료
-              </button>
-            )}
-          </div>
-
-          <div className="pose-bars">
-            {predictions.map((p) => (
-              <div key={p.className} className="bar-item">
-                <span className="bar-label">{p.className}</span>
-                <div className="bar-track">
-                  <div
-                    className={`bar-fill ${p.className === stableClass ? "best" : ""}`}
-                    style={{ width: `${(p.probability * 100).toFixed(1)}%` }}
-                  ></div>
-                </div>
-                <span className="bar-percent">{(p.probability * 100).toFixed(1)}%</span>
-              </div>
-            ))}
-          </div>
+        <div className="pose-feedback-static">
+          <h2 className="pose-feedback-title">정확도 분석</h2>
+          {(feedbackMessage || accuracyScore != null) && (
+            <div className="feedback-box">
+              <p>{feedbackMessage}</p>
+              {accuracyScore != null && <p>정확도 점수: {accuracyScore}%</p>}
+            </div>
+          )}
         </div>
 
         <div className="pose-history">
           <h3>지난 기록</h3>
           <ul>
             {history.map((h, i) => (
-              <li key={i}>
-                {h.date} - {h.className} ({h.probability}%)
-              </li>
+              <li key={i}>{h.date} - {h.className} ({h.probability}%)</li>
             ))}
           </ul>
+        </div>
+      </div>
+
+      <div className="pose-bottom">
+        <div className="pose-buttons">
+          {!isRunning
+            ? <button className="pose-button" onClick={startAnalysis}>분석 시작</button>
+            : <button className="pose-button" onClick={stopAnalysis}>분석 종료</button>
+          }
+        </div>
+        <div className="pose-bars">
+          {predictions.map(p => (
+            <div key={p.className} className="bar-item">
+              <span className="bar-label">{p.className}</span>
+              <div className="bar-track">
+                <div
+                  className={`bar-fill ${p.className === stableClass ? "best" : ""}`}
+                  style={{ width: `${(p.probability * 100).toFixed(1)}%` }}
+                />
+              </div>
+              <span className="bar-percent">{(p.probability * 100).toFixed(1)}%</span>
+            </div>
+          ))}
         </div>
       </div>
     </>
   );
 }
-
-export default PoseCheck;

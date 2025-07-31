@@ -21,6 +21,14 @@ import ChangePwPage from './pages/FindPw/ChangePwPage';
 import ModalAlertProvider from './context/ModalAlertProvider';
 import ModalAlert from './components/Modal/ModalAlert';
 import DataToss from './pages/mainpage/DataToss';
+import SelectMainpage from './pages/mainpage/SelectMainpage';
+import CategoryPage from './pages/mainpage/CategoryPage';
+import RoutinePage from './pages/mainpage/RoutinePage';
+import RoutineResultPage from './pages/mainpage/RoutineResultPage';
+import RunningRoutinePage from './pages/mainpage/RunningRoutinePage';
+
+
+
 
 
 function App() {
