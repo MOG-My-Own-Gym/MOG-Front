@@ -1,32 +1,34 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import './css/profile.css';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import axios from 'axios';
+import { useModalAlert } from '../../context/ModalAlertContext';
+import { AuthContext } from '../Login/AuthContext';
 
 export default function ProfileEdit() {
+  const { showModal } = useModalAlert();
   const navigete = useNavigate();
+  const { user } = useContext(AuthContext);
 
   const { state } = useLocation();
-  console.log('state:', state);
 
   //에러 메시지 뿌리기 위한 Span Ref객체
   const spanNameRef = useRef();
   const spanNicknameRef = useRef();
+  const spanPhoneNumRef = useRef();
 
+  //profile페이지에서 넘겨받은 state로 input채우기
   const [inputs, setInputs] = useState({
     name: state.name,
     nickName: state.nickName,
-    call1: state.call.split('-')[0],
-    call2: state.call.split('-')[1],
-    call3: state.call.split('-')[2],
+    phoneNum: state.phoneNum,
     age: state.age,
     gender: state.gender,
     height: state.height,
     weight: state.weight,
   });
-  const { name, nickName, call1, call2, call3, age, gender, height, weight } = inputs;
-  console.log(inputs);
+  const { name, nickName, phoneNum, age, gender, height, weight } = inputs;
 
+  //input입력값 제어하는 함수
   const handleChange = e => {
     const { name, value } = e.target;
     //유효성 검증
@@ -34,32 +36,43 @@ export default function ProfileEdit() {
       spanNameRef.current.textContent = value.trim() === '' ? '이름을 입력하세요' : '';
     } else if (name === 'nickName') {
       spanNicknameRef.current.textContent = value.trim() === '' ? '닉네임을 입력하세요' : '';
+    } else if (name === 'phoneNum') {
+      spanPhoneNumRef.current.textContent =
+        value.trim() === '' ? '전화번호를 숫자만 입력해주세요' : '';
     }
 
+    //gender라디오 버튼인 경우 true혹은 false로 저장(저장된 state는 문자열로 읽어오기 때문에 문자열-> 불린값으로 바꿔주기 위함)
     if (name === 'gender') {
       if (value === 'true') setInputs(prev => ({ ...prev, gender: true }));
       else setInputs(prev => ({ ...prev, gender: false }));
     } else setInputs(prev => ({ ...prev, [name]: value }));
   };
 
+  //프로필변경 저장 버튼 클릭시
   const toProfile = e => {
     e.preventDefault();
     const isLengthName = name.trim().length === 0;
     const isLengthNickname = nickName.trim().length === 0;
-    if (isLengthName || isLengthNickname) {
+    const isLengthPhoneNum = phoneNum.trim().length === 0;
+
+    //필수 입력정보를 입력하지 않았을경우 바로 return
+    if (isLengthName || isLengthNickname || isLengthPhoneNum) {
       if (isLengthName) spanNameRef.current.textContent = '이름은 필수 입력값입니다.';
       if (isLengthNickname) spanNicknameRef.current.textContent = '닉네임은 필수 입력값입니다.';
+      if (isLengthPhoneNum) spanPhoneNumRef.current.textContent = '전화번호는 필수 입력값입니다.';
       return;
     }
-    console.log(state);
+
+    //유효성 체크 통과한 경우 회원정보수정 api 요청
     axios
       .put(
-        `http://localhost:8080/api/v1/users/update/${state.usersId}`,
+        `http://localhost:8080/api/v1/users/update/${user.usersId}`,
         {
           usersName: name,
           nickName: nickName,
           email: state.email,
           profileImg: state.profileImg,
+          phoneNum: phoneNum,
           biosDto: {
             gender: gender,
             age: age,
@@ -70,15 +83,18 @@ export default function ProfileEdit() {
         {
           withCredentials: true,
           headers: {
-            Authorization: `Bearer ${state.accessToken}`,
+            Authorization: `Bearer ${user.accessToken}`,
           },
         },
       )
       .then(res => {
-        console.log(res);
+        //회원정보수정에 성공한 경우 profile페이지로 바로 이동
         navigete('/mypage');
       })
-      .catch(e => console.log(e));
+      .catch(e => {
+        console.log(e);
+        showModal('프로필 수정 실패');
+      });
   };
 
   return (
@@ -129,7 +145,7 @@ export default function ProfileEdit() {
                         type="text"
                         className="form-control"
                         placeholder="닉네임을 입력해주세요"
-                        name="nickname"
+                        name="nickName"
                         value={nickName}
                         onChange={handleChange}
                       />
@@ -147,37 +163,18 @@ export default function ProfileEdit() {
                       />
                     </div>
                     <hr className="text-secondary" />
-                    <div className="profile-call pt-2">
+                    <div className="profile-phoneNum pt-2 ">
                       <label className="labels">전화번호</label>
-                      <div className="d-flex">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="전화번호를 입력해주세요"
-                          name="call1"
-                          id="call1"
-                          value={call1}
-                          onChange={handleChange}
-                        />
-                        <span className="fs-4 mx-1">-</span>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="전화번호를 입력해주세요"
-                          name="call2"
-                          value={call2}
-                          onChange={handleChange}
-                        />
-                        <span className="fs-4 mx-1">-</span>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="전화번호를 입력해주세요"
-                          name="call3"
-                          value={call3}
-                          onChange={handleChange}
-                        />
-                      </div>
+                      <span className="text-danger">*</span>
+                      <input
+                        type="number"
+                        className="form-control"
+                        placeholder="전화번호를 숫자만 입력해주세요"
+                        name="phoneNum"
+                        value={phoneNum}
+                        onChange={handleChange}
+                      />
+                      <span ref={spanPhoneNumRef} style={{ color: '#FF0000' }}></span>
                     </div>
                   </fieldset>
                 </div>

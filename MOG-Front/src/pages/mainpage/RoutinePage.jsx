@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "../../assets/bootstrap/css/mainpage.module.css";
-import "../../assets/bootstrap/css/bootstrap.css";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { URL } from "../../config/constants";
@@ -19,7 +18,6 @@ export default function RoutinePage({
         currentRrcodingRoutineId
     }){
     const navigate = useNavigate();
-    const makeRoutineBoxRef = useRef();
     const {search } = useLocation();
     const params = search.slice(-1);
     const [initDetailDEx,setDetailEx] = useState();
@@ -74,32 +72,39 @@ export default function RoutinePage({
         detailData();
     },[])
     return<>
-        <div className={"container mt-5 p-3"}></div>
-        <button className={`btn btn-lg btn-danger`} type="button" onClick={()=>navigate('/data/')}>뒤로가기</button>
-        <div className={`${styles.mainpage} container mt-0 p-0`}>
-                <div ref={makeRoutineBoxRef} className={"container mt-0 p-0"}>
-                    {
+    <div className={styles.mainContainer}>
+        <Button className={`m-2 btn btn-lg btn-danger`} 
+                type="button" 
+                
+                onClick={()=>navigate('/data/')}>
+                뒤로가기
+            </Button>
+        <ul className={styles.secondContainer}>
+                {
                     initMakeRoutine.map((item,index)=>
-                    <button key={index} className="btn btn-lg btn-dark"  id={item.names}
-                            style={{width:'100%', fontSize:'25px', textAlign:'left',display:'flex'}}  
-                            type="button" onClick={e=>routineDetailButton(e)}>
-                            <img alt={item.imgfile} style={{width:'100px'}} src={item.imgfile}/>
+                        <li 
+                            key={index} 
+                            className={styles.prettyli}  
+                            id={item.names}
+                            style={{display:'flex'}}  
+                            type="button" 
+                            onClick={e=>routineDetailButton(e)}>
+                            <img alt={item.imgfile} className="me-5" style={{width:'100px'}} src={item.imgfile}/>
                             {item.names}
                             <a style={{marginLeft:'auto'}} href="#" id={item.set_id} onClick={e=>routineSetting(e)}>...</a>
-                       </button>
+                        </li>
                     )
-                    }             
-                </div>
-            <div className={`${styles.dummyContainers} p-5 mt-4`}></div>
-            {startRrcodResultData===false||currentRrcodingRoutineId===params?
-            <footer className={`${styles.flexButton}`}>
-                <button className={`${styles.buttonSize} btn btn-lg ${startRrcodResultData?"btn-success":"btn-primary"} `} type="button" id="1" onClick={e=>startRrcodResultData?setIsOpen(true):startRoutine()}>{startRrcodResultData?"운동 완료":"운동 시작"}</button>
-                <button className={`${styles.buttonSize} btn btn-lg btn-primary`} type="button" onClick={()=>navigate("/data/select",{state:params})}>운동 추가</button>
-            </footer>
-            :
-            <footer></footer>
-            }
-        </div>
+                }             
+        </ul>
+        <div className={`${styles.dummyContainers} p-5 mt-4`}></div>
+        {startRrcodResultData===false||currentRrcodingRoutineId===params?
+        <footer className={styles.flexButton}>
+            <Button className={`${styles.prettyButton} me-5`} style={{color: 'black',backgroundColor:`${startRrcodResultData?'#1eff00ff':'#FFD600'}`}} type="button" id="1" onClick={e=>startRrcodResultData?setIsOpen(true):startRoutine()}>{startRrcodResultData?"운동 완료":"운동 시작"}</Button>
+            <Button className={styles.prettyButton} type="button" onClick={()=>navigate("/data/select",{state:params})}>운동 추가</Button>
+        </footer>
+        :
+        <footer></footer>
+        }
         <Modal show={settingModel} onHide={() => setSettingModel(false)}>
         <Modal.Header>
             설정
@@ -123,15 +128,16 @@ export default function RoutinePage({
                         </div>
                 </ListGroup>
             </Card>
-        </Modal.Body>
-    </Modal>
-    <Modal show={infoModel} onHide={() => setInfoModel(false)}>
-        <Modal.Header>
-            운동 정보
-        </Modal.Header>
-        <Modal.Body>
-            {JSON.stringify(initMakeRoutine[getSelectRoutine])}
-        </Modal.Body>
-    </Modal>
+            </Modal.Body>
+        </Modal>
+        <Modal show={infoModel} onHide={() => setInfoModel(false)}>
+            <Modal.Header>
+                운동 정보
+            </Modal.Header>
+            <Modal.Body>
+                {JSON.stringify(initMakeRoutine[getSelectRoutine])}
+            </Modal.Body>
+        </Modal>
+    </div>
     </>
 }

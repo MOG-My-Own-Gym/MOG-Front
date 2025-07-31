@@ -1,12 +1,14 @@
 import styles from './RadialGradientSpinner.module.css';
 
-export default function RadialGradientSpinner({ isMobile }) {
+export default function RadialGradientSpinner({ isMobile, isText }) {
   return (
     <div className={styles['spinner-container']}>
       <div className={styles['spinner-title']}>
-        <h3>
-          <span>로딩 </span>중 입니다...
-        </h3>
+        {isText && (
+          <h3>
+            <span className={styles['spinner-span']}>로딩 </span>중 입니다...
+          </h3>
+        )}
       </div>
       <div className={styles['spinner-wrapper']}>
         <div className={styles['spinner']} />

@@ -1,11 +1,64 @@
-
+@media all and (max-width: 420px) {
+  .intro-section {
+    background-color: #fff;
+    color: #000;
+    padding: 4rem 0.5rem !important;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  .intro-features {
+    display: flex;
+    flex-direction: row;
+    gap: 10px !important;
+  }
+  .intro-features-button {
+    width: 20%;
+    background-color: #ffd600;
+    border-radius: 12px;
+    padding: 1.5rem !important;
+    font-size: 10px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: keep-all;
+    transition: transform 0.3s ease;
+  }
+  .analytics-section {
+    background-color: #fff;
+    padding: 4rem 0.5rem !important;
+    height: 100%;
+    text-align: center;
+    color: #000;
+  }
+  .analytics-cards {
+    display: flex;
+    justify-content: center;
+    height: 100% !important;
+    gap: 0.8em !important;
+  }
+  .analytics-card {
+    width: 100% !important;
+    padding: 0.5rem !important;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+    overflow-wrap: break-word;
+    word-break: keep-all;
+    transition: transform 0.3s ease;
+  }
+  .analytics-card h3 {
+    font-size: 10px !important;
+  }
+  .analytics-card p {
+    font-size: 8px !important;
+  }
+}
 
 .hero-section {
   position: relative;
   width: 100%;
   height: 60vh; /* 영상 높이 제한 */
   overflow: hidden;
-  
 }
 
 .background-video {
@@ -23,7 +76,7 @@
   z-index: 1;
   height: 100%;
   width: 100%;
-  
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -44,24 +97,25 @@
 .hero-title {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #FFD600;
+  color: #ffd600;
   margin-bottom: 1rem;
 }
 
 .hero-subtitle {
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
-  color: #FFD600;
+  color: #ffd600;
 }
 
 .hero-button {
   padding: 0.75rem 2rem;
   font-size: 1rem;
-  background-color: #FFD600;
+  background-color: #ffd600;
   color: black;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  font-weight: 500;
   transition: background 0.3s ease;
 }
 
@@ -69,8 +123,8 @@
   background-color: #e6c200;
 }
 
-.hero-title{
-  color: #FFD600;
+.hero-title {
+  color: #ffd600;
 }
 .intro-section {
   background-color: #fff;
@@ -90,24 +144,23 @@
   display: flex;
   justify-content: center;
   gap: 2rem;
-  flex-wrap: wrap;
   max-width: 1000px;
   margin: 0 auto;
 }
 
-.intro-features > div {
-  flex: 1 1 200px;
-  background-color: #FFD600;
+.intro-features-button {
+  width: 100%;
+  background-color: #ffd600;
   border-radius: 12px;
   padding: 2rem;
   font-size: 1.2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
 }
 
 .intro-features > div:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 /* 섹션 배경 */
 .routine-section {
@@ -141,12 +194,15 @@
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
   font-weight: bold;
   color: #333;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .routine-card:hover {
@@ -154,6 +210,9 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 .analytics-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: #fff;
   padding: 4rem 1rem;
   text-align: center;
@@ -173,26 +232,31 @@
 }
 
 .analytics-cards {
+  background-color: #f8f8f8;
+  border-radius: 20px;
+  max-width: 1540px;
+  height: 250px;
+  width: 100%;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
   gap: 2rem;
 }
 
 .analytics-card {
-  width: 220px;
+  width: 100%;
   padding: 2rem;
+  height: 100%;
   background-color: #f8f8f8;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
 }
 
-.analytics-card:hover {
+/* .analytics-card:hover {
   transform: translateY(-5px);
-}
+} */
 
 .analytics-card h3 {
+  font-weight: bold;
   margin-bottom: 1rem;
   color: #222;
   font-size: 1.2rem;
@@ -234,7 +298,7 @@
 #map {
   width: 80%;
   max-width: 800px;
-  height: 360px; 
+  height: 360px;
   margin: 0 auto;
   border: 2px dashed #ccc;
   border-radius: 12px;
@@ -257,7 +321,7 @@
 
 .map-controls button {
   padding: 4px 10px;
-  background-color: #FFD600;
+  background-color: #ffd600;
   border: none;
   border-radius: 6px;
   font-size: 18px;
@@ -272,16 +336,12 @@
 }
 
 .slick-slide {
-  text-align: center;      
-  display: block !important; 
+  text-align: center;
+  display: block !important;
 }
-
 
 .slick-slide > div {
   width: 100%;
-  max-width: 220px;   
-  margin: 0 auto;     
+  max-width: 220px;
+  margin: 0 auto;
 }
-
-
-

@@ -1,0 +1,225 @@
+/* 1. 페이지 타이틀 */
+.pose-page-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 60px 0 30px;
+  color: #000;
+}
+
+/* 2. 메인 래퍼 */
+.pose-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 3. 웹캠 영역 */
+.pose-webcam-wrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.pose-webcam {
+  width: 100%;
+  height: 100%;
+  border: 3px solid #ffc802;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #222;
+}
+
+.pose-webcam canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* 오버레이 (분석 전/후 메시지) */
+.pose-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: pre-line;
+  border-radius: 10px;
+  z-index: 10;
+}
+
+/* 4. 정확도 피드백 */
+.pose-feedback-static {
+  flex: 1;
+  min-width: 240px;
+  background-color: #fff3cd;
+  border: 2px solid #ffca28;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.pose-feedback-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #000;
+}
+
+.feedback-box {
+  display: inline-block;
+  background: #fff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-size: 16px;
+  color: #333;
+}
+
+/* 5. 지난 기록 */
+.pose-history {
+  flex: 1;
+  min-width: 240px;
+  background-color: #fff3cd;
+  border: 2px solid #ffc107;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.pose-history h3 {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 18px;
+  color: #000;
+}
+
+.pose-history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pose-history li {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* 6. 버튼 & 그래프 */
+.pose-bottom {
+  width: 100%;
+  max-width: 400px;
+  margin: 40px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.pose-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.pose-button {
+  background-color: #ffc802;
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.pose-button:hover {
+  background-color: #ffca28;
+}
+
+.pose-bars {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bar-label {
+  width: 80px;
+  font-size: 14px;
+  color: #000;
+}
+
+.bar-track {
+  flex: 1;
+  height: 16px;
+  background-color: #eee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background-color: #ffc802;
+  transition: width 0.3s ease;
+}
+
+.bar-fill.best {
+  background-color: #4caf50;
+}
+
+.bar-percent {
+  width: 50px;
+  font-size: 13px;
+  text-align: right;
+  color: #333;
+}
+
+/* 7. 반응형 */
+@media screen and (max-width: 768px) {
+  .pose-wrapper {
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+  }
+
+  .pose-webcam-wrapper,
+  .pose-feedback-static,
+  .pose-history,
+  .pose-bottom {
+    width: 90%;
+  }
+
+  .pose-bottom {
+    margin-top: 24px;
+  }
+
+  .pose-page-title {
+    font-size: 24px;
+    margin-top: 40px;
+  }
+}
