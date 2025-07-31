@@ -66,7 +66,7 @@ export default function ProfileEdit() {
     //유효성 체크 통과한 경우 회원정보수정 api 요청
     axios
       .put(
-        `https://mogapi.kro.kr/api/v1/users/update/${user.usersId}`,
+        `http://localhost:8080/api/v1/users/update/${user.usersId}`,
         {
           usersName: name,
           nickName: nickName,

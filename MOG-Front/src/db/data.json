@@ -1,614 +1,330 @@
 {
-  "routine_result": [
+  "routine_result": [],
+  "routine_detail": [
     {
       "id": "1",
-      "retId": "1",
-      "tStart": "2025-07-25T08:01:39.447Z",
-      "tEnd": "2025-07-25T08:01:47.327Z",
-      "routineEndDetails": [
+      "state": [
         {
-          "srName": "90/90 Hamstring",
-          "setNumber": "2",
-          "reps": "22",
-          "weight": "12"
+          "id": "1",
+          "names": "3/4 Sit-Up",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/3_4_Sit-Up/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "20",
+              "many": "3"
+            }
+          ]
         },
         {
-          "srName": "90/90 Hamstring",
-          "setNumber": "3",
-          "reps": "33",
-          "weight": "33"
+          "id": "2",
+          "names": "90/90 Hamstring",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/90_90_Hamstring/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "50",
+              "many": "2"
+            }
+          ]
         },
         {
-          "srName": "90/90 Hamstring",
-          "setNumber": "4",
-          "reps": "10",
-          "weight": "1"
+          "id": "3",
+          "names": "Ab Crunch Machine",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Ab_Crunch_Machine/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "40",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "names": "All Fours Quad Stretch",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/All_Fours_Quad_Stretch/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "70",
+              "many": "2"
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "names": "Alternating Cable Shoulder Press",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Alternating_Cable_Shoulder_Press/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "40",
+              "many": "5"
+            }
+          ]
+        },
+        {
+          "id": "6",
+          "names": "Alternating Kettlebell Press",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Alternating_Kettlebell_Press/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "70",
+              "many": "9"
+            }
+          ]
+        },
+        {
+          "id": "7",
+          "names": "Alternating Floor Press",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Alternating_Floor_Press/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "20",
+              "many": "3"
+            }
+          ]
+        },
+        {
+          "id": "8",
+          "names": "Alternating Kettlebell Row",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Alternating_Kettlebell_Row/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "40",
+              "many": "5"
+            }
+          ]
+        },
+        {
+          "id": "9",
+          "names": "Anterior Tibialis-SMR",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Anterior_Tibialis-SMR/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "50",
+              "many": "10"
+            }
+          ]
+        },
+        {
+          "id": "10",
+          "names": "Ankle Circles",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Ankle_Circles/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "40",
+              "many": "2"
+            }
+          ]
         }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "0",
-        "reSet": "9",
-        "setNum": "65",
-        "volum": "1000",
-        "rouTime": "0",
-        "exVolum": "46"
-      }
-    },
-    {
-      "id": "2",
-      "retId": "1",
-      "tStart": "2025-07-29T00:52:31.793Z",
-      "tEnd": "2025-07-29T00:52:36.609Z",
-      "routineEndDetails": [
-        {
-          "srName": "3/4 Sit-Up",
-          "setNumber": "1",
-          "reps": "50",
-          "weight": "10"
-        }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "0",
-        "reSet": "1",
-        "setNum": "50",
-        "volum": "1000",
-        "rouTime": "0",
-        "exVolum": "10"
-      }
-    },
-    {
-      "id": "3",
-      "retId": "1",
-      "tStart": "2025-07-29T00:57:07.313Z",
-      "tEnd": "2025-07-29T00:57:14.985Z",
-      "routineEndDetails": [
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "4",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "3",
-          "reps": "33",
-          "weight": "33"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "2",
-          "reps": "22",
-          "weight": "12"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "Ab Crunch Machine",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "0",
-        "reSet": "11",
-        "setNum": "85",
-        "volum": "44880",
-        "rouTime": "0",
-        "exVolum": "48"
-      }
-    },
-    {
-      "id": "4",
-      "retId": "2",
-      "tStart": "2025-07-29T01:15:12.201Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "0",
-        "reSet": "0",
-        "setNum": "0",
-        "volum": "0",
-        "rouTime": "0",
-        "exVolum": "0"
-      }
-    },
-    {
-      "id": "5",
-      "retId": "1",
-      "tStart": "2025-07-29T01:15:28.592Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "4",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "3",
-          "reps": "33",
-          "weight": "33"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "2",
-          "reps": "22",
-          "weight": "12"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "Ab Crunch Machine",
-          "setNumber": "3",
-          "reps": "31",
-          "weight": "34"
-        },
-        {
-          "srName": "Ab Crunch Machine",
-          "setNumber": "2",
-          "reps": "22",
-          "weight": "11"
-        },
-        {
-          "srName": "Ab Crunch Machine",
-          "setNumber": "1",
-          "reps": "33",
-          "weight": "56"
-        }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "2",
-        "reSet": "16",
-        "setNum": "161",
-        "volum": "381248",
-        "rouTime": "0",
-        "exVolum": "148"
-      }
-    },
-    {
-      "id": "6",
-      "retId": "2",
-      "tStart": "2025-07-29T02:47:03.471Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "560",
-        "reSet": "50",
-        "setNum": "120",
-        "volum": "23551",
-        "rouTime": "120",
-        "exVolum": "400"
-      }
-    },
-    {
-      "id": "7",
-      "retId": "2",
-      "tStart": "2025-07-29T03:00:52.462Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [
-        {
-          "srName": "Ab Crunch Machine",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "560",
-        "reSet": "50",
-        "setNum": "120",
-        "volum": "23551",
-        "rouTime": "120",
-        "exVolum": "400"
-      }
-    },
-    {
-      "id": "8",
-      "retId": "2",
-      "tStart": "2025-07-29T03:04:16.697Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [
-        {
-          "srName": "Ab Crunch Machine",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "560",
-        "reSet": "50",
-        "setNum": "120",
-        "volum": "23551",
-        "rouTime": "120",
-        "exVolum": "400"
-      }
-    },
-    {
-      "id": "9",
-      "retId": "2",
-      "tStart": "2025-07-29T03:08:22.527Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "560",
-        "reSet": "50",
-        "setNum": "120",
-        "volum": "23551",
-        "rouTime": "120",
-        "exVolum": "400"
-      }
-    },
-    {
-      "id": "10",
-      "retId": "1",
-      "tStart": "2025-07-29T03:39:32.519Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "560",
-        "reSet": "50",
-        "setNum": "120",
-        "volum": "23551",
-        "rouTime": "120",
-        "exVolum": "400"
-      }
-    },
-    {
-      "id": "11",
-      "retId": "1",
-      "tStart": "2025-07-29T03:44:10.958Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "4",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "3",
-          "reps": "33",
-          "weight": "33"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "2",
-          "reps": "22",
-          "weight": "12"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "560",
-        "reSet": "50",
-        "setNum": "120",
-        "volum": "23551",
-        "rouTime": "120",
-        "exVolum": "400"
-      }
-    },
-    {
-      "id": "12",
-      "retId": "2",
-      "tStart": "2025-07-29T03:45:34.982Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "560",
-        "reSet": "50",
-        "setNum": "120",
-        "volum": "23551",
-        "rouTime": "120",
-        "exVolum": "400"
-      }
-    },
-    {
-      "id": "13",
-      "retId": "1",
-      "tStart": "2025-07-29T03:56:02.750Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "560",
-        "reSet": "50",
-        "setNum": "120",
-        "volum": "23551",
-        "rouTime": "120",
-        "exVolum": "400"
-      }
-    },
-    {
-      "id": "14",
-      "retId": "1",
-      "tStart": "2025-07-29T06:02:58.235Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "4",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "3",
-          "reps": "33",
-          "weight": "33"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "2",
-          "reps": "22",
-          "weight": "12"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "560",
-        "reSet": "50",
-        "setNum": "120",
-        "volum": "23551",
-        "rouTime": "120",
-        "exVolum": "400"
-      }
-    },
-    {
-      "id": "15",
-      "retId": "1",
-      "tStart": "2025-07-29T06:07:38.659Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "560",
-        "reSet": "50",
-        "setNum": "120",
-        "volum": "23551",
-        "rouTime": "120",
-        "exVolum": "400"
-      }
-    },
-    {
-      "id": "16",
-      "retId": "2",
-      "tStart": "2025-07-29T06:20:22.141Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "2",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "3",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "5",
-          "reps": "10",
-          "weight": "1"
-        }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "0",
-        "reSet": "11",
-        "setNum": "40",
-        "volum": "1760",
-        "rouTime": "0",
-        "exVolum": "4"
-      }
-    },
-    {
-      "id": "17",
-      "retId": "1",
-      "tStart": "2025-07-29T07:54:37.762Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "3",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "2",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "0",
-        "reSet": "6",
-        "setNum": "30",
-        "volum": "540",
-        "rouTime": "0",
-        "exVolum": "3"
-      }
-    },
-    {
-      "id": "18",
-      "retId": "1",
-      "tStart": "2025-07-29T07:55:31.010Z",
-      "tEnd": "2025. 07. 29. (화)",
-      "routineEndDetails": [
-        {
-          "srName": "3/4 Sit-Up",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "3",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "2",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "90/90 Hamstring",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "Ab Crunch Machine",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "7",
-        "reSet": "8",
-        "setNum": "50",
-        "volum": "2000",
-        "rouTime": "1",
-        "exVolum": "5"
-      }
-    },
-    {
-      "id": "19",
-      "retId": "2",
-      "tStart": "2025-07-30T03:15:28.993Z",
-      "tEnd": "2025. 07. 30. (수)",
-      "routineEndDetails": [],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "1",
-        "reSet": "0",
-        "setNum": "0",
-        "volum": "0",
-        "rouTime": "0",
-        "exVolum": "0"
-      }
-    },
-    {
-      "id": "20",
-      "retId": "1",
-      "tStart": "2025-07-30T03:22:47.009Z",
-      "tEnd": "2025. 07. 30. (수)",
-      "routineEndDetails": [
-        {
-          "srName": "3/4 Sit-Up",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "27",
-        "reSet": "1",
-        "setNum": "10",
-        "volum": "10",
-        "rouTime": "3",
-        "exVolum": "1"
-      }
-    },
-    {
-      "id": "21",
-      "retId": "1",
-      "tStart": "2025-07-30T08:28:58.031Z",
-      "tEnd": "2025. 07. 30. (수)",
-      "routineEndDetails": [
-        {
-          "srName": "3/4 Sit-Up",
-          "setNumber": "1",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "3/4 Sit-Up",
-          "setNumber": "2",
-          "reps": "10",
-          "weight": "1"
-        },
-        {
-          "srName": "3/4 Sit-Up",
-          "setNumber": "3",
-          "reps": "10",
-          "weight": "1"
-        }
-      ],
-      "routineResult": {
-        "muscle": "28",
-        "kcal": "1",
-        "reSet": "6",
-        "setNum": "30",
-        "volum": "540",
-        "rouTime": "0",
-        "exVolum": "3"
-      }
+      ]
     }
   ],
-  "routine_detail": [],
-  "routine": []
+  "routine": [
+    {
+      "id": "1",
+      "name": "routine1",
+      "userId": "1",
+      "state": [
+        {
+          "id": "1",
+          "names": "3/4 Sit-Up",
+          "category": "strength",
+          "equipment": "body only",
+          "force": "pull",
+          "level": "beginner",
+          "mechanic": "compound",
+          "instructions": [
+            "Lie down on the floor and secure your feet. Your legs should be bent at the knees.",
+            "Place your hands behind or to the side of your head. You will begin with your back on the ground. This will be your starting position.",
+            "Flex your hips and spine to raise your torso toward your knees.",
+            "At the top of the contraction your torso should be perpendicular to the ground. Reverse the motion, going only ¾ of the way down.",
+            "Repeat for the recommended amount of repetitions."
+          ],
+          "primaryMuscles": "abdominals",
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/3_4_Sit-Up/images/0.jpg",
+          "set_id": "1"
+        },
+        {
+          "id": "2",
+          "names": "90/90 Hamstring",
+          "category": "stretching",
+          "equipment": "body only",
+          "force": "push",
+          "level": "beginner",
+          "mechanic": null,
+          "instructions": [
+            "Lie on your back, with one leg extended straight out.",
+            "With the other leg, bend the hip and knee to 90 degrees. You may brace your leg with your hands if necessary. This will be your starting position.",
+            "Extend your leg straight into the air, pausing briefly at the top. Return the leg to the starting position.",
+            "Repeat for 10-20 repetitions, and then switch to the other leg."
+          ],
+          "primaryMuscles": "hamstrings",
+          "secondaryMuscles": "calves",
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/90_90_Hamstring/images/0.jpg",
+          "set_id": "2"
+        },
+        {
+          "id": "3",
+          "names": "Ab Crunch Machine",
+          "category": "strength",
+          "equipment": "machine",
+          "force": "pull",
+          "level": "intermediate",
+          "mechanic": "isolation",
+          "instructions": [
+            "Select a light resistance and sit down on the ab machine placing your feet under the pads provided and grabbing the top handles. Your arms should be bent at a 90 degree angle as you rest the triceps on the pads provided. This will be your starting position.",
+            "At the same time, begin to lift the legs up as you crunch your upper torso. Breathe out as you perform this movement. Tip: Be sure to use a slow and controlled motion. Concentrate on using your abs to move the weight while relaxing your legs and feet.",
+            "After a second pause, slowly return to the starting position as you breathe in.",
+            "Repeat the movement for the prescribed amount of repetitions."
+          ],
+          "primaryMuscles": "abdominals",
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Ab_Crunch_Machine/images/0.jpg",
+          "set_id": "3"
+        },
+        {
+          "id": "9",
+          "names": "All Fours Quad Stretch",
+          "category": "stretching",
+          "equipment": "body only",
+          "force": "static",
+          "level": "intermediate",
+          "mechanic": null,
+          "instructions": [
+            "Start off on your hands and knees, then lift your leg off the floor and hold the foot with your hand.",
+            "Use your hand to hold the foot or ankle, keeping the knee fully flexed, stretching the quadriceps and hip flexors.",
+            "Focus on extending your hips, thrusting them towards the floor. Hold for 10-20 seconds and then switch sides."
+          ],
+          "primaryMuscles": "quadriceps",
+          "secondaryMuscles": "quadriceps",
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/All_Fours_Quad_Stretch/images/0.jpg",
+          "set_id": "4"
+        },
+        {
+          "id": "14",
+          "names": "Alternating Cable Shoulder Press",
+          "category": "strength",
+          "equipment": "cable",
+          "force": "push",
+          "level": "beginner",
+          "mechanic": "compound",
+          "instructions": [
+            "Move the cables to the bottom of the tower and select an appropriate weight.",
+            "Grasp the cables and hold them at shoulder height, palms facing forward. This will be your starting position.",
+            "Keeping your head and chest up, extend through the elbow to press one side directly over head.",
+            "After pausing at the top, return to the starting position and repeat on the opposite side."
+          ],
+          "primaryMuscles": "shoulders",
+          "secondaryMuscles": "triceps",
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Alternating_Cable_Shoulder_Press/images/0.jpg",
+          "set_id": "5"
+        },
+        {
+          "id": "18",
+          "names": "Alternating Kettlebell Press",
+          "category": "strength",
+          "equipment": "kettlebells",
+          "force": "push",
+          "level": "intermediate",
+          "mechanic": "compound",
+          "instructions": [
+            "Clean two kettlebells to your shoulders. Clean the kettlebells to your shoulders by extending through the legs and hips as you pull the kettlebells towards your shoulders. Rotate your wrists as you do so.",
+            "Press one directly overhead by extending through the elbow, turning it so the palm faces forward while holding the other kettlebell stationary .",
+            "Lower the pressed kettlebell to the starting position and immediately press with your other arm."
+          ],
+          "primaryMuscles": "shoulders",
+          "secondaryMuscles": "triceps",
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Alternating_Kettlebell_Press/images/0.jpg",
+          "set_id": "6"
+        },
+        {
+          "id": "16",
+          "names": "Alternating Floor Press",
+          "category": "strength",
+          "equipment": "kettlebells",
+          "force": "push",
+          "level": "beginner",
+          "mechanic": "compound",
+          "instructions": [
+            "Lie on the floor with two kettlebells next to your shoulders.",
+            "Position one in place on your chest and then the other, gripping the kettlebells on the handle with the palms facing forward.",
+            "Extend both arms, so that the kettlebells are being held above your chest. Lower one kettlebell, bringing it to your chest and turn the wrist in the direction of the locked out kettlebell.",
+            "Raise the kettlebell and repeat on the opposite side."
+          ],
+          "primaryMuscles": "chest",
+          "secondaryMuscles": "abdominals",
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Alternating_Floor_Press/images/0.jpg",
+          "set_id": "7"
+        },
+        {
+          "id": "19",
+          "names": "Alternating Kettlebell Row",
+          "category": "strength",
+          "equipment": "kettlebells",
+          "force": "pull",
+          "level": "intermediate",
+          "mechanic": "isolation",
+          "instructions": [
+            "Place two kettlebells in front of your feet. Bend your knees slightly and push your butt out as much as possible. As you bend over to get into the starting position grab both kettlebells by the handles.",
+            "Pull one kettlebell off of the floor while holding on to the other kettlebell. Retract the shoulder blade of the working side, as you flex the elbow, drawing the kettlebell towards your stomach or rib cage.",
+            "Lower the kettlebell in the working arm and repeat with your other arm."
+          ],
+          "primaryMuscles": "middle back",
+          "secondaryMuscles": "biceps",
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Alternating_Kettlebell_Row/images/0.jpg",
+          "set_id": "8"
+        },
+        {
+          "id": "23",
+          "names": "Anterior Tibialis-SMR",
+          "category": "stretching",
+          "equipment": "other",
+          "force": "static",
+          "level": "intermediate",
+          "mechanic": null,
+          "instructions": [
+            "Begin seated on the ground with your legs bent and your feet on the floor.",
+            "Using a Muscle Roller or a rolling pin, apply pressure to the muscles on the outside of your shins. Work from just below the knee to above the ankle, pausing at points of tension for 10-30 seconds. Repeat on the other leg."
+          ],
+          "primaryMuscles": "calves",
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Anterior_Tibialis-SMR/images/0.jpg",
+          "set_id": "9"
+        },
+        {
+          "id": "21",
+          "names": "Ankle Circles",
+          "category": "stretching",
+          "equipment": null,
+          "force": "pull",
+          "level": "beginner",
+          "mechanic": "isolation",
+          "instructions": [
+            "Use a sturdy object like a squat rack to hold yourself.",
+            "Lift the right leg in the air (just around 2 inches from the floor) and perform a circular motion with the big toe. Pretend that you are drawing a big circle with it. Tip: One circle equals 1 repetition. Breathe normally as you perform the movement.",
+            "When you are done with the right foot, then repeat with the left leg."
+          ],
+          "primaryMuscles": "calves",
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Ankle_Circles/images/0.jpg",
+          "set_id": "10"
+        }
+      ]
+    }
+  ]
 }
