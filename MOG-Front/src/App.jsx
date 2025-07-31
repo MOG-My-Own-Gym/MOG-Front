@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import '@/assets/bootstrap/css/bootstrap.min.css';
 import Home from './pages/Home/Home';
 import GNB from './components/GNB/GNB';
+import Toast from './components/Toast/Toast';
 import ToastContext from './context/ToastContext';
 import Stats from './pages/Stats/Stats';
 import RecordPage from './components/Record/RecordPage';
@@ -20,6 +21,8 @@ import Toast from './components/Toast/Toast';
 import PoseCheck from './pages/PoseCheck/PoseCheck';
 import ChangePwPage from './pages/FindPw/ChangePwPage';
 import DataToss from './pages/mainpage/DataToss';
+import SocialCreate from './pages/Social/SocialCreate';
+import SocialEdit from './pages/Social/SocialEdit';
 import SuggestProvider from './context/SuggestProvider';
 import SelectMainpage from './pages/mainpage/SelectMainpage';
 import CategoryPage from './pages/mainpage/CategoryPage';
@@ -50,6 +53,8 @@ function App() {
             <Route path="/record" element={<RecordPage />} />
             <Route path="/social" element={<Social />} />
             <Route path="/post/:id" element={<SocialDetail />} />
+            <Route path="/social/create" element={<SocialCreate />} />
+            <Route path="/social/edit/:id" element={<SocialEdit />} />
             <Route path="/mypage/*" element={<MyPage />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/find-id" element={<FindIdPage />} />
