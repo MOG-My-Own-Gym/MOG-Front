@@ -217,13 +217,14 @@ export default function Home() {
             맞춤형 루틴
           </div>
           <div
+            className="intro-features-button"
             onClick={() => {
               navigate('/pose');
             }}
           >
             자세 피드백
           </div>
-          <div>운동 분석</div>
+          <div className="intro-features-button">운동 분석</div>
         </div>
       </section>
 
