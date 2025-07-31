@@ -141,7 +141,7 @@ export default function LineChart({ lineData, lineState }) {
         data: chartRow?.map(label => {
           const values = Array.from({ length: maxLength }, (_, i) => chartData[label][i] ?? 0);
           const sum = values.reduce((a, b) => a + b, 0);
-          return sum;
+          return sum / 60;
         }),
         borderColor: 'rgba(0, 0, 0, 1)',
         backgroundColor: '#ffc80086',
