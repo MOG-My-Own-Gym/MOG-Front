@@ -16,6 +16,7 @@ import FindIdPage from './pages/FindId/FindIdPage';
 import FindPwPage from './pages/FindPw/FindPwPage';
 import Suggest from './pages/Suggest/Suggest';
 import Routine from './pages/Routine/Routine';
+import Toast from './components/Toast/Toast';
 import PoseCheck from './pages/PoseCheck/PoseCheck';
 import ChangePwPage from './pages/FindPw/ChangePwPage';
 import DataToss from './pages/mainpage/DataToss';
@@ -25,7 +26,6 @@ import CategoryPage from './pages/mainpage/CategoryPage';
 import RoutinePage from './pages/mainpage/RoutinePage';
 import RunningRoutinePage from './pages/mainpage/RunningRoutinePage';
 import RoutineResultPage from './pages/mainpage/RoutineResultPage';
-
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -40,27 +40,26 @@ function App() {
   return (
     <div style={{ padding: '4.5em 0 0 0' }}>
       <AuthProvider>
-        <RoutineProvider>
-          <SuggestProvider>
-            <GNB />
-            <Toast isToast={toast.isToast} content={toast.content} />
-            <Routes>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/stats" element={<Stats />}></Route>
-              <Route path="/record" element={<RecordPage />} />
-              <Route path="/social" element={<Social />} />
-              <Route path="/post/:id" element={<SocialDetail />} />
-              <Route path="/mypage/*" element={<MyPage />} />
-              <Route path="/sign-up" element={<SignUp />} />
-              <Route path="/find-id" element={<FindIdPage />} />
-              <Route path="/find-pw" element={<FindPwPage />} />
-              <Route path="/find-pw/change" element={<ChangePwPage />} />
-              <Route path="/pose" element={<PoseCheck />} />
-              <Route path="/data/*" element={<DataToss />}></Route>
-              <Route path="/suggest" element={<Suggest />}></Route>
-          </SuggestProvider>
-        </RoutineProvider>
+        <SuggestProvider>
+          <GNB />
+          <Toast isToast={toast.isToast} content={toast.content} />
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/stats" element={<Stats />}></Route>
+            <Route path="/record" element={<RecordPage />} />
+            <Route path="/social" element={<Social />} />
+            <Route path="/post/:id" element={<SocialDetail />} />
+            <Route path="/mypage/*" element={<MyPage />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/find-id" element={<FindIdPage />} />
+            <Route path="/find-pw" element={<FindPwPage />} />
+            <Route path="/find-pw/change" element={<ChangePwPage />} />
+            <Route path="/pose" element={<PoseCheck />} />
+            <Route path="/data/*" element={<DataToss />}></Route>
+            <Route path="/suggest" element={<Suggest />}></Route>
+          </Routes>
+        </SuggestProvider>
       </AuthProvider>
     </div>
   );
