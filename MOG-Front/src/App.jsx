@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import '@/assets/bootstrap/css/bootstrap.min.css';
 import Home from './pages/Home/Home';
@@ -30,8 +30,7 @@ import RunningRoutinePage from './pages/mainpage/RunningRoutinePage';
 import RoutineResultPage from './pages/mainpage/RoutineResultPage';
 import { RoutineProvider } from './context/RoutineContext';
 
-import './App.css'
-
+import './App.css';
 
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
@@ -43,17 +42,16 @@ function App() {
     }
   }, [toast]);
 
-  const location=useLocation();
-  useEffect(()=>{
-    if(location.pathname.startsWith('/mypage')){
-      window.scrollTo(0, 0);
-      document.body.style.overflow='hidden';
-    }else {
-      document.body.style.overflow = 'unset'; 
+  const location = useLocation();
+  useLayoutEffect(() => {
+    if (location.pathname.startsWith('/mypage')) {
+      document.documentElement.style.setProperty('overflow-y', 'hidden', 'important');
+    } else {
+      document.documentElement.style.setProperty('overflow-y', 'auto', 'important');
+
+      console.log(document.body.style.overflow);
     }
-  },[location.pathname])
-
-
+  }, [location.pathname]);
 
   return (
     <div style={{ padding: '4.5em 0 0 0' }}>
