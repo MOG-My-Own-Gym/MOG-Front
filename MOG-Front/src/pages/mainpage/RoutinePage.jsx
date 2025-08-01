@@ -25,7 +25,7 @@ export default function RoutinePage({
   const [isShowDelete, setIsShowDelete] = useState(true);
   const [getSelectRoutine, setGetSelectRoutine] = useState();
   const [infoModel, setInfoModel] = useState(false);
-
+  console.log(initMakeRoutine);
   const routineDetailButton = e => {
     e.stopPropagation();
     const checkId = e.target.children[1] === undefined ? e.target.id : e.target.children[1].id;
@@ -45,7 +45,7 @@ export default function RoutinePage({
     await axios.get(URL.ROUTINEDETAIL).then(res => setDetailEx(res.data[params - 1].state));
   };
 
-  const routineSetting = async (e) => {
+  const routineSetting = async e => {
     e.stopPropagation();
     if (e.target.id === 'delete') {
       const deleteSaveData = initMakeRoutine.filter(item => item.set_id !== getSelectRoutine);
@@ -79,11 +79,7 @@ export default function RoutinePage({
   return (
     <>
       <div className={styles.mainContainer}>
-        <Button
-          className={styles.backButton}
-          type="button"
-          onClick={() => navigate('/data/')}
-        >
+        <Button className={styles.backButton} type="button" onClick={() => navigate('/data/')}>
           뒤로가기
         </Button>
         <ul className={styles.secondContainer}>
@@ -96,20 +92,25 @@ export default function RoutinePage({
               type="button"
               onClick={e => routineDetailButton(e)}
             >
-              <img  className='me-2' alt={item.imgfile} style={{ width: '100px' }} src={item.imgfile} />
+              <img
+                className="me-2"
+                alt={item.imgfile}
+                style={{ width: '100px' }}
+                src={item.imgfile}
+              />
               {item.names}
-              {!startRrcodResultData || currentRrcodingRoutineId === params?
-              <a
-                style={{ marginLeft: 'auto',fontSize:'20px' }}
-                href="#"
-                id={item.set_id}
-                onClick={e => routineSetting(e)}
-              >
-                ...
-              </a>
-              :
-              <a id={item.set_id}></a>
-              }
+              {!startRrcodResultData || currentRrcodingRoutineId === params ? (
+                <a
+                  style={{ marginLeft: 'auto', fontSize: '20px' }}
+                  href="#"
+                  id={item.set_id}
+                  onClick={e => routineSetting(e)}
+                >
+                  ...
+                </a>
+              ) : (
+                <a id={item.set_id}></a>
+              )}
             </li>
           ))}
         </ul>
@@ -135,9 +136,9 @@ export default function RoutinePage({
               운동 추가
             </Button>
           </footer>
-          ) : (
-            <footer></footer>
-          )}
+        ) : (
+          <footer></footer>
+        )}
       </div>
       <Modal show={settingModel} onHide={() => setSettingModel(false)}>
         <Modal.Header>설정</Modal.Header>

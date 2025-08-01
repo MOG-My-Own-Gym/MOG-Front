@@ -12,15 +12,448 @@
           "set": [
             {
               "id": "1",
-              "weight": "22",
-              "many": "21"
+              "weight": "10",
+              "many": "1"
             }
           ]
         },
         {
           "id": "2",
-          "names": "90/90 Hamstring",
-          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/90_90_Hamstring/images/0.jpg",
+          "names": "Ab Crunch Machine",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Ab_Crunch_Machine/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "names": "Ab Roller",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Ab_Roller/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "state": [
+        {
+          "id": "1",
+          "names": "Single Leg Push-off",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Single_Leg_Push-off/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "names": "Machine Bicep Curl",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Machine_Bicep_Curl/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "names": "Wrist Roller",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Wrist_Roller/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "names": "Rickshaw Carry",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Rickshaw_Carry/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "names": "Leverage Shrug",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Leverage_Shrug/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "state": [
+        {
+          "id": "1",
+          "names": "Wrist Roller",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Wrist_Roller/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "names": "Single Leg Push-off",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Single_Leg_Push-off/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "names": "Standing Calf Raises",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Standing_Calf_Raises/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "names": "Thigh Adductor",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Thigh_Adductor/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "names": "Thigh Adductor",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Thigh_Adductor/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "state": [
+        {
+          "id": "1",
+          "names": "Otis-Up",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Otis-Up/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "names": "Otis-Up",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Otis-Up/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "names": "Drop Push",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "names": "Drop Push",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "names": "Weighted Crunches",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Weighted_Crunches/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "state": [
+        {
+          "id": "1",
+          "names": "Wrist Roller",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Wrist_Roller/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "names": "Drop Push",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "names": "Ab Roller",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Ab_Roller/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "names": "Plate Twist",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Plate_Twist/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "names": "Ab Roller",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Ab_Roller/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "state": [
+        {
+          "id": "1",
+          "names": "Weighted Crunches",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Weighted_Crunches/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "names": "Seated Close-Grip Concentration Barbell Curl",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Seated_Close-Grip_Concentration_Barbell_Curl/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "names": "Drop Push",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "names": "Drop Push",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "names": "Wrist Roller",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Wrist_Roller/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "state": [
+        {
+          "id": "1",
+          "names": "Otis-Up",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Otis-Up/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "names": "Otis-Up",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Otis-Up/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "names": "Drop Push",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "names": "Drop Push",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "lest": "30",
+          "set": [
+            {
+              "id": "1",
+              "weight": "10",
+              "many": "1"
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "names": "Weighted Crunches",
+          "img": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Weighted_Crunches/images/0.jpg",
           "lest": "30",
           "set": [
             {
@@ -59,23 +492,754 @@
           "set_id": "1"
         },
         {
-          "id": "2",
-          "names": "90/90 Hamstring",
-          "category": "stretching",
-          "equipment": "body only",
+          "id": "3",
+          "names": "Ab Crunch Machine",
+          "category": "strength",
+          "equipment": "machine",
+          "force": "pull",
+          "level": "intermediate",
+          "mechanic": "isolation",
+          "instructions": [
+            "Select a light resistance and sit down on the ab machine placing your feet under the pads provided and grabbing the top handles. Your arms should be bent at a 90 degree angle as you rest the triceps on the pads provided. This will be your starting position.",
+            "At the same time, begin to lift the legs up as you crunch your upper torso. Breathe out as you perform this movement. Tip: Be sure to use a slow and controlled motion. Concentrate on using your abs to move the weight while relaxing your legs and feet.",
+            "After a second pause, slowly return to the starting position as you breathe in.",
+            "Repeat the movement for the prescribed amount of repetitions."
+          ],
+          "primaryMuscles": "abdominals",
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Ab_Crunch_Machine/images/0.jpg",
+          "set_id": "2"
+        },
+        {
+          "id": "4",
+          "names": "Ab Roller",
+          "category": "strength",
+          "equipment": "other",
+          "force": "pull",
+          "level": "intermediate",
+          "mechanic": "compound",
+          "instructions": [
+            "Hold the Ab Roller with both hands and kneel on the floor.",
+            "Now place the ab roller on the floor in front of you so that you are on all your hands and knees (as in a kneeling push up position). This will be your starting position.",
+            "Slowly roll the ab roller straight forward, stretching your body into a straight position. Tip: Go down as far as you can without touching the floor with your body. Breathe in during this portion of the movement.",
+            "After a pause at the stretched position, start pulling yourself back to the starting position as you breathe out. Tip: Go slowly and keep your abs tight at all times."
+          ],
+          "primaryMuscles": "abdominals",
+          "secondaryMuscles": "shoulders",
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Ab_Roller/images/0.jpg",
+          "set_id": "3"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "AI 추천 루틴 1",
+      "userId": "1",
+      "state": [
+        {
+          "name": "Single Leg Push-off",
           "force": "push",
           "level": "beginner",
-          "mechanic": null,
-          "instructions": [
-            "Lie on your back, with one leg extended straight out.",
-            "With the other leg, bend the hip and knee to 90 degrees. You may brace your leg with your hands if necessary. This will be your starting position.",
-            "Extend your leg straight into the air, pausing briefly at the top. Return the leg to the starting position.",
-            "Repeat for 10-20 repetitions, and then switch to the other leg."
+          "mechanic": "compound",
+          "equipment": "other",
+          "primaryMuscles": [
+            "quadriceps"
           ],
-          "primaryMuscles": "hamstrings",
-          "secondaryMuscles": "calves",
-          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/90_90_Hamstring/images/0.jpg",
-          "set_id": "2"
+          "secondaryMuscles": [
+            "calves",
+            "hamstrings"
+          ],
+          "instructions": [
+            "Stand on the ground with one foot resting on the box, heel close to the edge.",
+            "Push off with your foot on top of the box, trying to gain as much height as possible by extending through the hip and knee.",
+            "Land with the same foot on top of the box, returning your other foot back to the start position."
+          ],
+          "category": "plyometrics",
+          "imgFile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Single_Leg_Push-off/images/0.jpg",
+          "set_id": 1
+        },
+        {
+          "name": "Machine Bicep Curl",
+          "force": "pull",
+          "level": "beginner",
+          "mechanic": "isolation",
+          "equipment": "machine",
+          "primaryMuscles": [
+            "biceps"
+          ],
+          "secondaryMuscles": [],
+          "instructions": [
+            "Adjust the seat to the appropriate height and make your weight selection. Place your upper arms against the pads and grasp the handles. This will be your starting position.",
+            "Perform the movement by flexing the elbow, pulling your lower arm towards your upper arm.",
+            "Pause at the top of the movement, and then slowly return the weight to the starting position.",
+            "Avoid returning the weight all the way to the stops until the set is complete to keep tension on the muscles being worked."
+          ],
+          "category": "strength",
+          "imgFile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Machine_Bicep_Curl/images/0.jpg",
+          "set_id": 2
+        },
+        {
+          "name": "Wrist Roller",
+          "force": "pull",
+          "level": "beginner",
+          "mechanic": "isolation",
+          "equipment": "other",
+          "primaryMuscles": [
+            "forearms"
+          ],
+          "secondaryMuscles": [
+            "shoulders"
+          ],
+          "instructions": [
+            "To begin, stand straight up grabbing a wrist roller using a pronated grip (palms facing down). Your feet should be shoulder width apart.",
+            "Slowly lift both arms until they are fully extended and parallel to the floor in front of you. Note: Make sure the rope is not wrapped around the roller. Your entire body should be stationary except for the forearms. This is the starting position.",
+            "Rotate one wrist at a time in an upward motion to bring the weight up to the bar by rolling the rope around the roller.",
+            "Once the weight has reached the bar, slowly begin to lower the weight back down by rotating the wrist in a downward motion until the weight reaches the starting position.",
+            "Repeat for the prescribed amount of repetitions in your program."
+          ],
+          "category": "strength",
+          "imgFile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Wrist_Roller/images/0.jpg",
+          "set_id": 3
+        },
+        {
+          "name": "Rickshaw Carry",
+          "force": null,
+          "level": "intermediate",
+          "mechanic": "compound",
+          "equipment": "other",
+          "primaryMuscles": [
+            "forearms"
+          ],
+          "secondaryMuscles": [
+            "abdominals",
+            "calves",
+            "glutes",
+            "hamstrings",
+            "lower back",
+            "quadriceps",
+            "traps"
+          ],
+          "instructions": [
+            "Position the frame at the starting point, and load with the appropriate weight. Standing in the center of the frame, begin by gripping the handles and driving through your heels to lift the frame. Ensure your chest and head are up and your back is straight.",
+            "Immediately begin walking briskly with quick, controlled steps. Keep your chest up and head forward, and make sure you continue breathing. Bring the frame to the ground after you have reached the end point."
+          ],
+          "category": "strongman",
+          "imgFile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Rickshaw_Carry/images/0.jpg",
+          "set_id": 4
+        },
+        {
+          "name": "Leverage Shrug",
+          "force": "pull",
+          "level": "beginner",
+          "mechanic": "isolation",
+          "equipment": "machine",
+          "primaryMuscles": [
+            "traps"
+          ],
+          "secondaryMuscles": [
+            "forearms"
+          ],
+          "instructions": [
+            "Load the pins to an appropriate weight. Position yourself directly between the handles.",
+            "Grasp the top handles with a comfortable grip, and then lower your hips as you take a breath. Look forward with your head and keep your chest up.",
+            "Drive through the floor with your heels, extending your hips and knees as you rise to a standing position. Keep your arms straight throughout the movement, finishing with your shoulders back. This will be your starting position.",
+            "Raise the weight by shrugging the shoulders towards your ears, moving straight up and down.",
+            "Pause at the top of the motion, and then return the weight to the starting position."
+          ],
+          "category": "strength",
+          "imgFile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Leverage_Shrug/images/0.jpg",
+          "set_id": 5
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "AI 추천 루틴 1",
+      "userId": "1",
+      "state": [
+        {
+          "names": "Wrist Roller",
+          "category": "strength",
+          "equipment": "other",
+          "force": "pull",
+          "instructions": [
+            "To begin, stand straight up grabbing a wrist roller using a pronated grip (palms facing down). Your feet should be shoulder width apart.",
+            "Slowly lift both arms until they are fully extended and parallel to the floor in front of you. Note: Make sure the rope is not wrapped around the roller. Your entire body should be stationary except for the forearms. This is the starting position.",
+            "Rotate one wrist at a time in an upward motion to bring the weight up to the bar by rolling the rope around the roller.",
+            "Once the weight has reached the bar, slowly begin to lower the weight back down by rotating the wrist in a downward motion until the weight reaches the starting position.",
+            "Repeat for the prescribed amount of repetitions in your program."
+          ],
+          "level": "beginner",
+          "mechanic": "isolation",
+          "primaryMuscles": [
+            "forearms"
+          ],
+          "secondaryMuscles": [
+            "shoulders"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Wrist_Roller/images/0.jpg",
+          "set_id": 1
+        },
+        {
+          "names": "Single Leg Push-off",
+          "category": "plyometrics",
+          "equipment": "other",
+          "force": "push",
+          "instructions": [
+            "Stand on the ground with one foot resting on the box, heel close to the edge.",
+            "Push off with your foot on top of the box, trying to gain as much height as possible by extending through the hip and knee.",
+            "Land with the same foot on top of the box, returning your other foot back to the start position."
+          ],
+          "level": "beginner",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "quadriceps"
+          ],
+          "secondaryMuscles": [
+            "calves",
+            "hamstrings"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Single_Leg_Push-off/images/0.jpg",
+          "set_id": 2
+        },
+        {
+          "names": "Standing Calf Raises",
+          "category": "strength",
+          "equipment": "machine",
+          "force": "push",
+          "instructions": [
+            "Adjust the padded lever of the calf raise machine to fit your height.",
+            "Place your shoulders under the pads provided and position your toes facing forward (or using any of the two other positions described at the beginning of the chapter). The balls of your feet should be secured on top of the calf block with the heels extending off it. Push the lever up by extending your hips and knees until your torso is standing erect. The knees should be kept with a slight bend; never locked. Toes should be facing forward, outwards or inwards as described at the beginning of the chapter. This will be your starting position.",
+            "Raise your heels as you breathe out by extending your ankles as high as possible and flexing your calf. Ensure that the knee is kept stationary at all times. There should be no bending at any time. Hold the contracted position by a second before you start to go back down.",
+            "Go back slowly to the starting position as you breathe in by lowering your heels as you bend the ankles until calves are stretched.",
+            "Repeat for the recommended amount of repetitions."
+          ],
+          "level": "beginner",
+          "mechanic": "isolation",
+          "primaryMuscles": [
+            "calves"
+          ],
+          "secondaryMuscles": [],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Standing_Calf_Raises/images/0.jpg",
+          "set_id": 3
+        },
+        {
+          "names": "Thigh Adductor",
+          "category": "strength",
+          "equipment": "machine",
+          "force": "pull",
+          "instructions": [
+            "To begin, sit down on the adductor machine and select a weight you are comfortable with. When your legs are positioned properly on the leg pads of the machine, grip the handles on each side. Your entire upper body (from the waist up) should be stationary. This is the starting position.",
+            "Slowly press against the machine with your legs to move them towards each other while exhaling.",
+            "Feel the contraction for a second and begin to move your legs back to the starting position while breathing in. Note: Remember to keep your upper body stationary and avoid fast jerking motions in order to prevent any injuries from occurring.",
+            "Repeat for the recommended amount of repetitions."
+          ],
+          "level": "beginner",
+          "mechanic": "isolation",
+          "primaryMuscles": [
+            "adductors"
+          ],
+          "secondaryMuscles": [
+            "glutes",
+            "hamstrings"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Thigh_Adductor/images/0.jpg",
+          "set_id": 4
+        },
+        {
+          "names": "Thigh Adductor",
+          "category": "strength",
+          "equipment": "machine",
+          "force": "pull",
+          "instructions": [
+            "To begin, sit down on the adductor machine and select a weight you are comfortable with. When your legs are positioned properly on the leg pads of the machine, grip the handles on each side. Your entire upper body (from the waist up) should be stationary. This is the starting position.",
+            "Slowly press against the machine with your legs to move them towards each other while exhaling.",
+            "Feel the contraction for a second and begin to move your legs back to the starting position while breathing in. Note: Remember to keep your upper body stationary and avoid fast jerking motions in order to prevent any injuries from occurring.",
+            "Repeat for the recommended amount of repetitions."
+          ],
+          "level": "beginner",
+          "mechanic": "isolation",
+          "primaryMuscles": [
+            "adductors"
+          ],
+          "secondaryMuscles": [
+            "glutes",
+            "hamstrings"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Thigh_Adductor/images/0.jpg",
+          "set_id": 5
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "AI 추천 루틴 2",
+      "userId": "1",
+      "state": [
+        {
+          "names": "Otis-Up",
+          "category": "strength",
+          "equipment": "other",
+          "force": "pull",
+          "instructions": [
+            "Secure your feet and lay back on the floor. Your knees should be bent. Hold a weight with both hands to your chest. This will be your starting position.",
+            "Initiate the movement by flexing the hips and spine to raise your torso up from the ground.",
+            "As you move up, press the weight up so that it is above your head at the top of the movement.",
+            "Return the weight to your chest as you reverse the sit-up motion, ensuring not to go all the way down to the floor."
+          ],
+          "level": "beginner",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "abdominals"
+          ],
+          "secondaryMuscles": [
+            "chest",
+            "shoulders",
+            "triceps"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Otis-Up/images/0.jpg",
+          "set_id": 1
+        },
+        {
+          "names": "Otis-Up",
+          "category": "strength",
+          "equipment": "other",
+          "force": "pull",
+          "instructions": [
+            "Secure your feet and lay back on the floor. Your knees should be bent. Hold a weight with both hands to your chest. This will be your starting position.",
+            "Initiate the movement by flexing the hips and spine to raise your torso up from the ground.",
+            "As you move up, press the weight up so that it is above your head at the top of the movement.",
+            "Return the weight to your chest as you reverse the sit-up motion, ensuring not to go all the way down to the floor."
+          ],
+          "level": "beginner",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "abdominals"
+          ],
+          "secondaryMuscles": [
+            "chest",
+            "shoulders",
+            "triceps"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Otis-Up/images/0.jpg",
+          "set_id": 2
+        },
+        {
+          "names": "Drop Push",
+          "category": "plyometrics",
+          "equipment": "other",
+          "force": "push",
+          "instructions": [
+            "Position low boxes or other platforms 2-3 feet apart.",
+            "Move to a pushup position between them, supporting yourself by placing your hands on the boxes.",
+            "With good posture, drop from the platforms by pressing up and moving your hands to shoulder width, cushioning your landing by absorbing the impact through the arm."
+          ],
+          "level": "intermediate",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "chest"
+          ],
+          "secondaryMuscles": [
+            "shoulders",
+            "triceps"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "set_id": 3
+        },
+        {
+          "names": "Drop Push",
+          "category": "plyometrics",
+          "equipment": "other",
+          "force": "push",
+          "instructions": [
+            "Position low boxes or other platforms 2-3 feet apart.",
+            "Move to a pushup position between them, supporting yourself by placing your hands on the boxes.",
+            "With good posture, drop from the platforms by pressing up and moving your hands to shoulder width, cushioning your landing by absorbing the impact through the arm."
+          ],
+          "level": "intermediate",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "chest"
+          ],
+          "secondaryMuscles": [
+            "shoulders",
+            "triceps"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "set_id": 4
+        },
+        {
+          "names": "Weighted Crunches",
+          "category": "strength",
+          "equipment": "medicine ball",
+          "force": "pull",
+          "instructions": [
+            "Lie flat on your back with your feet flat on the ground or resting on a bench with your knees bent at a 90 degree angle.",
+            "Hold a weight to your chest, or you may hold it extended above your torso. This will be your starting position.",
+            "Now, exhale and slowly begin to roll your shoulders off the floor. Your shoulders should come up off the floor about 4 inches while your lower back remains on the floor.",
+            "At the top of the movement, flex your abdominals and hold for a brief pause.",
+            "Then inhale and slowly lower yourself back down to the starting position."
+          ],
+          "level": "beginner",
+          "mechanic": "isolation",
+          "primaryMuscles": [
+            "abdominals"
+          ],
+          "secondaryMuscles": [],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Weighted_Crunches/images/0.jpg",
+          "set_id": 5
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "AI 추천 루틴 3",
+      "userId": "1",
+      "state": [
+        {
+          "names": "Wrist Roller",
+          "category": "strength",
+          "equipment": "other",
+          "force": "pull",
+          "instructions": [
+            "To begin, stand straight up grabbing a wrist roller using a pronated grip (palms facing down). Your feet should be shoulder width apart.",
+            "Slowly lift both arms until they are fully extended and parallel to the floor in front of you. Note: Make sure the rope is not wrapped around the roller. Your entire body should be stationary except for the forearms. This is the starting position.",
+            "Rotate one wrist at a time in an upward motion to bring the weight up to the bar by rolling the rope around the roller.",
+            "Once the weight has reached the bar, slowly begin to lower the weight back down by rotating the wrist in a downward motion until the weight reaches the starting position.",
+            "Repeat for the prescribed amount of repetitions in your program."
+          ],
+          "level": "beginner",
+          "mechanic": "isolation",
+          "primaryMuscles": [
+            "forearms"
+          ],
+          "secondaryMuscles": [
+            "shoulders"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Wrist_Roller/images/0.jpg",
+          "set_id": 1
+        },
+        {
+          "names": "Drop Push",
+          "category": "plyometrics",
+          "equipment": "other",
+          "force": "push",
+          "instructions": [
+            "Position low boxes or other platforms 2-3 feet apart.",
+            "Move to a pushup position between them, supporting yourself by placing your hands on the boxes.",
+            "With good posture, drop from the platforms by pressing up and moving your hands to shoulder width, cushioning your landing by absorbing the impact through the arm."
+          ],
+          "level": "intermediate",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "chest"
+          ],
+          "secondaryMuscles": [
+            "shoulders",
+            "triceps"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "set_id": 2
+        },
+        {
+          "names": "Ab Roller",
+          "category": "strength",
+          "equipment": "other",
+          "force": "pull",
+          "instructions": [
+            "Hold the Ab Roller with both hands and kneel on the floor.",
+            "Now place the ab roller on the floor in front of you so that you are on all your hands and knees (as in a kneeling push up position). This will be your starting position.",
+            "Slowly roll the ab roller straight forward, stretching your body into a straight position. Tip: Go down as far as you can without touching the floor with your body. Breathe in during this portion of the movement.",
+            "After a pause at the stretched position, start pulling yourself back to the starting position as you breathe out. Tip: Go slowly and keep your abs tight at all times."
+          ],
+          "level": "intermediate",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "abdominals"
+          ],
+          "secondaryMuscles": [
+            "shoulders"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Ab_Roller/images/0.jpg",
+          "set_id": 3
+        },
+        {
+          "names": "Plate Twist",
+          "category": "strength",
+          "equipment": "other",
+          "force": "pull",
+          "instructions": [
+            "Lie down on the floor or an exercise mat with your legs fully extended and your upper body upright. Grab the plate by its sides with both hands out in front of your abdominals with your arms slightly bent.",
+            "Slowly cross your legs near your ankles and lift them up off the ground. Your knees should also be bent slightly. Note: Move your upper body back slightly to help keep you balanced turning this exercise. This is the starting position.",
+            "Move the plate to the left side and touch the floor with it. Breathe out as you perform that movement.",
+            "Come back to the starting position as you breathe in and then repeat the movement but this time to the right side of the body. Tip: Use a slow controlled movement at all times. Jerking motions can injure the back.",
+            "Repeat for the recommended amount of repetitions."
+          ],
+          "level": "intermediate",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "abdominals"
+          ],
+          "secondaryMuscles": [],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Plate_Twist/images/0.jpg",
+          "set_id": 4
+        },
+        {
+          "names": "Ab Roller",
+          "category": "strength",
+          "equipment": "other",
+          "force": "pull",
+          "instructions": [
+            "Hold the Ab Roller with both hands and kneel on the floor.",
+            "Now place the ab roller on the floor in front of you so that you are on all your hands and knees (as in a kneeling push up position). This will be your starting position.",
+            "Slowly roll the ab roller straight forward, stretching your body into a straight position. Tip: Go down as far as you can without touching the floor with your body. Breathe in during this portion of the movement.",
+            "After a pause at the stretched position, start pulling yourself back to the starting position as you breathe out. Tip: Go slowly and keep your abs tight at all times."
+          ],
+          "level": "intermediate",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "abdominals"
+          ],
+          "secondaryMuscles": [
+            "shoulders"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Ab_Roller/images/0.jpg",
+          "set_id": 5
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "AI 추천 루틴 1",
+      "userId": "1",
+      "state": [
+        {
+          "names": "Weighted Crunches",
+          "category": "strength",
+          "equipment": "medicine ball",
+          "force": "pull",
+          "instructions": [
+            "Lie flat on your back with your feet flat on the ground or resting on a bench with your knees bent at a 90 degree angle.",
+            "Hold a weight to your chest, or you may hold it extended above your torso. This will be your starting position.",
+            "Now, exhale and slowly begin to roll your shoulders off the floor. Your shoulders should come up off the floor about 4 inches while your lower back remains on the floor.",
+            "At the top of the movement, flex your abdominals and hold for a brief pause.",
+            "Then inhale and slowly lower yourself back down to the starting position."
+          ],
+          "level": "beginner",
+          "mechanic": "isolation",
+          "primaryMuscles": [
+            "abdominals"
+          ],
+          "secondaryMuscles": [],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Weighted_Crunches/images/0.jpg",
+          "set_id": 1
+        },
+        {
+          "names": "Seated Close-Grip Concentration Barbell Curl",
+          "category": "strength",
+          "equipment": "barbell",
+          "force": "pull",
+          "instructions": [
+            "Sit down on a flat bench with a barbell or E-Z Bar in front of you in between your legs. Your legs should be spread with the knees bent and the feet on the floor.",
+            "Use your arms to pick the barbell up and place the back of your upper arms on top of your inner thighs (around three and a half inches away from the front of the knee). A supinated grip closer than shoulder width is needed to perform this exercise. Tip: Your arm should be extended at arms length and the barbell should be above the floor. This will be your starting position.",
+            "While holding the upper arms stationary, curl the weights forward while contracting the biceps as you breathe out. Only the forearms should move. Continue the movement until your biceps are fully contracted and the dumbbells are at shoulder level. Hold the contracted position for a second as you squeeze the biceps.",
+            "Slowly begin to bring the barbell back to starting position as your breathe in. Tip: Avoid swinging motions at any time.",
+            "Repeat for the recommended amount of repetitions."
+          ],
+          "level": "intermediate",
+          "mechanic": "isolation",
+          "primaryMuscles": [
+            "biceps"
+          ],
+          "secondaryMuscles": [],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Seated_Close-Grip_Concentration_Barbell_Curl/images/0.jpg",
+          "set_id": 2
+        },
+        {
+          "names": "Drop Push",
+          "category": "plyometrics",
+          "equipment": "other",
+          "force": "push",
+          "instructions": [
+            "Position low boxes or other platforms 2-3 feet apart.",
+            "Move to a pushup position between them, supporting yourself by placing your hands on the boxes.",
+            "With good posture, drop from the platforms by pressing up and moving your hands to shoulder width, cushioning your landing by absorbing the impact through the arm."
+          ],
+          "level": "intermediate",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "chest"
+          ],
+          "secondaryMuscles": [
+            "shoulders",
+            "triceps"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "set_id": 3
+        },
+        {
+          "names": "Drop Push",
+          "category": "plyometrics",
+          "equipment": "other",
+          "force": "push",
+          "instructions": [
+            "Position low boxes or other platforms 2-3 feet apart.",
+            "Move to a pushup position between them, supporting yourself by placing your hands on the boxes.",
+            "With good posture, drop from the platforms by pressing up and moving your hands to shoulder width, cushioning your landing by absorbing the impact through the arm."
+          ],
+          "level": "intermediate",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "chest"
+          ],
+          "secondaryMuscles": [
+            "shoulders",
+            "triceps"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "set_id": 4
+        },
+        {
+          "names": "Wrist Roller",
+          "category": "strength",
+          "equipment": "other",
+          "force": "pull",
+          "instructions": [
+            "To begin, stand straight up grabbing a wrist roller using a pronated grip (palms facing down). Your feet should be shoulder width apart.",
+            "Slowly lift both arms until they are fully extended and parallel to the floor in front of you. Note: Make sure the rope is not wrapped around the roller. Your entire body should be stationary except for the forearms. This is the starting position.",
+            "Rotate one wrist at a time in an upward motion to bring the weight up to the bar by rolling the rope around the roller.",
+            "Once the weight has reached the bar, slowly begin to lower the weight back down by rotating the wrist in a downward motion until the weight reaches the starting position.",
+            "Repeat for the prescribed amount of repetitions in your program."
+          ],
+          "level": "beginner",
+          "mechanic": "isolation",
+          "primaryMuscles": [
+            "forearms"
+          ],
+          "secondaryMuscles": [
+            "shoulders"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Wrist_Roller/images/0.jpg",
+          "set_id": 5
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "name": "AI 추천 루틴 2",
+      "userId": "1",
+      "state": [
+        {
+          "names": "Otis-Up",
+          "category": "strength",
+          "equipment": "other",
+          "force": "pull",
+          "instructions": [
+            "Secure your feet and lay back on the floor. Your knees should be bent. Hold a weight with both hands to your chest. This will be your starting position.",
+            "Initiate the movement by flexing the hips and spine to raise your torso up from the ground.",
+            "As you move up, press the weight up so that it is above your head at the top of the movement.",
+            "Return the weight to your chest as you reverse the sit-up motion, ensuring not to go all the way down to the floor."
+          ],
+          "level": "beginner",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "abdominals"
+          ],
+          "secondaryMuscles": [
+            "chest",
+            "shoulders",
+            "triceps"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Otis-Up/images/0.jpg",
+          "set_id": 1
+        },
+        {
+          "names": "Otis-Up",
+          "category": "strength",
+          "equipment": "other",
+          "force": "pull",
+          "instructions": [
+            "Secure your feet and lay back on the floor. Your knees should be bent. Hold a weight with both hands to your chest. This will be your starting position.",
+            "Initiate the movement by flexing the hips and spine to raise your torso up from the ground.",
+            "As you move up, press the weight up so that it is above your head at the top of the movement.",
+            "Return the weight to your chest as you reverse the sit-up motion, ensuring not to go all the way down to the floor."
+          ],
+          "level": "beginner",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "abdominals"
+          ],
+          "secondaryMuscles": [
+            "chest",
+            "shoulders",
+            "triceps"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Otis-Up/images/0.jpg",
+          "set_id": 2
+        },
+        {
+          "names": "Drop Push",
+          "category": "plyometrics",
+          "equipment": "other",
+          "force": "push",
+          "instructions": [
+            "Position low boxes or other platforms 2-3 feet apart.",
+            "Move to a pushup position between them, supporting yourself by placing your hands on the boxes.",
+            "With good posture, drop from the platforms by pressing up and moving your hands to shoulder width, cushioning your landing by absorbing the impact through the arm."
+          ],
+          "level": "intermediate",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "chest"
+          ],
+          "secondaryMuscles": [
+            "shoulders",
+            "triceps"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "set_id": 3
+        },
+        {
+          "names": "Drop Push",
+          "category": "plyometrics",
+          "equipment": "other",
+          "force": "push",
+          "instructions": [
+            "Position low boxes or other platforms 2-3 feet apart.",
+            "Move to a pushup position between them, supporting yourself by placing your hands on the boxes.",
+            "With good posture, drop from the platforms by pressing up and moving your hands to shoulder width, cushioning your landing by absorbing the impact through the arm."
+          ],
+          "level": "intermediate",
+          "mechanic": "compound",
+          "primaryMuscles": [
+            "chest"
+          ],
+          "secondaryMuscles": [
+            "shoulders",
+            "triceps"
+          ],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Drop_Push/images/0.jpg",
+          "set_id": 4
+        },
+        {
+          "names": "Weighted Crunches",
+          "category": "strength",
+          "equipment": "medicine ball",
+          "force": "pull",
+          "instructions": [
+            "Lie flat on your back with your feet flat on the ground or resting on a bench with your knees bent at a 90 degree angle.",
+            "Hold a weight to your chest, or you may hold it extended above your torso. This will be your starting position.",
+            "Now, exhale and slowly begin to roll your shoulders off the floor. Your shoulders should come up off the floor about 4 inches while your lower back remains on the floor.",
+            "At the top of the movement, flex your abdominals and hold for a brief pause.",
+            "Then inhale and slowly lower yourself back down to the starting position."
+          ],
+          "level": "beginner",
+          "mechanic": "isolation",
+          "primaryMuscles": [
+            "abdominals"
+          ],
+          "secondaryMuscles": [],
+          "imgfile": "https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises/Weighted_Crunches/images/0.jpg",
+          "set_id": 5
         }
       ]
     }
