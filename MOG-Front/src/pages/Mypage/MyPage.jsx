@@ -87,7 +87,7 @@ export default function MyPage() {
   const menuItem = [
     { path: '/mypage', icon: 'fa-solid fa-circle-user', name: '프로필' },
     { path: '/mypage/myroutine', icon: 'fa-solid fa-dumbbell', name: '나의 루틴' },
-    { path: '/mypage/mysocial', icon: 'fa-solid fa-image', name: '나의 소셜' },
+    { path: '/mypage/mysocial', icon: 'fa-solid fa-image', name: '나의 기록' },
     { path: '/mypage/settings', icon: 'fa-solid fa-gear', name: '환경설정' },
     { path: '/mypage/support', icon: 'fa-solid fa-phone', name: '고객센터' },
   ];
