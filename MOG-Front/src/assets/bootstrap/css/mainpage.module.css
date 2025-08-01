@@ -228,6 +228,7 @@ input[type=number] {
     align-items: center;
     margin-left: 10px;
     margin-right: 10px;
+    margin-bottom: 3px;
 }
 .backButton{
     font-size: 17px;
@@ -274,6 +275,10 @@ input[type=number] {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     margin-top: 10px;
     margin-left: 10px;
+}
+.ModelContainer{
+    transition: none !important;
+    animation: none !important;
 }
 @media (max-width: 600px) {
     .secondContainer{

@@ -26,7 +26,7 @@ export default function SelectMainpage({
     const inputRef = useRef(null);
     const [settingModel,setSettingModel] = useState(false);
     const [getSelectRoutine,setGetSelectRoutine] = useState();
-    const [isShowRename,setSIsShowRename] = useState(true);
+    const [isShowRename,setSIsShowRename] = useState(false);
     const [isShowDelete,setIsShowDelete] = useState(true);
     const userInfo = JSON.parse(localStorage.getItem('user'));
 
@@ -78,9 +78,10 @@ export default function SelectMainpage({
                 <Button key={index} className={`${styles.prettyButton} mb-3`}
                     style={{
                         height:'150px',
-                        width:'100%',
+                        width:'95%',
                         display:'flex',
                         fontSize:'30px',
+                        margin: '10px',
                         backgroundColor:`${currentRrcodingRoutineId===item.id?'#1eff00ff':'#FFD600'}`
                     }}
                     type="button" 
@@ -114,31 +115,43 @@ export default function SelectMainpage({
             setResetTimeCheckBoolean={setResetTimeCheckBoolean}
         />
         }
-        <Modal show={settingModel} onHide={() => setSettingModel(false)}>
+        <Modal className={styles.ModelContainer} show={settingModel} onHide={() => {setSettingModel(false);setIsShowDelete(true);}}>
             <Modal.Header>
                 설정
             </Modal.Header>
             <Modal.Body>
-                <Card>
-                    <ListGroup>
-                        <ListGroup.Item action onClick={()=>setSIsShowRename(false)}>
-                            이름 수정
-                        </ListGroup.Item>
-                        <div hidden={isShowRename}>
-                            <input type="text" ref={inputRef}/>
-                            <Button id="reName" onClick={e=>{routineSetting(e);setSettingModel(false)}}>확인</Button>
-                            <Button onClick={()=>setSIsShowRename(true)}>취소</Button>
-                        </div>
-                        <ListGroup.Item action onClick={()=>setIsShowDelete(false)}>
-                            삭제
-                        </ListGroup.Item>
-                        <div hidden={isShowDelete}>
-                                <p>정말 삭제 하시겠습니까?</p>
-                                <Button id="delete" onClick={e=>{routineSetting(e);setSettingModel(false)}}>확인</Button>
-                                <Button onClick={()=>setIsShowDelete(true)}>취소</Button>
-                            </div>
-                    </ListGroup>
-                </Card>
+                <ListGroup>
+                    <ListGroup.Item action onClick={()=>{setSIsShowRename(true);setIsShowDelete(true);}}>
+                        이름 수정
+                    </ListGroup.Item>
+                    <ListGroup.Item action onClick={()=>setIsShowDelete(false)}>
+                        삭제
+                    </ListGroup.Item>
+                    <ListGroup.Item hidden={isShowDelete}>
+                            <p>정말 삭제 하시겠습니까?</p>
+                            <Button id="delete" onClick={e=>{routineSetting(e);setSettingModel(false)}}>확인</Button>
+                            <Button onClick={()=>setIsShowDelete(true)}>취소</Button>
+                    </ListGroup.Item>
+                </ListGroup>
+            </Modal.Body>
+        </Modal>
+        <Modal className={styles.ModelContainer} show={isShowRename} onHide={() => setSIsShowRename(false)}>
+            <Modal.Header>수정할 이름 입력</Modal.Header>
+            <Modal.Body>
+                <input 
+                    style={{width:'100%'}} 
+                    type="text" 
+                    ref={inputRef}
+                />
+                <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: '10px',
+                    }}>
+                    <Button id="reName" onClick={e=>{routineSetting(e);setSIsShowRename(false)}}>확인</Button>
+                    <Button onClick={()=>setSIsShowRename(false)}>취소</Button>
+                </div>
             </Modal.Body>
         </Modal>
     </div>

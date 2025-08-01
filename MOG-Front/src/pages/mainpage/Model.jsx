@@ -116,7 +116,7 @@ function Model({
         <div className="modal-dialog">
           <div className="modal-content" style={{ backgroundColor: 'white' }}>
             <div className="modal-header">
-              <h5 className="modal-title">루틴 설정</h5>
+              <h1 className="modal-title"> 운동 시작</h1>
             </div>
             <div className="modal-body">
               <p>
