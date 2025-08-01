@@ -55,3 +55,56 @@
   color: #ffc800;
   font-weight: bold;
 }
+
+.wrench-icon {
+  color: black;
+  position: absolute;
+  left: -100px;
+  bottom: -300px;
+}
+
+.on-construction h3 {
+  padding-top: 200px; 
+}
+
+/* --- 반응형 조정: 500px 이하 화면 --- */
+@media (max-width: 500px) {
+  .on-construction {
+    padding-top: 80px; 
+    gap: 0.8em; 
+  }
+
+  .construction-container {
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-bottom: 250px solid #fde800; 
+    left: -140px;
+    bottom: -280px;
+  }
+
+  .construction-wrapper {
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-bottom: 290px solid #000000;
+    left: -160px;
+    bottom: -300px; 
+  }
+
+  .construction-border {
+    border-left: 170px solid transparent; 
+    border-right: 170px solid transparent;
+    border-bottom: 310px solid #fde800;
+  }
+
+  .wrench-icon {
+    font-size: 7em !important;
+    left: -70px !important; 
+    bottom: -210px !important; 
+  }
+
+  .on-construction h3 {
+    font-size: 1.5em;
+    padding-top: 150px;
+    text-align: center;
+  }
+}

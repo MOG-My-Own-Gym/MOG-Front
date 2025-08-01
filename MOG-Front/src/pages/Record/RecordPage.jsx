@@ -1,43 +1,85 @@
-// 📄 RecordPage.jsx
-import React, { useState } from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-import "./record.css"; // CSS 경로
+// 📄 src/pages/Record/RecordPage.jsx
+import React, { useState, useEffect } from 'react';
+import CalendarSection from './CalendarSection';
+import BodyTab from './BodyTab';
+import ModalPopup from './ModalPopup';
+import 'react-calendar/dist/Calendar.css';
+import './css/record-common.css';
+import PhotoTab from './PhotoTab';
 
 export default function RecordPage() {
+  // ── 기본 상태 ──
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [activeTab, setActiveTab] = useState("운동");
+  const [activeTab, setActiveTab] = useState('운동');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showUpload, setShowUpload] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleDateClick = (date) => {
+  // ── 포토 업로드 상태 ──
+  const [showUpload, setShowUpload] = useState(false);
+  const [text, setText] = useState('');
+  const [privacy, setPrivacy] = useState('비공개');
+  const [tempFiles, setTempFiles] = useState([]);
+  const [fileNames, setFileNames] = useState([]);
+  const [previewUrls, setPreviewUrls] = useState([]);
+
+  // ── 저장된 포토 레코드 ──
+  const [photoRecords, setPhotoRecords] = useState([]);
+
+  // ── 핸들러 ──
+  const handleDateClick = date => {
     setSelectedDate(date);
     setIsModalOpen(true);
   };
-
   const closeModal = () => setIsModalOpen(false);
-  const toggleUpload = () => setShowUpload((prev) => !prev);
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
+  const switchTab = tab => {
+    setActiveTab(tab);
+    setShowUpload(false);
   };
+
+  const toggleUpload = () => {
+    if (!showUpload) {
+      setText('');
+      setPrivacy('비공개');
+      setTempFiles([]);
+      setFileNames([]);
+      setPreviewUrls([]);
+    }
+    setShowUpload(prev => !prev);
+  };
+
+  const handleFileChange = e => {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+    setTempFiles(prev => [...prev, ...files]);
+    setFileNames(prev => [...prev, ...files.map(f => f.name)]);
+    e.target.value = '';
+  };
+
+  const handleUpload = () => {
+    if (tempFiles.length === 0) return;
+    const urls = tempFiles.map(f => URL.createObjectURL(f));
+    setPreviewUrls(urls);
+    setPhotoRecords(prev => [
+      ...prev,
+      { date: selectedDate, privacy, text, previews: urls, names: fileNames },
+    ]);
+    setShowUpload(false);
+  };
+
+  useEffect(() => {
+    return () => previewUrls.forEach(u => URL.revokeObjectURL(u));
+  }, [previewUrls]);
 
   return (
     <div className="record-container">
       <header className="record-header">기록</header>
 
-      {/* 탭 선택 */}
+      {/* 탭 네비 */}
       <div className="record-tabs">
-        {["운동", "포토", "신체"].map((tab) => (
+        {['운동', '포토', '신체'].map(tab => (
           <button
             key={tab}
-            className={`record-tab ${activeTab === tab ? "active" : ""}`}
-            onClick={() => {
-              setActiveTab(tab);
-              setShowUpload(false);
-            }}
+            className={`record-tab ${activeTab === tab ? 'active' : ''}`}
+            onClick={() => switchTab(tab)}
           >
             {tab}
           </button>
@@ -45,76 +87,32 @@ export default function RecordPage() {
       </div>
 
       {/* 운동 탭 */}
-      {activeTab === "운동" && (
-        <>
-          <div className="calendar-wrapper">
-            <Calendar
-              value={selectedDate}
-              onChange={setSelectedDate}
-              onClickDay={handleDateClick}
-              calendarType="gregory"
-              locale="ko-KR"
-              formatDay={(locale, date) => date.getDate()}
-              showNeighboringMonth={false}
-            />
-          </div>
-
-          <div className="record-labels">
-            <span className="dot-label"><span className="dot red"></span> 운동 기록</span>
-            <span className="dot-label"><span className="dot green"></span> 사진 기록</span>
-            <span className="dot-label"><span className="dot blue"></span> 신체 기록</span>
-          </div>
-        </>
+      {activeTab === '운동' && (
+        <CalendarSection selectedDate={selectedDate} onDateClick={handleDateClick} />
       )}
 
       {/* 포토 탭 */}
-      {activeTab === "포토" && (
-        <div className="photo-tab">
-          <div className="photo-header">
-            <span>포토 기록</span>
-            <button className="photo-add-btn" onClick={toggleUpload}>+</button>
-          </div>
-
-          {showUpload && (
-            <div className="upload-form">
-              <button className="back-btn" onClick={toggleUpload}>←</button>
-              <p>📷 업로드할 사진/비디오 추가</p>
-              <p>기록 날짜: {selectedDate.toLocaleDateString()}</p>
-              <p>공개 설정: <span style={{ color: "red" }}>비공개</span></p>
-              <textarea placeholder="내용을 입력하세요" />
-
-              <div className="button-group">
-                <label htmlFor="fileInput" className="upload-label">첨부하기</label>
-                <input
-                  type="file"
-                  id="fileInput"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                />
-                <button className="submit-btn">업로드</button>
-              </div>
-            </div>
-          )}
-        </div>
+      {activeTab === '포토' && (
+        <PhotoTab
+          selectedDate={selectedDate}
+          privacy={privacy}
+          text={text}
+          fileNames={fileNames}
+          showUpload={showUpload}
+          photoRecords={photoRecords}
+          onTextChange={setText}
+          onPrivacyChange={setPrivacy}
+          onFileChange={handleFileChange}
+          onUpload={handleUpload}
+          toggleUpload={toggleUpload}
+        />
       )}
 
       {/* 신체 탭 */}
-      {activeTab === "신체" && (
-        <div className="record-placeholder">
-          📊 신체 기록이 들어가는 자리입니다.
-        </div>
-      )}
+      {activeTab === '신체' && <BodyTab />}
 
-      {/* 날짜 클릭시 모달 */}
-      {isModalOpen && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>{selectedDate.toLocaleDateString()} 기록</h3>
-            <p>여기에 운동/포토/신체 기록 정보가 표시될 예정입니다.</p>
-            <button onClick={closeModal} className="modal-close">닫기</button>
-          </div>
-        </div>
-      )}
+      {/* 날짜 모달 */}
+      {isModalOpen && <ModalPopup selectedDate={selectedDate} closeModal={closeModal} />}
     </div>
   );
 }

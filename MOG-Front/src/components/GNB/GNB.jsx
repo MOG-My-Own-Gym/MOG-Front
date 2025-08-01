@@ -149,8 +149,8 @@ export default function GNB() {
                   </NavDropdown.Item>
                   <NavDropdown.Item
                     as={Link}
-                    to=""
-                    className={currentPath === '' ? 'active-item' : ''}
+                    to="/pose"
+                    className={currentPath === '/pose' ? 'active-item' : ''}
                   >
                     자세 피드백
                   </NavDropdown.Item>
@@ -349,7 +349,7 @@ export default function GNB() {
                         className="nav-link"
                         to="/mypage"
                         style={{ color: isPathActive(['/mypage']) ? '#FFC800' : 'white' }}
-                        oonClick={() => {
+                        onClick={() => {
                           handleClose();
                           handleClick();
                         }}

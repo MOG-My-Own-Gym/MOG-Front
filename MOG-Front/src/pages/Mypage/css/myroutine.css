@@ -1,42 +1,36 @@
-   .btn-routine{
-
+/*myrountine.css*/
+.btn-routine{
     border-radius: 25px;
+}
 
-   }
+.new{
+    font-size: 12px;
+}
 
-   .new{
-        font-size: 12px;
-   }
-
-   .card-routine{
-
+.card-routine{
     padding: 20px;
     border:none;
+}
 
+   
+.routine-list:hover{
+    background-color: rgba(255, 200, 2, 0.7);
+    border-radius: 10px;
+}   
 
-   }
-
-   .routine-list:hover{
-     background-color: rgba(255, 200, 2, 0.7);
-     border-radius: 10px;
-   }
-
-
-   .inputs-routine{
-
+.inputs-routine{
     position: relative;
+}
 
-   }
-
-   .form-control-routine {
+.form-control-routine {
     text-indent: 15px;
     border: none;
     height: 45px;
     border-radius: 0px;
     border-bottom: 1px solid #eee;
-   }
+}
 
-   .form-control-routine:focus {
+.form-control-routine:focus {
     color: #495057;
     background-color: #fff;
     border-color: #eee;
@@ -50,16 +44,14 @@
     color: blue;
 }
 
-   .inputs i{
+.inputs i{
+    position: absolute;
+    top: 14px;
+    left: 4px;
+    color: #b8b9bc;
+}
 
-     position: absolute;
-     top: 14px;
-     left: 4px;
-     color: #b8b9bc;
-   }
-
-   .star{
-
+.star{
     height: 40px;
     width: 40px;
     display: flex;
@@ -67,23 +59,19 @@
     align-items: center;
     margin-right: 10px;
     border-radius: 5px;
+}
 
-   }
-
-   .yellow{
-
+.yellow{
     color: #ffab2e;
-   }
+}
 
-   .btn-routine{
-     border: none #eee;
-     background-color: #ffffff;
-   }
+.btn-routine,
+.btn-routineName{
+    border: none transparent;
+    background-color: transparent;
+}
 
-   .img-routine{ 
-     height: 30px;
-     background-color: white;
-   }
-
-
-
+.img-routine{ 
+    height: 30px;
+    background-color: white;
+}
