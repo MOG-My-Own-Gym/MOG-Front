@@ -60,15 +60,12 @@ function CommentSection({ postId, currentUser }) {
     if (!confirmed) return; //
 
     try {
-      await axios.delete(
-        `http://localhost:8080/api/v1/posts/${postId}/comments/${commentId}`,
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${user.accessToken}`,
-          },
+      await axios.delete(`http://localhost:8080/api/v1/posts/${postId}/comments/${commentId}`, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
         },
-      );
+      });
       setComments(prev => prev.filter(c => c.commentId !== commentId));
     } catch (error) {
       alert(error.response?.data?.message || '삭제 실패');

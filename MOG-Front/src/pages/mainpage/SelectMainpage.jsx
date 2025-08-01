@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import styles from "../../assets/bootstrap/css/mainpage.module.css";
-import "../../assets/bootstrap/css/bootstrap.css";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { URL } from "../../config/constants";
@@ -68,30 +67,35 @@ export default function SelectMainpage({
 
     
     return<>
-    <div className={"container mt-5 p-3"}></div>
-    <div className={`${styles.mainpage} container mt-0 p-0`}>
-        <div className={"container mt-0 p-0"}>
+    <div className={styles.mainContainer}>
+        <div className={`${styles.secondContainer} pt-4`}>
             {
             checkRoutineUser!==undefined
             ?
+            checkRoutineUser.length>0
+            ?
             checkRoutineUser.map((item,index)=>(
-             <Button key={index} className={`${styles.containers} btn btn-lg ${currentRrcodingRoutineId===item.id?"btn-warning":"btn-primary"}  `} 
-             style={{width:'100%', fontSize:'25px', textAlign:'left',display:'flex'}}
-             type="button" 
-             onClick={()=>navigate(`/data/routine?routineId=${useDataRoutine[index].id}`)}>
-               {item.name}
-               <a style={{marginLeft:'auto'}} href="#" id={item.id} onClick={e=>routineSetting(e)}>...</a>
-            </Button>
+                <Button key={index} className={`${styles.prettyButton} mb-3`}
+                    style={{height:'150px',width:'100%',display:'flex',fontSize:'30px',backgroundColor:`${currentRrcodingRoutineId===item.id?'#1eff00ff':'#FFD600'}`}}
+                    type="button" 
+                    onClick={()=>navigate(`/data/routine?routineId=${useDataRoutine[index].id}`)}>
+                    🏃🏽‍♂️ {item.name}
+                    <a className={styles.detailButton} href="#" id={item.id} onClick={e=>routineSetting(e)}>+</a>
+                </Button>
             ))
             :
-            <h1>추가 필요</h1>    
+            <div>
+                <h1 className={styles.prettyText}>루틴이 없습니다.
+                    <br/>자신만의 루틴을 만들어 보세요!</h1>
+            </div>
+            :
+            <h1>로딩 중</h1>    
             }
-            
         </div>
         <div className={`${styles.dummyContainers} p-5 mt-4`}></div>
         {startRrcodResultData===false?
         <footer className={`${styles.flexButton}`}>
-            <button className={`${styles.buttonSize} btn btn-lg btn-dark`} type="button" onClick={e=>navigate("/data/select",{state:true})} >루틴 생성</button>
+            <Button className={styles.prettyButton} type="button" onClick={e=>navigate("/data/select",{state:true})} >루틴 생성</Button>
         </footer>
         :
         startRrcodResultData&&<MainRrcodResultTime
@@ -112,7 +116,7 @@ export default function SelectMainpage({
                 <Card>
                     <ListGroup>
                         <ListGroup.Item action onClick={()=>setSIsShowRename(false)}>
-                           이름 수정
+                            이름 수정
                         </ListGroup.Item>
                         <div hidden={isShowRename}>
                             <input type="text" ref={inputRef}/>

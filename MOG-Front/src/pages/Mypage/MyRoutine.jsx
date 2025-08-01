@@ -4,10 +4,9 @@ import { useModalAlert } from '../../context/ModalAlertContext';
 import { AuthContext } from '../Login/AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { URL } from "../../config/constants";
+import { URL } from '../../config/constants';
 
 export default function MyRoutine() {
-
   //하트버튼 누르는 토글여부에 따라 꽉 찬 하트와 빈 하트를 보여주는 컴포넌트
   const HeartItem = () => {
     const [isLiked, setIsLiked] = useState(false);
@@ -42,26 +41,26 @@ export default function MyRoutine() {
     );
   };
 
-  const {showModal}=useModalAlert();
-  const {user}=useContext(AuthContext);
+  const { showModal } = useModalAlert();
+  const { user } = useContext(AuthContext);
   const [routineData, setRoutineData] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    const fetchRoutine = async ()=>{
+  useEffect(() => {
+    const fetchRoutine = async () => {
       await axios
         .get(URL.ROUNTINE)
-        .then(res=>{
-          if(res.data[0].userId === user.usersId.toString()){
+        .then(res => {
+          if (res.data[0].userId === user.usersId.toString()) {
             setRoutineData(res.data);
           }
         })
-        .catch(err=>{
-          console.log(err)
+        .catch(err => {
+          console.log(err);
           showModal('루틴 조회에 실패하였습니다');
         });
       /*
-        .get('http://localhost:8080/api/v1/routine/list',
+        .get('http:localhost:8080/api/v1/routine/list',
           {
             headers: {
               Authorization: `Bearer ${user.accessToken}`,
@@ -81,9 +80,9 @@ export default function MyRoutine() {
         })
       */
     };
-    
+
     fetchRoutine();
-  },[user.usersId]);
+  }, [user.usersId]);
 
   return (
     <>
@@ -95,10 +94,14 @@ export default function MyRoutine() {
                 <span className="font-weight-bold">My Routine</span>
 
                 <div className="d-flex flex-row">
-                  <button className="btn new" style={{backgroundColor:'#ffc800'}} onClick={e=>{
-                    e.preventDefault();
-                    navigate('/data/select');
-                  }}>
+                  <button
+                    className="btn new"
+                    style={{ backgroundColor: '#ffc800' }}
+                    onClick={e => {
+                      e.preventDefault();
+                      navigate('/data/select');
+                    }}
+                  >
                     <i className="fa fa-plus"></i> New
                   </button>
                 </div>
@@ -114,14 +117,17 @@ export default function MyRoutine() {
               </div>
 
               {routineData.length > 0 ? (
-                routineData.map((routine, i)=>{
+                routineData.map((routine, i) => {
                   return (
                     <div className="my-3">
                       <div className="d-flex justify-content-between align-items-center">
-                        <button className='btn-routineName' onClick={e=>{
-                          e.preventDefault();
-                          navigate(`/data/routine?routineId=${routine.id}`);
-                        }}>
+                        <button
+                          className="btn-routineName"
+                          onClick={e => {
+                            e.preventDefault();
+                            navigate(`/data/routine?routineId=${routine.id}`);
+                          }}
+                        >
                           <div className="d-flex flex-row align-items-center routine-list">
                             <span className="star">
                               <i className="fa fa-star yellow"></i>
@@ -137,7 +143,7 @@ export default function MyRoutine() {
                     </div>
                   );
                 })
-              ):(
+              ) : (
                 <div>루틴이 없습니다</div>
               )}
             </div>

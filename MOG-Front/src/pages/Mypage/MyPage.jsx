@@ -50,6 +50,15 @@ export default function MyPage() {
       });
   }, []);
 
+
+  useEffect(() => {
+    if (location.pathname.includes('mypage')) document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   //플로팅버튼을 누름에 따라 모바일메뉴 오픈 여부 토글하는 함수
   const toggleMobileMenu = e => {
     e.preventDefault();
@@ -79,7 +88,7 @@ export default function MyPage() {
   const menuItem = [
     { path: '/mypage', icon: 'fa-solid fa-circle-user', name: '프로필' },
     { path: '/mypage/myroutine', icon: 'fa-solid fa-dumbbell', name: '나의 루틴' },
-    { path: '/mypage/mysocial', icon: 'fa-solid fa-image', name: '나의 소셜' },
+    { path: '/mypage/mysocial', icon: 'fa-solid fa-image', name: '나의 기록' },
     { path: '/mypage/settings', icon: 'fa-solid fa-gear', name: '환경설정' },
     { path: '/mypage/support', icon: 'fa-solid fa-phone', name: '고객센터' },
   ];
@@ -88,7 +97,9 @@ export default function MyPage() {
     <>
       <div className={`d-flex ${styles.mypageWrapper}`}>
         {/*데스크톱/태블릿용 사이드바 시작 */}
-        <div className={`${styles.sidebarMain} d-none d-md-block col-md-3 col-lg-2 bg-black text-white px-3`}>
+        <div
+          className={`${styles.sidebarMain} d-none d-md-block col-md-3 col-lg-2 bg-black text-white px-3`}
+        >
           <div className="d-flex flex-column justify-content-between h-100">
             <div>
               <ul className={`nav ${styles.navPillsMypage} flex-column px-0`}>

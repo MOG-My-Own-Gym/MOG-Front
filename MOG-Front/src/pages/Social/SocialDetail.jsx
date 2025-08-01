@@ -1,26 +1,28 @@
-import { useParams } from 'react-router-dom';
-import { useState, useEffect, useContext } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import './SocialDetail.css';
 import GNB from '../../components/GNB/GNB';
-import LikeButton from '../../components/LikeButton/LikeButton';
-import CommentSection from '../../components/CommentSection/CommentSection';
 import axios from 'axios';
-import { AuthContext } from '../Login/AuthContext';
 
 export default function SocialDetail() {
-  const { user } = useContext(AuthContext);
   const { id } = useParams();
-  const postId = id;
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // Post 데이터, 로딩, 에러 상태를 관리할 state
-  const [post, setPost] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  // 임시 현재 사용자 정보 (테스트용)
-  // 실제로는 Context API나 Redux 등에서 로그인 정보를 가져와야 합니다.
-  const currentUser = { id: 1, name: '테스트유저' };
+  const postId = id.startsWith('s-') ? id.slice(2) : id;
 
-  // useEffect를 사용해 서버에서 post 데이터를 가져옵니다.
+  const getStoredLikes = () => parseInt(localStorage.getItem(`likes-${id}`) || '0');
+  const getStoredLiked = () => localStorage.getItem(`liked-${id}`) === 'true';
+
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [img, setImg] = useState('');
+  const [likes, setLikes] = useState(getStoredLikes);
+  const [liked, setLiked] = useState(getStoredLiked);
+  const [comment, setComment] = useState('');
+  const [comments, setComments] = useState([]);
+
+  // ✅ 게시글 불러오기
   useEffect(() => {
     const fetchPost = async () => {
       setIsLoading(true);
@@ -33,46 +35,133 @@ export default function SocialDetail() {
           },
         })
         .then(res => {
-          console.log(res.data);
-          setPost(res.data); // 성공 시 state에 데이터 저장
-          setIsLoading(false);
+          const post = res.data;
+          setTitle(post.postTitle);
+          setContent(post.postContent);
+          setImg(post.postImage);
         })
         .catch(err => {
-          if (err) setError(err);
+          console.warn('서버 게시글 조회 실패, 로컬 fallback 시도');
+
+          const stored = localStorage.getItem('posts');
+          if (stored) {
+            const posts = JSON.parse(stored);
+            const found = posts.find(p => String(p.postId) === String(postId));
+            if (found) {
+              setTitle(found.postTitle);
+              setContent(found.postContent);
+              setImg(found.postImage);
+              return;
+            }
+          }
+
+          alert('게시글을 불러오지 못했습니다.');
         });
     };
+  }, [postId]);
 
-    fetchPost();
-  }, [postId]); // postId가 바뀔 때마다 데이터를 다시 가져옵니다.
+  const handleLike = () => {
+    const updatedLiked = !liked;
+    const updatedLikes = updatedLiked ? likes + 1 : likes - 1;
 
-  // 로딩 및 에러 상태에 따른 UI 처리
-  if (isLoading) return <div>로그인후 이용가능 합니다</div>;
-  if (error) return <div>에러: {error}</div>;
-  if (!post) return <div>게시물이 없습니다.</div>;
+    setLikes(updatedLikes);
+    setLiked(updatedLiked);
+    localStorage.setItem(`liked-${id}`, updatedLiked.toString());
+    localStorage.setItem(`likes-${id}`, updatedLikes);
+  };
 
-  //성공적으로 데이터를 가져왔을 때 보여줄 최종 UI
+  const handleCommentSubmit = () => {
+    if (comment.trim()) {
+      setComments(prev => [...prev, comment]);
+      setComment('');
+    }
+  };
+
+  const handleDelete = () => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      axios
+        .delete(`/api/v1/posts/${postId}`)
+        .then(() => {
+          alert('삭제되었습니다.');
+          navigate('/social');
+          window.location.reload();
+        })
+        .catch(() => {
+          console.warn('[개발모드] 서버 없음 - 로컬로 삭제 처리');
+
+          const stored = localStorage.getItem('posts');
+          const posts = stored ? JSON.parse(stored) : [];
+
+          const cleanId = id.startsWith('s-') || id.startsWith('l-') ? id.slice(2) : id;
+
+          const updated = posts.filter(p => String(p.postId) !== String(cleanId));
+
+          localStorage.setItem('posts', JSON.stringify(updated));
+
+          alert('삭제되었습니다.');
+          navigate('/social');
+          window.location.reload();
+        });
+    }
+  };
+
+  const getImageSrc = img => {
+    if (!img) return '';
+    if (img.startsWith('blob:')) return img;
+    if (img.startsWith('/img/')) return img;
+    return `/img/${img}`;
+  };
+
   return (
     <>
-      <div className="black-navbar">
-        <GNB />
-      </div>
+      <GNB />
       <div className="detail-wrapper">
         <div className="detail-left">
           <h2>상세페이지</h2>
           <p>게시글 ID: {postId}</p>
 
-          <img src={post.postImage} alt={post.postTitle} />
-          <h3>{post.postTitle}</h3>
-          <p>{post.postContent}</p>
+          {img ? (
+            <img src={getImageSrc(img)} alt={title} />
+          ) : (
+            <div className="img-placeholder">이미지 없음</div>
+          )}
 
-          <LikeButton
-            postId={postId}
-            currentUser={currentUser}
-            initialLikeCount={post.likeCount || 0}
-          />
+          <h3>{title}</h3>
+          <p>{content}</p>
+
+          <div className="detail-likes">
+            <img src="/img/like.png" alt="like" onClick={handleLike} />
+            <span>{likes}</span>
+          </div>
+
+          <div className="btn-wrapper">
+            <button className="action-btn" onClick={() => navigate(`/social/edit/${postId}`)}>
+              수정하기
+            </button>
+            <button className="action-btn" onClick={handleDelete}>
+              삭제하기
+            </button>
+            <button className="action-btn" onClick={() => navigate('/social')}>
+              목록으로
+            </button>
+          </div>
+
+          <div className="comment-box">
+            <h4>댓글</h4>
+            <input
+              type="text"
+              value={comment}
+              placeholder="댓글을 입력하세요"
+              onChange={e => setComment(e.target.value)}
+            />
+            <button onClick={handleCommentSubmit}>등록</button>
+            <ul>
+              {comments.map((c, i) => (
+                <li key={i}>{c}</li>
+              ))}
+            </ul>
+          </div>
         </div>
-
-        <CommentSection postId={postId} currentUser={currentUser} />
       </div>
     </>
   );
