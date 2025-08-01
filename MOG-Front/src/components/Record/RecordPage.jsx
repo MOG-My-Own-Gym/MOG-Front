@@ -78,6 +78,7 @@ export default function RecordPage() {
                 }
                 return null;
               }}
+              className='my-custom-calendar-record'
             />
           </div>
 

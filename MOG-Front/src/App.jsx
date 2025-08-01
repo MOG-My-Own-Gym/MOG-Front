@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import '@/assets/bootstrap/css/bootstrap.min.css';
 import Home from './pages/Home/Home';
 import GNB from './components/GNB/GNB';
@@ -30,6 +30,9 @@ import RunningRoutinePage from './pages/mainpage/RunningRoutinePage';
 import RoutineResultPage from './pages/mainpage/RoutineResultPage';
 import { RoutineProvider } from './context/RoutineContext';
 
+import './App.css'
+
+
 function App() {
   const { toast, dispatch } = useContext(ToastContext);
   useEffect(() => {
@@ -39,6 +42,18 @@ function App() {
       }, 2000);
     }
   }, [toast]);
+
+  const location=useLocation();
+  useEffect(()=>{
+    if(location.pathname.startsWith('/mypage')){
+      window.scrollTo(0, 0);
+      document.body.style.overflow='hidden';
+    }else {
+      document.body.style.overflow = 'unset'; 
+    }
+  },[location.pathname])
+
+
 
   return (
     <div style={{ padding: '4.5em 0 0 0' }}>

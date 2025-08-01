@@ -29,10 +29,15 @@ export default function MySocial() {
       })
       .then(res => {
         setPostData(res.data);
-      });
+      })
+      .catch(error=>{
+        console.log(error);
+        showModal('내가 작성한 게시글 조회에 실패하였습니다');
+      })
   };
   const fetchComments = async () => {
-    const commentRes = await axios.get('http://localhost:8080/api/v1/comments/list', {
+    const commentRes = await axios
+    .get('http://localhost:8080/api/v1/comments/list', {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },
@@ -113,45 +118,60 @@ export default function MySocial() {
                 <span className="fs-5 fw-semibold">내가 작성한 게시글</span>
                 <hr className="text-secondary" />
               </div>
+          {/*소셜 위젯 (세로 배열) */}
+          <div className={styles['social-container']}>
 
-              <div className={styles['post-container']}>
-                <ListGroup as="ul">
-                  <ListGroup.Item action style={{ backgroundColor: '#fdc800', fontWeight: 'bold' }}>
-                    <div className={styles['post-list']}>
-                      <div>ID</div>
-                      <div>제목</div>
-                      <div>내용</div>
-                      <div>등록일</div>
-                    </div>
-                  </ListGroup.Item>
+            {/*게시판 위젯 */}
+            <div className={styles['post']}>
+              <div className="container-fluid mt-3 mb-3">
+                <div>
+                  <span className="fs-5 fw-semibold">내가 작성한 게시글</span>
+                  <hr className="text-secondary" />
+                </div>
 
-                  {postData.length > 0 ? (
-                    postData.map((post, i) => {
-                      console.log(post);
-                      return (
-                        <ListGroup.Item
-                          key={i}
-                          action
-                          style={{ backgroundColor: 'white' }}
-                          onClick={() => {
-                            navigate(`/post/${post.postId}`);
-                          }}
-                        >
-                          <div className={styles['post-list']}>
-                            <React.Fragment>
-                              <div>{post.postId}</div>
-                              <div>{post.postTitle}</div>
-                              <div className={styles['post-content']}>{post.postContent}</div>
-                              <div>{post.postRegDate.slice(0, 10)}</div>
-                            </React.Fragment>
-                          </div>
-                        </ListGroup.Item>
-                      );
-                    })
-                  ) : (
-                    <div>작성한 글이 없습니다</div>
-                  )}
-                </ListGroup>
+                <div className={styles['post-container']}>
+                  <ListGroup as="ul">
+                    <ListGroup.Item
+                      action
+                      style={{ backgroundColor: '#fdc800', fontWeight: 'bold' }}
+                    >
+                      <div className={styles['post-list']}>
+                        <div>ID</div>
+                        <div>제목</div>
+                        <div>내용</div>
+                        <div>등록일</div>
+                      </div>
+                    </ListGroup.Item>
+
+                    {postData.length > 0 ? (
+                      postData.map((post, i) => {
+                        return (
+                          <ListGroup.Item
+                            key={i}
+                            action
+                            style={{ backgroundColor: 'white' }}
+                            onClick={() => {
+                              navigate(`/post/${post.postId}`);
+                            }}
+                          >
+                            <div className={styles['post-list']}>
+                              <React.Fragment>
+                                <div>{post.postId}</div>
+                                <div>{post.postTitle}</div>
+                                <div className={styles['post-content']}>{post.postContent}</div>
+                                <div>{post.postRegDate.slice(0, 10)}</div>
+                              </React.Fragment>
+                            </div>
+                          </ListGroup.Item>
+                        );
+                      })
+                    ) : (
+                      <div>작성한 글이 없습니다</div>
+                    )}
+                  </ListGroup>
+                </div>
+
+
               </div>
             </div>
           </div>

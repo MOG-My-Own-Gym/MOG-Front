@@ -50,6 +50,7 @@ export default function MyPage() {
       });
   }, []);
 
+
   useEffect(() => {
     if (location.pathname.includes('mypage')) document.body.style.overflow = 'hidden';
 
