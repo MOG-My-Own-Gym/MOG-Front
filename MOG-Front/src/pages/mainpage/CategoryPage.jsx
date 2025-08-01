@@ -170,6 +170,10 @@ export default function CategoryPage({
 
   const saveRoutineButton = e => {
     e.preventDefault();
+    e.target.classList.add('disabled');
+    setTimeout(() => {
+      e.target.classList.remove('disabled');
+    }, 300);
     saveR = initmakeDetail.filter(item => item.names.includes(e.currentTarget.id));
     setSaveExercise(prev => [...prev, ...saveR]);
     countSaveRoutineInt =
@@ -282,7 +286,7 @@ export default function CategoryPage({
     <>
       <div className={styles.mainContainer}>
         <Button
-          className={`m-2 btn btn-lg btn-danger`}
+          className={styles.backButton}
           type="button"
           onClick={() => navigate('/data/')}
         >
@@ -362,29 +366,29 @@ export default function CategoryPage({
             ))}
           </div>
         </div>
-        <ul ref={makeRoutineContainer} className={styles.secondContainer}>
+        <div ref={makeRoutineContainer} className={styles.secondContainer}>
           {initDeduplicationDetail.length === 0 ? (
             <h1>값이 없습니다.</h1>
           ) : (
             initDeduplicationDetail.slice(0, showMaxCategory).map(item => (
-              <li
-                className={styles.prettyli}
+              <Button
+                className={`${styles.prettyli} `}
                 id={item.names}
                 key={item.id}
                 type="button"
                 style={{ display: 'flex' }}
                 onClick={e => saveRoutineButton(e)}
               >
-                <img alt={item.imgfile} style={{ width: '100px' }} src={item.imgfile} />
+                <img className='me-2' alt={item.imgfile} style={{ width: '100px' }} src={item.imgfile} />
                 {item.names}
                 <span
                   id={item.names + 'Span'}
                   style={{ marginLeft: 'auto', color: '#FFD600' }}
                 ></span>
-              </li>
+              </Button>
             ))
           )}
-        </ul>
+        </div>
         <div className={`${styles.dummyContainers} p-5 mt-4`}></div>
         <footer className={styles.flexButton}>
           <Button

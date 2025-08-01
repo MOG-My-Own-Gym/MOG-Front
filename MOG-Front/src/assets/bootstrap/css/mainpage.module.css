@@ -42,31 +42,22 @@ input[type=number] {
     padding: 14px 28px !important;
     border: none;
     border-bottom: 1px solid #00000021;
-    font-size: 35px;
+    font-size: 20px;
+    background-color: white;
+    color: black;
 }
 .runningFontButton{
-   font-size: 40px;
+   font-size: 30px;
    font-weight: bold;
    margin: 0 auto;
 }
 .prettyli:hover {
-    transform: translateY(-3px);
+    transform: translateY(3px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
     border: 5px solid #FFD600;
 }
-.prettyli:active {
-    transform: scale(0.98);
-}
-.prettyli2 {
-    background: #e0f7fa;
-    border-radius: 6px;
-    text-align: center;
-    padding: 15px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
-    font-weight: bold;
-}
 .prettyButton {
-    width: 100%;
+    width: 30%;
     height: 120px;
     background: #FFD600;
     border: none !important;
@@ -76,7 +67,7 @@ input[type=number] {
     transition: all 0.3s ease;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     border: solid rgb(112, 110, 110) !important;
-    font-size: 30px;
+    font-size: 25px;
     font-family: Arial, fantasy !important;
     margin-bottom: 10px;
 }
@@ -137,7 +128,7 @@ input[type=number] {
     padding: 10px 5px;
 }
 .mainContainer{
-    width: 95%;
+    width: 100%;
     max-width: 1540px;
     margin: 0 auto;  /* 가운데 정렬 핵심 */
     padding-top: 20px;
@@ -205,16 +196,23 @@ input[type=number] {
     float: left;
     font-size: 30px;
 }
+.backButton{
+    font-size: 17px;
+    width: 110px;
+    height: 50px;
+    background-color: rgb(223, 0, 0);
+    margin: 10px;
+    color: white;
+    border: none;
+}
 @media (max-width: 600px) {
     .secondContainer{
         padding: 0;
     }
     .prettyli{
-        border: none;
-        padding: 0 !important;
+        padding: 10px !important;
         margin: 0 !important;
-        border-bottom: 1px solid #00000021;
-        font-size: 25px;
+        font-size: 15px;
     }
     .prettyP{
         font-size:'15px' !important;
@@ -232,13 +230,22 @@ input[type=number] {
         transition: all 0.3s ease;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         border: solid rgb(112, 110, 110) !important;
-        font-size: 22px;
+        font-size: 15px;
         font-family: Arial, fantasy !important;
         margin-bottom: 10px;
     }
     .runningFontButton{
-        font-size: 30px;
+        font-size: 20px;
         font-weight: bold;
         margin: 0 auto;
+    }
+    .backButton{
+        font-size: 15px;
+        width: 80px;
+        height: 40px;
+        background-color: rgb(223, 0, 0);
+        margin: 10px;
+        color: white;
+        border: none;
     }
 }

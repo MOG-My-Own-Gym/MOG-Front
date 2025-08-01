@@ -58,11 +58,7 @@ function Model({
       });
     }
   };
-
-  const today = new Date();
-  const options = { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short' };
-  const formatted = today.toLocaleDateString('ko-KR', options);
-
+  
   const stopRrcodResultData = () => {
     if (!resetTimeCheckBoolean) {
       const resultData = JSON.parse(localStorage.getItem('detailSetData'));

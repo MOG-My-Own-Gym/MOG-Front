@@ -58,7 +58,6 @@ const DataToss = () => {
 
   // 언마운트 시 타이머 정리(휴식 시간 포함)
   useEffect(() => {
-    console.log(startRrcodResultData);
     return () => {
       clearInterval(localIntervalRef.current); //타이머
       clearInterval(intervalRef.current); //휴식 타이머

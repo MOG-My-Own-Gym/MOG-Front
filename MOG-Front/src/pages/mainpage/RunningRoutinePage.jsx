@@ -212,14 +212,14 @@ export default function RunningRoutinePage({
   return (
     <>
       <div className={styles.mainContainer}>
-        <Button className={`btn btn-lg btn-danger m-2`} type="button" onClick={() => navigate(-1)}>
+        <Button className={styles.backButton} type="button" onClick={() => navigate(-1)}>
           뒤로가기
         </Button>
         <span style={{ fontSize: '25px' }}>{startRrcodResultData ? formatTime() : ''}</span>
         <div className={`${styles.mainpage} container mt-0 p-0`}>
           {showDetail.map((item, index) => (
             <div key={index} className={` container d-grid gap-2`}>
-              <img className="mt-4 mb-4" style={{ margin: 'auto', width: '80%' }} src={item.img} />
+              <img className="mt-4 mb-4" style={{ margin: 'auto', width: '50%' }} src={item.img} />
               <h1>{item.names}</h1>
             </div>
           ))}
@@ -242,7 +242,7 @@ export default function RunningRoutinePage({
             currentRrcodingRoutineId === routineId || startRrcodResultData === false ? (
               <div key={index} className={'container mt-0 p-0 d-grid gap-2'}>
                 <form className={'d-flex'}>
-                  <label className={`btn`} style={{ backgroundColor: '#FFD600' }}>
+                  <label className={`btn disabled`} style={{ backgroundColor: '#FFD600' }}>
                     {item.id}
                   </label>
                   <input
@@ -251,6 +251,7 @@ export default function RunningRoutinePage({
                     ref={refWeight}
                     className={'form-control me-sm-2'}
                     type="number"
+                    style={{color:'black'}}
                     onWheel={e => {
                       e.target.blur();
                     }}
@@ -263,6 +264,7 @@ export default function RunningRoutinePage({
                     ref={refMany}
                     className={'form-control me-sm-2'}
                     type="number"
+                    style={{color:'black'}}
                     onWheel={e => {
                       e.target.blur();
                     }}
