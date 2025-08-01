@@ -238,18 +238,21 @@ export default function RunningRoutinePage({
             resetLocalTimer={resetLocalTimer}
             stopLocalTimer={stopLocalTimer}
           />
+          <div className={styles.inputExplanationString}>
+            <span>세트</span>
+            <span>무게</span>
+            <span>횟수</span>
+            <span>완료</span>
+          </div>
           {addSetState.map((item, index) =>
             currentRrcodingRoutineId === routineId || startRrcodResultData === false ? (
-              <div key={index} className={'container mt-0 p-0 d-grid gap-2'}>
-                <form className={'d-flex'}>
-                  <label className={`btn disabled`} style={{ backgroundColor: '#FFD600' }}>
-                    {item.id}
-                  </label>
+              <div key={index} className={styles.RunningInputContainer}>
+                  <label className={styles.numAndExCheck}>{item.id}</label>
                   <input
                     id={item.id}
                     data-id={'weight'}
                     ref={refWeight}
-                    className={'form-control me-sm-2'}
+                    className={styles.inputWeghitSet}
                     type="number"
                     style={{color:'black'}}
                     onWheel={e => {
@@ -262,7 +265,7 @@ export default function RunningRoutinePage({
                     id={item.id}
                     data-id={'many'}
                     ref={refMany}
-                    className={'form-control me-sm-2'}
+                    className={styles.inputWeghitSet}
                     type="number"
                     style={{color:'black'}}
                     onWheel={e => {
@@ -273,8 +276,7 @@ export default function RunningRoutinePage({
                   />
                   <button
                     type="button"
-                    className={`btn`}
-                    style={{ border: 'revert' }}
+                    className={styles.numAndExCheck}
                     id={item.id}
                     data-class={item.id}
                     data-id={'complete'}
@@ -282,7 +284,6 @@ export default function RunningRoutinePage({
                   >
                     ○
                   </button>
-                </form>
               </div>
             ) : (
               <div key={index} className={'container mt-0 p-0 d-grid gap-2'}>

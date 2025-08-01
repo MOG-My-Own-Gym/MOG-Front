@@ -86,6 +86,7 @@ const DataToss = () => {
           setResetTimeCheckBoolean={setResetTimeCheckBoolean}
           resetTimeCheckBoolean={resetTimeCheckBoolean}
           elapsed={elapsed}
+          resetLocalTimer={resetLocalTimer}
         />
       )}
       <Routes>

@@ -153,39 +153,42 @@ function SetTime({
   return (
     <>
       <div className={styles.header}>
-        <a href="#" style={{ textDecoration: 'none' }} onClick={() => setShow(true)}>
-          <h1 style={{ fontSize: '50px' }}>
+        <a href="#" style={{ textDecoration: 'none',marginLeft:'10px' }} onClick={() => setShow(true)}>
+          <p style={{ fontSize: '50px',fontWeight:'bold' }}>
             {subDetailTime}
             <span style={{ fontSize: '20px', color: 'black' }}>초</span>
-          </h1>
+          </p>
         </a>
-        <p
-          className={styles.timePlusMinus}
-          style={{ marginLeft: 'auto' }}
-          type="button"
-          onClick={e => plus()}
-        >
-          +
-        </p>
-        <p className={styles.timePlusMinus} type="button" onClick={e => minus()}>
-          -
-        </p>
-        <div hidden={stopAndStartTime}>
-          <p
-            className={styles.timeStartEnd}
-            type="button"
-            onClick={() => (isCurrentTimeRunning ? stop(false) : start(true))}
-          >
-            {isCurrentTimeRunning ? '⏸️' : '▶️'}
-          </p>
-          <p
-            className={styles.timeStartEnd}
-            variant="secondary"
-            type="button"
-            onClick={() => resetLocalTimer()}
-          >
-            ⏹️
-          </p>
+        <div className={styles.setTimeButtonFomat}>
+            <p
+              className={styles.timePlusMinus}
+              type="button"
+              onClick={e => plus()}
+            >
+              +
+            </p>
+            <p className={styles.timePlusMinus} type="button" onClick={e => minus()}>
+              -
+            </p>
+            <div hidden={stopAndStartTime} style={{display:'flex'}}>
+              <p
+                className={styles.timePlusMinus}
+                type="button"
+                style={{backgroundColor:isCurrentTimeRunning?'red':'blue'}}
+                onClick={() => (isCurrentTimeRunning ? stop(false) : start(true))}
+              >
+                {isCurrentTimeRunning ? '⏸' : '▶'}
+              </p>
+              <p
+                className={styles.timePlusMinus}
+                style={{backgroundColor:'green'}}
+                variant="secondary"
+                type="button"
+                onClick={() => resetLocalTimer()}
+              >
+                ■
+              </p>
+          </div>
         </div>
       </div>
 

@@ -76,7 +76,13 @@ export default function SelectMainpage({
             ?
             checkRoutineUser.map((item,index)=>(
                 <Button key={index} className={`${styles.prettyButton} mb-3`}
-                    style={{height:'150px',width:'100%',display:'flex',fontSize:'30px',backgroundColor:`${currentRrcodingRoutineId===item.id?'#1eff00ff':'#FFD600'}`}}
+                    style={{
+                        height:'150px',
+                        width:'100%',
+                        display:'flex',
+                        fontSize:'30px',
+                        backgroundColor:`${currentRrcodingRoutineId===item.id?'#1eff00ff':'#FFD600'}`
+                    }}
                     type="button" 
                     onClick={()=>navigate(`/data/routine?routineId=${useDataRoutine[index].id}`)}>
                     🏃🏽‍♂️ {item.name}

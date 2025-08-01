@@ -18,6 +18,7 @@ function Model({
   setResetTimeCheckBoolean,
   resetTimeCheckBoolean,
   elapsed,
+  resetLocalTimer
 }) {
   const [getRoutineLength, setRoutineLength] = useState();
   const navigate = useNavigate();
@@ -95,12 +96,14 @@ function Model({
       setStartRrcodResultData(false);
       setCurrentRrcodingRoutineId(0);
       resetTimer();
+      resetLocalTimer();
       navigate(`/data/routineresult`, { state: inputResult });
     } else {
       localStorage.removeItem('detailSetData');
       setStartRrcodResultData(false);
       setCurrentRrcodingRoutineId(0);
       resetTimer();
+      resetLocalTimer();
       setResetTimeCheckBoolean(false);
     }
   };
