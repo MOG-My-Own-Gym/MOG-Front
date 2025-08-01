@@ -24,39 +24,41 @@ export default function SocialDetail() {
 
   // ✅ 게시글 불러오기
   useEffect(() => {
-    if (location.state) {
-      const { title, content, img } = location.state;
-      setTitle(title);
-      setContent(content);
-      setImg(img);
-      return;
-    }
+    const fetchPost = async () => {
+      setIsLoading(true);
+      // 팀원이 만든 Post 상세 정보 조회 API입니다.
+      const token = localStorage.getItem('jwtToken');
+      const response = await axios
+        .get(`http://localhost:8080/api/v1/posts/${postId}`, {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        })
+        .then(res => {
+          const post = res.data;
+          setTitle(post.postTitle);
+          setContent(post.postContent);
+          setImg(post.postImage);
+        })
+        .catch(err => {
+          console.warn('서버 게시글 조회 실패, 로컬 fallback 시도');
 
-    axios.get(`/api/v1/posts/${postId}`)
-      .then(res => {
-        const post = res.data;
-        setTitle(post.postTitle);
-        setContent(post.postContent);
-        setImg(post.postImage);
-      })
-      .catch(err => {
-        console.warn("서버 게시글 조회 실패, 로컬 fallback 시도");
-
-        const stored = localStorage.getItem("posts");
-        if (stored) {
-          const posts = JSON.parse(stored);
-          const found = posts.find(p => String(p.postId) === String(postId));
-          if (found) {
-            setTitle(found.postTitle);
-            setContent(found.postContent);
-            setImg(found.postImage);
-            return;
+          const stored = localStorage.getItem('posts');
+          if (stored) {
+            const posts = JSON.parse(stored);
+            const found = posts.find(p => String(p.postId) === String(postId));
+            if (found) {
+              setTitle(found.postTitle);
+              setContent(found.postContent);
+              setImg(found.postImage);
+              return;
+            }
           }
-        }
 
-        alert("게시글을 불러오지 못했습니다.");
-      });
-  }, [postId, location.state]);
+          alert('게시글을 불러오지 못했습니다.');
+        });
+    };
+  }, [postId]);
 
   const handleLike = () => {
     const updatedLiked = !liked;
@@ -76,33 +78,34 @@ export default function SocialDetail() {
   };
 
   const handleDelete = () => {
-    if (window.confirm("정말 삭제하시겠습니까?")) {
-      axios.delete(`/api/v1/posts/${postId}`)
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      axios
+        .delete(`/api/v1/posts/${postId}`)
         .then(() => {
-          alert("삭제되었습니다.");
-          navigate("/social");
+          alert('삭제되었습니다.');
+          navigate('/social');
           window.location.reload();
         })
         .catch(() => {
-          console.warn("[개발모드] 서버 없음 - 로컬로 삭제 처리");
+          console.warn('[개발모드] 서버 없음 - 로컬로 삭제 처리');
 
-          const stored = localStorage.getItem("posts");
+          const stored = localStorage.getItem('posts');
           const posts = stored ? JSON.parse(stored) : [];
 
           const cleanId = id.startsWith('s-') || id.startsWith('l-') ? id.slice(2) : id;
 
           const updated = posts.filter(p => String(p.postId) !== String(cleanId));
 
-          localStorage.setItem("posts", JSON.stringify(updated));
+          localStorage.setItem('posts', JSON.stringify(updated));
 
-          alert("삭제되었습니다.");
-          navigate("/social");
+          alert('삭제되었습니다.');
+          navigate('/social');
           window.location.reload();
         });
     }
   };
 
-  const getImageSrc = (img) => {
+  const getImageSrc = img => {
     if (!img) return '';
     if (img.startsWith('blob:')) return img;
     if (img.startsWith('/img/')) return img;
@@ -132,9 +135,15 @@ export default function SocialDetail() {
           </div>
 
           <div className="btn-wrapper">
-            <button className="action-btn" onClick={() => navigate(`/social/edit/${postId}`)}>수정하기</button>
-            <button className="action-btn" onClick={handleDelete}>삭제하기</button>
-            <button className="action-btn" onClick={() => navigate('/social')}>목록으로</button>
+            <button className="action-btn" onClick={() => navigate(`/social/edit/${postId}`)}>
+              수정하기
+            </button>
+            <button className="action-btn" onClick={handleDelete}>
+              삭제하기
+            </button>
+            <button className="action-btn" onClick={() => navigate('/social')}>
+              목록으로
+            </button>
           </div>
 
           <div className="comment-box">

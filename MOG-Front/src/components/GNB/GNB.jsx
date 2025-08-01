@@ -27,7 +27,7 @@ export default function GNB() {
     if (user) {
       const fetchProfile = async () => {
         await axios
-          .get(`https://mogapi.kro.kr/api/v1/users/${user.usersId}`)
+          .get(`http://localhost:8080/api/v1/users/${user.usersId}`)
           .then(res => {
             setUserData(prev => ({
               ...prev,
@@ -120,8 +120,8 @@ export default function GNB() {
                   </NavDropdown.Item>
                   <NavDropdown.Item
                     as={Link}
-                    to=""
-                    className={currentPath === '' ? 'active-item' : ''}
+                    to="/suggest"
+                    className={currentPath.startsWith('/suggest') ? 'active-item' : ''}
                   >
                     ai 루틴 추천
                   </NavDropdown.Item>
@@ -286,8 +286,8 @@ export default function GNB() {
                             </Link>
                             <Link
                               className="nav-link"
-                              to="/"
-                              style={{ color: isPathActive(['#']) ? '#FFC800' : 'white' }}
+                              to="/suggest"
+                              style={{ color: isPathActive(['/suggest']) ? '#FFC800' : 'white' }}
                               onClick={handleClose}
                             >
                               ai 루틴 추천

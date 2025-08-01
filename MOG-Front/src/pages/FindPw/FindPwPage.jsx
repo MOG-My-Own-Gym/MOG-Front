@@ -48,14 +48,14 @@ export default function FindPwPage() {
 
     //유효성 체크에 통과하면 단일회원조회(이메일) api요청
     axios
-      .get(`https://mogapi.kro.kr/api/v1/users/email/${formData.email}`)
+      .get(`http://localhost:8080/api/v1/users/email/${formData.email}`)
       .then(res => {
         //이메일로 조회한 유저정보의 이름이 사용자가 입력한 이름과 같으면 비밀번호변경 페이지로 이동
         const userData = res.data;
         console.log(userData);
         if (userData.usersName === formData.usersName) {
           axios
-            .post('https://mogapi.kro.kr/api/v1/users/send/password', formData)
+            .post('http://localhost:8080/api/v1/users/send/password', formData)
             .then(res => {
               console.log(res);
               showModal('비밀번호 찾기 이메일 전송을 성공하였습니다');
