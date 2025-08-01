@@ -123,11 +123,6 @@ export default function MySocial() {
                 {/*게시판 위젯 */}
                 <div className={styles['post']}>
                   <div className="container-fluid mt-3 mb-3">
-                    <div>
-                      <span className="fs-5 fw-semibold">내가 작성한 게시글</span>
-                      <hr className="text-secondary" />
-                    </div>
-
                     <div className={styles['post-container']}>
                       <ListGroup as="ul">
                         <ListGroup.Item
