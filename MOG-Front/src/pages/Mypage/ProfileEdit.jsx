@@ -21,12 +21,13 @@ export default function ProfileEdit() {
     name: state.name,
     nickName: state.nickName,
     phoneNum: state.phoneNum,
+    profileImg: state.profileImg,
     age: state.age,
     gender: state.gender,
     height: state.height,
     weight: state.weight,
   });
-  const { name, nickName, phoneNum, age, gender, height, weight } = inputs;
+  const { name, nickName, phoneNum, profileImg, age, gender, height, weight } = inputs;
 
   //input입력값 제어하는 함수
   const handleChange = e => {
@@ -71,7 +72,7 @@ export default function ProfileEdit() {
           usersName: name,
           nickName: nickName,
           email: state.email,
-          profileImg: state.profileImg,
+          profileImg: profileImg,
           phoneNum: phoneNum,
           biosDto: {
             gender: gender,
@@ -96,6 +97,19 @@ export default function ProfileEdit() {
         showModal('프로필 수정 실패');
       });
   };
+  const handleImageChange = e => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        console.log('image changed');
+        setInputs(prev => {
+          return { ...prev, profileImg: reader.result };
+        }); // base64 문자열 저장
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <>
@@ -107,12 +121,18 @@ export default function ProfileEdit() {
                 <img
                   className="rounded-circle mt-5"
                   width="150px"
-                  src="/img/userAvatar.png"
+                  src={inputs.profileImg || '/img/userAvatar.png'}
                   alt="meaicon - Flaticon 기본이미지"
                 />
                 <div className="mb-3">
                   <label className="form-label text-muted">프로필 사진 수정</label>
-                  <input className="form-control form-control-sm" id="formFileSm" type="file" />
+                  <input
+                    className="form-control form-control-sm"
+                    id="formFileSm"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                  />
                 </div>
                 <span className="font-weight-bold fs-2">{state.nickName}</span>
                 <span className="font-weight-bold fs-4">{state.name}</span>
