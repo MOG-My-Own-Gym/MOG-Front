@@ -216,14 +216,13 @@ export default function RunningRoutinePage({
           뒤로가기
         </Button>
         <span style={{ fontSize: '25px' }}>{startRrcodResultData ? formatTime() : ''}</span>
-        <div className={`${styles.mainpage} container mt-0 p-0`}>
+        <div className={`${styles.secondContainer} container mt-0 p-0`}>
           {showDetail.map((item, index) => (
             <div key={index} className={` container d-grid gap-2`}>
               <img className="mt-4 mb-4" style={{ margin: 'auto', width: '50%' }} src={item.img} />
               <h1>{item.names}</h1>
             </div>
           ))}
-
           <SetTime
             routineId={routineId}
             currentDetailId={currentDetailId}
@@ -330,7 +329,6 @@ export default function RunningRoutinePage({
             <div></div>
           )}
         </div>
-        <div className={`${styles.dummyContainers} p-5 mt-4`}></div>
         {currentRrcodingRoutineId === routineId || startRrcodResultData === false ? (
           <footer className={styles.flexButton}>
             <div></div>

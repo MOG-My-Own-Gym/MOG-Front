@@ -99,7 +99,6 @@ export default function SelectMainpage({
             <h1>로딩 중</h1>    
             }
         </div>
-        <div className={`${styles.dummyContainers} p-5 mt-4`}></div>
         {startRrcodResultData===false?
         <footer className={`${styles.flexButton}`}>
             <Button className={styles.prettyButton} type="button" onClick={e=>navigate("/data/select",{state:true})} >루틴 생성</Button>

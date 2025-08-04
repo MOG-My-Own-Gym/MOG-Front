@@ -132,6 +132,7 @@ input[type=number] {
 }
 .mainContainer{
     width: 100%;
+    height: 100vh;
     max-width: 1540px;
     margin: 0 auto;  /* 가운데 정렬 핵심 */
     padding-top: 20px;
@@ -144,12 +145,15 @@ input[type=number] {
 }
 .secondContainer{
     padding: 20px 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 65vh;
 }
 .detailButton{
     color: white;
     margin-left: auto;
     text-decoration: none;
-    font-size: 60px;
+    font-size: 70px;
 }
 .inputForm{
     border: 2px solid black;     /* 초록색 테두리 */
