@@ -61,7 +61,7 @@ export default function Stage() {
 
   const getSuggestion = async () => {
     await axios
-      .post('https://mog-ai-v3u1.onrender.com/exercises', {
+      .post('https://mog-ai-v3u1.onrender.com/suggest/exercises', {
         usersId: user.usersId,
         preferences: suggestState.suggest,
       })
