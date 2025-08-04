@@ -1,0 +1,147 @@
+/* 📸 포토 탭 레이아웃 */
+.photo-tab {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.photo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  max-width: 500px;
+}
+
+.photo-add-btn {
+  background-color: #ff6600;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* 📤 업로드 폼 */
+.upload-form {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 12px;
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+.upload-form textarea {
+  width: 100%;
+  height: 100px;
+  margin: 8px 0;
+  padding: 8px;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.upload-form input[type='file'] {
+  display: none;
+}
+
+.upload-label {
+  display: inline-block;
+  background-color: #ff6600;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.submit-btn {
+  padding: 8px 16px;
+  border: none;
+  background-color: #333;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.upload-form .file-list {
+  margin-top: 8px;
+  padding-left: 16px;
+}
+.upload-form .file-list li {
+  font-size: 0.9rem;
+}
+
+/* 📷 업로드된 카드 */
+.photo-records-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.photo-record-card {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+.photo-record-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.record-thumb {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.record-info {
+  padding: 8px;
+  font-size: 0.85rem;
+  color: #333;
+}
+.record-date {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.record-privacy {
+  font-size: 0.75rem;
+  color: #e63946;
+  margin-bottom: 6px;
+}
+.record-text {
+  font-size: 0.8rem;
+  line-height: 1.2;
+  height: 2.4em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

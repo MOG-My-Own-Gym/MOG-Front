@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Login/AuthContext';
 import { useModalAlert } from '../../context/ModalAlertContext';
+import './css/profile.css';
 
 export default function Profile() {
   const navigate = useNavigate();

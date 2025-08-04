@@ -1,3 +1,4 @@
+/*mysocial.css*/
 .card-social{
 	border: none;
     box-shadow: none;
@@ -7,24 +8,14 @@
     width: 110px;
 }
 
-.fa-check{
-	padding: 5px;
-	border: 1px solid #C8C8C8;
-	border-radius: 50%;
-	font-size: 8px;
-}
-
 .img-container-social{
     position: relative
 }
 
 .btn-social{
-    border: none #eee;
+    border: none #FFFFFF;
+    background-color: #eee;
     height: 30px;
-}
-
-.btn-social:hover{
-    background-color: rgb(225, 200, 5);
 }
 
 .img-container-social img{

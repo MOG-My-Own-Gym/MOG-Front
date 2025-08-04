@@ -11,7 +11,7 @@ body {
 
 .record-container {
   background-color: #fff;
-  min-height: 100vh;
+  min-height: 600px;
 }
 
 /* 🏷️ 제목 */
@@ -56,6 +56,17 @@ body {
     min-width: 80px;
     text-align: center;
   }
+  .calendar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+    width: 360px !important;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  }
 }
 
 /* 📅 캘린더 */
@@ -64,6 +75,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin: 20px 0;
+  width: 280px;
   padding: 20px;
   background-color: #fff;
   border-radius: 16px;

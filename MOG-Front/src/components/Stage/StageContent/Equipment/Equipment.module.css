@@ -3,7 +3,21 @@
   flex-direction: column;
   background-color: #e2e2e2;
   border: 1px solid #e2e2e2;
+  height: 500px;
   gap: 1px;
+  overflow-y: scroll;
+}
+.check-form::-webkit-scrollbar {
+  width: 8px;
+}
+
+.check-form::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.chart-container::-webkit-scrollbar-track {
+  background: transparent;
 }
 .check-input {
   width: 18px;
@@ -38,4 +52,7 @@
 }
 .check-list.checked {
   background-color: #f8f1c6;
+}
+.label {
+  cursor: pointer;
 }
