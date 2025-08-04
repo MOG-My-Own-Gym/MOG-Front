@@ -10,7 +10,6 @@ export default function RunningRoutinePage({
   setInitDetailTime,
   setCurrentDetailId,
   setIsOpen,
-  setIsCurrentRunning,
   startRrcodResultData,
   setMakeDetailSetData,
   makeDetailSetData,
@@ -23,6 +22,7 @@ export default function RunningRoutinePage({
   startLocalTimer,
   resetLocalTimer,
   stopLocalTimer,
+  booleanSaveTime,
 }) {
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -56,7 +56,6 @@ export default function RunningRoutinePage({
 
   const exSendResultData = e => {
     if (e.target.dataset.id === 'complete') {
-      setIsCurrentRunning(true);
       resetLocalTimer();
       startLocalTimer();
       e.target.dataset.id = 'cancel';
@@ -205,7 +204,8 @@ export default function RunningRoutinePage({
   useEffect(() => {
     if (showDetail.length !== 0) {
       setAddState(showDetail[0].set);
-      setInitDetailTime(showDetail[0].lest);
+      //setInitDetailTime(showDetail[0].lest);
+      if(!isCurrentTimeRunning) setInitDetailTime(showDetail[0].lest);
     }
   }, [showDetail]);
 
@@ -230,12 +230,14 @@ export default function RunningRoutinePage({
             setSubDetailTime={setSubDetailTime}
             subDetailTime={subDetailTime}
             setInitDetailTime={setInitDetailTime}
-            setIsCurrentRunning={setIsCurrentRunning}
             startRrcodResultData={startRrcodResultData}
             currentRrcodingRoutineId={currentRrcodingRoutineId}
             startLocalTimer={startLocalTimer}
             resetLocalTimer={resetLocalTimer}
             stopLocalTimer={stopLocalTimer}
+            booleanSaveTime={booleanSaveTime}
+            setDetail={setDetail}
+            initDetail={initDetail}
           />
           <div className={styles.inputExplanationString}>
             <span>세트</span>

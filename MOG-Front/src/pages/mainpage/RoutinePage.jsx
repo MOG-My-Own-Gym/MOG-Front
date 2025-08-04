@@ -44,15 +44,16 @@ export default function RoutinePage({
     await axios.get(URL.ROUNTINE).then(res => setMakeRoutine(res.data[params - 1].state));
     await axios.get(URL.ROUTINEDETAIL).then(res => setDetailEx(res.data[params - 1].state));
   };
-
   const routineSetting = async (e) => {
     e.stopPropagation();
+    const userInfo = JSON.parse(localStorage.getItem('user'));
     if (e.target.id === 'delete') {
       const deleteSaveData = initMakeRoutine.filter(item => item.set_id !== getSelectRoutine);
       const deleteDetailData = initDetailDEx.filter(item => item.id !== getSelectRoutine);
       await axios.put(`${URL.ROUNTINE}/${params}/`, {
         id: String(useDataRoutine[params - 1].id),
         name: useDataRoutine[params - 1].name,
+        userId: String(userInfo.usersId),
         state: [...deleteSaveData],
       });
       await axios.put(`${URL.ROUTINEDETAIL}/${params}`, {

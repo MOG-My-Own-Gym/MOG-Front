@@ -114,7 +114,7 @@ export default function SelectMainpage({
             setResetTimeCheckBoolean={setResetTimeCheckBoolean}
         />
         }
-        <Modal className={styles.ModelContainer} show={settingModel} onHide={() => {setSettingModel(false);setIsShowDelete(true);}}>
+        <Modal className={styles.ModelContainer} show={settingModel} onHide={() => {setSettingModel(false);setIsShowDelete(false);}}>
             <Modal.Header>
                 설정
             </Modal.Header>
@@ -129,7 +129,7 @@ export default function SelectMainpage({
                     <ListGroup.Item hidden={isShowDelete}>
                             <p>정말 삭제 하시겠습니까?</p>
                             <Button id="delete" onClick={e=>{routineSetting(e);setSettingModel(false)}}>확인</Button>
-                            <Button onClick={()=>setIsShowDelete(true)}>취소</Button>
+                            <Button onClick={()=>setIsShowDelete(false)}>취소</Button>
                     </ListGroup.Item>
                 </ListGroup>
             </Modal.Body>

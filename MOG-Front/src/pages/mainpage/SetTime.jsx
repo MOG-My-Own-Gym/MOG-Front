@@ -11,25 +11,18 @@ function SetTime({
   setSubDetailTime,
   subDetailTime,
   setInitDetailTime,
-  setIsCurrentRunning,
   startRrcodResultData,
   startLocalTimer,
   resetLocalTimer,
   stopLocalTimer,
+  booleanSaveTime,
+  setDetail,
+  initDetail
 }) {
-  const [initDetail, setDetail] = useState();
   const [checkRouData, setCheckRouData] = useState([]);
   const [show, setShow] = useState(false);
   const [stopAndStartTime, setStopAndStartTime] = useState(true);
-  const loadRoutineDetail = async () => {
-    await axios
-      .get(`${URL.ROUTINEDETAIL}/${routineId}`)
-      .then(res => {
-        setDetail(res.data.state);
-        return res.data;
-      })
-      .then(prev => setCheckRouData(prev));
-  };
+
   const fixKgAndManyNum = detailTimes => {
     const fixDeatilData = initDetail.map(item => {
       if (item.id === String(currentDetailId)) {
@@ -52,24 +45,31 @@ function SetTime({
   };
 
   const plus = () => {
-    if (subDetailTime <= 300) setSubDetailTime(String(parseInt(subDetailTime) + 10));
+    console.log(booleanSaveTime);
+    if (subDetailTime <= 300) {
+      setSubDetailTime(()=>{
+        const saveTime = String(parseInt(subDetailTime) + 10)
+        if(!booleanSaveTime){
+          setInitDetailTime(saveTime);
+          fixKgAndManyNum(saveTime);
+        }
+        return saveTime;
+      });
+    }
   };
   const minus = () => {
-    if (subDetailTime >= 20) setSubDetailTime((subDetailTime = subDetailTime - 10));
+    console.log(booleanSaveTime);
+    if (subDetailTime >= 20){ 
+      setSubDetailTime(()=>{
+        const saveTime = subDetailTime = subDetailTime - 10
+        if(!booleanSaveTime){
+          setInitDetailTime(saveTime);
+          fixKgAndManyNum(saveTime);
+        }
+        return saveTime;
+      });
+    }
   };
-  const start = () => {
-    startLocalTimer();
-    setIsCurrentRunning(true);
-  };
-  const stop = () => {
-    stopLocalTimer();
-    setIsCurrentRunning(false);
-  };
-
-  useEffect(() => {
-    //detailData();
-    loadRoutineDetail();
-  }, []);
 
   useEffect(() => {
     if (startRrcodResultData) setStopAndStartTime(false);
@@ -175,7 +175,7 @@ function SetTime({
                 className={styles.timePlusMinus}
                 type="button"
                 style={{backgroundColor:isCurrentTimeRunning?'red':'blue'}}
-                onClick={() => (isCurrentTimeRunning ? stop(false) : start(true))}
+                onClick={() => (isCurrentTimeRunning ? stopLocalTimer() : startLocalTimer())}
               >
                 {isCurrentTimeRunning ? '⏸' : '▶'}
               </p>
@@ -192,14 +192,11 @@ function SetTime({
         </div>
       </div>
 
-      <Modal show={show} onHide={() => setShow(false)} size="lg">
+      <Modal className={styles.ModelContainer} show={show} onHide={() => setShow(false)} size="lg">
         <Modal.Header>
           <Modal.Title>휴식 타임</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Card
-            style={{ width: 240, margin: '0px 40px 0px 50px', boxShadow: 'none', border: 'none' }}
-          >
             <div
               ref={containerRef}
               onScroll={onScroll}
@@ -208,8 +205,6 @@ function SetTime({
                 overflowY: 'scroll',
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
-                userSelect: 'none',
-                position: 'relative',
               }}
             >
               <ListGroup variant="flush">
@@ -236,7 +231,6 @@ function SetTime({
                     onClick={() => {
                       const container = containerRef.current;
                       if (!container) return;
-
                       const targetScrollTop =
                         PADDING_HEIGHT +
                         idx * ITEM_HEIGHT -
@@ -249,12 +243,10 @@ function SetTime({
                     {item}초
                   </ListGroup.Item>
                 ))}
-
                 {/* 하단 더미 */}
                 <div style={{ height: PADDING_HEIGHT }} />
               </ListGroup>
             </div>
-          </Card>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShow(false)}>

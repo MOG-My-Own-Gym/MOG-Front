@@ -72,7 +72,6 @@ export default function CategoryPage({
   const makeRoutineButton = async () => {
     //e.preventDefault();
     const userInfo = JSON.parse(localStorage.getItem('user'));
-    console.log(userInfo);
     if (state === null) {
       alert('루틴 생성 실패');
       return;

@@ -7,9 +7,10 @@ export default function useTimer(defaultInitDetailTime = 60, defaultSubDetailTim
   const [startRrcodResultData, setStartRrcodResultData] = useState(false);
   const [currentRrcodingRoutineId, setCurrentRrcodingRoutineId] = useState(routineId);
   const [initDetailTime, setInitDetailTime] = useState(defaultInitDetailTime);
-  const [subDetailTime, setSubDetailTime] = useState(defaultSubDetailTime);
   const [elapsed, setElapsed] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [booleanSaveTime,setBooleanSaveTime] = useState(false);
+  const [subDetailTime, setSubDetailTime] = useState(defaultSubDetailTime);
   const [isCurrentTimeRunning, setIsCurrentRunning] = useState(false);
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
@@ -42,6 +43,7 @@ export default function useTimer(defaultInitDetailTime = 60, defaultSubDetailTim
   };
 
   const startLocalTimer = () => {
+    setBooleanSaveTime(true);
     setIsCurrentRunning(true);
     localIntervalRef.current = setInterval(() => {
       setSubDetailTime(prev => {
@@ -52,17 +54,16 @@ export default function useTimer(defaultInitDetailTime = 60, defaultSubDetailTim
   };
 
   const stopLocalTimer = () => {
-    if (isCurrentTimeRunning) {
-      clearInterval(localIntervalRef.current);
-      setIsCurrentRunning(false);
-    }
+    clearInterval(localIntervalRef.current);
+    setIsCurrentRunning(false);
   };
 
   const resetLocalTimer = () => {
     clearInterval(localIntervalRef.current);
+    localIntervalRef.current = null;
     setSubDetailTime(initDetailTime);
     setIsCurrentRunning(false);
-    localIntervalRef.current = null;
+    setBooleanSaveTime(false);
   };
 
   const formatTime = () => {
@@ -81,10 +82,6 @@ export default function useTimer(defaultInitDetailTime = 60, defaultSubDetailTim
     };
   }, []);
 
-  useEffect(() => {
-    if (!isCurrentTimeRunning) setSubDetailTime(initDetailTime);
-  }, [initDetailTime]);
-
   return {
     isRunning,
     elapsed,
@@ -92,7 +89,6 @@ export default function useTimer(defaultInitDetailTime = 60, defaultSubDetailTim
     setSubDetailTime,
     initDetailTime,
     setInitDetailTime,
-    isCurrentTimeRunning,
     startTimer,
     pauseTimer,
     resetTimer,
@@ -106,5 +102,7 @@ export default function useTimer(defaultInitDetailTime = 60, defaultSubDetailTim
     setCurrentRrcodingRoutineId,
     makeDetailSetData,
     setMakeDetailSetData,
+    isCurrentTimeRunning,
+    booleanSaveTime
   };
 }
