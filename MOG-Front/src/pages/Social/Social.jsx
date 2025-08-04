@@ -1,66 +1,66 @@
 import './Social.css';
 import GNB from '../../components/GNB/GNB';
-import { useEffect, useState,useContext} from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { AuthContext } from '../Login/AuthContext';
 import axios from 'axios';
 
 // 무한 반복용 임시 더미데이터
-const dummyData = [];
-let idCounter = 1;
-for (let i = 0; i < 100; i++) {
-  dummyData.push(
-    {
-      id: idCounter++,
-      title: `런닝 인증 ${i + 1}`,
-      img: '/img/Running.jpeg',
-      content: `런닝 기록 내용입니다 ${i + 1}`,
-      likes: 0,
-      liked: false,
-    },
-    {
-      id: idCounter++,
-      title: `요가 인증 ${i + 1}`,
-      img: '/img/yoga.jpeg',
-      content: `요가 기록 내용입니다 ${i + 1}`,
-      likes: 0,
-      liked: false,
-    },
-    {
-      id: idCounter++,
-      title: `스트레칭 인증 ${i + 1}`,
-      img: '/img/stretching.jpg',
-      content: `스트레칭 기록 내용입니다 ${i + 1}`,
-      likes: 0,
-      liked: false,
-    },
-    {
-      id: idCounter++,
-      title: `웨이트 인증 ${i + 1}`,
-      img: '/img/dumpbell.jpeg',
-      content: `웨이트 기록 내용입니다 ${i + 1}`,
-      likes: 0,
-      liked: false,
-    },
-    {
-      id: idCounter++,
-      title: `푸쉬업 인증 ${i + 1}`,
-      img: '/img/pushups.jpeg',
-      content: `푸쉬업 기록 내용입니다 ${i + 1}`,
-      likes: 0,
-      liked: false,
-    },
-    {
-      id: idCounter++,
-      title: `복근운동 인증 ${i + 1}`,
-      img: '/img/abs.jpeg',
-      content: `복근운동 기록 내용입니다 ${i + 1}`,
-      likes: 0,
-      liked: false,
-    }
-  );
-}
+// const dummyData = [];
+// let idCounter = 1;
+// for (let i = 0; i < 100; i++) {
+//   dummyData.push(
+//     {
+//       id: idCounter++,
+//       title: `런닝 인증 ${i + 1}`,
+//       img: '/img/Running.jpeg',
+//       content: `런닝 기록 내용입니다 ${i + 1}`,
+//       likes: 0,
+//       liked: false,
+//     },
+//     {
+//       id: idCounter++,
+//       title: `요가 인증 ${i + 1}`,
+//       img: '/img/yoga.jpeg',
+//       content: `요가 기록 내용입니다 ${i + 1}`,
+//       likes: 0,
+//       liked: false,
+//     },
+//     {
+//       id: idCounter++,
+//       title: `스트레칭 인증 ${i + 1}`,
+//       img: '/img/stretching.jpg',
+//       content: `스트레칭 기록 내용입니다 ${i + 1}`,
+//       likes: 0,
+//       liked: false,
+//     },
+//     {
+//       id: idCounter++,
+//       title: `웨이트 인증 ${i + 1}`,
+//       img: '/img/dumpbell.jpeg',
+//       content: `웨이트 기록 내용입니다 ${i + 1}`,
+//       likes: 0,
+//       liked: false,
+//     },
+//     {
+//       id: idCounter++,
+//       title: `푸쉬업 인증 ${i + 1}`,
+//       img: '/img/pushups.jpeg',
+//       content: `푸쉬업 기록 내용입니다 ${i + 1}`,
+//       likes: 0,
+//       liked: false,
+//     },
+//     {
+//       id: idCounter++,
+//       title: `복근운동 인증 ${i + 1}`,
+//       img: '/img/abs.jpeg',
+//       content: `복근운동 기록 내용입니다 ${i + 1}`,
+//       likes: 0,
+//       liked: false,
+//     }
+//   );
+// }
 
 export default function Social() {
   const [page, setPage] = useState(1);
@@ -70,65 +70,37 @@ export default function Social() {
   const pageSize = 12;
 
   const navigate = useNavigate();
-   const { user } = useContext(AuthContext);  // 🔸 여기 추가
-  const isLogin = !!user; 
+  const { user } = useContext(AuthContext); // 🔸 여기 추가
+  const isLogin = !!user;
 
   useEffect(() => {
     const fetchData = async () => {
       const start = (page - 1) * pageSize;
       const end = start + pageSize;
 
-      // 🔸 서버 글 (나중에 연결할 예정)
       let serverCards = [];
       try {
-        const res = await axios.get(`/api/v1/posts?page=${page}&size=${pageSize}`);
+        const res = await axios.get(`http://localhost:8080/api/v1/posts/list`, {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        });
         const content = Array.isArray(res.data) ? res.data : [];
 
         serverCards = content.map(post => ({
-          id: `s-${post.postId}`,
+          id: post.postId,
           title: post.postTitle,
-          img: post.postImage?.startsWith('http')
-            ? post.postImage
-            : `/img/${post.postImage || 'default.jpg'}`,
+          img: post.postImage || '/img/default.png',
           content: post.postContent || '',
           likes: 0,
           liked: false,
           fromServer: true,
         }));
       } catch (err) {
-        console.warn('서버 불러오기 실패 - 로컬/더미만 사용');
+        console.warn(err);
       }
 
-      // ✅ 로컬에서 저장된 게시글 불러오기
-      const stored = localStorage.getItem('posts');
-      const storedPosts = stored ? JSON.parse(stored) : [];
-
-      const localCards = storedPosts.slice(start, end).map(post => ({
-        id: `l-${post.postId}`, // ❗ 로컬 ID 접두어 붙여 구분
-        title: post.postTitle,
-        img: post.postImage,
-        content: post.postContent || '',
-        likes: 0,
-        liked: false,
-        fromLocal: true,
-      }));
-
-      // ✅ 더미 카드 (맨 마지막 우선순위 낮음)
-      const dummyCards = dummyData.slice(start, end).map(card => {
-        const savedLikes = parseInt(localStorage.getItem(`likes-${card.id}`)) || 0;
-        const liked = localStorage.getItem(`liked-${card.id}`) === 'true';
-        return { ...card, likes: savedLikes, liked };
-      });
-
-      // ✅ 최종 카드 합치기 (순서: 로컬 → 서버 → 더미)
-      const newCards = [...localCards, ...serverCards, ...dummyCards];
-
-      if (newCards.length === 0) {
-        setHasMore(false);
-        return;
-      }
-
-      setCards(prev => [...prev, ...newCards]);
+      setCards(serverCards);
     };
 
     if (hasMore) fetchData();
@@ -151,21 +123,20 @@ export default function Social() {
           return { ...card, likes: updatedLikes, liked: isLiked };
         }
         return card;
-      })
+      }),
     );
   };
 
   return (
-    <>
-      <GNB />
+    <div className="social">
+      {isLogin && (
+        <div className="write-button-wrapper">
+          <Link to="/social/create">
+            <button className="write-btn">글쓰기</button>
+          </Link>
+        </div>
+      )}
       <main className="social-container">
-        {isLogin && (
-          <div className="write-button-wrapper">
-            <Link to="/social/create">
-              <button className="write-btn">글쓰기</button>
-            </Link>
-          </div>
-        )}
         {cards.map((card, index) => {
           const isLast = index === cards.length - 1;
           return (
@@ -177,7 +148,7 @@ export default function Social() {
                 navigate(`/post/${card.id}`, {
                   state: {
                     title: card.title,
-                    img: card.img,
+                    img: card.img || '/img/default.png',
                     content: card.content || '내용 없음',
                   },
                 })
@@ -205,6 +176,6 @@ export default function Social() {
           );
         })}
       </main>
-    </>
+    </div>
   );
 }
