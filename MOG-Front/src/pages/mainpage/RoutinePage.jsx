@@ -45,14 +45,16 @@ export default function RoutinePage({
     await axios.get(URL.ROUTINEDETAIL).then(res => setDetailEx(res.data[params - 1].state));
   };
 
-  const routineSetting = async e => {
+  const routineSetting = async (e) => {
     e.stopPropagation();
+    const userInfo = JSON.parse(localStorage.getItem('user'));
     if (e.target.id === 'delete') {
       const deleteSaveData = initMakeRoutine.filter(item => item.set_id !== getSelectRoutine);
       const deleteDetailData = initDetailDEx.filter(item => item.id !== getSelectRoutine);
       await axios.put(`${URL.ROUNTINE}/${params}/`, {
         id: String(useDataRoutine[params - 1].id),
         name: useDataRoutine[params - 1].name,
+        userId: String(userInfo.usersId),
         state: [...deleteSaveData],
       });
       await axios.put(`${URL.ROUTINEDETAIL}/${params}`, {
@@ -126,35 +128,34 @@ export default function RoutinePage({
               id="1"
               onClick={e => (startRrcodResultData ? setIsOpen(true) : startRoutine())}
             >
-              {startRrcodResultData ? '운동 완료' : '운동 시작'}
+              {startRrcodResultData ? '완료' : '시작'}
             </Button>
             <Button
               className={styles.prettyButton}
               type="button"
               onClick={() => navigate('/data/select', { state: params })}
             >
-              운동 추가
+              추가
             </Button>
           </footer>
         ) : (
           <footer></footer>
         )}
       </div>
-      <Modal show={settingModel} onHide={() => setSettingModel(false)}>
+      <Modal className={styles.ModelContainer} show={settingModel} onHide={() =>{setSettingModel(false);setIsShowDelete(true)}}>
         <Modal.Header>설정</Modal.Header>
         <Modal.Body>
-          <Card>
             <ListGroup>
-              <ListGroup.Item action onClick={() => setInfoModel(true)}>
+              <ListGroup.Item action onClick={() => {setInfoModel(true);setIsShowDelete(true)}}>
                 운동 정보
               </ListGroup.Item>
-              <ListGroup.Item action onClick={() => switchExButton()}>
+              <ListGroup.Item action onClick={() => {switchExButton();setIsShowDelete(true)}}>
                 순서 변경
               </ListGroup.Item>
               <ListGroup.Item action onClick={() => setIsShowDelete(false)}>
                 삭제
               </ListGroup.Item>
-              <div hidden={isShowDelete}>
+              <ListGroup.Item hidden={isShowDelete}>
                 <p>정말 삭제 하시겠습니까?</p>
                 <Button
                   id="delete"
@@ -166,12 +167,11 @@ export default function RoutinePage({
                   확인
                 </Button>
                 <Button onClick={() => setIsShowDelete(true)}>취소</Button>
-              </div>
+              </ListGroup.Item>
             </ListGroup>
-          </Card>
         </Modal.Body>
       </Modal>
-      <Modal show={infoModel} onHide={() => setInfoModel(false)}>
+      <Modal className={styles.ModelContainer} show={infoModel} onHide={() => setInfoModel(false)}>
         <Modal.Header>운동 정보</Modal.Header>
         <Modal.Body>{JSON.stringify(initMakeRoutine[getSelectRoutine])}</Modal.Body>
       </Modal>

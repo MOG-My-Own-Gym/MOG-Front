@@ -72,7 +72,6 @@ export default function CategoryPage({
   const makeRoutineButton = async () => {
     //e.preventDefault();
     const userInfo = JSON.parse(localStorage.getItem('user'));
-    console.log(userInfo);
     if (state === null) {
       alert('루틴 생성 실패');
       return;
@@ -266,41 +265,45 @@ export default function CategoryPage({
     fetchData();
     detailData();
 
+    const el = makeRoutineContainer.current;
+    if (!el) return;
     const handleScroll = () => {
-      const scrollTop = window.scrollY; // 현재 스크롤 위치
-      const windowHeight = window.innerHeight; // 창의 높이
-      const documentHeight = document.documentElement.scrollHeight; // 문서 전체 높이
+      const { scrollTop, scrollHeight, clientHeight } = el; // 현재 스크롤 위치, 창의 높이, 문서 전체 높이
 
       // 바닥 도달 여부 확인
-      if (scrollTop + windowHeight >= documentHeight - 10) {
+      if (scrollHeight <= clientHeight) {
+        // 여기에 추가 로직 (데이터 더 불러오기 등)
+        setShowMaxCategory(prev => prev + 5);
+      } else if (Math.abs(scrollTop + clientHeight - scrollHeight) <= 1) {
         // 여기에 추가 로직 (데이터 더 불러오기 등)
         setShowMaxCategory(prev => prev + 5);
       }
-    };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll); // 컴포넌트 언마운트 시 제거
+    };
+    handleScroll();
+    el.addEventListener('scroll', handleScroll, { passive: true });
+    return () => el.removeEventListener('scroll', handleScroll); // 컴포넌트 언마운트 시 제거
   }, []);
 
   return (
     <>
       <div className={styles.mainContainer}>
-        <Button
-          className={styles.backButton}
-          type="button"
-          onClick={() => navigate('/data/')}
-        >
-          뒤로가기
-        </Button>
-        <form className={'d-flex'}>
-          <input
-            className={styles.inputForm}
-            type="search"
-            placeholder="운동 이름을 입력하세요."
-            onChange={e => setSearch(e.target.value)}
-          />
-        </form>
-        <div style={{ overflowX: 'scroll', whiteSpace: 'nowrap' }} className={'container'}>
+          <Button
+            className={styles.backButton}
+            type="button"
+            onClick={() => navigate('/data/')}
+          >
+            뒤로가기
+          </Button>
+          <form className={'d-flex'}>
+            <input
+              className={styles.inputForm}
+              type="search"
+              placeholder="운동 이름을 입력하세요."
+              onChange={e => setSearch(e.target.value)}
+            />
+          </form>
+          <div style={{ overflowX: 'scroll', whiteSpace: 'nowrap'}} className={'container'}>
           <div className="container m-2">
             운동 종류
             {initcategory.map((item, index) => (
@@ -366,7 +369,8 @@ export default function CategoryPage({
             ))}
           </div>
         </div>
-        <div ref={makeRoutineContainer} className={styles.secondContainer}>
+        <div ref={makeRoutineContainer} 
+          className={styles.secondContainer}>
           {initDeduplicationDetail.length === 0 ? (
             <h1>값이 없습니다.</h1>
           ) : (
@@ -389,7 +393,6 @@ export default function CategoryPage({
             ))
           )}
         </div>
-        <div className={`${styles.dummyContainers} p-5 mt-4`}></div>
         <footer className={styles.flexButton}>
           <Button
             className={`${styles.prettyButton} me-5`}

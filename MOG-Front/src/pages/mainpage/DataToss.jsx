@@ -16,7 +16,6 @@ const DataToss = () => {
   const [routineId, setRoutineId] = useState();
   const [currentDetailId, setCurrentDetailId] = useState();
   const [isOpen, setIsOpen] = useState(false);
-  const [isCurrentTimeRunning, setIsCurrentRunning] = useState(false);
   const [initMakeRoutine, setMakeRoutine] = useState([]);
   const [checkPageWhenRunningPage, setCheckPageWhenRunningPage] = useState(false);
   const [resetTimeCheckBoolean, setResetTimeCheckBoolean] = useState(false);
@@ -24,7 +23,7 @@ const DataToss = () => {
   const startTimeRef = useRef(null);
   const intervalRef = useRef(null);
   const localIntervalRef = useRef(null);
-  //const [isRunning, setIsRunning] = useState(false);
+
   const {
     isRunning,
     elapsed,
@@ -45,6 +44,8 @@ const DataToss = () => {
     setStartRrcodResultData,
     makeDetailSetData,
     setMakeDetailSetData,
+    isCurrentTimeRunning,
+    booleanSaveTime
   } = useContext(RoutineContext);
   //루틴 값 업데이트 조회
   const fetchData = async () => {
@@ -86,6 +87,7 @@ const DataToss = () => {
           setResetTimeCheckBoolean={setResetTimeCheckBoolean}
           resetTimeCheckBoolean={resetTimeCheckBoolean}
           elapsed={elapsed}
+          resetLocalTimer={resetLocalTimer}
         />
       )}
       <Routes>
@@ -145,7 +147,6 @@ const DataToss = () => {
               setInitDetailTime={setInitDetailTime}
               setCurrentDetailId={setCurrentDetailId}
               setIsOpen={setIsOpen}
-              setIsCurrentRunning={setIsCurrentRunning}
               startRrcodResultData={startRrcodResultData}
               setMakeDetailSetData={setMakeDetailSetData}
               makeDetailSetData={makeDetailSetData}
@@ -160,6 +161,7 @@ const DataToss = () => {
               startLocalTimer={startLocalTimer}
               resetLocalTimer={resetLocalTimer}
               stopLocalTimer={stopLocalTimer}
+              booleanSaveTime={booleanSaveTime}
             />
           }
         ></Route>
