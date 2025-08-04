@@ -34,7 +34,7 @@ export default function Home() {
 
     if (!token) return;
     //운동기록 api요청 (토큰 인증 포함)
-    fetch('https://mogapi.kro.kr/api/exercise/latest', {
+    fetch('http://localhost:8080/api/exercise/latest', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -218,13 +218,16 @@ export default function Home() {
           </div>
           <div
             className="intro-features-button"
+            style={{ cursor: 'pointer' }}
             onClick={() => {
               navigate('/pose');
             }}
           >
             자세 피드백
           </div>
-          <div className="intro-features-button">운동 분석</div>
+          <div className="intro-features-button" style={{ cursor: 'pointer' }}>
+            운동 분석
+          </div>
         </div>
       </section>
 

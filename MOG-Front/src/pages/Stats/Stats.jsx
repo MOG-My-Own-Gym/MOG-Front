@@ -57,7 +57,7 @@ export default function Stats() {
     muscle: `${redCalc[0]}%`,
     setTotal: `${redCalc[1]}회`,
     volumeTotal: `${redCalc[2]}kg`,
-    rouTime: `${redCalc[3]}시간`,
+    rouTime: `${(redCalc[3] / 60).toFixed(2)}시간`,
   };
 
   const dataToChart = (type, data) => {
@@ -162,7 +162,7 @@ export default function Stats() {
     week.setDate(today.getDate() - 7);
     const data = await axios
       .post(
-        'https://mogapi.kro.kr/api/v1/routine/result',
+        'http://localhost:8080/api/v1/routine/result',
         {
           startDate: toLocalDateTime(week),
           endDate: toLocalDateTime(today),
@@ -189,7 +189,7 @@ export default function Stats() {
     month.setDate(today.getDate() - 30);
     const data = await axios
       .post(
-        'https://mogapi.kro.kr/api/v1/routine/result',
+        'http://localhost:8080/api/v1/routine/result',
         {
           startDate: toLocalDateTime(month),
           endDate: toLocalDateTime(today),

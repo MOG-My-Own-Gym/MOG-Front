@@ -39,7 +39,7 @@ export default function MyPage() {
   //최초렌더링 시 유저정보 조회
   useEffect(() => {
     axios
-      .get(`https://mogapi.kro.kr/api/v1/users/${user.usersId}`)
+      .get(`http://localhost:8080/api/v1/users/${user.usersId}`)
       .then(res => {
         //조회한 유저정보의 닉네임 저장 -> 사이드바 아래에 뿌려주기위함
         setUserNickName(res.data.nickName);
@@ -49,6 +49,7 @@ export default function MyPage() {
         showModal('사용자 정보를 가져오는 중 오류가 발생하였습니다.');
       });
   }, []);
+
 
   useEffect(() => {
     if (location.pathname.includes('mypage')) document.body.style.overflow = 'hidden';
@@ -87,7 +88,7 @@ export default function MyPage() {
   const menuItem = [
     { path: '/mypage', icon: 'fa-solid fa-circle-user', name: '프로필' },
     { path: '/mypage/myroutine', icon: 'fa-solid fa-dumbbell', name: '나의 루틴' },
-    { path: '/mypage/mysocial', icon: 'fa-solid fa-image', name: '나의 소셜' },
+    { path: '/mypage/mysocial', icon: 'fa-solid fa-image', name: '나의 기록' },
     { path: '/mypage/settings', icon: 'fa-solid fa-gear', name: '환경설정' },
     { path: '/mypage/support', icon: 'fa-solid fa-phone', name: '고객센터' },
   ];

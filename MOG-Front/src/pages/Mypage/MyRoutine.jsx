@@ -60,7 +60,7 @@ export default function MyRoutine() {
           showModal('루틴 조회에 실패하였습니다');
         });
       /*
-        .get('https://mogapi.kro.kr/api/v1/routine/list',
+        .get('http:localhost:8080/api/v1/routine/list',
           {
             headers: {
               Authorization: `Bearer ${user.accessToken}`,
