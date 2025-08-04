@@ -15,7 +15,7 @@ export default function SocialCreate() {
     e.preventDefault();
     const createPost = async () => {
       await axios
-        .post(`http://localhost:8080/api/v1/posts`, newPost, {
+        .post(`https://mogapi.kro.kr/api/v1/posts`, newPost, {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },

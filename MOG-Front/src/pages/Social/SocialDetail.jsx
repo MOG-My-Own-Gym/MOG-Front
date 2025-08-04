@@ -30,7 +30,7 @@ export default function SocialDetail() {
     //setIsLoading(true);
     // 팀원이 만든 Post 상세 정보 조회 API입니다.
     await axios
-      .get(`http://localhost:8080/api/v1/posts/${postId}`, {
+      .get(`https://mogapi.kro.kr/api/v1/posts/${postId}`, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -60,7 +60,7 @@ export default function SocialDetail() {
   //댓글 불러오기
   const fetchComments = async () => {
     await axios
-      .get(`http://localhost:8080/api/v1/posts/${id}/comments`, {
+      .get(`https://mogapi.kro.kr/api/v1/posts/${id}/comments`, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -76,7 +76,7 @@ export default function SocialDetail() {
   //좋아요 불러오기
   const fetchLikes = async () => {
     await axios
-      .get(`http://localhost:8080/api/v1/posts/${id}/likes`, {
+      .get(`https://mogapi.kro.kr/api/v1/posts/${id}/likes`, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -92,7 +92,7 @@ export default function SocialDetail() {
   //게시글 작성자 정보
   const fetchAuthor = async () => {
     await axios
-      .get(`http://localhost:8080/api/v1/users/${post.usersId}`, {
+      .get(`https://mogapi.kro.kr/api/v1/users/${post.usersId}`, {
         headers: { Authorization: `Bearer ${user.accessToken}` },
       })
       .then(res => {
@@ -115,7 +115,7 @@ export default function SocialDetail() {
 
   const handleLike = async () => {
     await axios
-      .post(`http://localhost:8080/api/v1/posts/${id}/likes`, null, {
+      .post(`https://mogapi.kro.kr/api/v1/posts/${id}/likes`, null, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -131,7 +131,7 @@ export default function SocialDetail() {
     //   setComment('');
     // }
     await axios.post(
-      `http://localhost:8080/api/v1/posts/${id}/comments`,
+      `https://mogapi.kro.kr/api/v1/posts/${id}/comments`,
       {
         content: comment,
       },
@@ -147,7 +147,7 @@ export default function SocialDetail() {
   const handleDelete = () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
       axios
-        .delete(`http://localhost:8080/api/v1/posts/${postId}`, {
+        .delete(`https://mogapi.kro.kr/api/v1/posts/${postId}`, {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
