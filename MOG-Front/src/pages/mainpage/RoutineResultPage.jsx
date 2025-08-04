@@ -5,7 +5,6 @@ import { Badge, Button, Card, Col, Container, ProgressBar, Row } from "react-boo
 export default function RoutineResultPage(){
     const navigate = useNavigate();
     const {state} = useLocation();
-    console.log(state);
     const today = new Date(state.tEnd);
     const options = { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short'};
     const formatted = today.toLocaleDateString('ko-KR', options);
