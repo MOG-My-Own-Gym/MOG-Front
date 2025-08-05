@@ -35,6 +35,7 @@ export default function Stats() {
   };
 
   useEffect(() => {
+    checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);

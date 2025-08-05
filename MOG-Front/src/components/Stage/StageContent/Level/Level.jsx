@@ -25,7 +25,7 @@ export default function Level({ categories }) {
     }
   }, []);
   return (
-    <div>
+    <div className={styles['form-wrapper']}>
       <form className={styles['radio-form']}>
         {categories?.map(item => {
           return (

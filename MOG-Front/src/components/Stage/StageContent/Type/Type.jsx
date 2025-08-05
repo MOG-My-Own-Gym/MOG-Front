@@ -28,7 +28,7 @@ export default function Type({ categories }) {
     }
   }, []);
   return (
-    <div>
+    <div className={styles['form-wrapper']}>
       <form className={styles['check-form']}>
         {categories?.map(item => {
           return (

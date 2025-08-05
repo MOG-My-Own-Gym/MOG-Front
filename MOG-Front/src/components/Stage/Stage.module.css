@@ -8,6 +8,17 @@
     overflow: scroll;
     max-width: 100% !important;
   }
+  .suggest-content {
+    display: flex;
+    flex-direction: column !important;
+    gap: 4em;
+    overflow-y: scroll;
+  }
+  .suggest-routine-container {
+    display: flex;
+    flex-direction: column !important;
+    gap: 2em;
+  }
 }
 
 .stage {
