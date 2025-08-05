@@ -30,7 +30,7 @@ export default function SocialEdit() {
 
     const getPost = async () => {
       await axios
-        .get(`http://localhost:8080/api/v1/posts/${id}`, {
+        .get(`https://mogapi.kro.kr/api/v1/posts/${id}`, {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
@@ -59,7 +59,7 @@ export default function SocialEdit() {
     // });
 
     const updatePost = async () => {
-      await axios.put(`http://localhost:8080/api/v1/posts/${id}`, post, {
+      await axios.put(`https://mogapi.kro.kr/api/v1/posts/${id}`, post, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },

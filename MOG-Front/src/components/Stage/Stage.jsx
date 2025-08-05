@@ -61,7 +61,7 @@ export default function Stage() {
 
   const getSuggestion = async () => {
     await axios
-      .post('http://localhost:8000/suggest/exercises', {
+      .post('https://mog-ai-v3u1.onrender.com/suggest/exercises', {
         usersId: user.usersId,
         preferences: suggestState.suggest,
       })
@@ -122,7 +122,7 @@ export default function Stage() {
         //백엔드 서버 루틴 추가
         axios
           .post(
-            `http://localhost:8080/api/v1/routine/create`,
+            `https://mogapi.kro.kr/api/v1/routine/create`,
             { routineName: routineName, saveRoutineDto: [] },
             {
               headers: {
