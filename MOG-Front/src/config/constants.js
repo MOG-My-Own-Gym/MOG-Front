@@ -1,6 +1,11 @@
 export const URL = {
+  //mainpage 폴더에서 사용 중
   ROUNTINE: 'http://localhost:3002/routine',
   ROUTINEDETAIL: 'http://localhost:3002/routine_detail',
   ROUTINERESULT: 'http://localhost:3002/routine_result',
   REALDATA: 'http://localhost:8080/api/v1/routine',
+  //Social 폴더에서 사용 중
+  SOCIALPOSTS: 'http://localhost:8080/api/v1/posts',
+  USERS: 'http://localhost:8080/api/v1/users'
 };
+
