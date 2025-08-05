@@ -1,10 +1,12 @@
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useMemo } from 'react';
 import './SocialDetail.css';
 import GNB from '../../components/GNB/GNB';
 import axios from 'axios';
 import { AuthContext } from '../Login/AuthContext';
 import { Container, Image } from 'react-bootstrap';
+import { URL } from '../../config/constants';
+
 
 export default function SocialDetail() {
   const { user } = useContext(AuthContext);
@@ -30,7 +32,7 @@ export default function SocialDetail() {
     //setIsLoading(true);
     // 팀원이 만든 Post 상세 정보 조회 API입니다.
     await axios
-      .get(`https://mogapi.kro.kr/api/v1/posts/${postId}`, {
+      .get(`${URL.SOCIALPOSTS}/${postId}`, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -60,13 +62,14 @@ export default function SocialDetail() {
   //댓글 불러오기
   const fetchComments = async () => {
     await axios
-      .get(`https://mogapi.kro.kr/api/v1/posts/${id}/comments`, {
+      .get(`${URL.SOCIALPOSTS}/${id}/comments`, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
       })
       .then(res => {
         setComments(res.data);
+        console.log('Comments: ',res.data)
       })
       .catch(err => {
         alert('댓글을 불러오지 못했습니다.');
@@ -76,7 +79,7 @@ export default function SocialDetail() {
   //좋아요 불러오기
   const fetchLikes = async () => {
     await axios
-      .get(`https://mogapi.kro.kr/api/v1/posts/${id}/likes`, {
+      .get(`${URL.SOCIALPOSTS}/${id}/likes`, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -92,7 +95,7 @@ export default function SocialDetail() {
   //게시글 작성자 정보
   const fetchAuthor = async () => {
     await axios
-      .get(`https://mogapi.kro.kr/api/v1/users/${post.usersId}`, {
+      .get(`${URL.USERS}/${post.usersId}`, {
         headers: { Authorization: `Bearer ${user.accessToken}` },
       })
       .then(res => {
@@ -115,7 +118,7 @@ export default function SocialDetail() {
 
   const handleLike = async () => {
     await axios
-      .post(`https://mogapi.kro.kr/api/v1/posts/${id}/likes`, null, {
+      .post(`${URL.SOCIALPOSTS}/${id}/likes`, null, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -131,7 +134,7 @@ export default function SocialDetail() {
     //   setComment('');
     // }
     await axios.post(
-      `https://mogapi.kro.kr/api/v1/posts/${id}/comments`,
+      `${URL.SOCIALPOSTS}/${id}/comments`,
       {
         content: comment,
       },
@@ -147,7 +150,7 @@ export default function SocialDetail() {
   const handleDelete = () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
       axios
-        .delete(`https://mogapi.kro.kr/api/v1/posts/${postId}`, {
+        .delete(`${URL.SOCIALPOSTS}/${postId}`, {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
@@ -183,6 +186,19 @@ export default function SocialDetail() {
     if (img.startsWith('/img/')) return img;
     return `/img/${img}`;
   };
+
+  // 상대 시간 갱신을 위한 더미 state
+  const [, tick] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => tick(n => n + 1), 60_000);
+    return () => clearInterval(id);
+  }, []);
+
+  const rtf = useMemo(
+    () => new Intl.RelativeTimeFormat('ko', { numeric: 'auto', style: 'short' }),
+    []
+  );
 
   return (
     <>
@@ -222,12 +238,50 @@ export default function SocialDetail() {
               />
               <button onClick={handleCommentSubmit}>등록</button>
             </div>
+            <div >
+              {
+                comments.length > 0
+                ? 
+                comments.map((comment, i) =>{
+                  const then = Date.parse(comment.createdAt);
+                  const diffSec = (Date.now() - then) / 1_000;
 
-            <ul>
-              {comments.length > 0
-                ? comments.map((comment, i) => <li key={i}>{comment.content}</li>)
-                : '댓글이 없습니다'}
-            </ul>
+                  // 단위 결정
+                  let val, unit;
+
+                  if (Math.abs(diffSec) < 60) {
+                    val = Math.round(-diffSec);
+                    unit = 'second';
+                  } else if (Math.abs(diffSec / 60) < 60) {
+                    val = Math.round(-(diffSec / 60));
+                    unit = 'minute';
+                  } else if (Math.abs(diffSec / 3600) < 24) {
+                    val = Math.round(-(diffSec / 3600));
+                    unit = 'hour';
+                  } else {
+                    val = Math.round(-(diffSec / 86400));
+                    unit = 'day';
+                  }
+
+                  const label = rtf.format(val, unit).replace(/\s+/g, '');
+
+                  return(
+                  <div key={i} style={{
+                    padding:'10px', 
+                    borderBottom: '2px solid #FFD600',
+                    borderRadius:'20px',
+                    fontFamily: 'Arial, fantasy'
+                    }}>
+                    <p style={{fontSize:'15px',color:'#00000096'}}>
+                      {comment.userName}<span style={{fontSize:'12px'}}> . {label}</span>
+                    </p>
+                    <p style={{fontSize:'12px'}}>{comment.content}</p>
+                  </div>)
+                })
+                : 
+                '댓글이 없습니다'
+              }
+            </div>
           </div>
           <hr />
           <div className="btn-container">

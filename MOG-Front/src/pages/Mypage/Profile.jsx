@@ -39,10 +39,10 @@ export default function Profile() {
             nickName: getUser.nickName,
             profileImg: getUser.profileImg,
             phoneNum: getUser.phoneNum,
-            age: getBio.age,
-            gender: getBio.gender,
-            height: getBio.height,
-            weight: getBio.weight,
+            age: getBio?.age,
+            gender: getBio?.gender,
+            height: getBio?.height,
+            weight: getBio?.weight,
             regDate: getUser.regDate.substring(0, 10),
           }));
         })
