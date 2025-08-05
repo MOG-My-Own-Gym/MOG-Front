@@ -25,7 +25,6 @@ export default function RoutinePage({
   const [isShowDelete, setIsShowDelete] = useState(true);
   const [getSelectRoutine, setGetSelectRoutine] = useState();
   const [infoModel, setInfoModel] = useState(false);
-  console.log(initMakeRoutine);
   const routineDetailButton = e => {
     e.stopPropagation();
     const checkId = e.target.children[1] === undefined ? e.target.id : e.target.children[1].id;
