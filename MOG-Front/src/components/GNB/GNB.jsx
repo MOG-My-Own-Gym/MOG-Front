@@ -317,7 +317,7 @@ export default function GNB() {
                             </Link>
                             <Link
                               className="nav-link"
-                              to="/"
+                              to="/pose"
                               style={{ color: isPathActive(['#']) ? '#FFC800' : 'white' }}
                               onClick={handleClose}
                             >
