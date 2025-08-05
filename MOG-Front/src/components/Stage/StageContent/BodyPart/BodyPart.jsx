@@ -38,7 +38,7 @@ export default function BodyPart({ categories }) {
     }
   }, []);
   return (
-    <div>
+    <div className={styles['form-wrapper']}>
       <form className={styles['check-form']}>
         {categories?.map(item => {
           return (

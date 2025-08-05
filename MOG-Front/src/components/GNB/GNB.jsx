@@ -360,9 +360,12 @@ export default function GNB() {
                     <li className="nav-item mb-2">
                       <Link
                         className="nav-link"
-                        to="/logout"
+                        to="/"
                         style={{ color: 'white' }}
-                        onClick={handleClose}
+                        onClick={() => {
+                          dispatch({ type: 'LOGOUT' });
+                          handleClose();
+                        }}
                       >
                         로그아웃
                       </Link>
