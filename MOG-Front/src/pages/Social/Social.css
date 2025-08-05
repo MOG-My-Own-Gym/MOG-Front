@@ -1,25 +1,55 @@
-
+.social {
+  margin-top: 50px;
+}
 .social-container {
   width: 80%;
+  height: 100%;
   margin: 0 auto;
-  padding: 2em;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5em;
-  overflow-y: visible; 
+  /* display: flex;
   justify-content: center;
-  margin-top: 100px;
+  flex-wrap: wrap; */
+  overflow-y: visible;
+
+  column-count: 5; /* 원하는 열 수 */
+  column-gap: 1rem;
+}
+
+@media (max-width: 480px) {
+  .social-container {
+    width: 100%;
+    column-gap: 10px;
+    column-count: 3;
+    padding: 0 10px;
+  }
+  .card-title {
+    /*사진 타이틀*/
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 10px !important;
+    font-weight: normal;
+    color: white;
+    z-index: 15;
+    pointer-events: none;
+  }
+  .icon {
+    width: 10px !important;
+    height: 10px !important;
+    transition: transform 0.2s ease;
+  }
 }
 .card {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  width: 200px;
-  height: 250px;
   margin-bottom: 1em;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  break-inside: avoid;
+  margin-bottom: 1rem;
 }
 .card-img {
   width: 100%;
@@ -29,8 +59,7 @@
 }
 .card {
   position: relative;
-  width: 250px;
-  height: 250px;
+  width: 100%;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
@@ -38,6 +67,15 @@
   transition: transform 0.2s;
 }
 
+.icon-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 20;
+  font-size: 10px;
+}
 .card-img {
   width: 100%;
   height: 100%;
@@ -58,9 +96,9 @@
 
   /* 중앙 정렬 삭제 → 구석으로 보이게 변경 */
   display: flex;
-  justify-content: flex-end;  
-  align-items: flex-end;      
-  padding: 10px
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 10px;
 }
 .icon-box {
   display: flex;
@@ -80,7 +118,8 @@
   height: 30px;
   transition: transform 0.2s ease;
 }
-.card-title {/*사진 타이틀*/
+.card-title {
+  /*사진 타이틀*/
   position: absolute;
   top: 25px;
   left: 0;
@@ -105,4 +144,39 @@
 .black-navbar #mainNav .nav-link:hover {
   color: rgb(255, 217, 0) !important;
 }
+/*  버튼 */
+.detail-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 16px;
+}
 
+.action-btn {
+  padding: 8px 16px;
+  background-color: #ffcc00; /* 나중에 바꿀 거니까 그대로 둠 */
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* 글쓰기 버튼  */
+.write-button-wrapper {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end; /* 오른쪽으로 */
+  margin-bottom: 20px;
+}
+
+/* 버튼 자체는 꾸미기용 */
+.write-btn {
+  padding: 8px 16px;
+  background-color: #ffcc00;
+  border: none;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}

@@ -5,7 +5,10 @@ import { Badge, Button, Card, Col, Container, ProgressBar, Row } from "react-boo
 export default function RoutineResultPage(){
     const navigate = useNavigate();
     const {state} = useLocation();
-    console.log(state);
+    const today = new Date(state.tEnd);
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short'};
+    const formatted = today.toLocaleDateString('ko-KR', options);
+
     return<>
         
       <Container className={`mt-5 ${styles.resultContainer}`}>
@@ -14,7 +17,7 @@ export default function RoutineResultPage(){
             <h2>
               🏋️‍♂️ 오늘의 운동 결과 <Badge bg="success">완료</Badge>
             </h2>
-            <p className="text-muted">{state.tEnd}</p>
+            <p className="text-muted">{formatted}</p>
           </Col>
         </Row>
         <Row className={styles.resultContent}>

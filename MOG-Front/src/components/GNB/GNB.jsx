@@ -120,8 +120,8 @@ export default function GNB() {
                   </NavDropdown.Item>
                   <NavDropdown.Item
                     as={Link}
-                    to=""
-                    className={currentPath === '' ? 'active-item' : ''}
+                    to="/suggest"
+                    className={currentPath.startsWith('/suggest') ? 'active-item' : ''}
                   >
                     ai 루틴 추천
                   </NavDropdown.Item>
@@ -149,8 +149,8 @@ export default function GNB() {
                   </NavDropdown.Item>
                   <NavDropdown.Item
                     as={Link}
-                    to=""
-                    className={currentPath === '' ? 'active-item' : ''}
+                    to="/pose"
+                    className={currentPath === '/pose' ? 'active-item' : ''}
                   >
                     자세 피드백
                   </NavDropdown.Item>
@@ -286,8 +286,8 @@ export default function GNB() {
                             </Link>
                             <Link
                               className="nav-link"
-                              to="/"
-                              style={{ color: isPathActive(['#']) ? '#FFC800' : 'white' }}
+                              to="/suggest"
+                              style={{ color: isPathActive(['/suggest']) ? '#FFC800' : 'white' }}
                               onClick={handleClose}
                             >
                               ai 루틴 추천
@@ -349,7 +349,7 @@ export default function GNB() {
                         className="nav-link"
                         to="/mypage"
                         style={{ color: isPathActive(['/mypage']) ? '#FFC800' : 'white' }}
-                        oonClick={() => {
+                        onClick={() => {
                           handleClose();
                           handleClick();
                         }}

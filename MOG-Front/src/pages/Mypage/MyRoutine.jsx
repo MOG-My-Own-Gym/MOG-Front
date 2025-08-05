@@ -1,4 +1,11 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import './css/myroutine.css';
+import { useModalAlert } from '../../context/ModalAlertContext';
+import { AuthContext } from '../Login/AuthContext';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { URL } from '../../config/constants';
+
 export default function MyRoutine() {
   //하트버튼 누르는 토글여부에 따라 꽉 찬 하트와 빈 하트를 보여주는 컴포넌트
   const HeartItem = () => {
@@ -34,6 +41,49 @@ export default function MyRoutine() {
     );
   };
 
+  const { showModal } = useModalAlert();
+  const { user } = useContext(AuthContext);
+  const [routineData, setRoutineData] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchRoutine = async () => {
+      await axios
+        .get(URL.ROUNTINE)
+        .then(res => {
+          if (res.data[0].userId === user.usersId.toString()) {
+            setRoutineData(res.data);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          showModal('루틴 조회에 실패하였습니다');
+        });
+      /*
+        .get('http:localhost:8080/api/v1/routine/list',
+          {
+            headers: {
+              Authorization: `Bearer ${user.accessToken}`,
+            },
+          }
+        )
+        .then(res=>{
+          setRoutineData(res.data);
+          const set = res.data[0];
+          console.log(set);
+          const setDetail =set.saveRoutineDto;
+          console.log(setDetail[0]);
+        })
+        .catch(err=>{
+          console.log(err);
+          showModal('루틴 조회에 실패하였습니다');
+        })
+      */
+    };
+
+    fetchRoutine();
+  }, [user.usersId]);
+
   return (
     <>
       <div className="container">
@@ -44,7 +94,14 @@ export default function MyRoutine() {
                 <span className="font-weight-bold">My Routine</span>
 
                 <div className="d-flex flex-row">
-                  <button className="btn btn-routine btn-primary new">
+                  <button
+                    className="btn new"
+                    style={{ backgroundColor: '#ffc800' }}
+                    onClick={e => {
+                      e.preventDefault();
+                      navigate('/data/select');
+                    }}
+                  >
                     <i className="fa fa-plus"></i> New
                   </button>
                 </div>
@@ -59,69 +116,36 @@ export default function MyRoutine() {
                 />
               </div>
 
-              <div className="my-3">
-                <div className="d-flex justify-content-between align-items-center">
-                  <div className="d-flex flex-row align-items-center routine-list">
-                    <span className="star">
-                      <i className="fa fa-star yellow"></i>
-                    </span>
+              {routineData.length > 0 ? (
+                routineData.map((routine, i) => {
+                  return (
+                    <div className="my-3">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <button
+                          className="btn-routineName"
+                          onClick={e => {
+                            e.preventDefault();
+                            navigate(`/data/routine?routineId=${routine.id}`);
+                          }}
+                        >
+                          <div className="d-flex flex-row align-items-center routine-list">
+                            <span className="star">
+                              <i className="fa fa-star yellow"></i>
+                            </span>
 
-                    <div className="d-flex flex-column">
-                      <span>루틴1</span>
+                            <div className="d-flex flex-column">
+                              <span>{routine.name}</span>
+                            </div>
+                          </div>
+                        </button>
+                        <HeartItem />
+                      </div>
                     </div>
-                  </div>
-
-                  <HeartItem />
-                </div>
-              </div>
-
-              <div className="my-3">
-                <div className="d-flex justify-content-between align-items-center">
-                  <div className="d-flex flex-row align-items-center routine-list">
-                    <span className="star">
-                      <i className="fa fa-star yellow"></i>
-                    </span>
-
-                    <div className="d-flex flex-column">
-                      <span>루틴2</span>
-                    </div>
-                  </div>
-
-                  <HeartItem />
-                </div>
-              </div>
-
-              <div className="my-3">
-                <div className="d-flex justify-content-between align-items-center">
-                  <div className="d-flex flex-row align-items-center routine-list">
-                    <span className="star">
-                      <i className="fa fa-star yellow"></i>
-                    </span>
-
-                    <div className="d-flex flex-column">
-                      <span>루틴3</span>
-                    </div>
-                  </div>
-
-                  <HeartItem />
-                </div>
-              </div>
-
-              <div className="my-3">
-                <div className="d-flex justify-content-between align-items-center">
-                  <div className="d-flex flex-row align-items-center routine-list">
-                    <span className="star">
-                      <i className="fa fa-star yellow"></i>
-                    </span>
-
-                    <div className="d-flex flex-column">
-                      <span>루틴4</span>
-                    </div>
-                  </div>
-
-                  <HeartItem />
-                </div>
-              </div>
+                  );
+                })
+              ) : (
+                <div>루틴이 없습니다</div>
+              )}
             </div>
           </div>
         </div>

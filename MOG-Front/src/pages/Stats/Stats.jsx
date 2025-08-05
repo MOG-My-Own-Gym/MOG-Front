@@ -57,7 +57,7 @@ export default function Stats() {
     muscle: `${redCalc[0]}%`,
     setTotal: `${redCalc[1]}회`,
     volumeTotal: `${redCalc[2]}kg`,
-    rouTime: `${redCalc[3]}시간`,
+    rouTime: `${(redCalc[3] / 60).toFixed(2)}시간`,
   };
 
   const dataToChart = (type, data) => {

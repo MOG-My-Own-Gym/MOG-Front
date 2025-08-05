@@ -20,9 +20,12 @@
     height: 100px;
 }
 .header{
-    display: flex !important;
+    display: flex;
     z-index:'100';
     margin-right: auto;
+    border-bottom: 1px solid #FFD600;
+    margin-bottom: 15px;
+    height: 90px;
 }
 
 /* Chrome, Safari, Edge */
@@ -42,31 +45,22 @@ input[type=number] {
     padding: 14px 28px !important;
     border: none;
     border-bottom: 1px solid #00000021;
-    font-size: 35px;
+    font-size: 20px;
+    background-color: white;
+    color: black;
 }
 .runningFontButton{
-   font-size: 40px;
+   font-size: 30px;
    font-weight: bold;
    margin: 0 auto;
 }
 .prettyli:hover {
-    transform: translateY(-3px);
+    transform: translateY(3px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
     border: 5px solid #FFD600;
 }
-.prettyli:active {
-    transform: scale(0.98);
-}
-.prettyli2 {
-    background: #e0f7fa;
-    border-radius: 6px;
-    text-align: center;
-    padding: 15px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
-    font-weight: bold;
-}
 .prettyButton {
-    width: 100%;
+    width: 30%;
     height: 120px;
     background: #FFD600;
     border: none !important;
@@ -76,7 +70,7 @@ input[type=number] {
     transition: all 0.3s ease;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     border: solid rgb(112, 110, 110) !important;
-    font-size: 30px !important;
+    font-size: 25px;
     font-family: Arial, fantasy !important;
     margin-bottom: 10px;
 }
@@ -137,7 +131,8 @@ input[type=number] {
     padding: 10px 5px;
 }
 .mainContainer{
-    width: 95%;
+    width: 100%;
+    height: 100vh;
     max-width: 1540px;
     margin: 0 auto;  /* 가운데 정렬 핵심 */
     padding-top: 20px;
@@ -150,12 +145,15 @@ input[type=number] {
 }
 .secondContainer{
     padding: 20px 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 65vh;
 }
 .detailButton{
     color: white;
     margin-left: auto;
     text-decoration: none;
-    font-size: 60px;
+    font-size: 70px;
 }
 .inputForm{
     border: 2px solid black;     /* 초록색 테두리 */
@@ -169,4 +167,179 @@ input[type=number] {
 .inputForm:focus {
   border-color: #FFD600;         /* 포커스 시 진한 초록색 */
   box-shadow: 0 0 4px #ffdf40;   /* 부드러운 그림자 효과 */
+}
+
+.prettyText {
+    font-size: 22px;
+    color: #333;
+    text-align: center;
+    background: #FFD600;
+    padding: 20px 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+.prettyP{
+    font-size:'15px' !important;
+    margin-top:'auto' !important;
+    display:'block' !important;
+}
+.timePlusMinus {
+    font-size: 18px;
+    display: flex;
+    justify-content: center; /* 수평 정렬 */
+    align-items: center;     /* 수직 정렬 */
+    background: #FFD600;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0px;
+    margin-right: 5px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+}
+.inputWeghitSet{
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: #ffdf40;
+    text-align: center;
+    border: 2px solid black;
+}
+.numAndExCheck{
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 5px;
+    padding-top: 3px;
+    text-align: center;
+    border: 2px solid black;
+}
+.inputExplanationString{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 30px;
+    margin-right: 30px;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.RunningInputContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 3px;
+}
+.backButton{
+    font-size: 17px;
+    width: 110px;
+    height: 50px;
+    background-color: rgb(223, 0, 0);
+    margin: 10px;
+    color: white;
+    border: none;
+}
+.setTimeButtonFomat{
+    display: flex;
+    margin-left: auto;
+    margin-top: 30px;
+}
+.allTimeFooter{
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color:#ffdf40;
+    padding: 10px 0;
+    border-top: 2px solid #ffdf40;
+    font-size: 40px;
+    z-index: 100;
+}
+.allTimeButtonContainer{
+    display: flex;
+    margin-right: 10px;
+}
+.allTimeButton {
+    font-size: 18px;
+    display: flex;
+    justify-content: center; /* 수평 정렬 */
+    align-items: center;     /* 수직 정렬 */
+    background: #FFD600;
+    border: none;
+    border-radius: 10%;
+    width: 50px;
+    height: 50px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.ModelContainer{
+    transition: none !important;
+    animation: none !important;
+}
+@media (max-width: 600px) {
+    .secondContainer{
+        padding: 0;
+    }
+    .prettyli{
+        padding: 10px !important;
+        margin: 0 !important;
+        font-size: 15px;
+    }
+    .prettyP{
+        font-size:'15px' !important;
+        margin-top:'auto' !important;
+        display:'block' !important;
+    }
+    .prettyButton {
+        width: 170px;
+        height: 80px;
+        font-size: 15px;
+    }
+    .runningFontButton{
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0 auto;
+    }
+    .backButton{
+        font-size: 15px;
+        width: 80px;
+        height: 40px;
+        background-color: rgb(223, 0, 0);
+        margin: 10px;
+        color: white;
+        border: none;
+    }
+    .timePlusMinus {
+        font-size: 14px;
+        width: 30px;
+        height: 30px;
+    }
+    .inputWeghitSet{
+        width: 60px;
+        height: 40px;
+        font-size: 15px;
+    }
+    .numAndExCheck{
+        width: 50px;
+        height: 40px;
+        font-size: 15px;
+        padding-top: 6px;
+    }
+    .inputExplanationString{
+        margin-left: 20px;
+        margin-right: 20px;
+        font-size: 15px;
+    }
+    .allTimeButton {
+        width: 40px;
+        height: 40px;
+    }
 }

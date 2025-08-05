@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Login/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import PageBackButton from '../../components/Button/Routine/PageBackButton/PageBackButton';
-import { RoutineContext } from './RoutineContext';
+import { RoutineContext } from '../../context/RoutineContext';
 export default function Routine() {
   const [routines, setRoutines] = useState([]);
   const navigate = useNavigate();

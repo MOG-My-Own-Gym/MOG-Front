@@ -10,8 +10,6 @@ export default function Home() {
   const [user, setUser] = useState(null);
   const [exerciseData, setExerciseData] = useState(null);
   const navigate = useNavigate();
-
-  const navigate = useNavigate();
   // 슬라이드 설정
   const sliderSettings = {
     dots: true,
@@ -219,14 +217,17 @@ export default function Home() {
             맞춤형 루틴
           </div>
           <div
+            className="intro-features-button"
+            style={{ cursor: 'pointer' }}
             onClick={() => {
               navigate('/pose');
             }}
           >
             자세 피드백
           </div>
-          <div>운동 분석</div>
-
+          <div className="intro-features-button" style={{ cursor: 'pointer' }}>
+            운동 분석
+          </div>
         </div>
       </section>
 

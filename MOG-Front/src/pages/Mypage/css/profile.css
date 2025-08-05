@@ -1,0 +1,24 @@
+/*profile.css*/
+.profile-button {
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #e7932d;
+    box-shadow: none
+}
+
+.profile-button:focus {
+    background: #ed8f1c;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #ed8f1c;
+    box-shadow: none
+}
+
+.labels {
+    font-size: 11px
+}

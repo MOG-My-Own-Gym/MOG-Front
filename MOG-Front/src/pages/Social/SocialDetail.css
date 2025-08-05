@@ -1,12 +1,14 @@
 .detail-wrapper {
   display: flex;
+  width: 100%;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 150px;
+  align-items: center;
+  margin-top: 50px;
 }
 
 .detail-left {
-  width: 600px;
-  margin-right: 50px;
+  width: 100%;
 }
 
 .detail-left img {
@@ -26,27 +28,41 @@
 .detail-likes img {
   width: 24px;
   cursor: pointer;
+  margin: 0;
 }
 
 .comment-box {
-  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+.comment-input {
+  display: flex;
+  font-size: 12px;
+  justify-content: space-between;
+  gap: 1em;
 }
 
-.comment-box input {
-  width: 100%;
+.comment-input input {
+  width: 500px;
+  height: 3em;
+
   padding: 0.5em;
   box-sizing: border-box;
 }
 
-.comment-box button {
+.comment-input button {
   background-color: rgb(255, 217, 0);
+  font-size: 12px;
+  width: 80px;
+  height: 3em;
   color: black;
   border: none;
   padding: 8px 16px;
   font-weight: bold;
   cursor: pointer;
   border-radius: 4px;
-  margin-top: 8px;
+  white-space: pre;
 }
 
 .detail-right ul {
@@ -69,4 +85,27 @@
 
 .black-navbar #mainNav .nav-link:hover {
   color: rgb(255, 217, 0) !important;
+}
+.btn-wrapper {
+  display: flex;
+  gap: 1em;
+}
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.author-container {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  padding: 1em;
+}
+.post-header {
+  display: flex;
+  justify-content: space-between;
+}
+.action-btn {
+  white-space: pre;
+  font-size: 10px;
 }
