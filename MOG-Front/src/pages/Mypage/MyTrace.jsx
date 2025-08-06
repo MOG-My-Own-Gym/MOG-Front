@@ -31,7 +31,7 @@ export default function MySocial() {
         setPostData(res.data);
       })
       .catch(error => {
-        console.log(error);
+        //console.log(error);
         showModal('내가 작성한 게시글 조회에 실패하였습니다');
       });
   };
@@ -70,7 +70,7 @@ export default function MySocial() {
         }));
       })
       .catch(e => {
-        console.log(e);
+        //console.log(e);
         showModal('사용자의 정보를 가져오는 중 오류가 발생하였습니다.');
       });
   }, [user.usersId]);
@@ -190,7 +190,9 @@ export default function MySocial() {
                           <div className="d-flex w-100 align-items-center justify-content-between">
                             <strong className="mb-1">{comment.content}</strong>
                           </div>
-                          <div className="col-10 mb-1 small text-uppercase">글 제목1</div>
+                          <div className="col-10 mb-1 small text-uppercase">
+                            {comment.postTitle}
+                          </div>
                         </Link>
                       );
                     })

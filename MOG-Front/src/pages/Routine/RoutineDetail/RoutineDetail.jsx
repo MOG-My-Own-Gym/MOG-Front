@@ -17,8 +17,8 @@ export default function RoutineDetail() {
   const { routine, originRoutine, dispatch } = useContext(RoutineContext);
   const { toast, dispatch: dispatchToast } = useContext(ToastContext);
   useEffect(() => {
-    console.log(originRoutine, routine);
-    console.log(originRoutine === routine);
+    //console.log(originRoutine, routine);
+    //console.log(originRoutine === routine);
   }, [routine]);
 
   //루틴 저장

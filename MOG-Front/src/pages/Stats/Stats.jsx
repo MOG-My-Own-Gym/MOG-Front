@@ -149,7 +149,7 @@ export default function Stats() {
         compareThis = [
           ...new Set(thisData.flatMap(e => e.routineEndDetails.map(detail => detail.srName))),
         ];
-        console.log(compareLast, compareThis);
+        //console.log(compareLast, compareThis);
         return compareThis.length - compareLast.length;
     }
   };

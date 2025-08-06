@@ -26,7 +26,7 @@ export default function SelectExercises() {
   const containerRef = useRef(null);
 
   const routineId = param.get('routineId');
-  console.log(routineId);
+  //console.log(routineId);
   useEffect(() => {
     fetch('https://raw.githubusercontent.com/kimbongkum/ict4e/master/exercises.json')
       .then(res => res.json())
@@ -87,7 +87,7 @@ export default function SelectExercises() {
   }, [originExerciseData]);
 
   useEffect(() => {
-    console.log(userExercise);
+    //console.log(userExercise);
   }, [userExercise]);
 
   const handleSearchBar = e => {
@@ -95,7 +95,7 @@ export default function SelectExercises() {
   };
 
   const createRoutine = async () => {
-    console.log('루틴 생성');
+    //console.log('루틴 생성');
     try {
       routineId
         ? await axios
@@ -134,7 +134,7 @@ export default function SelectExercises() {
               return res.data;
             })
             .catch(err => {
-              console.log(err);
+              //console.log(err);
               dispatchToast({
                 type: 'SHOW_TOAST',
                 payload: '저장 중 에러가 발생했습니다. 다시 시도해주세요',

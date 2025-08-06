@@ -5,8 +5,6 @@ export default function PageBackButton() {
   const location = useLocation();
   const [param] = useSearchParams();
   const routineId = param.get('routineId');
-  console.log(location.pathname);
-  console.log(routineId);
 
   const handleBack = currentPath => {
     switch (currentPath) {

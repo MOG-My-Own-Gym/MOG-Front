@@ -10,8 +10,6 @@ function LikeButton({ postId, initialLikeCount }) {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLike = async () => {
-    console.log('user in LikeButton:', user);
-
     if (!user) {
       alert('로그인이 필요합니다.');
       return;

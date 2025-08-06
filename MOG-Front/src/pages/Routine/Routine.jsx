@@ -28,7 +28,7 @@ export default function Routine() {
     fetchRoutines();
   }, []);
   useEffect(() => {
-    console.log(routines);
+    //console.log(routines);
   }, []);
   return (
     <div className={styles['routine']}>
@@ -43,7 +43,7 @@ export default function Routine() {
               <div
                 className={styles['routine-item']}
                 onClick={() => {
-                  console.log(routine);
+                  //console.log(routine);
                   dispatch({ type: 'SAVE', routine: routine, originRoutine: routine });
                   navigate(`run?routineId=${routine.setId}`);
                 }}

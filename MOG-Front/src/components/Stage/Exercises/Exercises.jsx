@@ -48,7 +48,7 @@ export default function Exercises({ categories, getExerciseCategories }) {
         const arr = Object.values(exercise)[0];
         const makeDetailNode = [];
         const imgfile = [];
-        //console.log(...arr)
+        ////console.log(...arr)
         for (let i = 0; i < arr.length; i++) {
           const name1 = arr[i].name.replaceAll(' ', '_');
           const name2 = name1.replaceAll('/', '_');
@@ -87,15 +87,12 @@ export default function Exercises({ categories, getExerciseCategories }) {
     switch (categories) {
       case 'Type':
         getExerciseCategories(initcategory);
-        console.log(categories, initcategory);
         break;
       case 'Level':
         getExerciseCategories(initlevel);
-        console.log(categories, initlevel);
         break;
       case 'BodyPart':
         getExerciseCategories(initprimaryMuscles);
-        console.log(categories, initprimaryMuscles);
         break;
       case 'Equipment':
         let sortEquipment = initequipment;

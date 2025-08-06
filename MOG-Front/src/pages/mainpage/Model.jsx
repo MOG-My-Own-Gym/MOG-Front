@@ -18,7 +18,7 @@ function Model({
   setResetTimeCheckBoolean,
   resetTimeCheckBoolean,
   elapsed,
-  resetLocalTimer
+  resetLocalTimer,
 }) {
   const [getRoutineLength, setRoutineLength] = useState();
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ function Model({
       });
     }
   };
-  
+
   const stopRrcodResultData = () => {
     if (!resetTimeCheckBoolean) {
       const resultData = JSON.parse(localStorage.getItem('detailSetData'));
@@ -88,11 +88,13 @@ function Model({
           exVolum: String(allWeight), //총 무게 값
         },
       };
+      //console.log(resultData.id);
       axios
-        .post(`${URL.REALDATA}/${resultData.id}/result`, {
+        .post(`${URL.REALDATA}/${routineId}/result`, {
           ...inputResult,
         })
         .then(localStorage.removeItem('detailSetData'));
+
       setStartRrcodResultData(false);
       setCurrentRrcodingRoutineId(0);
       resetTimer();

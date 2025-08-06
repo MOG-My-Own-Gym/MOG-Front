@@ -45,7 +45,7 @@ export default function MyPage() {
         setUserNickName(res.data.nickName);
       })
       .catch(err => {
-        console.log(err);
+        //console.log(err);
         showModal('사용자 정보를 가져오는 중 오류가 발생하였습니다.');
       });
   }, []);

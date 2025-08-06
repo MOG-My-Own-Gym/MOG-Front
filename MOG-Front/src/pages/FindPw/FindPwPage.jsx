@@ -52,16 +52,13 @@ export default function FindPwPage() {
       .then(res => {
         //이메일로 조회한 유저정보의 이름이 사용자가 입력한 이름과 같으면 비밀번호변경 페이지로 이동
         const userData = res.data;
-        console.log(userData);
         if (userData.usersName === formData.usersName) {
           axios
             .post('https://mogapi.kro.kr/api/v1/users/send/password', formData)
             .then(res => {
-              console.log(res);
               showModal('비밀번호 찾기 이메일 전송을 성공하였습니다');
             })
             .catch(error => {
-              console.log(error);
               showModal('비밀번호 찾기 이메일 전송을 실패하였습니다');
             });
         } else {
@@ -71,7 +68,6 @@ export default function FindPwPage() {
         }
       })
       .catch(err => {
-        console.log(err);
         //이메일 조회 실패 모달알러트 띄우기
         showModal('해당 회원이 존재하지 않습니다');
         emailRef.current.focus();

@@ -7,7 +7,6 @@ import { AuthContext } from '../Login/AuthContext';
 import { Container, Image } from 'react-bootstrap';
 import { URL } from '../../config/constants';
 
-
 export default function SocialDetail() {
   const { user } = useContext(AuthContext);
   const { id } = useParams();
@@ -69,7 +68,7 @@ export default function SocialDetail() {
       })
       .then(res => {
         setComments(res.data);
-        console.log('Comments: ',res.data)
+        //console.log('Comments: ',res.data)
       })
       .catch(err => {
         alert('댓글을 불러오지 못했습니다.');
@@ -110,7 +109,7 @@ export default function SocialDetail() {
   }, [postId]);
 
   useEffect(() => {
-    console.log(Object.keys(post).length);
+    //console.log(Object.keys(post).length);
     if (Object.keys(post).length > 0) {
       fetchAuthor();
     }
@@ -197,7 +196,7 @@ export default function SocialDetail() {
 
   const rtf = useMemo(
     () => new Intl.RelativeTimeFormat('ko', { numeric: 'auto', style: 'short' }),
-    []
+    [],
   );
 
   return (
@@ -238,49 +237,50 @@ export default function SocialDetail() {
               />
               <button onClick={handleCommentSubmit}>등록</button>
             </div>
-            <div >
-              {
-                comments.length > 0
-                ? 
-                comments.map((comment, i) =>{
-                  const then = Date.parse(comment.createdAt);
-                  const diffSec = (Date.now() - then) / 1_000;
+            <div>
+              {comments.length > 0
+                ? comments.map((comment, i) => {
+                    const then = Date.parse(comment.createdAt);
+                    const diffSec = (Date.now() - then) / 1_000;
 
-                  // 단위 결정
-                  let val, unit;
+                    // 단위 결정
+                    let val, unit;
 
-                  if (Math.abs(diffSec) < 60) {
-                    val = Math.round(-diffSec);
-                    unit = 'second';
-                  } else if (Math.abs(diffSec / 60) < 60) {
-                    val = Math.round(-(diffSec / 60));
-                    unit = 'minute';
-                  } else if (Math.abs(diffSec / 3600) < 24) {
-                    val = Math.round(-(diffSec / 3600));
-                    unit = 'hour';
-                  } else {
-                    val = Math.round(-(diffSec / 86400));
-                    unit = 'day';
-                  }
+                    if (Math.abs(diffSec) < 60) {
+                      val = Math.round(-diffSec);
+                      unit = 'second';
+                    } else if (Math.abs(diffSec / 60) < 60) {
+                      val = Math.round(-(diffSec / 60));
+                      unit = 'minute';
+                    } else if (Math.abs(diffSec / 3600) < 24) {
+                      val = Math.round(-(diffSec / 3600));
+                      unit = 'hour';
+                    } else {
+                      val = Math.round(-(diffSec / 86400));
+                      unit = 'day';
+                    }
 
-                  const label = rtf.format(val, unit).replace(/\s+/g, '');
+                    const label = rtf.format(val, unit).replace(/\s+/g, '');
 
-                  return(
-                  <div key={i} style={{
-                    padding:'10px', 
-                    borderBottom: '2px solid #FFD600',
-                    borderRadius:'20px',
-                    fontFamily: 'Arial, fantasy'
-                    }}>
-                    <p style={{fontSize:'15px',color:'#00000096'}}>
-                      {comment.userName}<span style={{fontSize:'12px'}}> . {label}</span>
-                    </p>
-                    <p style={{fontSize:'12px'}}>{comment.content}</p>
-                  </div>)
-                })
-                : 
-                '댓글이 없습니다'
-              }
+                    return (
+                      <div
+                        key={i}
+                        style={{
+                          padding: '10px',
+                          borderBottom: '2px solid #FFD600',
+                          borderRadius: '20px',
+                          fontFamily: 'Arial, fantasy',
+                        }}
+                      >
+                        <p style={{ fontSize: '15px', color: '#00000096' }}>
+                          {comment.userName}
+                          <span style={{ fontSize: '12px' }}> . {label}</span>
+                        </p>
+                        <p style={{ fontSize: '12px' }}>{comment.content}</p>
+                      </div>
+                    );
+                  })
+                : '댓글이 없습니다'}
             </div>
           </div>
           <hr />

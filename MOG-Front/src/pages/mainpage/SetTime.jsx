@@ -17,7 +17,7 @@ function SetTime({
   stopLocalTimer,
   booleanSaveTime,
   setDetail,
-  initDetail
+  initDetail,
 }) {
   const [checkRouData, setCheckRouData] = useState([]);
   const [show, setShow] = useState(false);
@@ -45,11 +45,11 @@ function SetTime({
   };
 
   const plus = () => {
-    console.log(booleanSaveTime);
+    //console.log(booleanSaveTime);
     if (subDetailTime <= 300) {
-      setSubDetailTime(()=>{
-        const saveTime = String(parseInt(subDetailTime) + 10)
-        if(!booleanSaveTime){
+      setSubDetailTime(() => {
+        const saveTime = String(parseInt(subDetailTime) + 10);
+        if (!booleanSaveTime) {
           setInitDetailTime(saveTime);
           fixKgAndManyNum(saveTime);
         }
@@ -58,11 +58,11 @@ function SetTime({
     }
   };
   const minus = () => {
-    console.log(booleanSaveTime);
-    if (subDetailTime >= 20){ 
-      setSubDetailTime(()=>{
-        const saveTime = subDetailTime = subDetailTime - 10
-        if(!booleanSaveTime){
+    //console.log(booleanSaveTime);
+    if (subDetailTime >= 20) {
+      setSubDetailTime(() => {
+        const saveTime = (subDetailTime = subDetailTime - 10);
+        if (!booleanSaveTime) {
           setInitDetailTime(saveTime);
           fixKgAndManyNum(saveTime);
         }
@@ -153,41 +153,41 @@ function SetTime({
   return (
     <>
       <div className={styles.header}>
-        <a href="#" style={{ textDecoration: 'none',marginLeft:'10px' }} onClick={() => setShow(true)}>
-          <p style={{ fontSize: '50px',fontWeight:'bold' }}>
+        <a
+          href="#"
+          style={{ textDecoration: 'none', marginLeft: '10px' }}
+          onClick={() => setShow(true)}
+        >
+          <p style={{ fontSize: '50px', fontWeight: 'bold' }}>
             {subDetailTime}
             <span style={{ fontSize: '20px', color: 'black' }}>초</span>
           </p>
         </a>
         <div className={styles.setTimeButtonFomat}>
+          <p className={styles.timePlusMinus} type="button" onClick={e => plus()}>
+            +
+          </p>
+          <p className={styles.timePlusMinus} type="button" onClick={e => minus()}>
+            -
+          </p>
+          <div hidden={stopAndStartTime} style={{ display: 'flex' }}>
             <p
               className={styles.timePlusMinus}
               type="button"
-              onClick={e => plus()}
+              style={{ backgroundColor: isCurrentTimeRunning ? 'red' : 'blue' }}
+              onClick={() => (isCurrentTimeRunning ? stopLocalTimer() : startLocalTimer())}
             >
-              +
+              {isCurrentTimeRunning ? '⏸' : '▶'}
             </p>
-            <p className={styles.timePlusMinus} type="button" onClick={e => minus()}>
-              -
+            <p
+              className={styles.timePlusMinus}
+              style={{ backgroundColor: 'green' }}
+              variant="secondary"
+              type="button"
+              onClick={() => resetLocalTimer()}
+            >
+              ■
             </p>
-            <div hidden={stopAndStartTime} style={{display:'flex'}}>
-              <p
-                className={styles.timePlusMinus}
-                type="button"
-                style={{backgroundColor:isCurrentTimeRunning?'red':'blue'}}
-                onClick={() => (isCurrentTimeRunning ? stopLocalTimer() : startLocalTimer())}
-              >
-                {isCurrentTimeRunning ? '⏸' : '▶'}
-              </p>
-              <p
-                className={styles.timePlusMinus}
-                style={{backgroundColor:'green'}}
-                variant="secondary"
-                type="button"
-                onClick={() => resetLocalTimer()}
-              >
-                ■
-              </p>
           </div>
         </div>
       </div>
@@ -197,56 +197,56 @@ function SetTime({
           <Modal.Title>휴식 타임</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <div
-              ref={containerRef}
-              onScroll={onScroll}
-              style={{
-                height: ITEM_HEIGHT * VISIBLE_COUNT,
-                overflowY: 'scroll',
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-              }}
-            >
-              <ListGroup variant="flush">
-                {/* 상단 더미 */}
-                <div style={{ height: PADDING_HEIGHT }} />
-                {items.map((item, idx) => (
-                  <ListGroup.Item
-                    key={idx}
-                    action
-                    active={idx === selectedIndex}
-                    style={{
-                      height: ITEM_HEIGHT,
-                      lineHeight: `${ITEM_HEIGHT}px`,
-                      textAlign: 'center',
-                      cursor: 'pointer',
-                      userSelect: 'none',
-                      fontWeight: idx === selectedIndex ? '700' : '400',
-                      fontSize: idx === selectedIndex ? '1.9rem' : '1rem',
-                      color: idx === selectedIndex ? '#007bff' : '#333',
-                      transition: 'background-color 0.3s',
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                    }}
-                    onClick={() => {
-                      const container = containerRef.current;
-                      if (!container) return;
-                      const targetScrollTop =
-                        PADDING_HEIGHT +
-                        idx * ITEM_HEIGHT -
-                        container.clientHeight / 2 +
-                        ITEM_HEIGHT / 2;
-                      container.scrollTo({ top: targetScrollTop, behavior: 'smooth' });
-                      setSelectedIndex(idx);
-                    }}
-                  >
-                    {item}초
-                  </ListGroup.Item>
-                ))}
-                {/* 하단 더미 */}
-                <div style={{ height: PADDING_HEIGHT }} />
-              </ListGroup>
-            </div>
+          <div
+            ref={containerRef}
+            onScroll={onScroll}
+            style={{
+              height: ITEM_HEIGHT * VISIBLE_COUNT,
+              overflowY: 'scroll',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            }}
+          >
+            <ListGroup variant="flush">
+              {/* 상단 더미 */}
+              <div style={{ height: PADDING_HEIGHT }} />
+              {items.map((item, idx) => (
+                <ListGroup.Item
+                  key={idx}
+                  action
+                  active={idx === selectedIndex}
+                  style={{
+                    height: ITEM_HEIGHT,
+                    lineHeight: `${ITEM_HEIGHT}px`,
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    userSelect: 'none',
+                    fontWeight: idx === selectedIndex ? '700' : '400',
+                    fontSize: idx === selectedIndex ? '1.9rem' : '1rem',
+                    color: idx === selectedIndex ? '#007bff' : '#333',
+                    transition: 'background-color 0.3s',
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                  }}
+                  onClick={() => {
+                    const container = containerRef.current;
+                    if (!container) return;
+                    const targetScrollTop =
+                      PADDING_HEIGHT +
+                      idx * ITEM_HEIGHT -
+                      container.clientHeight / 2 +
+                      ITEM_HEIGHT / 2;
+                    container.scrollTo({ top: targetScrollTop, behavior: 'smooth' });
+                    setSelectedIndex(idx);
+                  }}
+                >
+                  {item}초
+                </ListGroup.Item>
+              ))}
+              {/* 하단 더미 */}
+              <div style={{ height: PADDING_HEIGHT }} />
+            </ListGroup>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShow(false)}>
