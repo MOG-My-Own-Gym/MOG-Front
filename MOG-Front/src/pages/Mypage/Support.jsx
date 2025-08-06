@@ -74,7 +74,7 @@ export default function Support() {
             { withCredentials: true, headers: { Authorization: `Bearer ${user.accessToken}` } },
           );
         } catch (err1) {
-          console.log('첫 번째 호출 오류 발생:', err1);
+          //console.log('첫 번째 호출 오류 발생:', err1);
           showModal('현재 비밀번호가 일치하지 않습니다');
           return;
         }
@@ -97,7 +97,7 @@ export default function Support() {
           //변경된 경우 새로고침
           navigate('/mypage/support');
         } catch (err2) {
-          console.log('두 번째 호출 오류 발생:', err2);
+          //console.log('두 번째 호출 오류 발생:', err2);
           showModal('비밀번호 변경에 실패하였습니다');
         }
       }
@@ -176,7 +176,7 @@ export default function Support() {
           { withCredentials: true, headers: { Authorization: `Bearer ${user.accessToken}` } },
         );
       } catch (err1) {
-        console.log('첫 번째 호출 오류 발생:', err1);
+        //console.log('첫 번째 호출 오류 발생:', err1);
         showModal('현재 비밀번호가 일치하지 않습니다');
         return; //일치하지 않는경우 바로 return
       }
@@ -203,7 +203,7 @@ export default function Support() {
           //홈으로 이동
           navigate('/');
         } catch (err2) {
-          console.log('두 번째 호출 오류 발생:', err2);
+          //console.log('두 번째 호출 오류 발생:', err2);
           showModal('회원탈퇴에 실패하였습니다');
         }
       } //'취소'를 누른경우 회원탈퇴 취소

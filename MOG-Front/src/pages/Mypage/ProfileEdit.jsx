@@ -93,7 +93,7 @@ export default function ProfileEdit() {
         navigete('/mypage');
       })
       .catch(e => {
-        console.log(e);
+        //console.log(e);
         showModal('프로필 수정 실패');
       });
   };
@@ -102,7 +102,7 @@ export default function ProfileEdit() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        console.log('image changed');
+        //console.log('image changed');
         setInputs(prev => {
           return { ...prev, profileImg: reader.result };
         }); // base64 문자열 저장

@@ -64,7 +64,6 @@ export default function FindIdPage() {
       })
       .catch(err => {
         //에러출력
-        console.log(err);
         //모달알러트 띄우기
         showModal('아이디 찾기에 실패하였습니다.');
       });

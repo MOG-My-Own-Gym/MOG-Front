@@ -47,7 +47,7 @@ export default function Profile() {
           }));
         })
         .catch(e => {
-          console.log(e.response.data, e);
+          //console.log(e.response.data, e);
           showModal('프로필을 읽어오는 중 오류가 발생하였습니다');
         });
     };

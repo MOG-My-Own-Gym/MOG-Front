@@ -29,10 +29,7 @@ function CommentSection({ postId, currentUser }) {
     fetchComments();
   }, [postId]);
 
-  useEffect(() => {
-    console.log('postId in CommentSection:', postId);
-    console.log(user);
-  }, [postId]);
+  useEffect(() => {}, [postId]);
 
   //댓글 생성
   const handleCommentSubmit = async () => {

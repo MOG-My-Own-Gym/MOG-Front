@@ -54,7 +54,7 @@ export default function LoginPage() {
         navigate('/', { replace: true });
       })
       .catch(e => {
-        console.log(e);
+        //console.log(e);
         //네트워크에러가 일어나지 않은경우(네트워크 에러인 경우 e.status가 없어서 코드진행이 막힘)
         if (e.code !== 'ERR_NETWORK') {
           //유저정보가 없어서 로그인에 실패한 경우
@@ -85,16 +85,16 @@ export default function LoginPage() {
           },
         )
         .then(res => {
-          console.log(res);
+          //console.log(res);
           const { access_token } = res.data;
-          console.log(access_token);
+          //console.log(access_token);
           axios
             .post(`https://mogapi.kro.kr/api/v1/users/login/kakao`, {
               socialType: 'kakao',
               accessToken: access_token,
             })
             .then(res => {
-              console.log('kakao login successful');
+              //console.log('kakao login successful');
               dispatch({ type: 'LOGIN', user: res.data });
               navigate('/', { replace: true });
             })

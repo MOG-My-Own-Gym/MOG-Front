@@ -194,17 +194,14 @@ export default function Stage() {
                     showModal('루틴이 정상적으로 저장되었습니다');
                   })
                   .catch(err => {
-                    console.log(err);
                     showModal('루틴 저장 중 오류가 발생했습니다');
                   });
               })
               .catch(err => {
-                console.log(err);
                 showModal('루틴 저장 중 오류가 발생했습니다');
               });
           })
           .catch(err => {
-            console.log(err);
             showModal('루틴 저장 중 오류가 발생했습니다');
           });
       })

@@ -102,7 +102,7 @@ export default function SignUp() {
               return;
             }
           } else {
-            console.log(err);
+            //console.log(err);
             showModal('아이디 중복 조회 중 오류가 발생하였습니다');
           }
         });
@@ -141,7 +141,7 @@ export default function SignUp() {
         navigator('/login');
       })
       .catch(err => {
-        console.log(err);
+        //console.log(err);
         showModal('회원가입 실패');
       });
   };
@@ -160,7 +160,7 @@ export default function SignUp() {
       })
       .catch(err => {
         //조회에 실패한 경우 -> 존재하지 않는 회원 즉, 중복되지 않은 이메일인 경우
-        console.log(err);
+        //console.log(err);
 
         if (err.code === 'ERR_NETWORK') showModal('아이디 중복 조회에 실패하였습니다');
         else emailCheckResult.current.textContent = '사용 가능한 아이디입니다';

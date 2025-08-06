@@ -48,8 +48,6 @@ function App() {
       document.documentElement.style.setProperty('overflow-y', 'hidden', 'important');
     } else {
       document.documentElement.style.setProperty('overflow-y', 'auto', 'important');
-
-      console.log(document.body.style.overflow);
     }
   }, [location.pathname]);
 

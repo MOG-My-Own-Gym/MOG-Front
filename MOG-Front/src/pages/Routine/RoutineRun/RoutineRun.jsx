@@ -19,8 +19,8 @@ export default function RoutineRun() {
   const { routine, dispatch: dispatchRoutine } = useContext(RoutineContext);
   const { isRunning, dispatch: dispatchRun } = useContext(RunContext);
 
-  console.log(routineId);
-  console.log(routine);
+  //console.log(routineId);
+  //console.log(routine);
   const [routineData, setRoutineData] = useState(null);
   useEffect(() => {
     const fetchRoutine = async () => {
@@ -31,7 +31,7 @@ export default function RoutineRun() {
           },
         })
         .then(res => {
-          console.log(res.data);
+          //console.log(res.data);
           setRoutineData(res.data);
           dispatchRoutine({ type: 'SAVE', routine: res.data, originRoutine: res.data });
         });
@@ -40,9 +40,9 @@ export default function RoutineRun() {
   }, []);
 
   useEffect(() => {
-    console.log(routineData);
-    console.log(routineData?.saveRoutineDto);
-    console.log(routineData?.saveRoutineDto.length);
+    //console.log(routineData);
+    //console.log(routineData?.saveRoutineDto);
+    //console.log(routineData?.saveRoutineDto.length);
   }, [routineData]);
 
   return (

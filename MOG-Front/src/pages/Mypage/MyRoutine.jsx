@@ -51,12 +51,13 @@ export default function MyRoutine() {
       await axios
         .get(URL.ROUNTINE)
         .then(res => {
-          if (res.data[0].userId === user.usersId.toString()) {
-            setRoutineData(res.data);
-          }
+          setRoutineData(() => {
+            const data = res.data.filter(data => String(data.userId) === String(user.usersId));
+            return data;
+          });
         })
         .catch(err => {
-          console.log(err);
+          //console.log(err);
           showModal('루틴 조회에 실패하였습니다');
         });
       /*
@@ -70,12 +71,12 @@ export default function MyRoutine() {
         .then(res=>{
           setRoutineData(res.data);
           const set = res.data[0];
-          console.log(set);
+          //console.log(set);
           const setDetail =set.saveRoutineDto;
-          console.log(setDetail[0]);
+          //console.log(setDetail[0]);
         })
         .catch(err=>{
-          console.log(err);
+          //console.log(err);
           showModal('루틴 조회에 실패하였습니다');
         })
       */
