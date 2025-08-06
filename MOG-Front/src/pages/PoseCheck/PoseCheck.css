@@ -223,3 +223,12 @@
     margin-top: 40px;
   }
 }
+.pose-history-description {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+.pose-webcam video {
+  transform: scaleX(-1);
+}
