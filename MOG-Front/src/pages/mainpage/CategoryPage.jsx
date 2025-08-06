@@ -81,6 +81,25 @@ export default function CategoryPage({
       addSetId = initSaveExercise.map((item, index) => ({ ...item, set_id: String(index + 1) }));
       const routineName =
         'routine' + String(checkRoutineUser.length <= 0 ? 1 : checkRoutineUser.length + 1);
+      const realRoutineData = await axios
+        .post(
+          `${URL.REALDATA}/create`,
+          {
+            routineName: String(
+              useDataRoutine.length <= 0
+                ? 1
+                : parseInt(useDataRoutine[useDataRoutine.length - 1].id) + 1,
+            ),
+            saveRoutineDto: [],
+          },
+          {
+            headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+          },
+        )
+        .then(res => {
+          return res.data;
+        });
+      const createdRealRoutineId = realRoutineData.setId;
       await axios.post(URL.ROUNTINE, {
         id: String(
           useDataRoutine.length <= 0
@@ -89,6 +108,7 @@ export default function CategoryPage({
         ),
         name: routineName,
         userId: String(userInfo.usersId),
+        realRoutineId: createdRealRoutineId,
         state: [...addSetId],
       });
       for (let i = 0; i <= addSetId.length - 1; i++) {
@@ -114,20 +134,7 @@ export default function CategoryPage({
         ),
         state: [...makeDetailNode],
       });
-      await axios.post(
-        `${URL.REALDATA}/create`,
-        {
-          routineName: String(
-            useDataRoutine.length <= 0
-              ? 1
-              : parseInt(useDataRoutine[useDataRoutine.length - 1].id) + 1,
-          ),
-          saveRoutineDto: [],
-        },
-        {
-          headers: { Authorization: `Bearer ${userInfo.accessToken}` },
-        },
-      );
+
       navigate(`/data/routine?routineId=${useDataRoutine.length + 1}`);
     } else {
       const makeRoutineId =
@@ -278,7 +285,6 @@ export default function CategoryPage({
         // 여기에 추가 로직 (데이터 더 불러오기 등)
         setShowMaxCategory(prev => prev + 5);
       }
-
     };
     handleScroll();
     el.addEventListener('scroll', handleScroll, { passive: true });
@@ -288,22 +294,18 @@ export default function CategoryPage({
   return (
     <>
       <div className={styles.mainContainer}>
-          <Button
-            className={styles.backButton}
-            type="button"
-            onClick={() => navigate('/data/')}
-          >
-            뒤로가기
-          </Button>
-          <form className={'d-flex'}>
-            <input
-              className={styles.inputForm}
-              type="search"
-              placeholder="운동 이름을 입력하세요."
-              onChange={e => setSearch(e.target.value)}
-            />
-          </form>
-          <div style={{ overflowX: 'scroll', whiteSpace: 'nowrap'}} className={'container'}>
+        <Button className={styles.backButton} type="button" onClick={() => navigate('/data/')}>
+          뒤로가기
+        </Button>
+        <form className={'d-flex'}>
+          <input
+            className={styles.inputForm}
+            type="search"
+            placeholder="운동 이름을 입력하세요."
+            onChange={e => setSearch(e.target.value)}
+          />
+        </form>
+        <div style={{ overflowX: 'scroll', whiteSpace: 'nowrap' }} className={'container'}>
           <div className="container m-2">
             운동 종류
             {initcategory.map((item, index) => (
@@ -369,8 +371,7 @@ export default function CategoryPage({
             ))}
           </div>
         </div>
-        <div ref={makeRoutineContainer} 
-          className={styles.secondContainer}>
+        <div ref={makeRoutineContainer} className={styles.secondContainer}>
           {initDeduplicationDetail.length === 0 ? (
             <h1>값이 없습니다.</h1>
           ) : (
@@ -383,7 +384,12 @@ export default function CategoryPage({
                 style={{ display: 'flex' }}
                 onClick={e => saveRoutineButton(e)}
               >
-                <img className='me-2' alt={item.imgfile} style={{ width: '100px' }} src={item.imgfile} />
+                <img
+                  className="me-2"
+                  alt={item.imgfile}
+                  style={{ width: '100px' }}
+                  src={item.imgfile}
+                />
                 {item.names}
                 <span
                   id={item.names + 'Span'}
