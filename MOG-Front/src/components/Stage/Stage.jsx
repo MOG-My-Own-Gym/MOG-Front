@@ -156,6 +156,7 @@ export default function Stage() {
                     : parseInt(dataRoutine[dataRoutine.length - 1].id) + 1,
                 ),
                 name: routineName,
+                realRoutineId: res.data.setId,
                 userId: String(user.usersId),
                 state: [...makeRoutineNode],
               })
