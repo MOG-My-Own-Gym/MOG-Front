@@ -28,11 +28,12 @@ export default function Timer({ hour = 0, minute = 0 }) {
   }, [isRunning]);
 
   // 시간 포맷팅
-  const formatTime = seconds => {
-    const h = Math.floor(seconds / 3600);
-    const m = Math.floor((seconds % 3600) / 60);
-    const s = seconds % 60;
-    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  const formatTime = sec => {
+    const m = Math.floor(sec / 60)
+      .toString()
+      .padStart(2, '0');
+    const s = (sec % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
   };
 
   // 타이머 조작 핸들러
@@ -50,14 +51,14 @@ export default function Timer({ hour = 0, minute = 0 }) {
   };
 
   const handleAddMinute = () => {
-    setTime(prev => prev + 60);
-    setTimeLeft(prev => prev + 60);
+    setTime(prev => prev + 10);
+    setTimeLeft(prev => prev + 10);
   };
 
   const handleSubtractMinute = () => {
-    setTime(prev => Math.max(prev - 60, 0));
-    setTimeLeft(prev => Math.max(prev - 60, 0));
-    if (timeLeft <= 60 && isRunning) {
+    setTime(prev => Math.max(prev - 10, 0));
+    setTimeLeft(prev => Math.max(prev - 10, 0));
+    if (timeLeft <= 10 && isRunning) {
       // 타이머가 0 되면 멈추기
       setIsRunning(false);
     }
@@ -65,6 +66,7 @@ export default function Timer({ hour = 0, minute = 0 }) {
 
   return (
     <div className={styles['timer-wrapper']}>
+      <h2>휴식 시간</h2>
       <div className={styles['timer-display']}>{formatTime(timeLeft)}</div>
 
       <div className={styles['controls-container']}>
@@ -86,14 +88,14 @@ export default function Timer({ hour = 0, minute = 0 }) {
         </div>
         <div className={styles['addsub']}>
           <button className={styles['time-addsub']} onClick={handleAddMinute}>
-            <i class="fa-solid fa-clock"></i> +1분
+            <i class="fa-solid fa-clock"></i> +10초
           </button>
           <button
             className={styles['time-addsub']}
             onClick={handleSubtractMinute}
-            disabled={timeLeft < 60}
+            disabled={timeLeft < 10}
           >
-            <i class="fa-solid fa-clock"></i> -1분
+            <i class="fa-solid fa-clock"></i> -10초
           </button>
         </div>
       </div>
