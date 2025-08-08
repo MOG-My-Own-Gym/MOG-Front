@@ -8,14 +8,19 @@ import { AuthContext } from '../../Login/AuthContext';
 import ToastContext from '../../../context/ToastContext';
 import RoutineButton from '../../../components/Button/Routine/RoutineButton/RoutineButton';
 import PageBackButton from '../../../components/Button/Routine/PageBackButton/PageBackButton';
+import { Modal } from 'react-bootstrap';
+import TotalTimer from '@/components/TotalTimer/TotalTimer';
+import { RunContext } from '../RunContext';
 export default function RoutineDetail() {
   const [param] = useSearchParams();
   const navigate = useNavigate();
   const routineId = param.get('routineId');
   const detailId = param.get('detailId');
   const { user } = useContext(AuthContext);
+  const { isRunning } = useContext(RunContext);
   const { routine, originRoutine, dispatch } = useContext(RoutineContext);
   const { toast, dispatch: dispatchToast } = useContext(ToastContext);
+  const { restTime, setRestTime } = useState(0);
   useEffect(() => {
     console.log(originRoutine, routine);
     console.log(originRoutine === routine);
@@ -132,10 +137,27 @@ export default function RoutineDetail() {
 
   return (
     <div className={styles['routine-detail']}>
+      <Modal />
       <div className={styles['routine-detail-back']}>
         <PageBackButton />
       </div>
-      <h2 className={styles['routine-detail-title']}>루틴 상세</h2>
+      <div className={styles['routine-detail-title']}>
+        <h2>루틴 상세</h2>
+        {isRunning && (
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <img src={'/icons/RunningRoutine.gif'} />
+            <TotalTimer type={'DETAIL'} />
+          </div>
+        )}
+      </div>
       <div className={styles['routine-detail-wrapper']}>
         {routine.saveRoutineDto
           .filter(sr => sr.srId === parseInt(detailId))
@@ -192,6 +214,7 @@ export default function RoutineDetail() {
                         <div>세트</div>
                         <div>무게</div>
                         <div>반복횟수</div>
+
                         <div>완료</div>
                         {item.set.map((set, idx) => (
                           <React.Fragment key={idx}>
@@ -212,6 +235,7 @@ export default function RoutineDetail() {
                                 }}
                               />
                             </div>
+
                             <div>
                               <div className={styles['set-complete-button']}></div>
                             </div>

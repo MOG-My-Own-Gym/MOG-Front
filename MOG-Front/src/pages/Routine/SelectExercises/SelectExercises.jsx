@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import RadialGradientSpinner from '../../../components/Loader/RadialGradientSpinner';
 import axios from 'axios';
+// @ts-ignore
 import styles from './SelectExercises.module.css';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AuthContext } from '../../Login/AuthContext';
@@ -18,7 +19,9 @@ export default function SelectExercises() {
   const [visibleCount, setVisibleCount] = useState(5);
 
   const { user } = useContext(AuthContext);
+
   const { routine, dispatch: dispatchRoutine } = useContext(RoutineContext);
+  console.log(routine);
   const { toast, dispatch: dispatchToast } = useContext(ToastContext);
 
   const [param] = useSearchParams();

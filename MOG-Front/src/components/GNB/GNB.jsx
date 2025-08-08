@@ -5,7 +5,9 @@ import { NavDropdown, Offcanvas } from 'react-bootstrap';
 import axios from 'axios';
 import { useModalAlert } from '../../context/ModalAlertContext';
 import './css/GNB.css';
-
+import { RunContext } from '../../pages/Routine/RunContext';
+import TotalTimer from '@/components/TotalTimer/TotalTimer';
+RunContext;
 export default function GNB() {
   const [show, setShow] = useState(false);
   const [userData, setUserData] = useState({
@@ -15,6 +17,7 @@ export default function GNB() {
     profileImg: '/img/userAvatar.png',
   });
   const { showModal } = useModalAlert();
+  const { isRunning } = useContext(RunContext);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const location = useLocation();
@@ -99,10 +102,19 @@ export default function GNB() {
           {/*루틴 드롭다운 */}
           {user && (
             <>
+              {isRunning && !currentPath.startsWith('/routine/detail') && (
+                <div style={{ display: 'flex', gap: '1em', marginRight: '1em' }}>
+                  <img
+                    src={'/icons/RunningRoutine.gif'}
+                    style={{ width: '30px', height: '30px', filter: 'invert(1)' }}
+                  />
+                  <TotalTimer />
+                </div>
+              )}
               <li className="nav-item">
                 <NavDropdown
                   title={
-                    <span className={isPathActive(['/data']) ? 'active-text' : ''}>
+                    <span className={isPathActive(['/routine']) ? 'active-text' : ''}>
                       <strong>루틴</strong>
                     </span>
                   }
@@ -113,8 +125,8 @@ export default function GNB() {
                 >
                   <NavDropdown.Item
                     as={Link}
-                    to="/data"
-                    className={currentPath.startsWith('/data') ? 'active-item' : ''}
+                    to="/routine"
+                    className={currentPath.startsWith('/routine') ? 'active-item' : ''}
                   >
                     루틴생성
                   </NavDropdown.Item>
@@ -268,7 +280,7 @@ export default function GNB() {
                     <li className="nav-item mb-2">
                       <span
                         className="nav-link"
-                        style={{ color: isPathActive(['/data']) ? '#FFC800' : 'white' }}
+                        style={{ color: isPathActive(['/routine']) ? '#FFC800' : 'white' }}
                         onClick={handleClickRoutine}
                       >
                         루틴
@@ -278,8 +290,8 @@ export default function GNB() {
                           <li className="nav-item">
                             <Link
                               className="nav-link"
-                              to="/data"
-                              style={{ color: isPathActive(['/data']) ? '#FFC800' : 'white' }}
+                              to="/routine"
+                              style={{ color: isPathActive(['/routine']) ? '#FFC800' : 'white' }}
                               onClick={handleClose}
                             >
                               루틴 설정
