@@ -49,11 +49,14 @@ export default function MyRoutine() {
   useEffect(() => {
     const fetchRoutine = async () => {
       await axios
-        .get(URL.ROUNTINE)
+        .get(`${URL.REALDATA}/list`, {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        })
         .then(res => {
-          if (res.data[0].userId === user.usersId.toString()) {
-            setRoutineData(res.data);
-          }
+          console.log(res.data);
+          setRoutineData(res.data);
         })
         .catch(err => {
           console.log(err);
@@ -99,7 +102,7 @@ export default function MyRoutine() {
                     style={{ backgroundColor: '#ffc800' }}
                     onClick={e => {
                       e.preventDefault();
-                      navigate('/data/select');
+                      navigate('/routine/select');
                     }}
                   >
                     <i className="fa fa-plus"></i> New
@@ -125,7 +128,7 @@ export default function MyRoutine() {
                           className="btn-routineName"
                           onClick={e => {
                             e.preventDefault();
-                            navigate(`/data/routine?routineId=${routine.id}`);
+                            navigate(`/routine/run?routineId=${routine.setId}`);
                           }}
                         >
                           <div className="d-flex flex-row align-items-center routine-list">
@@ -134,7 +137,7 @@ export default function MyRoutine() {
                             </span>
 
                             <div className="d-flex flex-column">
-                              <span>{routine.name}</span>
+                              <span>{routine.routineName}</span>
                             </div>
                           </div>
                         </button>
