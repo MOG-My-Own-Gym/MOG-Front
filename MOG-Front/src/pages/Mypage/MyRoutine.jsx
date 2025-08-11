@@ -102,7 +102,7 @@ export default function MyRoutine() {
                     style={{ backgroundColor: '#ffc800' }}
                     onClick={e => {
                       e.preventDefault();
-                      navigate('/data/select');
+                      navigate('/routine/select');
                     }}
                   >
                     <i className="fa fa-plus"></i> New
