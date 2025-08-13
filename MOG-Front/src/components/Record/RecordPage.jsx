@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './record.css'; // CSS 경로
@@ -144,6 +145,8 @@ export default function RecordPage() {
       {activeTab === '신체' && (
         <div className="record-placeholder">📊 신체 기록이 들어가는 자리입니다.</div>
       )}
+
+
 
       {/* 날짜 클릭시 모달 */}
       {isModalOpen && (

@@ -122,7 +122,7 @@ export default function Stage() {
         //백엔드 서버 루틴 추가
         axios
           .post(
-            `https://mogapi.kro.kr/api/v1/routine/create`,
+            `http://localhost:8080/api/v1/routine/create`,
             { routineName: routineName, saveRoutineDto: [] },
             {
               headers: {

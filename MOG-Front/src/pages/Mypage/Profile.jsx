@@ -3,12 +3,26 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Login/AuthContext';
 import { useModalAlert } from '../../context/ModalAlertContext';
+import AchievementService from './services/achievementService';
+import achievementConfig from './data/achievements.json';
+import { Badge } from 'react-bootstrap';
 import './css/profile.css';
 
 export default function Profile() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const { showModal } = useModalAlert();
+  
+  // 업적 관련 상태
+  const [achievementService] = useState(() => new AchievementService(achievementConfig));
+  const [userSessions, setUserSessions] = useState([]); // 실제 운동 데이터로 교체
+  const [unlockedAchievements, setUnlockedAchievements] = useState([]);
+
+  // 업적 달성 상태 업데이트
+  useEffect(() => {
+    const unlocked = achievementService.checkAllAchievements(achievementConfig.achievements, userSessions);
+    setUnlockedAchievements(unlocked);
+  }, [userSessions, achievementService]);
 
   // 초기 프로필 데이터 설정
   const [profile, setProfile] = useState({
@@ -28,7 +42,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       await axios
-        .get(`https://mogapi.kro.kr/api/v1/users/${user.usersId}`) //로그인시 저장된 userId에 따라 단일 회원 조회 api요청
+        .get(`http://localhost:8080/api/v1/users/${user.usersId}`) //로그인시 저장된 userId에 따라 단일 회원 조회 api요청
         .then(res => {
           const getUser = res.data;
           const getBio = res.data.biosDto;
@@ -74,6 +88,44 @@ export default function Profile() {
                 <span className="font-weight-bold fs-2">{profile.nickName}</span>
                 <span className="font-weight-bold fs-4">{profile.name}</span>
                 <span className="text-black-50">{profile.email}</span>
+                
+                {/* 업적 정보 */}
+                <div className="mt-3">
+                  <div className="d-flex justify-content-center align-items-center mb-2">
+                    <span className="text-muted me-2">달성한 업적</span>
+                    <Badge bg="success" className="fs-6">
+                      {unlockedAchievements.length}개
+                    </Badge>
+                  </div>
+                  
+                  {/* 업적 뱃지들 */}
+                  <div className="d-flex flex-wrap justify-content-center gap-1 mb-3">
+                    {unlockedAchievements.slice(0, 6).map(achievement => (
+                      <Badge 
+                        key={achievement.id} 
+                        bg="warning" 
+                        text="dark"
+                        className="fs-6 px-2 py-1"
+                        title={achievement.name}
+                      >
+                        {achievement.icon}
+                      </Badge>
+                    ))}
+                    {unlockedAchievements.length > 6 && (
+                      <Badge bg="secondary" className="fs-6 px-2 py-1">
+                        +{unlockedAchievements.length - 6}
+                      </Badge>
+                    )}
+                  </div>
+                  
+                  {/* 레벨 및 업적 페이지로 이동 버튼 */}
+                  <button
+                    onClick={() => navigate('/mypage/gamification')}
+                    className="btn btn-outline-warning btn-sm"
+                  >
+                    🏆 레벨 및 업적 보기
+                  </button>
+                </div>
               </div>
             </div>
             <div className="col-md-4 border-right">

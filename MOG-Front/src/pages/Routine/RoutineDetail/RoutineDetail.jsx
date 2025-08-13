@@ -29,7 +29,7 @@ export default function RoutineDetail() {
   //루틴 저장
   const saveRoutine = async () => {
     const editRoutine = await axios
-      .put(`https://mogapi.kro.kr/api/v1/routine/${routineId}/update`, routine, {
+      .put(`http://localhost:8080/api/v1/routine/${routineId}/update`, routine, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
