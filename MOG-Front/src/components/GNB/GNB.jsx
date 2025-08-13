@@ -99,6 +99,18 @@ export default function GNB() {
       {/*데스크탑용 네비게이션 메뉴 */}
       <div className="collapse navbar-collapse d-none d-lg-block" id="navbarResponsive">
         <ul className="navbar-nav text-uppercase ms-auto py-4 py-lg-0" style={{ flexWrap: 'wrap' }}>
+          {/*Shop 메뉴 */}
+          <li className="nav-item">
+            <Link className="nav-link-GNB" to="/shop">
+              {currentPath.startsWith('/shop') ? (
+                <span style={{ color: '#ffc800' }}>
+                  <strong>Shop</strong>
+                </span>
+              ) : (
+                'Shop'
+              )}
+            </Link>
+          </li>
           {/*루틴 드롭다운 */}
           {user && (
             <>
@@ -275,6 +287,19 @@ export default function GNB() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <ul className="navbar-nav text-uppercase py-4 py-lg-0">
+                <li className="nav-item mb-2">
+                  <Link
+                    className="nav-link"
+                    to="/shop"
+                    style={{ color: isPathActive(['/shop']) ? '#FFC800' : 'white' }}
+                    onClick={() => {
+                      handleClose();
+                      handleClick();
+                    }}
+                  >
+                    Shop
+                  </Link>
+                </li>
                 {user && (
                   <>
                     <li className="nav-item mb-2">
