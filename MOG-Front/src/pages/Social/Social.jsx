@@ -80,7 +80,7 @@ export default function Social() {
 
       let serverCards = [];
       try {
-        const res = await axios.get(`https://mogapi.kro.kr/api/v1/posts/list`, {
+        const res = await axios.get(`http://localhost:8080/api/v1/posts/list`, {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },

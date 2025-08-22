@@ -30,7 +30,7 @@ export default function GNB() {
     if (user) {
       const fetchProfile = async () => {
         await axios
-          .get(`https://mogapi.kro.kr/api/v1/users/${user.usersId}`)
+          .get(`http://localhost:8080/api/v1/users/${user.usersId}`)
           .then(res => {
             setUserData(prev => ({
               ...prev,
@@ -179,6 +179,18 @@ export default function GNB() {
                 </span>
               ) : (
                 '소셜'
+              )}
+            </Link>
+          </li>
+          {/*Shop */}
+          <li className="nav-item">
+            <Link className="nav-link-GNB" to="/shop">
+              {currentPath.startsWith('/shop') ? (
+                <span style={{ color: '#ffc800' }}>
+                  <strong>Shop</strong>
+                </span>
+              ) : (
+                'Shop'
               )}
             </Link>
           </li>
@@ -352,6 +364,19 @@ export default function GNB() {
                     }}
                   >
                     소셜
+                  </Link>
+                </li>
+                <li className="nav-item mb-2">
+                  <Link
+                    className="nav-link"
+                    to="/shop"
+                    style={{ color: isPathActive(['/shop']) ? '#FFC800' : 'white' }}
+                    onClick={() => {
+                      handleClose();
+                      handleClick();
+                    }}
+                  >
+                    Shop
                   </Link>
                 </li>
                 {user ? (

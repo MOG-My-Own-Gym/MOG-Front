@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
-import PaymentModal from '../../components/Payment/PaymentModal';
+import { useNavigate } from 'react-router-dom';
 import './Shop.css';
 
 export default function Shop() {
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const navigate = useNavigate();
 
   // 샘플 상품 데이터
   const products = [
     {
       id: 1,
-      name: '프리미엄 요가매트',
       category: 'equipment',
       price: 45000,
       originalPrice: 60000,
@@ -22,7 +20,6 @@ export default function Shop() {
     },
     {
       id: 2,
-      name: '스마트 웨이트',
       category: 'equipment',
       price: 120000,
       originalPrice: 150000,
@@ -32,7 +29,6 @@ export default function Shop() {
     },
     {
       id: 3,
-      name: '운동복 세트',
       category: 'clothing',
       price: 89000,
       originalPrice: 120000,
@@ -42,7 +38,6 @@ export default function Shop() {
     },
     {
       id: 4,
-      name: '프로틴 파우더',
       category: 'supplement',
       price: 65000,
       originalPrice: 80000,
@@ -52,7 +47,6 @@ export default function Shop() {
     },
     {
       id: 5,
-      name: '테스트 상품',
       category: 'equipment',
       price: 100, // ✅ 아임포트 최소 금액으로 조정
       originalPrice: 1000,
@@ -78,18 +72,8 @@ export default function Shop() {
   };
 
   const handleBuyNow = (product) => {
-    setSelectedProduct(product);
-    setShowPaymentModal(true);
-  };
-
-  const handlePaymentSuccess = (orderData) => {
-    console.log('주문 완료:', orderData);
-    
-    // 성공 메시지 표시
-    alert(`주문이 완료되었습니다!\n주문번호: ${orderData.orderNumber}\n상품: ${orderData.productName}\n총 금액: ${orderData.totalAmount.toLocaleString()}원`);
-    
-    // TODO: 주문 내역 페이지로 이동하거나 주문 내역을 표시
-    // TODO: 장바구니에서 상품 제거 (장바구니 기능 구현 시)
+    // ProductDetail 페이지로 이동
+    navigate(`/product/${product.id}`);
   };
 
   return (
@@ -195,14 +179,6 @@ export default function Shop() {
             <p>다른 카테고리를 확인해보세요!</p>
           </div>
         )}
-
-        {/* 결제 모달 */}
-        <PaymentModal
-          show={showPaymentModal}
-          onHide={() => setShowPaymentModal(false)}
-          product={selectedProduct}
-          onPaymentSuccess={handlePaymentSuccess}
-        />
       </Container>
     </div>
   );

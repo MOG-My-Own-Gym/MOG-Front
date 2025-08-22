@@ -31,6 +31,8 @@ import RoutineResultPage from './pages/mainpage/RoutineResultPage';
 import { RoutineProvider } from './pages/Routine/RoutineContext';
 import Shop from './pages/Shop/Shop';
 import OrderHistory from './pages/Shop/OrderHistory';
+import ProductDetail from './pages/Shop/ProductDetail';
+import OrderPage from './pages/Shop/OrderPage';
 
 
 import './App.css';
@@ -90,6 +92,8 @@ function App() {
                 <Route path="/suggest" element={<Suggest />}></Route>
                 <Route path="/shop" element={<Shop />}></Route>
                 <Route path="/orders" element={<OrderHistory />}></Route>
+                <Route path="/product/:productId" element={<ProductDetail />} />
+                <Route path="/order/:productId" element={<OrderPage />} />
               </Routes>
             </SuggestProvider>
           </RoutineProvider>

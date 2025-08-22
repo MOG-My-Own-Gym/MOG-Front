@@ -46,7 +46,7 @@ export default function LoginPage() {
 
     //유효성 체크에 통과한 경우 로그인 api요청
     axios
-      .post('https://mogapi.kro.kr/api/v1/users/login', { email, password })
+      .post('http://localhost:8080/api/v1/users/login', { email, password })
       .then(res => {
         //dispatch로 AuthContext에 LOGIN상태 전달 -> 로컬스토리지에 user정보 저장
         dispatch({ type: 'LOGIN', user: res.data });
@@ -89,7 +89,7 @@ export default function LoginPage() {
           const { access_token } = res.data;
           console.log(access_token);
           axios
-            .post(`https://mogapi.kro.kr/api/v1/users/login/kakao`, {
+            .post(`http://localhost:8080/api/v1/users/login/kakao`, {
               socialType: 'kakao',
               accessToken: access_token,
             })

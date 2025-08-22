@@ -1,0 +1,231 @@
+.order-page-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.price-breakdown {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.price-breakdown .d-flex {
+  font-size: 0.9rem;
+}
+
+.price-breakdown hr {
+  margin: 15px 0;
+}
+
+.side-navigation {
+  position: sticky;
+  top: 100px;
+}
+
+.side-navigation .btn {
+  font-size: 0.9rem;
+  padding: 10px 15px;
+}
+
+/* 카드 스타일 */
+.card {
+  border: 1px solid #dee2e6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  font-weight: 600;
+}
+
+/* 폼 스타일 */
+.form-label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 8px;
+}
+
+.form-control, .form-select {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #ffc800;
+  box-shadow: 0 0 0 0.2rem rgba(255, 200, 0, 0.25);
+}
+
+/* 체크박스와 라디오 버튼 스타일 */
+.form-check-input:checked {
+  background-color: #ffc800;
+  border-color: #ffc800;
+}
+
+.form-check-label {
+  color: #495057;
+  font-weight: 500;
+}
+
+/* 테이블 스타일 */
+.table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+  border-color: #dee2e6;
+}
+
+.table td {
+  border-color: #dee2e6;
+  vertical-align: middle;
+}
+
+/* 버튼 스타일 */
+.btn-warning {
+  background-color: #ffc800;
+  border-color: #ffc800;
+  color: #000;
+  font-weight: 600;
+}
+
+.btn-warning:hover {
+  background-color: #e6b300;
+  border-color: #e6b300;
+  color: #000;
+}
+
+.btn-warning:disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+}
+
+/* 배송지 선택 라디오 버튼 그룹 */
+.form-check-inline {
+  margin-right: 15px;
+}
+
+.form-check-inline .form-check-input {
+  margin-right: 5px;
+}
+
+/* 주소 입력 필드 */
+.address-inputs .form-control {
+  margin-bottom: 10px;
+}
+
+/* 배송 메시지 텍스트 영역 */
+textarea.form-control {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* 예치금 및 쿠폰 입력 필드 */
+.discount-inputs .form-control {
+  margin-bottom: 10px;
+}
+
+/* 결제 예정금액 강조 */
+.fs-5 {
+  font-size: 1.25rem !important;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .order-page-container {
+    padding: 20px 0;
+  }
+  
+  .side-navigation {
+    position: static;
+    margin-top: 20px;
+  }
+  
+  .price-breakdown {
+    padding: 10px;
+  }
+  
+  .form-check-inline {
+    display: block;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-body {
+    padding: 15px;
+  }
+  
+  .price-breakdown .d-flex {
+    font-size: 0.8rem;
+  }
+  
+  .btn {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}
+
+/* 로딩 스피너 */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* 경고 메시지 */
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* 배지 스타일 */
+.badge {
+  font-size: 0.75rem;
+  padding: 0.35em 0.65em;
+}
+
+/* 알림 스타일 */
+.alert {
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 뒤로가기 버튼 */
+.back-button {
+  margin-bottom: 20px;
+}
+
+/* 우편번호 버튼 */
+.postcode-button {
+  white-space: nowrap;
+}
+
+/* 전체 동의 체크박스 강조 */
+#allAgree + .form-check-label {
+  font-weight: 700;
+  color: #495057;
+}
+
+/* 필수 동의 항목 스타일 */
+.required-agreement {
+  color: #dc3545;
+}
+
+/* 할인 정보 강조 */
+.discount-amount {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+/* 최종 결제금액 강조 */
+.final-amount {
+  color: #dc3545;
+  font-size: 1.5rem;
+  font-weight: 700;
+}

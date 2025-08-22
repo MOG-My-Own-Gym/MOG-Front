@@ -15,6 +15,9 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
       console.log('PaymentModal 열림, 아임포트 SDK 확인 중...');
       console.log('window.IMP 존재 여부:', !!window.IMP);
       
+      // 모달이 열릴 때 에러 메시지 초기화
+      setError('');
+      
       if (window.IMP) {
         console.log('아임포트 SDK 로드됨, 초기화 시작...');
         // 환경별 설정에서 가맹점 코드 가져오기
@@ -28,12 +31,19 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
     }
   }, [show]);
 
+  // 모달이 닫힐 때 에러 메시지 초기화
+  const handleModalClose = () => {
+    setError('');
+    setLoading(false);
+    onHide();
+  };
+
     const sendPaymentToBackend = async (impResponse, paymentData) => {
     try {
       // 로컬 스토리지에서 토큰 가져오기
       const token = localStorage.getItem('accessToken');
       if (!token) {
-        setError('로그인이 필요합니다.');
+        setError('로그인이 필요합니다. 다시 로그인해주세요.');
         return;
       }
 
@@ -43,10 +53,6 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
         productName: paymentData.name,
         amount: paymentData.amount,
         paymentMethod: paymentData.pay_method,
-        // 사용자 정보는 UsersEntity에서 가져오므로 제거
-        // buyerEmail: paymentData.buyer_email,
-        // buyerName: paymentData.buyer_name,
-        // buyerTel: paymentData.buyer_tel,
         productCategory: product?.category || 'general',
         quantity: 1,
         shippingAddress: '배송지 주소', // TODO: 실제 배송지 정보 입력 받기
@@ -71,7 +77,11 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
       
     } catch (error) {
       console.error('백엔드 결제 처리 실패:', error);
-      setError('결제 정보 저장에 실패했습니다. 관리자에게 문의해주세요.');
+      if (error.response?.status === 401) {
+        setError('로그인이 필요합니다. 다시 로그인해주세요.');
+      } else {
+        setError('결제 정보 저장에 실패했습니다. 관리자에게 문의해주세요.');
+      }
     }
   };
 
@@ -127,6 +137,21 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
       
       console.log('🔍 정규화된 응답:', normalizedResponse);
       
+      // 사용자 취소 케이스 우선 확인 (X 버튼 클릭 등)
+      if (normalizedResponse.error_code === 'F400' && 
+          normalizedResponse.error_msg && 
+          normalizedResponse.error_msg.includes('1009')) {
+        console.log('사용자가 결제를 취소했습니다.');
+        setError('결제가 취소되었습니다.');
+        return;
+      }
+      
+      // 결제 취소 케이스 확인
+      if (normalizedResponse.error_code === 'PAY_CANCEL') {
+        setError('결제가 취소되었습니다.');
+        return;
+      }
+      
       if (normalizedResponse.success) {
         // 결제 성공
         console.log('✅ 결제 성공:', normalizedResponse);
@@ -134,24 +159,18 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
         // 백엔드에 결제 정보 전송
         sendPaymentToBackend(normalizedResponse, paymentData);
       } else {
-        // 결제 실패 - 에러 정보 상세 로깅
+        // 결제 실패
         console.log('🔴 결제 실패 상세:', normalizedResponse);
         
-        // imp_uid가 있으면 실제로는 성공일 수 있음
-        if (normalizedResponse.imp_uid) {
-          console.log('⚠️ imp_uid가 존재하므로 실제로는 성공일 수 있습니다');
-          // 백엔드에 결제 정보 전송 시도
-          sendPaymentToBackend(normalizedResponse, paymentData);
-        } else {
-          const errorMessage = normalizedResponse.error_msg || '알 수 없는 오류';
-          setError(`결제 실패: ${errorMessage}`);
-        }
+        // 기타 결제 실패 시 메시지 표시
+        const errorMessage = normalizedResponse.error_msg || '알 수 없는 오류';
+        setError(`결제 실패: ${errorMessage}`);
       }
     });
   };
 
   return (
-    <Modal show={show} onHide={onHide} size="lg" centered>
+    <Modal show={show} onHide={handleModalClose} size="lg" centered>
       <Modal.Header closeButton>
         <Modal.Title className={styles.modalTitle}>💳 결제하기</Modal.Title>
       </Modal.Header>
@@ -190,7 +209,7 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
+        <Button variant="secondary" onClick={handleModalClose}>
           취소
         </Button>
         <Button
