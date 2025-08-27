@@ -22,13 +22,9 @@ export default function OrderHistory() {
 
   const fetchOrders = async () => {
     try {
-      // 토큰 검사 및 디버깅
+      // 토큰 검사
       let token = localStorage.getItem('accessToken');
       const userInfo = localStorage.getItem('user');
-      
-      console.log('🔍 토큰 검사 시작...');
-      console.log('📱 Access Token (직접):', token ? `${token.substring(0, 20)}...` : '없음');
-      console.log('👤 User Info:', userInfo ? JSON.parse(userInfo) : '없음');
       
       // user 객체에서 토큰 추출 시도
       if (!token && userInfo) {
@@ -36,10 +32,9 @@ export default function OrderHistory() {
           const user = JSON.parse(userInfo);
           if (user.accessToken) {
             token = user.accessToken;
-            console.log('✅ User 객체에서 토큰 추출 성공');
           }
         } catch (e) {
-          console.error('❌ User 객체 파싱 실패:', e);
+          // 토큰 파싱 실패 시 무시
         }
       }
       
@@ -58,8 +53,6 @@ export default function OrderHistory() {
         return;
       }
 
-      console.log('✅ 토큰 검사 통과, API 호출 시작...');
-      
       const response = await axios.get(
         'http://localhost:8080/api/v1/payments/user/orders',
         {
@@ -69,8 +62,6 @@ export default function OrderHistory() {
           }
         }
       );
-
-      console.log('✅ 주문 내역 조회 성공:', response.data);
       setOrders(response.data);
       setLoading(false);
     } catch (error) {
@@ -138,7 +129,7 @@ export default function OrderHistory() {
         }
       );
 
-      console.log('결제 취소 성공:', response.data);
+
       alert('결제가 성공적으로 취소되었습니다.\n환불은 3-5일 내에 처리됩니다.');
       
       // 주문 내역 새로고침
@@ -216,8 +207,6 @@ export default function OrderHistory() {
           }
         }
       );
-
-      console.log('환불 요청 성공:', response.data);
       alert('환불 요청이 성공적으로 접수되었습니다.\n검토 후 3-5일 내에 처리됩니다.');
       
       // 모달 닫기 및 주문 내역 새로고침
@@ -307,12 +296,6 @@ export default function OrderHistory() {
                     console.error('User 객체 파싱 실패:', e);
                   }
                 }
-                
-                console.log('🔍 현재 토큰 상태:');
-                console.log('📱 Token (직접):', token);
-                console.log('👤 User:', user);
-                console.log('🔑 최종 사용 토큰:', token);
-                
                 alert(`직접 토큰: ${localStorage.getItem('accessToken') ? '있음' : '없음'}\n사용자: ${user ? '있음' : '없음'}\n최종 토큰: ${token ? '있음' : '없음'}`);
               }}
             >

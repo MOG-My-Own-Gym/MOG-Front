@@ -12,7 +12,6 @@ const DEV_CONFIG = {
   // V2 API는 API Key가 없고 API Secret만 제공
   // API_KEY: '', // V2 API에는 없음
   API_SECRET: 'hRILlnbJnma5kNc1GFc6EBzCiL89Dch8vNV23hXw3274QoXAE7ft2B8cdgQtRM99PZiL2TVSZxFQTb3M', // ✅ V2 API Secret
-  CANCEL_PASSWORD: '123456',
   IS_TEST_MODE: true,
   PAYMENT_METHODS: ['card'],
   CURRENCY: 'KRW'

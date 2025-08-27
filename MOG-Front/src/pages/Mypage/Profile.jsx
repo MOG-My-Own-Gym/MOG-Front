@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Login/AuthContext';
 import { useModalAlert } from '../../context/ModalAlertContext';
+import { Badge } from 'react-bootstrap';
 import './css/profile.css';
 
 export default function Profile() {
@@ -25,6 +26,14 @@ export default function Profile() {
     weight: '',
     regDate: '',
   });
+
+  // 업적 데이터 (임시)
+  const [unlockedAchievements] = useState([
+    { id: 1, name: '첫 운동', icon: '🥇' },
+    { id: 2, name: '연속 7일', icon: '🔥' },
+    { id: 3, name: '근력 향상', icon: '💪' },
+    { id: 4, name: '목표 달성', icon: '🎯' },
+  ]);
 
   //최초렌더링 및 userId가 변하는 경우에 따라 user정보 네트워크로부터 읽어오기
   useEffect(() => {

@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, Form, Alert, Badge, Table } from 'react-bootstrap';
 import PaymentModal from '../../components/Payment/PaymentModal';
+import AddressSearch from '../../components/Payment/AddressSearch';
 import { AuthContext } from '../Login/AuthContext';
 import './OrderPage.css';
 
@@ -55,6 +56,25 @@ export default function OrderPage() {
   useEffect(() => {
     // 백엔드 API에서 주문 페이지 데이터 가져오기
     fetchOrderPageData();
+    
+    // 로그인된 사용자인 경우 사용자 정보로 초기화
+    if (user) {
+      setOrdererInfo({
+        name: user.usersName || '',
+        email: user.email || '',
+        phone: user.phoneNum || '',
+        address: '',
+        detailAddress: '',
+        zipCode: ''
+      });
+      
+      setDeliveryInfo(prev => ({
+        ...prev,
+        name: user.usersName || '',
+        contact1: user.phoneNum || '',
+        contact2: user.phoneNum || ''
+      }));
+    }
   }, [productId, user]);
 
   const fetchOrderPageData = async () => {
@@ -160,6 +180,24 @@ export default function OrderPage() {
     }
   };
 
+  const handleAddressSelect = (addressData, section) => {
+    if (section === 'orderer') {
+      setOrdererInfo(prev => ({
+        ...prev,
+        zipCode: addressData.zipCode,
+        address: addressData.address,
+        detailAddress: addressData.detailAddress
+      }));
+    } else if (section === 'delivery') {
+      setDeliveryInfo(prev => ({
+        ...prev,
+        zipCode: addressData.zipCode,
+        address: addressData.address,
+        detailAddress: addressData.detailAddress
+      }));
+    }
+  };
+
   const handleAgreementChange = (field) => {
     if (field === 'allAgree') {
       const newValue = !agreements.allAgree;
@@ -182,7 +220,7 @@ export default function OrderPage() {
   };
 
   const handlePaymentSuccess = (orderData) => {
-    console.log('주문 완료:', orderData);
+    
     alert(`주문이 완료되었습니다!\n주문번호: ${orderData.orderNumber}\n상품: ${orderData.productName}\n총 금액: ${orderData.totalAmount.toLocaleString()}원`);
     navigate('/orders');
   };
@@ -292,50 +330,53 @@ export default function OrderPage() {
                     </Form.Group>
                   </Col>
                 </Row>
+                                 <Row>
+                   <Col md={12}>
+                     <Form.Group className="mb-3">
+                       <Form.Label>연락처</Form.Label>
+                       <Form.Control
+                         type="tel"
+                         value={ordererInfo.phone}
+                         onChange={(e) => handleInputChange('orderer', 'phone', e.target.value)}
+                         placeholder={user ? "자동 입력됨" : "전화번호 (-을 제외한 숫자만 입력해 주세요)"}
+                       />
+                     </Form.Group>
+                   </Col>
+                 </Row>
                 <Row>
                   <Col md={12}>
                     <Form.Group className="mb-3">
-                      <Form.Label>연락처</Form.Label>
+                      <Form.Label>주소</Form.Label>
                       <Row>
-                        <Col xs={3}>
-                          <Form.Select
-                            value={ordererInfo.phone.split('-')[0] || '010'}
-                            onChange={(e) => {
-                              const parts = ordererInfo.phone.split('-');
-                              handleInputChange('orderer', 'phone', `${e.target.value}-${parts[1] || ''}-${parts[2] || ''}`);
-                            }}
-                          >
-                            <option value="010">010</option>
-                            <option value="011">011</option>
-                            <option value="016">016</option>
-                            <option value="017">017</option>
-                            <option value="018">018</option>
-                            <option value="019">019</option>
-                          </Form.Select>
-                        </Col>
                         <Col xs={4}>
                           <Form.Control
                             type="text"
-                            value={ordererInfo.phone.split('-')[1] || ''}
-                            onChange={(e) => {
-                              const parts = ordererInfo.phone.split('-');
-                              handleInputChange('orderer', 'phone', `${parts[0] || '010'}-${e.target.value}-${parts[2] || ''}`);
-                            }}
-                            placeholder={user ? "자동 입력됨" : "전화번호를 입력하세요"}
+                            placeholder="우편번호"
+                            value={ordererInfo.zipCode || ''}
+                            readOnly
                           />
                         </Col>
-                        <Col xs={4}>
-                          <Form.Control
-                            type="text"
-                            value={ordererInfo.phone.split('-')[2] || ''}
-                            onChange={(e) => {
-                              const parts = ordererInfo.phone.split('-');
-                              handleInputChange('orderer', 'phone', `${parts[0] || '010'}-${parts[1] || ''}-${e.target.value}`);
-                            }}
-                            placeholder={user ? "자동 입력됨" : "전화번호를 입력하세요"}
+                        <Col xs={8}>
+                          <AddressSearch 
+                            onAddressSelect={(addressData) => handleAddressSelect(addressData, 'orderer')}
+                            buttonText="우편번호"
                           />
                         </Col>
                       </Row>
+                      <Form.Control
+                        type="text"
+                        className="mt-2"
+                        placeholder="기본주소"
+                        value={ordererInfo.address || ''}
+                        readOnly
+                      />
+                      <Form.Control
+                        type="text"
+                        className="mt-2"
+                        placeholder="상세주소"
+                        value={ordererInfo.detailAddress || ''}
+                        onChange={(e) => handleInputChange('orderer', 'detailAddress', e.target.value)}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -363,47 +404,12 @@ export default function OrderPage() {
                   <Col md={6}>
                     <Form.Group className="mb-3">
                       <Form.Label>연락처 1</Form.Label>
-                      <Row>
-                        <Col xs={4}>
-                          <Form.Select
-                            value={deliveryInfo.contact1.split('-')[0] || ''}
-                            onChange={(e) => {
-                              const parts = deliveryInfo.contact1.split('-');
-                              handleInputChange('delivery', 'contact1', `${e.target.value}-${parts[1] || ''}-${parts[2] || ''}`);
-                            }}
-                          >
-                            <option value="">선택</option>
-                            <option value="010">010</option>
-                            <option value="011">011</option>
-                            <option value="016">016</option>
-                            <option value="017">017</option>
-                            <option value="018">018</option>
-                            <option value="019">019</option>
-                          </Form.Select>
-                        </Col>
-                        <Col xs={4}>
-                          <Form.Control
-                            type="text"
-                            value={deliveryInfo.contact1.split('-')[1] || ''}
-                            onChange={(e) => {
-                              const parts = deliveryInfo.contact1.split('-');
-                              handleInputChange('delivery', 'contact1', `${parts[0] || ''}-${e.target.value}-${parts[2] || ''}`);
-                            }}
-                            placeholder={user ? "자동 입력됨" : "전화번호를 입력하세요"}
-                          />
-                        </Col>
-                        <Col xs={4}>
-                          <Form.Control
-                            type="text"
-                            value={deliveryInfo.contact1.split('-')[2] || ''}
-                            onChange={(e) => {
-                              const parts = deliveryInfo.contact1.split('-');
-                              handleInputChange('delivery', 'contact1', `${parts[0] || ''}-${parts[1] || ''}-${e.target.value}`);
-                            }}
-                            placeholder={user ? "자동 입력됨" : "전화번호를 입력하세요"}
-                          />
-                        </Col>
-                      </Row>
+                      <Form.Control
+                        type="tel"
+                        value={deliveryInfo.contact1}
+                        onChange={(e) => handleInputChange('delivery', 'contact1', e.target.value)}
+                        placeholder={user ? "자동 입력됨" : "전화번호 (-을 제외한 숫자만 입력해 주세요)"}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -411,47 +417,12 @@ export default function OrderPage() {
                   <Col md={6}>
                     <Form.Group className="mb-3">
                       <Form.Label>연락처 2</Form.Label>
-                      <Row>
-                        <Col xs={4}>
-                          <Form.Select
-                            value={deliveryInfo.contact2.split('-')[0] || ''}
-                            onChange={(e) => {
-                              const parts = deliveryInfo.contact2.split('-');
-                              handleInputChange('delivery', 'contact2', `${e.target.value}-${parts[1] || ''}-${parts[2] || ''}`);
-                            }}
-                          >
-                            <option value="">선택</option>
-                            <option value="010">010</option>
-                            <option value="011">011</option>
-                            <option value="016">016</option>
-                            <option value="017">017</option>
-                            <option value="018">018</option>
-                            <option value="019">019</option>
-                          </Form.Select>
-                        </Col>
-                        <Col xs={4}>
-                          <Form.Control
-                            type="text"
-                            value={deliveryInfo.contact2.split('-')[1] || ''}
-                            onChange={(e) => {
-                              const parts = deliveryInfo.contact2.split('-');
-                              handleInputChange('delivery', 'contact2', `${parts[0] || ''}-${e.target.value}-${parts[2] || ''}`);
-                            }}
-                            placeholder="전화번호를 입력하세요"
-                          />
-                        </Col>
-                        <Col xs={4}>
-                          <Form.Control
-                            type="text"
-                            value={deliveryInfo.contact2.split('-')[2] || ''}
-                            onChange={(e) => {
-                              const parts = deliveryInfo.contact2.split('-');
-                              handleInputChange('delivery', 'contact2', `${parts[0] || ''}-${parts[1] || ''}-${e.target.value}`);
-                            }}
-                            placeholder="전화번호를 입력하세요"
-                          />
-                        </Col>
-                      </Row>
+                      <Form.Control
+                        type="tel"
+                        value={deliveryInfo.contact2}
+                        onChange={(e) => handleInputChange('delivery', 'contact2', e.target.value)}
+                        placeholder="전화번호 (-을 제외한 숫자만 입력해 주세요)"
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -543,7 +514,10 @@ export default function OrderPage() {
                           />
                         </Col>
                         <Col xs={8}>
-                          <Button variant="outline-secondary">우편번호</Button>
+                          <AddressSearch 
+                            onAddressSelect={(addressData) => handleAddressSelect(addressData, 'delivery')}
+                            buttonText="우편번호"
+                          />
                         </Col>
                       </Row>
                       <Form.Control
@@ -558,7 +532,7 @@ export default function OrderPage() {
                         className="mt-2"
                         placeholder="상세주소"
                         value={deliveryInfo.detailAddress || ''}
-                        readOnly
+                        onChange={(e) => handleInputChange('delivery', 'detailAddress', e.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -793,6 +767,8 @@ export default function OrderPage() {
           show={showPaymentModal}
           onHide={() => setShowPaymentModal(false)}
           product={product}
+          deliveryInfo={deliveryInfo}
+          user={user}
           onPaymentSuccess={handlePaymentSuccess}
         />
       </Container>

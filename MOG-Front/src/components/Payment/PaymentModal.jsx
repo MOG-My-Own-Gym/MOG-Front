@@ -4,44 +4,82 @@ import axios from 'axios';
 import { getPaymentConfig } from '../../config/payment.config';
 import styles from './PaymentModal.module.css';
 
-const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
+const PaymentModal = ({ show, onHide, product, deliveryInfo, user, onPaymentSuccess }) => {
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [userDetails, setUserDetails] = useState(null);
+  const [userDetailsLoading, setUserDetailsLoading] = useState(false);
+
+  // 사용자 상세 정보 가져오기
+  useEffect(() => {
+    if (show && user?.usersId) {
+      setUserDetailsLoading(true);
+      setError('');
+      
+      const fetchUserDetails = async () => {
+        try {
+          // user 객체에서 accessToken 가져오기
+          const token = user.accessToken;
+          
+          if (!token) {
+            setError('로그인이 필요합니다. 다시 로그인해주세요.');
+            setUserDetailsLoading(false);
+            return;
+          }
+          
+          const response = await axios.get(
+            `http://localhost:8080/api/v1/users/${user.usersId}`,
+            {
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            }
+          );
+          
+          setUserDetails(response.data);
+          setUserDetailsLoading(false);
+          setError(''); // 성공 시 에러 메시지 초기화
+        } catch (error) {
+          setError('사용자 정보를 가져오는데 실패했습니다. 다시 시도해주세요.');
+          setUserDetailsLoading(false);
+        }
+      };
+      
+      fetchUserDetails();
+    }
+  }, [show, user?.usersId, user?.accessToken]);
 
   // 아임포트 초기화
   useEffect(() => {
     if (show) {
-      console.log('PaymentModal 열림, 아임포트 SDK 확인 중...');
-      console.log('window.IMP 존재 여부:', !!window.IMP);
-      
       // 모달이 열릴 때 에러 메시지 초기화
       setError('');
       
       if (window.IMP) {
-        console.log('아임포트 SDK 로드됨, 초기화 시작...');
         // 환경별 설정에서 가맹점 코드 가져오기
         const config = getPaymentConfig();
         window.IMP.init(config.IAMPORT_MERCHANT_ID);
-        console.log('아임포트 초기화 완료 - 가맹점 코드:', config.IAMPORT_MERCHANT_ID);
       } else {
-        console.error('아임포트 SDK가 로드되지 않음');
         setError('아임포트 SDK를 불러올 수 없습니다. 페이지를 새로고침해주세요.');
       }
     }
   }, [show]);
 
-  // 모달이 닫힐 때 에러 메시지 초기화
+  // 모달이 닫힐 때 상태 초기화
   const handleModalClose = () => {
     setError('');
     setLoading(false);
+    setUserDetails(null);
+    setUserDetailsLoading(false);
     onHide();
   };
 
     const sendPaymentToBackend = async (impResponse, paymentData) => {
     try {
-      // 로컬 스토리지에서 토큰 가져오기
-      const token = localStorage.getItem('accessToken');
+      // user 객체에서 accessToken 가져오기
+      const token = user.accessToken;
       if (!token) {
         setError('로그인이 필요합니다. 다시 로그인해주세요.');
         return;
@@ -55,9 +93,9 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
         paymentMethod: paymentData.pay_method,
         productCategory: product?.category || 'general',
         quantity: 1,
-        shippingAddress: '배송지 주소', // TODO: 실제 배송지 정보 입력 받기
+        shippingAddress: deliveryInfo ? `${deliveryInfo.address} ${deliveryInfo.detailAddress}`.trim() : '배송지 정보 없음',
         // shippingPhone: paymentData.buyer_tel, - UsersEntity.phoneNum 사용
-        orderNotes: ''
+        orderNotes: deliveryInfo?.deliveryMessage || ''
       };
 
       const response = await axios.post(
@@ -71,12 +109,10 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
         }
       );
 
-      console.log('백엔드 결제 처리 성공:', response.data);
       onPaymentSuccess(response.data);
       onHide();
       
     } catch (error) {
-      console.error('백엔드 결제 처리 실패:', error);
       if (error.response?.status === 401) {
         setError('로그인이 필요합니다. 다시 로그인해주세요.');
       } else {
@@ -99,13 +135,29 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
     setLoading(true);
     setError('');
 
-    // 로컬 스토리지에서 사용자 정보 가져오기
-    const userInfo = JSON.parse(localStorage.getItem('user') || '{}');
+    // AuthContext에서 사용자 정보 가져오기
+    if (!user) {
+      setError('로그인이 필요합니다. 다시 로그인해주세요.');
+      setLoading(false);
+      return;
+    }
     
     // 설정값 확인 로그
     const config = getPaymentConfig();
-    console.log('🔧 현재 결제 설정:', config);
+
     
+    // 사용자 상세 정보가 로드되지 않은 경우 - 기본 정보로 진행
+    if (!userDetails) {
+      // 기본 사용자 정보로 결제 진행 (임시 해결책)
+    }
+    
+    // 필수 사용자 정보 검증 (이메일만 있으면 통과)
+    if (!user.email) {
+      setError('사용자 정보가 불완전합니다. 로그인 후 다시 시도해주세요.');
+      setLoading(false);
+      return;
+    }
+
     const paymentData = {
       // channelKey 방식이 작동하지 않으므로 pg 방식 사용
       // channelKey: config.CHANNEL_KEY, // 주석 처리
@@ -114,16 +166,14 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
       merchant_uid: `mid_${new Date().getTime()}`,
       amount: product.price,
       name: product.name,
-      buyer_email: userInfo.email || 'test@example.com',
-      buyer_name: userInfo.usersName || userInfo.nickName || '테스트 사용자',
-      buyer_tel: userInfo.phoneNum || '010-1234-5678'
+      buyer_email: user.email,
+      buyer_name: userDetails ? (userDetails.usersName || userDetails.nickName || '사용자') : '사용자',
+      buyer_tel: userDetails ? (userDetails.phoneNum || '') : ''
     };
 
-    console.log('결제 요청 데이터:', paymentData);
-    console.log('결제 요청 시작...');
+
 
     window.IMP.request_pay(paymentData, (response) => {
-      console.log('결제 응답 받음:', response);
       setLoading(false);
       
       // 응답 데이터 검증 및 정규화
@@ -135,13 +185,10 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
         merchant_uid: response.merchant_uid
       };
       
-      console.log('🔍 정규화된 응답:', normalizedResponse);
-      
       // 사용자 취소 케이스 우선 확인 (X 버튼 클릭 등)
       if (normalizedResponse.error_code === 'F400' && 
           normalizedResponse.error_msg && 
           normalizedResponse.error_msg.includes('1009')) {
-        console.log('사용자가 결제를 취소했습니다.');
         setError('결제가 취소되었습니다.');
         return;
       }
@@ -154,13 +201,11 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
       
       if (normalizedResponse.success) {
         // 결제 성공
-        console.log('✅ 결제 성공:', normalizedResponse);
         
         // 백엔드에 결제 정보 전송
         sendPaymentToBackend(normalizedResponse, paymentData);
       } else {
         // 결제 실패
-        console.log('🔴 결제 실패 상세:', normalizedResponse);
         
         // 기타 결제 실패 시 메시지 표시
         const errorMessage = normalizedResponse.error_msg || '알 수 없는 오류';
@@ -200,11 +245,52 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
              </Form.Select>
           </Form.Group>
 
-          {error && (
-            <Alert variant="danger" className="mt-3">
-              {error}
-            </Alert>
-          )}
+                                           {userDetailsLoading && (
+              <Alert variant="info" className="mt-3">
+                🔄 사용자 정보를 불러오는 중입니다...
+              </Alert>
+            )}
+            
+            {error && (
+              <Alert variant="danger" className="mt-3">
+                {error}
+                <div className="mt-2">
+                  <Button 
+                    variant="outline-danger" 
+                    size="sm"
+                    onClick={() => {
+                      setError('');
+                      if (user?.usersId) {
+                        setUserDetailsLoading(true);
+                        // 사용자 상세 정보 다시 가져오기
+                        const fetchUserDetails = async () => {
+                          try {
+                            const token = user.accessToken;
+                            const response = await axios.get(
+                              `http://localhost:8080/api/v1/users/${user.usersId}`,
+                              {
+                                headers: {
+                                  'Authorization': `Bearer ${token}`,
+                                  'Content-Type': 'application/json'
+                                }
+                              }
+                            );
+                            setUserDetails(response.data);
+                            setUserDetailsLoading(false);
+                          } catch (error) {
+                            setError('사용자 정보를 가져오는데 실패했습니다. 다시 시도해주세요.');
+                            setUserDetailsLoading(false);
+                          }
+                        };
+                        fetchUserDetails();
+                      }
+                    }}
+                  >
+                    🔄 다시 시도
+                  </Button>
+                </div>
+              </Alert>
+            )}
         </Form>
       </Modal.Body>
 
@@ -212,14 +298,16 @@ const PaymentModal = ({ show, onHide, product, onPaymentSuccess }) => {
         <Button variant="secondary" onClick={handleModalClose}>
           취소
         </Button>
-        <Button
-          variant="warning"
-          className={styles.warningButton}
-          onClick={handlePayment}
-          disabled={loading}
-        >
-          {loading ? '결제 처리중...' : '결제하기'}
-        </Button>
+                 <Button
+           variant="warning"
+           className={styles.warningButton}
+           onClick={handlePayment}
+           disabled={loading || userDetailsLoading}
+         >
+           {loading ? '결제 처리중...' : 
+            userDetailsLoading ? '사용자 정보 로딩중...' : 
+            '결제하기'}
+         </Button>
       </Modal.Footer>
     </Modal>
   );

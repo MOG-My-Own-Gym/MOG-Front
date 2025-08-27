@@ -42,8 +42,6 @@ export default function ProductDetail() {
   };
 
   const handlePaymentSuccess = (orderData) => {
-    console.log('주문 완료:', orderData);
-    
     // 성공 메시지 표시
     alert(`주문이 완료되었습니다!\n주문번호: ${orderData.orderNumber}\n상품: ${orderData.productName}\n총 금액: ${orderData.totalAmount.toLocaleString()}원`);
     
