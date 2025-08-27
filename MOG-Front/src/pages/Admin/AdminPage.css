@@ -1,0 +1,246 @@
+.admin-page-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.admin-title {
+  color: #343a40;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.admin-subtitle {
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+.admin-page-container .card {
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border-radius: 0.5rem;
+}
+
+.admin-page-container .card-header {
+  background-color: #fff;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 0.5rem 0.5rem 0 0 !important;
+  font-weight: 600;
+}
+
+.admin-page-container .table th {
+  background-color: #f8f9fa;
+  border-top: none;
+  font-weight: 600;
+  color: #495057;
+}
+
+.admin-page-container .table td {
+  vertical-align: middle;
+}
+
+.admin-page-container .badge {
+  font-size: 0.75rem;
+  padding: 0.375rem 0.75rem;
+}
+
+.admin-page-container .btn {
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+.admin-page-container .btn-outline-primary:hover {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.admin-page-container .btn-outline-danger:hover {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.admin-page-container .modal-content {
+  border-radius: 0.5rem;
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.admin-page-container .form-control,
+.admin-page-container .form-select {
+  border-radius: 0.375rem;
+  border: 1px solid #ced4da;
+}
+
+.admin-page-container .form-control:focus,
+.admin-page-container .form-select:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* 모바일용 사용자 카드 스타일 */
+.user-card {
+  border: 1px solid #e9ecef;
+  transition: all 0.2s ease-in-out;
+}
+
+.user-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.user-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-info h6 {
+  margin: 0;
+  color: #343a40;
+  font-weight: 600;
+}
+
+.user-info small {
+  color: #6c757d;
+}
+
+.user-role {
+  flex-shrink: 0;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #495057;
+  min-width: 80px;
+}
+
+.detail-value {
+  color: #6c757d;
+  text-align: right;
+  word-break: break-all;
+}
+
+.user-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* 반응형 테이블 */
+@media (max-width: 768px) {
+  .admin-page-container .table-responsive {
+    font-size: 0.875rem;
+  }
+  
+  .admin-page-container .btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .admin-title {
+    font-size: 1.75rem;
+  }
+  
+  .admin-subtitle {
+    font-size: 1rem;
+  }
+  
+  .user-card {
+    margin-bottom: 1rem;
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .detail-value {
+    text-align: left;
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-page-container {
+    padding: 1rem;
+  }
+  
+  .admin-title {
+    font-size: 1.5rem;
+  }
+  
+  .user-card-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  
+  .user-actions {
+    justify-content: center;
+  }
+  
+  .detail-item {
+    padding: 0.75rem 0;
+  }
+  
+  .detail-label {
+    min-width: auto;
+  }
+}
+
+/* 태블릿 중간 크기 */
+@media (min-width: 577px) and (max-width: 991px) {
+  .user-card-header {
+    gap: 0.75rem;
+  }
+  
+  .user-avatar {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .detail-item {
+    padding: 0.6rem 0;
+  }
+}

@@ -132,7 +132,6 @@ export default function DoughnutChart({ doughnutData, isMobile, isPolar }) {
       style={{
         width: '90%',
         height: '100%',
-        zIndex: '10',
         position: 'relative',
         overflow: 'hidden',
         zIndex: '0!important',

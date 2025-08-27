@@ -203,9 +203,9 @@ export default function GNB() {
                     <img
                       className="rounded-circle"
                       width="30px"
-                      src={userData.profileImg}
+                      src={userData.profileImg || '/img/userAvatar.png'}
                       alt={
-                        userData.profileImg.trim() === '/img/userAvatar.png'
+                        (userData.profileImg || '/img/userAvatar.png').trim() === '/img/userAvatar.png'
                           ? 'meaicon - Flaticon 기본이미지'
                           : '개인 프로필 이미지'
                       }
@@ -244,6 +244,22 @@ export default function GNB() {
                           마이페이지
                         </NavDropdown.Item>
                       </div>
+                      {user && (user.role === 'SUPER_ADMIN' || user.role === 'ADMIN') && (
+                        <div>
+                          <NavDropdown.Item
+                            as={Link}
+                            to="/admin"
+                            id="profile-dropdown-button-admin"
+                            style={
+                              currentPath === '/admin'
+                                ? { color: 'white', backgroundColor: '#dc3545' }
+                                : { color: 'black' }
+                            }
+                          >
+                            {user.role === 'SUPER_ADMIN' ? '🔧 최고 관리자' : '🔧 관리자'}
+                          </NavDropdown.Item>
+                        </div>
+                      )}
                       <div>
                         <NavDropdown.Item
                           as={Link}
