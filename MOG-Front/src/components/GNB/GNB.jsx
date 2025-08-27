@@ -29,25 +29,31 @@ export default function GNB() {
   useEffect(() => {
     if (user) {
       const fetchProfile = async () => {
-        await axios
-          .get(`http://localhost:8080/api/v1/users/${user.usersId}`)
-          .then(res => {
-            setUserData(prev => ({
-              ...prev,
-              usersName: res.data.usersName,
-              nickName: res.data.nickName,
-              email: res.data.email,
-              profileImg: res.data.profileImg,
-            }));
-          })
-          .catch(e => {
-            console.log(e);
-            showModal('프로필을 읽어오는 중 오류가 발생하였습니다');
-          });
+        try {
+          const res = await axios.get(`http://localhost:8080/api/v1/users/${user.usersId}`);
+          setUserData(prev => ({
+            ...prev,
+            usersName: res.data.usersName || '',
+            nickName: res.data.nickName || '',
+            email: res.data.email || '',
+            profileImg: res.data.profileImg || '/img/userAvatar.png',
+          }));
+        } catch (e) {
+          console.log(e);
+          showModal('프로필을 읽어오는 중 오류가 발생하였습니다');
+          // 에러 발생 시 기본값으로 설정
+          setUserData(prev => ({
+            ...prev,
+            usersName: '',
+            nickName: '',
+            email: '',
+            profileImg: '/img/userAvatar.png',
+          }));
+        }
       };
       fetchProfile();
     }
-  }, [user]);
+  }, [user, showModal]);
 
   const [isOpenRoutine, setIsOpenRoutine] = useState(false);
   const [isOpenWorkout, setIsOpenWorkout] = useState(false);
@@ -203,9 +209,9 @@ export default function GNB() {
                     <img
                       className="rounded-circle"
                       width="30px"
-                      src={userData.profileImg}
+                      src={userData.profileImg || '/img/userAvatar.png'}
                       alt={
-                        userData.profileImg.trim() === '/img/userAvatar.png'
+                        (userData.profileImg && userData.profileImg.trim() === '/img/userAvatar.png')
                           ? 'meaicon - Flaticon 기본이미지'
                           : '개인 프로필 이미지'
                       }
@@ -224,9 +230,9 @@ export default function GNB() {
                   <div className="name">
                     {user && (
                       <div className="profile-head d-flex flex-column align-items-center text-white">
-                        <h3 style={{ color: '#ffc800' }}>{userData.usersName}</h3>
-                        <h4>{userData.nickName} </h4>
-                        <h5>{userData.email}</h5>
+                        <h3 style={{ color: '#ffc800' }}>{userData.usersName || '사용자'}</h3>
+                        <h4>{userData.nickName || '닉네임'}</h4>
+                        <h5>{userData.email || '이메일'}</h5>
                       </div>
                     )}
                     <div className="d-flex flex-row justify-content-around mt-4">
