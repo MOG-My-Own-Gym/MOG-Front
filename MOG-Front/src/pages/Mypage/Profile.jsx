@@ -18,7 +18,7 @@ export default function Profile() {
     name: '',
     nickName: '',
     email: user?.email || '',
-    profileImg: '/img/userAvatar.png',
+    profileImg: '/img/userAvatar.png', //초기데이터 기본 프로필이미지로 설정
     phoneNum: '',
     age: '',
     gender: '',
@@ -119,44 +119,6 @@ export default function Profile() {
                 <span className="font-weight-bold fs-2">{profile.nickName || '닉네임 없음'}</span>
                 <span className="font-weight-bold fs-4">{profile.name || '이름 없음'}</span>
                 <span className="text-black-50">{profile.email || '이메일 없음'}</span>
-                
-                {/* 업적 정보 */}
-                <div className="mt-3">
-                  <div className="d-flex justify-content-center align-items-center mb-2">
-                    <span className="text-muted me-2">달성한 업적</span>
-                    <Badge bg="success" className="fs-6">
-                      {unlockedAchievements.length}개
-                    </Badge>
-                  </div>
-                  
-                  {/* 업적 뱃지들 */}
-                  <div className="d-flex flex-wrap justify-content-center gap-1 mb-3">
-                    {unlockedAchievements.slice(0, 6).map(achievement => (
-                      <Badge 
-                        key={achievement.id} 
-                        bg="warning" 
-                        text="dark"
-                        className="fs-6 px-2 py-1"
-                        title={achievement.name}
-                      >
-                        {achievement.icon}
-                      </Badge>
-                    ))}
-                    {unlockedAchievements.length > 6 && (
-                      <Badge bg="secondary" className="fs-6 px-2 py-1">
-                        +{unlockedAchievements.length - 6}
-                      </Badge>
-                    )}
-                  </div>
-                  
-                  {/* 레벨 및 업적 페이지로 이동 버튼 */}
-                  <button
-                    onClick={() => navigate('/mypage/gamification')}
-                    className="btn btn-outline-warning btn-sm"
-                  >
-                    🏆 레벨 및 업적 보기
-                  </button>
-                </div>
               </div>
             </div>
             <div className="col-md-4 border-right">

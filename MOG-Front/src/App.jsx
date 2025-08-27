@@ -33,6 +33,7 @@ import Shop from './pages/Shop/Shop';
 import OrderHistory from './pages/Shop/OrderHistory';
 import ProductDetail from './pages/Shop/ProductDetail';
 import OrderPage from './pages/Shop/OrderPage';
+import AdminPage from './pages/Admin/AdminPage';
 
 
 import './App.css';
@@ -94,6 +95,7 @@ function App() {
                 <Route path="/orders" element={<OrderHistory />}></Route>
                 <Route path="/product/:productId" element={<ProductDetail />} />
                 <Route path="/order/:productId" element={<OrderPage />} />
+                <Route path="/admin" element={<AdminPage />} />
               </Routes>
             </SuggestProvider>
           </RoutineProvider>

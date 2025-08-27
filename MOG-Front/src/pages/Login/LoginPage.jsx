@@ -50,8 +50,13 @@ export default function LoginPage() {
       .then(res => {
         //dispatch로 AuthContext에 LOGIN상태 전달 -> 로컬스토리지에 user정보 저장
         dispatch({ type: 'LOGIN', user: res.data });
-        //홈으로 이동
-        navigate('/', { replace: true });
+        
+        // 사용자 역할에 따라 적절한 페이지로 리다이렉트
+        if (res.data.role === 'SUPER_ADMIN' || res.data.role === 'ADMIN') {
+          navigate('/admin', { replace: true });
+        } else {
+          navigate('/', { replace: true });
+        }
       })
       .catch(e => {
         console.log(e);
@@ -96,7 +101,13 @@ export default function LoginPage() {
             .then(res => {
               console.log('kakao login successful');
               dispatch({ type: 'LOGIN', user: res.data });
-              navigate('/', { replace: true });
+              
+              // 사용자 역할에 따라 적절한 페이지로 리다이렉트
+              if (res.data.role === 'SUPER_ADMIN' || res.data.role === 'ADMIN') {
+                navigate('/admin', { replace: true });
+              } else {
+                navigate('/', { replace: true });
+              }
             })
             .catch();
         })
