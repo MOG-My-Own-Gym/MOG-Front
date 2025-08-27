@@ -6,6 +6,7 @@ import MySocial from './MyTrace';
 import Settings from './Settings';
 import Support from './Support';
 import ProfileEdit from './ProfileEdit';
+import Gamification from './Gamification';
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../Login/AuthContext';
@@ -88,6 +89,7 @@ export default function MyPage() {
     { path: '/mypage', icon: 'fa-solid fa-circle-user', name: '프로필' },
     { path: '/mypage/myroutine', icon: 'fa-solid fa-dumbbell', name: '나의 루틴' },
     { path: '/mypage/mysocial', icon: 'fa-solid fa-image', name: '나의 기록' },
+    { path: '/mypage/gamification', icon: 'fa-solid fa-trophy', name: '레벨 및 업적' },
     { path: '/mypage/settings', icon: 'fa-solid fa-gear', name: '환경설정' },
     { path: '/mypage/support', icon: 'fa-solid fa-phone', name: '고객센터' },
   ];
@@ -142,12 +144,26 @@ export default function MyPage() {
                     <span className="d-none d-sm-inline">나의 기록</span>
                   </Link>
                 </li>
+                <li className="nav-item fs-4 my-1 py-2 py-sm-0 mt-4">
+                  <Link
+                    to="/mypage/gamification"
+                    className={
+                      isPathMatch(menuItem[3].path)
+                        ? `nav-link text-white px-2 fs-5 ${styles.activeLink}`
+                        : 'nav-link text-white px-2 fs-5'
+                    }
+                  >
+                    <i className="fa-solid fa-trophy me-3 ps-sm-0 ps-3"></i>
+                    <span className="d-none d-sm-inline">레벨 및 업적</span>
+                  </Link>
+                </li>
+
                 <hr className="text-secondary d-none d-sm-block" />
                 <li className="nav-item fs-4 my-1 py-2 py-sm-0 mt-4">
                   <Link
                     to="/mypage/settings"
                     className={
-                      isPathMatch(menuItem[3].path)
+                      isPathMatch(menuItem[4].path)
                         ? `nav-link text-white px-2 fs-5 ${styles.activeLink}`
                         : 'nav-link text-white px-2 fs-5'
                     }
@@ -160,7 +176,7 @@ export default function MyPage() {
                   <Link
                     to="/mypage/support"
                     className={
-                      isPathMatch(menuItem[4].path)
+                      isPathMatch(menuItem[5].path)
                         ? `nav-link text-white px-2 fs-5 ${styles.activeLink}`
                         : 'nav-link text-white px-2 fs-5'
                     }
@@ -226,6 +242,7 @@ export default function MyPage() {
             <Route path="/edit" element={<ProfileEdit />}></Route>
             <Route path="/myroutine" element={<MyRoutine />}></Route>
             <Route path="/mysocial" element={<MySocial />}></Route>
+            <Route path="/gamification" element={<Gamification />}></Route>
             <Route path="/settings" element={<Settings />}></Route>
             <Route path="/support/*" element={<Support />}></Route>
           </Routes>

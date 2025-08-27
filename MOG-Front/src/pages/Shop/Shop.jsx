@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+
 import './Shop.css';
 
 export default function Shop() {
@@ -20,6 +21,7 @@ export default function Shop() {
     },
     {
       id: 2,
+
       category: 'equipment',
       price: 120000,
       originalPrice: 150000,

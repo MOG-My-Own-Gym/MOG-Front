@@ -75,6 +75,7 @@
   padding: 0.3rem 0.6rem;
 }
 
+
 .product-description {
   color: #666;
   font-size: 0.9rem;
@@ -142,6 +143,8 @@
     height: 150px;
   }
   
+
+
   .current-price {
     font-size: 1.1rem;
   }
