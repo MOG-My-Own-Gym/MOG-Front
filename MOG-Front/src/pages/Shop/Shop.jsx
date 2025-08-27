@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+
 import './Shop.css';
 
 export default function Shop() {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const navigate = useNavigate();
 
   // 샘플 상품 데이터
   const products = [
     {
       id: 1,
-      name: '프리미엄 요가매트',
       category: 'equipment',
       price: 45000,
       originalPrice: 60000,
@@ -19,7 +21,7 @@ export default function Shop() {
     },
     {
       id: 2,
-      name: '스마트 웨이트',
+
       category: 'equipment',
       price: 120000,
       originalPrice: 150000,
@@ -29,7 +31,6 @@ export default function Shop() {
     },
     {
       id: 3,
-      name: '운동복 세트',
       category: 'clothing',
       price: 89000,
       originalPrice: 120000,
@@ -39,13 +40,21 @@ export default function Shop() {
     },
     {
       id: 4,
-      name: '프로틴 파우더',
       category: 'supplement',
       price: 65000,
       originalPrice: 80000,
       image: '/img/pushups.jpeg',
       badge: 'HOT',
       description: '고품질 단백질 보충제'
+    },
+    {
+      id: 5,
+      category: 'equipment',
+      price: 100, // ✅ 아임포트 최소 금액으로 조정
+      originalPrice: 1000,
+      image: '/img/yoga.jpeg', // 임시 이미지 사용
+      badge: 'TEST',
+      description: '100원 테스트용 상품입니다 (아임포트 최소 금액)'
     }
   ];
 
@@ -64,6 +73,11 @@ export default function Shop() {
     return Math.round(((original - current) / original) * 100);
   };
 
+  const handleBuyNow = (product) => {
+    // ProductDetail 페이지로 이동
+    navigate(`/product/${product.id}`);
+  };
+
   return (
     <div className="shop-container">
       <Container className="py-5">
@@ -71,6 +85,14 @@ export default function Shop() {
         <div className="text-center mb-5">
           <h1 className="shop-title">🏪 MOG Shop</h1>
           <p className="shop-subtitle">당신의 운동을 더욱 특별하게 만들어줄 제품들을 만나보세요</p>
+          <div className="mt-3">
+            <Button variant="outline-warning" href="/orders" className="me-2">
+              📋 주문 내역
+            </Button>
+            <Button variant="outline-info" href="/mypage">
+              👤 마이페이지
+            </Button>
+          </div>
         </div>
 
         {/* 카테고리 필터 */}
@@ -139,8 +161,8 @@ export default function Shop() {
                     )}
                   </div>
                   <div className="product-actions mt-3">
-                    <Button variant="warning" className="w-100 mb-2">
-                      🛒 장바구니
+                    <Button variant="warning" className="w-100 mb-2" onClick={() => handleBuyNow(product)}>
+                      💳 구매하기
                     </Button>
                     <Button variant="outline-warning" className="w-100">
                       💝 위시리스트

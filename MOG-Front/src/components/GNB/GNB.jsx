@@ -29,27 +29,21 @@ export default function GNB() {
   useEffect(() => {
     if (user) {
       const fetchProfile = async () => {
-        try {
-          const res = await axios.get(`http://localhost:8080/api/v1/users/${user.usersId}`);
-          setUserData(prev => ({
-            ...prev,
-            usersName: res.data.usersName || '',
-            nickName: res.data.nickName || '',
-            email: res.data.email || '',
-            profileImg: res.data.profileImg || '/img/userAvatar.png',
-          }));
-        } catch (e) {
-          console.log(e);
-          showModal('프로필을 읽어오는 중 오류가 발생하였습니다');
-          // 에러 발생 시 기본값으로 설정
-          setUserData(prev => ({
-            ...prev,
-            usersName: '',
-            nickName: '',
-            email: '',
-            profileImg: '/img/userAvatar.png',
-          }));
-        }
+        await axios
+          .get(`http://localhost:8080/api/v1/users/${user.usersId}`)
+          .then(res => {
+            setUserData(prev => ({
+              ...prev,
+              usersName: res.data.usersName,
+              nickName: res.data.nickName,
+              email: res.data.email,
+              profileImg: res.data.profileImg,
+            }));
+          })
+          .catch(e => {
+            console.log(e);
+            showModal('프로필을 읽어오는 중 오류가 발생하였습니다');
+          });
       };
       fetchProfile();
     }
@@ -197,6 +191,18 @@ export default function GNB() {
                 </span>
               ) : (
                 '소셜'
+              )}
+            </Link>
+          </li>
+          {/*Shop */}
+          <li className="nav-item">
+            <Link className="nav-link-GNB" to="/shop">
+              {currentPath.startsWith('/shop') ? (
+                <span style={{ color: '#ffc800' }}>
+                  <strong>Shop</strong>
+                </span>
+              ) : (
+                'Shop'
               )}
             </Link>
           </li>
@@ -383,6 +389,19 @@ export default function GNB() {
                     }}
                   >
                     소셜
+                  </Link>
+                </li>
+                <li className="nav-item mb-2">
+                  <Link
+                    className="nav-link"
+                    to="/shop"
+                    style={{ color: isPathActive(['/shop']) ? '#FFC800' : 'white' }}
+                    onClick={() => {
+                      handleClose();
+                      handleClick();
+                    }}
+                  >
+                    Shop
                   </Link>
                 </li>
                 {user ? (
