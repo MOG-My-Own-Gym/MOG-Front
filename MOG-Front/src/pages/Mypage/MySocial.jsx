@@ -56,7 +56,7 @@ export default function MySocial(){
                     <div className="posting col-md-5">
                         <div className="container-fluid mt-3 mb-3">
                             <div className="row g-2 flex-wrap">
-                                <div className="col-auto">
+                                <div key="post-1" className="col-auto">
                                     <div className="card card-social card-post d-flex flex-column justify-content-around w-100">
                                         <div className="img-container-social"> 
                                             <Link to="#">
@@ -71,7 +71,7 @@ export default function MySocial(){
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-auto">
+                                <div key="post-2" className="col-auto">
                                     <div className="card card-social card-post d-flex flex-column justify-content-around w-100">
                                         <div className="img-container-social"> 
                                             <Link to="#">
@@ -86,7 +86,7 @@ export default function MySocial(){
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-auto">
+                                <div key="post-3" className="col-auto">
                                     <div className="card card-social card-post d-flex flex-column justify-content-around w-100">
                                         <div className="img-container-social"> 
                                             <Link to="#">
@@ -101,7 +101,7 @@ export default function MySocial(){
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-auto">
+                                <div key="post-4" className="col-auto">
                                     <div className="card card-social card-post d-flex flex-column justify-content-around w-100">
                                         <div className="img-container-social"> 
                                             <Link to="#">
@@ -127,13 +127,13 @@ export default function MySocial(){
                                     <hr className="text-secondary"/>
                                 </div>
                                 <div className="list-group list-group-flush border-bottom scrollarea">
-                                    <Link to="#" className="list-group-item list-group-item-action py-3 lh-tight">
+                                    <Link key="comment-1" to="#" className="list-group-item list-group-item-action py-3 lh-tight">
                                         <div className="d-flex w-100 align-items-center justify-content-between">
                                             <strong className="mb-1">댓글 내용1</strong>
                                         </div>
                                         <div className="col-10 mb-1 small text-uppercase">글 제목1</div>
                                     </Link>
-                                    <Link to="#" className="list-group-item list-group-item-action py-3 lh-tight">
+                                    <Link key="comment-2" to="#" className="list-group-item list-group-item-action py-3 lh-tight">
                                         <div className="d-flex w-100 align-items-center justify-content-between">
                                             <strong className="mb-1">댓글 내용2</strong>
                                         </div>

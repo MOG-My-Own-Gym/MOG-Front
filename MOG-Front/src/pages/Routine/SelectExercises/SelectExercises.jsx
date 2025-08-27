@@ -72,7 +72,7 @@ export default function SelectExercises() {
     if (routineId && originExerciseData.length > 0) {
       const fetchRoutineExercise = async () => {
         const data = await axios
-          .get(`https://mogapi.kro.kr/api/v1/routine/${routineId}`, {
+          .get(`http://localhost:8080/api/v1/routine/${routineId}`, {
             headers: {
               Authorization: `Bearer ${user.accessToken}`,
             },
@@ -103,7 +103,7 @@ export default function SelectExercises() {
       routineId
         ? await axios
             .put(
-              `https://mogapi.kro.kr/api/v1/routine/${routineId}/update`,
+              `http://localhost:8080/api/v1/routine/${routineId}/update`,
               {
                 setId: routineId,
                 routineName: routine.routineName,
@@ -145,7 +145,7 @@ export default function SelectExercises() {
             })
         : await axios
             .post(
-              'https://mogapi.kro.kr/api/v1/routine/create',
+              'http://localhost:8080/api/v1/routine/create',
               {
                 routineName: `루틴`,
                 saveRoutineDto: userExercise.map(ex => {

@@ -29,6 +29,7 @@ import RoutinePage from './pages/mainpage/RoutinePage';
 import RunningRoutinePage from './pages/mainpage/RunningRoutinePage';
 import RoutineResultPage from './pages/mainpage/RoutineResultPage';
 import { RoutineProvider } from './pages/Routine/RoutineContext';
+import Shop from './pages/Shop/Shop';
 
 import './App.css';
 import SelectExercises from './pages/Routine/SelectExercises/SelectExercises';
@@ -85,6 +86,7 @@ function App() {
                 <Route path="/routine/detail" element={<RoutineDetail />}></Route>
                 <Route path="/routine/run" element={<RoutineRun />}></Route>
                 <Route path="/suggest" element={<Suggest />}></Route>
+                <Route path="/shop" element={<Shop />}></Route>
               </Routes>
             </SuggestProvider>
           </RoutineProvider>
